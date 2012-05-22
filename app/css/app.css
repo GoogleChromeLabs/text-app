@@ -1,12 +1,33 @@
-body {
+section {
+  margin-bottom: 15px;
+}
+
+#sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 230px;
+  padding: 20px 5px;
+  background-color: #f3f3f3;
   overflow: hidden;
+  overflow-y: scroll;
 }
 
 #editor {
-  margin: 0;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 230px;
   right: 0;
+}
+
+
+.nav > li > a {
+  padding-left: 5px;
+  color: #000;
+}
+
+.nav > li > a:hover {
+  color: #08C;
 }

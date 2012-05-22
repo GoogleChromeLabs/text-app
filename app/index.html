@@ -1,16 +1,41 @@
 <!doctype html>
-<html lang="en" ng-app="TD">
+<html lang="en" ng-app="TD" ng-csp>
 <head>
   <meta charset="utf-8">
   <title>TextDrive</title>
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
 </head>
-<body>
+<body ng-controller="App">
 
+<!-- sidebar -->
+<div id="sidebar">
+  <section>
+    <h4>Access Token: <a href="https://code.google.com/oauthplayground/" target="_blank">?</a></h4>
+    <input type="text" ng-model="accessToken">
+  </section>
+
+  <section ng-show="current">
+    <h4>Current Document:</h4>
+    Title: {{current.title}}<br>
+    Updated: {{current.updated | date}}
+  </section>
+
+  <section ng-show="docs.length">
+    <h4>Documents:</h4>
+
+    <ul class="nav">
+      <li ng-repeat="doc in docs"><a ng-click="open(doc)" title="{{doc.size | size}}">{{doc.title}}</a></li>
+    </ul>
+  </section>
+</div>
+
+<!-- ACE editor -->
 <div id="editor"></div>
 
 <script src="lib/angular/angular.js" type="text/javascript"></script>
 <script src="lib/ace/src/ace-uncompressed-noconflict.js" type="text/javascript"></script>
+<script src="dump.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 
 </body>

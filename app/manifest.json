@@ -1,0 +1,36 @@
+{
+  "name": "Text Drive",
+  "description": "Just a text editor.",
+  "version": "0.0.1",
+  "icons": {
+    "128": "icon_128.png"
+  },
+
+  "manifest_version": 2,
+  "offline_enabled" : true,
+  "platform_app": true,
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "permissions": [
+    "windows",
+    "experimental",
+    "identity",
+
+    "https://docs.google.com/feeds/",
+    "https://docs.googleusercontent.com/",
+    "https://www.googleapis.com/auth/drive.file"
+  ],
+
+  "container" : "GOOGLE_DRIVE",
+  "api_console_project_id" : "171871825167",
+
+
+  "oauth2": {
+    "client_id": "171871825167-5rdkn4im47cfk4944urjpot4ulg3i8k2.apps.googleusercontent.com",
+    "scopes": [
+      "https://docs.google.com/feeds/",
+      "https://docs.googleusercontent.com/",
+      "https://www.googleapis.com/auth/drive.file"]
+  }
+}
