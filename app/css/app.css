@@ -31,3 +31,15 @@ section {
 .nav > li > a:hover {
   color: #08C;
 }
+
+
+#log {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100px;
+  z-index: 200000;
+  background: white;
+  overflow: scroll;
+}

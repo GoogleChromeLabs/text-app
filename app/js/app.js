@@ -1,24 +1,20 @@
 var app = angular.module('TD', []);
 
+var EditSession = ace.require("ace/edit_session").EditSession;
+var BlobBuilder = window.WebKitBlobBuilder;
+
 app.factory('editor', function() {
   var editor = ace.edit('editor');
-  var EditSession = ace.require("ace/edit_session").EditSession;
-  var INIT_CONTENT = "function reverseString(str) {\n" +
-                     "  return str.split('').reverse().join('');\n" +
-                     "}\n";
-
-  editor.setSession(new EditSession(INIT_CONTENT));
+//  var INIT_CONTENT = "function reverseString(str) {\n" +
+//                     "  return str.split('').reverse().join('');\n" +
+//                     "}\n";
+//
+//  editor.setSession(new EditSession(INIT_CONTENT));
   editor.setTheme("ace/theme/twilight");
   editor.getSession().setMode("ace/mode/javascript");
 
   return editor;
 });
-
-
-app.run(function(editor) {
-  editor.focus();
-});
-
 
 //chrome.experimental.identity.getAuthToken(function(token) {
 //  console.log('token', token);
@@ -39,52 +35,92 @@ var Doc = function(entry) {
   //      doc.alternateLink = gdocs.getLink(entry.link, 'alternate').href;
 };
 
-app.controller('App', function($scope, $http) {
+app.controller('App', function($scope, $http, editor) {
   // hack to by pass broken auth
-  $scope.accessToken = 'ya29.AHES6ZTqD4K7yl0gfF1qqMOwkxGQ70x9KlBBjpTyVq6VBBW6rI8zIA';
+  $scope.accessToken = 'ya29.AHES6ZTJ-vxMoLJb7LhO_WjZlRE1RRgluqCrn7IjCFbS4rg';
 
   $scope.docs = [];
+  $scope.logs = [];
 
-
-
-  $scope.open = function(doc) {
-    console.log(doc.entry)
-    $scope.current = doc;
-    $http.get("https://www.googleapis.com/drive/v1/files/0Al_wTC8Lhi1PdHl1VnFydFFPTzJTWGJQbVM5U0FEaEE", {headers: {
-      'Authorization': 'Bearer ' + $scope.accessToken,
-      'GData-Version': '3.0'
-    }}).success(function(d) {
-      console.log(d);
-    })
+  var log = function(msg) {
+    console.log(msg);
+    $scope.logs.push(msg);
   };
 
 
+  // open file using html5 api
+  $scope.openFile = function(files) {
+    angular.forEach(files, function(file) {
+      log('opening file ' + file.name);
+      var reader = new FileReader();
 
-  // load the docs
-  var config = {
-      params: {'alt': 'json'},
-      headers: {
-          'Authorization': 'Bearer ' + $scope.accessToken,
-          'GData-Version': '3.0'
-      }
-  };
+      reader.onload = function(e) {
+        log('file loaded ' + file.name);
+        editor.setSession(new EditSession(e.target.result));
+        editor.getSession().setMode("ace/mode/javascript");
 
-  var successCallback = function(data) {
-    data.feed.entry.forEach(function(entry) {
-      $scope.docs.push(new Doc(entry));
+        $scope.current = file;
+        $scope.$apply();
+      };
+
+      reader.readAsBinaryString(file);
     });
-    console.log(data.feed.entry[0]);
   };
 
-  $http.get(DOCS_FEED_URL, config).success(successCallback).error(function() {
-    // testing as web app - the API won't talk to localhost, so we use dump
-    successCallback(DUMP);
-  });
+  $scope.saveFile = function() {
+    var bb = new BlobBuilder();
+    bb.append('SOMETHING');
+
+    var b = bb.getBlob();
+
+    var w = b.createWriter();
+//
+//    var fw = new FileWriter();
+//
+//    fw.onwrite = function() {
+//      log('write succcess');
+//    };
+//
+//    fw.onerror = function() {
+//      log('write error');
+//    };
+//
+//    fw.write(bb.getBlob());
+  };
+
 });
 
 
 app.filter('size', function() {
   return function(size) {
     return size === null ? '' : '(' + size + 'bytes)';
+  };
+});
+
+
+
+app.directive('openFile', function($exceptionHandler) {
+  return {
+    compile: function(tplElm, tplAttr) {
+      tplElm.after('<input type="file" style="display: none;">');
+
+      return function(scope, elm, attr) {
+        var input = angular.element(elm[0].nextSibling);
+
+        // evaluate the expression when file changed (user selects a file)
+        input.bind('change', function() {
+          try {
+            scope.$eval(attr.openFile, {$files: input[0].files});
+          } catch(e) {
+            $exceptionHandler(e);
+          }
+        });
+
+        // trigger file dialog when the button clicked
+        elm.bind('click', function() {
+          input[0].click();
+        });
+      };
+    }
   };
 });
