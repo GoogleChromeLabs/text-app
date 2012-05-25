@@ -11,16 +11,26 @@
 <!-- sidebar -->
 <div id="sidebar">
   <section>
-    <button open-file="openFile($files)" class="btn btn-primary">open file</button>
+    <button open-files="openFiles($files)" class="btn btn-primary">load</button>
+    <button ng-disabled="!current" ng-click="saveCurrentFile()" class="btn btn-primary">save</button>
+    <button ng-disabled="!newFilename" ng-click="createNewFile()" class="btn btn-primary">new</button>
+    <input type="text" ng-model="newFilename" on-enter="createNewFile()" placeholder="new filename">
   </section>
 
-  <section ng-show="current" ng-cloak>
-    <h4>Current Document:</h4>
+  <section visible-if="current" ng-cloak>
+    <h4>Current File:</h4>
     Name: {{current.name}}<br>
     Modified: {{current.lastModifiedDate | date}}<br>
     Type: {{current.type}}<br>
     Size: {{current.size | size}}<br>
-    <button ng-click="saveFile()">SAVE</button>
+  </section>
+
+  <section ng-show="files.length">
+    <h4>Files:</h4>
+
+    <ul class="nav">
+      <li ng-repeat="file in files"><a ng-click="openFile(file)">{{file.name}}</a></li>
+    </ul>
   </section>
 </div>
 
@@ -28,13 +38,18 @@
 <div id="editor"></div>
 
 <div id="log">
-  <strong>Debug Console:</strong>
-  <ul class="unstyled"><li ng-repeat="log in logs">{{log}}</li></ul>
+  <header>
+    <a ng-click="">digest</a><a ng-click="logs.clear()">clear</a>
+    <h5>Debug Log:</h5>
+  </header>
+
+  <ul class="unstyled">
+    <li ng-repeat="log in logs" class="{{log | toClass}}">{{log}}</li>
+  </ul>
 </div>
 
 <script src="lib/angular/angular.js" type="text/javascript"></script>
 <script src="lib/ace/src/ace-uncompressed-noconflict.js" type="text/javascript"></script>
-<script src="../dump.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 
 </body>

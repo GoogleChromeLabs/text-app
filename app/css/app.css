@@ -8,10 +8,19 @@ section {
   left: 0;
   bottom: 0;
   width: 230px;
-  padding: 20px 5px;
+  padding: 5px;
   background-color: #f3f3f3;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+button {
+  width: 70px;
+}
+
+input {
+  margin-top: 5px;
+  width: 208px;
 }
 
 #editor {
@@ -37,9 +46,37 @@ section {
   position: absolute;
   top: 0;
   right: 0;
-  width: 400px;
-  height: 100px;
+  width: 300px;
+  height: 400px;
   z-index: 200000;
   background: white;
   overflow: scroll;
+  padding: 5px;
+  font-family: courier;
+}
+
+#log header {
+  position: fixed;
+  width: 300px;
+  background: #d0d0d0;
+  padding: 5px;
+  margin: -5px;
+}
+
+#log header a {
+  margin-right: 5px;
+  float: right;
+  text-decoration: underline;
+}
+
+#log ul {
+  margin-top: 30px;
+}
+
+#log li.digest {
+  color: gray;
+}
+
+#log li.error {
+  color: red;
 }
