@@ -2,6 +2,7 @@ body {
   background-color: #F6F6F6;
 }
 
+/* header - toolbar */
 header {
   position: absolute;
   top: 0;
@@ -13,86 +14,166 @@ header {
   border-bottom: 1px solid #AAA;
 }
 
-section {
-  margin-bottom: 15px;
-}
+/*section {*/
+  /*margin-bottom: 15px;*/
+/*}*/
 
-#sidebar {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  bottom: 0;
-  width: 230px;
-  padding: 5px;
-  background-color: #f3f3f3;
-  overflow: hidden;
-  overflow-y: scroll;
-}
+/*#sidebar {*/
+  /*position: absolute;*/
+  /*top: 40px;*/
+  /*left: 0;*/
+  /*bottom: 0;*/
+  /*width: 230px;*/
+  /*padding: 5px;*/
+  /*background-color: #f3f3f3;*/
+  /*overflow: hidden;*/
+  /*overflow-y: scroll;*/
+/*}*/
 
-button {
-  width: 70px;
-}
+/*button {*/
+  /*width: 70px;*/
+/*}*/
 
-input {
-  margin-top: 5px;
-  width: 208px;
-}
+/*input {*/
+  /*margin-top: 5px;*/
+  /*width: 208px;*/
+/*}*/
+
+/*.nav > li > a {*/
+  /*padding-left: 5px;*/
+  /*color: #000;*/
+/*}*/
+
+/*.nav > li > a:hover {*/
+  /*color: #08C;*/
+/*}*/
+
 
 #editor {
   position: absolute;
   top: 30px;
-  bottom: 0;
+  bottom: 20px;
   /*left: 230px;*/
   left: 0;
   right: 0;
 }
 
 
-.nav > li > a {
-  padding-left: 5px;
-  color: #000;
-}
+/* logging window */
+/*#log {*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 0;*/
+  /*width: 300px;*/
+  /*height: 400px;*/
+  /*z-index: 200000;*/
+  /*background: white;*/
+  /*overflow: scroll;*/
+  /*padding: 5px;*/
+  /*font-family: courier;*/
+/*}*/
 
-.nav > li > a:hover {
-  color: #08C;
-}
+/*#log header {*/
+  /*position: fixed;*/
+  /*width: 300px;*/
+  /*background: #d0d0d0;*/
+  /*padding: 5px;*/
+  /*margin: -5px;*/
+/*}*/
+
+/*#log header a {*/
+  /*margin-right: 5px;*/
+  /*float: right;*/
+  /*text-decoration: underline;*/
+/*}*/
+
+/*#log ul {*/
+  /*margin-top: 30px;*/
+/*}*/
+
+/*#log li.digest {*/
+  /*color: gray;*/
+/*}*/
+
+/*#log li.error {*/
+  /*color: red;*/
+/*}*/
 
 
-#log {
+#footer {
   position: absolute;
-  top: 0;
+  bottom: 0;
+  left: 0;
   right: 0;
-  width: 300px;
-  height: 400px;
-  z-index: 200000;
-  background: white;
-  overflow: scroll;
-  padding: 5px;
-  font-family: courier;
+  z-index: 1000;
 }
 
-#log header {
-  position: fixed;
-  width: 300px;
-  background: #d0d0d0;
-  padding: 5px;
-  margin: -5px;
+/* status bar */
+#status-bar {
+  background-color: #EBEBEB;
+  color: #A4A4A4;
+  padding: 1px 6px;
 }
 
-#log header a {
-  margin-right: 5px;
+#status-bar a.icon-cog {
+  color: inherit;
+  /*color: #555;*/
+  font-size: 1.4em;
+  padding: 2px;
+  margin-top: -4px;
+  line-height: 9px;
+}
+
+#status-bar a.icon-cog:hover {
+  text-decoration: none;
+}
+
+#status-bar .delimiter {
+  border-right: 1px solid #DBDBDB;
+  margin: 0 5px;
+}
+
+
+#settings {
+  border-top: 2px solid #CBCBCB;
+  height: 300px;
+  padding: 5px;
+  background-color: #D6D6D6;
+  color: #929292;
+}
+
+.right {
   float: right;
-  text-decoration: underline;
 }
 
-#log ul {
-  margin-top: 30px;
-}
+/*a.config-btn {*/
+  /*font-size: 3em;*/
+  /*z-index: 1;*/
+  /*position: absolute;*/
+  /*bottom: 10px;*/
+  /*right: 10px;*/
+  /*color: #D1D1D1;*/
+  /*width: 30px;*/
+  /*height: 30px;*/
+/*}*/
 
-#log li.digest {
-  color: gray;
-}
+/*a.config-btn:hover {*/
+  /*text-decoration: none;*/
+  /*color: #F6F6F6;*/
+/*}*/
 
-#log li.error {
-  color: red;
-}
+
+/*#config {*/
+  /*position: absolute;*/
+  /*right: 0;*/
+  /*top: 30px;*/
+  /*bottom: 0;*/
+  /*width: 300px;*/
+  /*background-color: #191916;*/
+  /*z-index: 2;*/
+  /*border-left: 1px solid #D1D1D1;*/
+/*}*/
+
+/*#config a.config-btn {*/
+  /*left: 10px;*/
+/*}*/

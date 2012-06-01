@@ -9,6 +9,8 @@ app.factory('editor', function() {
   editor.setTheme("ace/theme/monokai");
   editor.setSession(new EditSession(''));
   editor.getSession().setMode("ace/mode/javascript");
+  editor.renderer.setShowPrintMargin(false);
+
 
   return {
     focus: function() {
@@ -395,4 +397,6 @@ app.controller('Tabs', function($scope) {
   $scope.add = function() {
     $scope.tabs.push({label: 'new'});
   };
+
+  $scope.select($scope.tabs[0]);
 });

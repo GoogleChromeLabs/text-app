@@ -46,14 +46,23 @@
 </div>
 -->
 
-<div id="config">
-Configuration
-</div>
-
-<a href="" class="icon-cog"></a>
-
 <!-- ACE editor -->
 <div id="editor"></div>
+
+<div id="footer">
+  <div id="status-bar">
+    <div class="right">
+      <span class="delimiter"></span>
+      <a ng-click="isSettingsVisible = !isSettingsVisible" class="icon-cog"></a>
+    </div>
+    Yep, the greatest status bar you've ever seen.
+  </div>
+
+  <div ng-show="isSettingsVisible" id="settings">
+    <h2>TextDrive Settings</h2>
+
+  </div>
+</div>
 
 <!--
 <div id="log" ng-hide="isHidden">
