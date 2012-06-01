@@ -1,10 +1,25 @@
+body {
+  background-color: #F6F6F6;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 23px;
+  background: #D1D1D1;
+  padding-top: 5px;
+  border-bottom: 1px solid #AAA;
+}
+
 section {
   margin-bottom: 15px;
 }
 
 #sidebar {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
   bottom: 0;
   width: 230px;
@@ -25,9 +40,10 @@ input {
 
 #editor {
   position: absolute;
-  top: 0;
+  top: 30px;
   bottom: 0;
-  left: 230px;
+  /*left: 230px;*/
+  left: 0;
   right: 0;
 }
 

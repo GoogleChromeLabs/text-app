@@ -6,7 +6,7 @@ var BlobBuilder = window.WebKitBlobBuilder;
 app.factory('editor', function() {
   var editor = ace.edit('editor');
 
-  editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/monokai");
   editor.setSession(new EditSession(''));
   editor.getSession().setMode("ace/mode/javascript");
 
@@ -109,7 +109,7 @@ app.factory('fs', function(log, $window, $q, $rootScope) {
   $window.webkitStorageInfo.requestQuota(PERSISTENT, SIZE, function(grantedBytes) {
     $window.webkitRequestFileSystem(PERSISTENT, grantedBytes, function(fs) {
       d_fs.resolve(fs);
-      log('FS loaded');
+      log('FS loaded, quota', grantedBytes);
       $rootScope.$digest();
     }, errorFs);
   }, createErrorHandler());
@@ -281,7 +281,7 @@ app.filter('size', function() {
 
 app.filter('toClass', function() {
   return function(log) {
-    return angular.lowercase(log).replace(':', '').replace(/\[.*\]/, '');
+    return angular.lowercase(log).replace(/[\:\,]/g, '').replace(/\[.*\]/, '');
   };
 });
 
@@ -382,4 +382,17 @@ app.config(function($provide, logProvider) {
 
     return $delegate;
   });
+});
+
+
+app.controller('Tabs', function($scope) {
+  $scope.tabs = [{label: 'first.html'}, {label: 'another.js'}, {label: 'last.js'}];
+
+  $scope.select = function(tab) {
+    $scope.current = tab;
+  };
+
+  $scope.add = function() {
+    $scope.tabs.push({label: 'new'});
+  };
 });
