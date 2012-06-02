@@ -26,7 +26,9 @@ app.factory('editor', function() {
     setContent: function(content) {
       editor.setSession(new EditSession(content));
       editor.getSession().setMode("ace/mode/javascript");
-    }
+    },
+
+    _editor: editor
   };
 });
 
@@ -215,7 +217,7 @@ app.factory('fs', function(log, $window, $q, $rootScope) {
 });
 
 
-app.controller('App', function($scope, $http, editor, log, fs) {
+app.controller('App', function($scope, $http, editor, log, fs, tabs) {
 
   $scope.files = fs.files;
 
@@ -224,13 +226,40 @@ app.controller('App', function($scope, $http, editor, log, fs) {
 
   $scope.openFile = function(file) {
     fs.loadFile(file).then(function(content) {
-      if ($scope.current) {
-        fs.saveFile($scope.current, editor.getContent());
+//      if ($scope.current) {
+//        fs.saveFile($scope.current, editor.getContent());
+//      }
+
+      // is there already a tab for it ?
+      var tab;
+      tabs.forEach(function(tab_) {
+        if (tab_.file === file) {
+          tab = tab_;
+        }
+      });
+
+      if (!tab) {
+        var session = new EditSession(content);
+        session.setMode("ace/mode/javascript");
+        tab = {file: file, session: session, label: file.name};
+
+        // TODO(vojta): clean this :-D
+        session.on('change', function() {
+          if (!tab.modified) {
+            log(tab.file, 'modified');
+            tab.modified = true;
+            $scope.$apply();
+          }
+        });
+
+        tabs.push(tab);
       }
 
+      // select the tab, it will load the session to editor as well
+      tabs.select(tab);
+
       $scope.current = file;
-      editor.setContent(content);
-      editor.focus();
+
     }, function() {
       log('Error during opening file');
     });
@@ -246,8 +275,11 @@ app.controller('App', function($scope, $http, editor, log, fs) {
 
 
   $scope.saveCurrentFile = function() {
-    if ($scope.current) {
-      fs.saveFile($scope.current, editor.getContent());
+    var tab = tabs.current;
+    if (tab) {
+      fs.saveFile(tab.file, editor.getContent()).then(function() {
+        tab.modified = false;
+      });
     } else {
       log('No file to save.');
     }
@@ -271,6 +303,11 @@ app.controller('App', function($scope, $http, editor, log, fs) {
       reader.readAsBinaryString(file);
     });
   };
+
+  $scope.isSaveDisabled = function() {
+    if (!tabs.current) return true;
+    return !tabs.current.modified;
+  }
 });
 
 
@@ -386,17 +423,48 @@ app.config(function($provide, logProvider) {
   });
 });
 
+app.factory('tabs', function(editor, fs) {
+  var tabs = [];
+  tabs.select = function(tab) {
+    tabs.current = tab;
 
-app.controller('Tabs', function($scope) {
-  $scope.tabs = [{label: 'first.html'}, {label: 'another.js'}, {label: 'last.js'}];
-
-  $scope.select = function(tab) {
-    $scope.current = tab;
+    // move to editor
+    editor._editor.setSession(tab && tab.session || new EditSession(''));
+    editor.focus();
   };
 
-  $scope.add = function() {
-    $scope.tabs.push({label: 'new'});
+  tabs.close = function(tab) {
+    // remove it
+    tabs.splice(tabs.indexOf(tab), 1);
+
+    // save the file
+    fs.saveFile(tab.file, tab.session.getValue());
+
+    if (tab === tabs.current) {
+      tabs.select(tabs[0]);
+    }
+
   };
 
-  $scope.select($scope.tabs[0]);
+  return tabs;
+});
+
+
+app.controller('Tabs', function($scope, tabs) {
+//  $scope.tabs = [{label: 'first.html'}, {label: 'another.js'}, {label: 'last.js'}];
+  $scope.tabs = tabs;
+
+  $scope.cssFor = function(tab) {
+    return tab.modified ? 'icon-edit' : 'icon-remove';
+  };
+
+//  $scope.select = function(tab) {
+//    $scope.current = tab;
+//  };
+
+//  $scope.add = function() {
+//    $scope.tabs.push({label: 'new'});
+//  };
+
+//  $scope.select($scope.tabs[0]);
 });

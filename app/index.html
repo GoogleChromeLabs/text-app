@@ -12,22 +12,21 @@
 
 <header>
 <ul class="tabs" ng-controller="Tabs">
-  <li ng-repeat="tab in tabs" ng-class="{selected: tab == current}"><a ng-click="select(tab)">{{tab.label}}</a><a
-      href="" class="icon icon-remove"></a></li>
+  <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}"><a ng-click="tabs.select(tab)">{{tab.label}}</a><a ng-click="tabs.close(tab)" ng-class="cssFor(tab)" class="icon"></a></li>
   <li class="add-new"><a ng-click="add()" class="icon-plus"></a></li>
 </ul>
 </header>
 
 <!-- sidebar -->
-<!--
 <div id="sidebar">
   <section>
     <button open-files="openFiles($files)" class="btn btn-primary">load</button>
-    <button ng-disabled="!current" ng-click="saveCurrentFile()" class="btn btn-primary">save</button>
+    <button ng-disabled="isSaveDisabled()" ng-click="saveCurrentFile()" class="btn btn-primary">save</button>
     <button ng-disabled="!newFilename" ng-click="createNewFile()" class="btn btn-primary">new</button>
     <input type="text" ng-model="newFilename" on-enter="createNewFile()" placeholder="new filename">
   </section>
 
+  <!--
   <section visible-if="current" ng-cloak>
     <h4>Current File:</h4>
     Name: {{current.name}}<br>
@@ -35,6 +34,7 @@
     Type: {{current.type}}<br>
     Size: {{current.size | size}}<br>
   </section>
+-->
 
   <section ng-show="files.length">
     <h4>Files:</h4>
@@ -44,7 +44,6 @@
     </ul>
   </section>
 </div>
--->
 
 <!-- ACE editor -->
 <div id="editor"></div>

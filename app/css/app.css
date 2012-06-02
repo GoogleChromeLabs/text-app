@@ -14,39 +14,39 @@ header {
   border-bottom: 1px solid #AAA;
 }
 
-/*section {*/
-  /*margin-bottom: 15px;*/
-/*}*/
+section {
+  margin-bottom: 15px;
+}
 
-/*#sidebar {*/
-  /*position: absolute;*/
-  /*top: 40px;*/
-  /*left: 0;*/
-  /*bottom: 0;*/
-  /*width: 230px;*/
-  /*padding: 5px;*/
-  /*background-color: #f3f3f3;*/
-  /*overflow: hidden;*/
-  /*overflow-y: scroll;*/
-/*}*/
+#sidebar {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  bottom: 20px;
+  width: 230px;
+  padding: 5px;
+  background-color: #f3f3f3;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 
-/*button {*/
-  /*width: 70px;*/
-/*}*/
+button {
+  width: 70px;
+}
 
-/*input {*/
-  /*margin-top: 5px;*/
-  /*width: 208px;*/
-/*}*/
+input {
+  margin-top: 5px;
+  width: 208px;
+}
 
-/*.nav > li > a {*/
-  /*padding-left: 5px;*/
-  /*color: #000;*/
-/*}*/
+.nav > li > a {
+  padding-left: 5px;
+  color: #000;
+}
 
-/*.nav > li > a:hover {*/
-  /*color: #08C;*/
-/*}*/
+.nav > li > a:hover {
+  color: #08C;
+}
 
 
 #editor {
@@ -55,7 +55,7 @@ header {
   bottom: 20px;
   /*left: 230px;*/
   left: 0;
-  right: 0;
+  right: 240px;
 }
 
 
