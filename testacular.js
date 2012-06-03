@@ -5,12 +5,18 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '../..'
+//basePath = '../..'
 
 // list of files / patterns to load in the browser
 files = [
   JASMINE,
-  JASMINE_ADAPTER
+  JASMINE_ADAPTER,
+  'app/lib/angular/angular.js',
+  'test/lib/angular/angular-mocks.js',
+  'test/unit/mocks/mocks.js',
+  'app/js/app.js',
+  'app/js/*/*.js',
+  'test/unit/*/*.js'
 ];
 
 // list of files to exclude
@@ -20,8 +26,6 @@ exclude = [];
 // possible values: 'dots' || 'progress'
 reporter = 'dots';
 
-
-// these are default values, just to show available options
 
 // web server port
 port = 8080;

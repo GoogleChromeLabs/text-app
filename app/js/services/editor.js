@@ -1,6 +1,8 @@
-var EditSession = ace.require("ace/edit_session").EditSession;
+app.factory('EditSession', function() {
+  return ace.require("ace/edit_session").EditSession;
+});
 
-app.factory('editor', function() {
+app.factory('editor', function(EditSession) {
   var editor = ace.edit('editor');
 
   editor.setTheme("ace/theme/monokai");

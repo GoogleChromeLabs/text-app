@@ -49,10 +49,10 @@ module.exports = function(grunt) {
       }
     },
     coffee: {
-      unit: ['test/unit/*/*Spec.coffee']
+      unit: ['test/unit/*/*.coffee']
     },
     watch: {
-      files: 'test/unit/*/*Spec.coffee',
+      files: 'test/unit/*/*.coffee',
       tasks: 'coffee:unit'
     }
   });

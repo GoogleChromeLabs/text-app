@@ -1,5 +1,6 @@
-app.factory('tabs', function(editor, fs, $rootScope, log) {
+app.factory('tabs', function(editor, fs, $rootScope, log, EditSession) {
   var tabs = [];
+
   tabs.select = function(tab) {
     tabs.current = tab;
 
