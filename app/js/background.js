@@ -1,23 +1,19 @@
-chrome.experimental.app.onLaunched.addListener(function() {
-  var opts = {
-    url: 'index.html',
-    width: 1024,
-    height: 768,
-    left: 100,
-    top: 100,
-    type: 'shell'
+chrome.experimental.app.onLaunched.addListener(function () {
+  var options = {
+    frame: 'custom',
+    width: 900,
+    height: 900
   };
-  chrome.windows.create(opts, function(tab) {
-    //var targetId = tab.id;
+
+  chrome.appWindow.create('index.html', options, function (win) {
+//    win.onload = function () {};
   });
 });
 
 
-
-
-chrome.runtime.onInstalled.addListener(function() {
-  console.log('INSTALLED');
-});
+//chrome.runtime.onInstalled.addListener(function() {
+//  console.log('INSTALLED');
+//});
 
 
 //chrome.experimental.identity.getAuthToken(function(token) {
