@@ -4,8 +4,6 @@ app.factory('editor', function() {
   var editor = ace.edit('editor');
 
   editor.setTheme("ace/theme/monokai");
-  editor.setSession(new EditSession(''));
-  editor.getSession().setMode("ace/mode/javascript");
   editor.renderer.setShowPrintMargin(false);
 
 
@@ -16,13 +14,12 @@ app.factory('editor', function() {
       }, 0);
     },
 
-    getContent: function() {
-      return editor.getSession().getDocument().getValue();
+    setSession: function(session) {
+      editor.setSession(session);
     },
 
-    setContent: function(content) {
-      editor.setSession(new EditSession(content));
-      editor.getSession().setMode("ace/mode/javascript");
+    clearSession: function() {
+      editor.setSession(new EditSession(''));
     },
 
     _editor: editor

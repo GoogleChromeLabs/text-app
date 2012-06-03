@@ -1,11 +1,15 @@
-app.factory('tabs', function(editor, fs) {
+app.factory('tabs', function(editor, fs, $rootScope, log) {
   var tabs = [];
   tabs.select = function(tab) {
     tabs.current = tab;
 
     // move to editor
-    editor._editor.setSession(tab && tab.session || new EditSession(''));
-    editor.focus();
+    if (tab) {
+      editor.setSession(tab.session);
+      editor.focus();
+    } else {
+      editor.clearSession();
+    }
   };
 
   tabs.close = function(tab) {
@@ -18,7 +22,34 @@ app.factory('tabs', function(editor, fs) {
     if (tab === tabs.current) {
       tabs.select(tabs[0]);
     }
+  };
 
+  tabs.selectByFile = function(file) {
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].file === file) {
+        tabs.select(tabs[i]);
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  tabs.add = function(file, content) {
+    var session = new EditSession(content);
+    var tab = {file: file, session: session, label: file.name};
+
+    session.setMode("ace/mode/javascript");
+    session.on('change', function() {
+      if (!tab.modified) {
+        log(tab.file, 'modified');
+        tab.modified = true;
+        $rootScope.$apply();
+      }
+    });
+
+    tabs.push(tab);
+    return tab;
   };
 
   return tabs;
