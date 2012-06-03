@@ -1,9 +1,11 @@
 /*global module:false*/
+/*global require:false*/
 module.exports = function(grunt) {
 
   grunt.initConfig({
     manifest: '<json:app/manifest.json>',
     meta: {
+      manifestPath: 'app/manifest.json',
       prefix: '(function(angular) {',
       suffix: '})(window.angular);',
       banner: '/* <%= manifest.name %> - v<%= manifest.version %> - ' +
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
       try {
         // TODO(vojta): make this async
         var js = coffee.compile(grunt.file.read(filepath), {bare: true});
-        if (js) grunt.file.write(filepath.replace(/\.coffee$/, '.js'), js);
+        grunt.file.write(filepath.replace(/\.coffee$/, '.js'), js);
       }
       catch (e) {
         grunt.log.error(e.message);
@@ -77,7 +79,6 @@ module.exports = function(grunt) {
   // TODO(vojta): bump version
   grunt.registerTask('pack', 'Create zip package of the app.', function() {
     var DST = 'build/package/';
-    /*global require:false*/
     var exec = require('child_process').exec;
 
     // concat css files
@@ -124,6 +125,28 @@ module.exports = function(grunt) {
 
     // create a zip
     exec('zip -vr build/textdrive.zip ' + DST, this.async());
+  });
+
+  grunt.registerTask('bump', 'Increment the version number', function(versionType) {
+    var manifest = grunt.config('manifest');
+    var type = {
+      patch: 2,
+      minor: 1,
+      major: 0
+    };
+
+    // increment the minor version
+    var parts = manifest.version.split('.');
+    var idx = type[versionType || 'patch'];
+
+    parts[idx] = parseInt(parts[idx], 10) + 1;
+    while(++idx < parts.length) {
+      parts[idx] = 0;
+    }
+    manifest.version = parts.join('.');
+
+    grunt.file.write(grunt.config('meta.manifestPath'), JSON.stringify(manifest, null, '  '));
+    grunt.log.write('Manifest version bumped to ' + manifest.version);
   });
 
   // Default task.
