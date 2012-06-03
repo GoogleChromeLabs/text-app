@@ -41,14 +41,14 @@
   <section ng-show="files.length">
     <h4>Files:</h4>
 
-    <ul class="nav">
+    <ul class="nav" ng-cloak>
       <li ng-repeat="file in files"><a ng-click="openFile(file)">{{file.name}}</a></li>
     </ul>
   </section>
 </div>
 
 <!-- ACE editor -->
-<div id="editor"></div>
+<div id="editor" ng-non-bindable></div>
 
 <div id="footer">
   <div id="status-bar">
