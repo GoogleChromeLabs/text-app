@@ -6,7 +6,6 @@ app.factory('fs', function(log, $window, $q, $rootScope) {
   var d_fs = $q.defer();
   var p_fs = d_fs.promise; // FileSystem
 
-
   var createErrorHandler = function(defered) {
     return function(e) {
       var msg = '';

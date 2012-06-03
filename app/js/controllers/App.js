@@ -7,7 +7,9 @@ app.controller('App', function($scope, log, fs, tabs) {
   fs.refresh();
 
   $scope.openFile = function(file) {
-    if (tabs.selectByFile(file)) return;
+    if (tabs.selectByFile(file)) {
+      return;
+    }
 
     fs.loadFile(file).then(function(content) {
       tabs.select(tabs.add(file, content));
@@ -55,7 +57,10 @@ app.controller('App', function($scope, log, fs, tabs) {
 //  };
 
   $scope.isSaveDisabled = function() {
-    if (!tabs.current) return true;
+    if (!tabs.current) {
+      return true;
+    }
+
     return !tabs.current.modified;
   };
 
