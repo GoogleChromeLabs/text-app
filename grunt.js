@@ -47,7 +47,30 @@ module.exports = function(grunt) {
         FileError: true,
         EditSession: true
       }
+    },
+    coffee: {
+      unit: ['test/unit/*/*Spec.coffee']
+    },
+    watch: {
+      files: 'test/unit/*/*Spec.coffee',
+      tasks: 'coffee:unit'
     }
+  });
+
+  grunt.registerMultiTask('coffee', 'Compile coffee script', function() {
+    var coffee = require('coffee-script');
+
+    grunt.file.expandFiles(this.data).forEach(function(filepath) {
+      grunt.log.writeln('Compiling ' + filepath);
+      try {
+        // TODO(vojta): make this async
+        var js = coffee.compile(grunt.file.read(filepath), {bare: true});
+        if (js) grunt.file.write(filepath.replace(/\.coffee$/, '.js'), js);
+      }
+      catch (e) {
+        grunt.log.error(e.message);
+      }
+    });
   });
 
   // TODO(vojta): refactor this hardcoded mess
@@ -105,5 +128,4 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'lint concat min');
-
 };
