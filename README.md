@@ -2,7 +2,7 @@
 
 Just a text editor.
 
-# Development
+## Development
 
 ### Install required packages
 
@@ -16,3 +16,10 @@ Just a text editor.
 
     grunt coffee:unit
 
+
+## Built With
+
+- [AngularJS](http://angularjs.org/)
+- [ACE Editor](http://ace.ajax.org/)
+- [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
+- [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
