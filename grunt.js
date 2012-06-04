@@ -53,9 +53,18 @@ module.exports = function(grunt) {
     coffee: {
       unit: ['test/unit/*/*.coffee']
     },
+    less: {
+      app: ['app/less/*.less']
+    },
     watch: {
-      files: 'test/unit/*/*.coffee',
-      tasks: 'coffee:unit'
+      unit: {
+        files: 'test/unit/*/*.coffee',
+        tasks: 'coffee:unit'
+      },
+      css: {
+        files: 'app/less/*.less',
+        tasks: 'less:app'
+      }
     }
   });
 
@@ -72,6 +81,23 @@ module.exports = function(grunt) {
       catch (e) {
         grunt.log.error(e.message);
       }
+    });
+  });
+
+
+  grunt.registerMultiTask('less', 'Concat and compile less styles', function() {
+    var less = require('less');
+
+    grunt.file.expand(this.data).forEach(function(filepath) {
+      less.render(grunt.file.read(filepath), function(e, css) {
+        if (e) {
+          grunt.log.error(e.message);
+        } else {
+          var cssPath = filepath.replace(/less/g, 'css');
+          grunt.file.write(cssPath, css);
+          grunt.log.writeln('Generated ' + cssPath);
+        }
+      });
     });
   });
 

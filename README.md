@@ -6,15 +6,19 @@ Just a text editor.
 
 ### Install required packages
 
-    npm install -g testacular grunt coffee-script
+    npm install -g testacular grunt coffee-script less
 
-### Watch + recompile unit tests
+### Watch unit tests (coffe script) and styles (less)
 
     grunt watch
 
 ### Recompile all unit tests (coffee script)
 
     grunt coffee:unit
+
+### Recompile all less styles
+
+    grunt less:app
 
 
 ## Built With

@@ -1,2 +1,3 @@
 build
+app/css
 test/unit/*/*.js
