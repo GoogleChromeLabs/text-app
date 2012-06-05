@@ -55,12 +55,12 @@
   <div id="status-bar">
     <div class="right">
       <span class="delimiter"></span>
-      <a ng-click="isSettingsVisible = !isSettingsVisible" class="icon-cog"></a>
+      <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
     Yep, the greatest status bar you've ever seen.
   </div>
 
-  <div ng-show="isSettingsVisible" id="settings">
+  <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings">
     <h2>TextDrive Settings</h2>
     Theme: <select ng-model="settings.theme" ng-options="i.name for i in THEMES"></select><br>
     Key Mode: <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES"></select>
@@ -89,6 +89,7 @@
 
 <!--controllers-->
 <script src="js/controllers/App.js" type="text/javascript"></script>
+<script src="js/controllers/Settings.js" type="text/javascript"></script>
 
 <!--services-->
 <script src="js/services/editor.js" type="text/javascript"></script>

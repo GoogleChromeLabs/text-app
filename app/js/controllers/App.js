@@ -1,10 +1,5 @@
 
-app.controller('App', function($scope, log, fs, tabs, settings) {
-
-  $scope.isSettingsVisible = true;
-  $scope.settings = settings;
-  $scope.THEMES = settings.THEMES;
-  $scope.KEY_MODES = settings.KEY_MODES;
+app.controller('App', function($scope, log, fs, tabs, editor) {
 
   $scope.files = fs.files;
   $scope.tabs = tabs;
@@ -72,4 +67,12 @@ app.controller('App', function($scope, log, fs, tabs, settings) {
   $scope.iconFor = function(tab) {
     return tab.modified ? 'icon-edit' : 'icon-remove';
   };
+
+  $scope.toggleSettings = function() {
+    $scope.isSettingsVisible = !$scope.isSettingsVisible;
+
+    if (!$scope.isSettingsVisible) {
+      editor.focus();
+    }
+  }
 });

@@ -1,12 +1,11 @@
 mocks = angular.module 'mocks', []
 
-mocks.value 'editor', {
+mocks.factory 'editor', ->
   focus: jasmine.createSpy 'focus'
   setSession: jasmine.createSpy 'focus'
   clearSession: jasmine.createSpy 'focus'
   setTheme: jasmine.createSpy 'setTheme'
   setKeyboardHandler: jasmine.createSpy 'setKeyboardHandler'
-}
 
 mocks.value 'EditSession', (content) -> @content = content
 mocks.value 'VimHandler', ->
