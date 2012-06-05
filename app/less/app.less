@@ -1,103 +1,111 @@
-body {
-  background-color: #F6F6F6;
-}
+// VARIABLES
+@toolbar-height: 30px;
+@footer-height: 20px;
 
-/* header - toolbar */
+
+// HEADER (toolbar)
+////////////////////////////////////////////////////////////////////////////////
 header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 23px;
+
+  padding-top: 6px;
+  height: @toolbar-height - 6px;
+
   background: #D1D1D1;
-  padding-top: 5px;
-  border-bottom: 1px solid #AAA;
+  border-bottom: 1px solid #AAAAAA;
 }
 
-section {
-  margin-bottom: 15px;
-}
 
+// SIDEBAR (open file)
+////////////////////////////////////////////////////////////////////////////////
 #sidebar {
   position: absolute;
-  top: 30px;
+  top: @toolbar-height;
   right: 0;
-  bottom: 20px;
+  bottom: @footer-height;
   width: 230px;
   padding: 5px;
   background-color: #f3f3f3;
   overflow: hidden;
   overflow-y: scroll;
+
+  section {
+    margin-bottom: 15px;
+  }
+
+  button {
+    width: 70px;
+  }
+
+  input {
+    margin-top: 5px;
+    width: 208px;
+  }
+
+  .nav > li > a {
+    padding-left: 5px;
+    color: #000;
+  }
+
+  .nav > li > a:hover {
+    color: #08C;
+  }
 }
 
-button {
-  width: 70px;
-}
 
-input {
-  margin-top: 5px;
-  width: 208px;
-}
-
-.nav > li > a {
-  padding-left: 5px;
-  color: #000;
-}
-
-.nav > li > a:hover {
-  color: #08C;
-}
-
-
+// ACE EDITOR
+////////////////////////////////////////////////////////////////////////////////
 #editor {
   position: absolute;
-  top: 30px;
-  bottom: 20px;
-/*left: 230px;*/
+  top: @toolbar-height;
+  bottom: @footer-height;
   left: 0;
   right: 240px;
 }
 
 
-/* logging window */
-/*#log {*/
-/*position: absolute;*/
-/*top: 0;*/
-/*right: 0;*/
-/*width: 300px;*/
-/*height: 400px;*/
-/*z-index: 200000;*/
-/*background: white;*/
-/*overflow: scroll;*/
-/*padding: 5px;*/
-/*font-family: courier;*/
-/*}*/
-
-/*#log header {*/
-/*position: fixed;*/
-/*width: 300px;*/
-/*background: #d0d0d0;*/
-/*padding: 5px;*/
-/*margin: -5px;*/
-/*}*/
-
-/*#log header a {*/
-/*margin-right: 5px;*/
-/*float: right;*/
-/*text-decoration: underline;*/
-/*}*/
-
-/*#log ul {*/
-/*margin-top: 30px;*/
-/*}*/
-
-/*#log li.digest {*/
-/*color: gray;*/
-/*}*/
-
-/*#log li.error {*/
-/*color: red;*/
-/*}*/
+// LOGGING WINDOW
+//#log {
+//  position: absolute;
+//  top: 0;
+//  right: 0;
+//  width: 300px;
+//  height: 400px;
+//  z-index: 200000;
+//  background: white;
+//  overflow: scroll;
+//  padding: 5px;
+//  font-family: courier;
+//
+//  header {
+//    position: fixed;
+//    width: 300px;
+//    background: #d0d0d0;
+//    padding: 5px;
+//    margin: -5px;
+//
+//    a {
+//      margin-right: 5px;
+//      float: right;
+//      text-decoration: underline;
+//    }
+//  }
+//
+//  ul {
+//    margin-top: 30px;
+//
+//    li.digest {
+//      color: gray;
+//    }
+//
+//    li.error {
+//      color: red;
+//    }
+//  }
+//}
 
 
 #footer {
@@ -108,72 +116,42 @@ input {
   z-index: 1000;
 }
 
-/* status bar */
+// STATUS BAR
+////////////////////////////////////////////////////////////////////////////////
 #status-bar {
   background-color: #EBEBEB;
   color: #A4A4A4;
   padding: 1px 6px;
+
+  a.icon-cog {
+    color: inherit;
+    font-size: 1.4em;
+    padding: 2px;
+    margin-top: -4px;
+    line-height: 9px;
+  }
+
+  a.icon-cog:hover {
+    text-decoration: none;
+  }
+
+  .delimiter {
+    border-right: 1px solid #D6D6D6;
+    margin: 0 5px;
+  }
 }
 
-#status-bar a.icon-cog {
-  color: inherit;
-/*color: #555;*/
-  font-size: 1.4em;
-  padding: 2px;
-  margin-top: -4px;
-  line-height: 9px;
-}
 
-#status-bar a.icon-cog:hover {
-  text-decoration: none;
-}
-
-#status-bar .delimiter {
-  border-right: 1px solid #DBDBDB;
-  margin: 0 5px;
-}
-
-
+// SETTINGS
+////////////////////////////////////////////////////////////////////////////////
 #settings {
   border-top: 2px solid #CBCBCB;
   height: 300px;
   padding: 5px;
   background-color: #D6D6D6;
-  color: #929292;
+  color: #555;
 }
 
 .right {
   float: right;
 }
-
-/*a.config-btn {*/
-/*font-size: 3em;*/
-/*z-index: 1;*/
-/*position: absolute;*/
-/*bottom: 10px;*/
-/*right: 10px;*/
-/*color: #D1D1D1;*/
-/*width: 30px;*/
-/*height: 30px;*/
-/*}*/
-
-/*a.config-btn:hover {*/
-/*text-decoration: none;*/
-/*color: #F6F6F6;*/
-/*}*/
-
-
-/*#config {*/
-/*position: absolute;*/
-/*right: 0;*/
-/*top: 30px;*/
-/*bottom: 0;*/
-/*width: 300px;*/
-/*background-color: #191916;*/
-/*z-index: 2;*/
-/*border-left: 1px solid #D1D1D1;*/
-/*}*/
-
-/*#config a.config-btn {*/
-/*left: 10px;*/
-/*}*/
