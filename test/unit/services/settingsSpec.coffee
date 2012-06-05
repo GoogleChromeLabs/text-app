@@ -22,6 +22,14 @@ describe 'services.settings', ->
       expect(settings.theme.name).toBe 'Monokai'
 
 
+    it 'should load keyMode from localStorage', ->
+      storage.setItem 'keyMode', 'vim'
+      settings.load()
+
+      expect(settings.keyMode).toBeDefined()
+      expect(settings.keyMode.name).toBe 'Vim'
+
+
   describe 'store', ->
 
     it 'should save theme into localStorage', ->
@@ -29,3 +37,10 @@ describe 'services.settings', ->
       settings.store()
 
       expect(storage.getItem 'theme').toBe 'ace/theme/chrome'
+
+
+    it 'should save keyMode into localStorage', ->
+      settings.keyMode = settings.KEY_MODES[1]
+      settings.store()
+
+      expect(storage.getItem 'keyMode').toBe 'vim'

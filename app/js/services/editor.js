@@ -2,6 +2,15 @@ app.factory('EditSession', function() {
   return ace.require("ace/edit_session").EditSession;
 });
 
+app.factory('VimHandler', function() {
+  return ace.require("ace/keyboard/keybinding/vim").Vim;
+});
+
+// TODO(vojta): lazy load handlers
+app.factory('EmacsHandler', function() {
+  return ace.require("ace/keyboard/keybinding/emacs").Emacs;
+});
+
 app.factory('editor', function(EditSession) {
   var editor = ace.edit('editor');
 
@@ -15,6 +24,7 @@ app.factory('editor', function(EditSession) {
     },
 
     setSession: function(session) {
+      session.setFoldStyle('markbegin');
       editor.setSession(session);
     },
 
@@ -24,6 +34,10 @@ app.factory('editor', function(EditSession) {
 
     setTheme: function(theme) {
       editor.setTheme(theme);
+    },
+
+    setKeyboardHandler: function(handler) {
+      editor.setKeyboardHandler(handler);
     },
 
     _editor: editor

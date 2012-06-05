@@ -5,9 +5,12 @@ mocks.value 'editor', {
   setSession: jasmine.createSpy 'focus'
   clearSession: jasmine.createSpy 'focus'
   setTheme: jasmine.createSpy 'setTheme'
+  setKeyboardHandler: jasmine.createSpy 'setKeyboardHandler'
 }
 
 mocks.value 'EditSession', (content) -> @content = content
+mocks.value 'VimHandler', ->
+mocks.value 'EmacsHandler', ->
 
 mocks.value 'localStorage', {
   _data: {},

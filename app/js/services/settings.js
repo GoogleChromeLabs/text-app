@@ -9,7 +9,8 @@ var BlackTheme = function(name, id) {
   this.cls = 'ace-theme-black';
 };
 
-app.service('settings', function(editor, localStorage, log) {
+
+app.service('settings', function(editor, localStorage, log, VimHandler, EmacsHandler) {
   this.THEMES = [
     new WhiteTheme('Chrome'),
     new WhiteTheme('Clouds'),
@@ -38,6 +39,13 @@ app.service('settings', function(editor, localStorage, log) {
     new BlackTheme('Vibrant Ink')
   ];
 
+  this.KEY_MODES = [
+    {name: 'ACE', id: 'ace', handler: null},
+    {name: 'Vim', id: 'vim', handler: VimHandler},
+    {name: 'Emacs', id: 'emacs', handler: EmacsHandler}
+  ];
+
+
   var self = this, data = {};
   var defineProperty = function(name, behavior) {
     self.__defineGetter__(name, function() {
@@ -54,19 +62,39 @@ app.service('settings', function(editor, localStorage, log) {
     editor.setTheme(theme.id);
   });
 
+  defineProperty('keyMode', function(mode) {
+    editor.setKeyboardHandler(mode.handler);
+  });
+
   this.store = function() {
+    // theme
     localStorage.setItem('theme', this.theme.id);
     log('saving theme', this.theme.id);
+
+    // keyMode
+    localStorage.setItem('keyMode', this.keyMode.id);
+    log('saving keyMode', this.keyMode.id);
   };
 
   this.load = function() {
-    var id = localStorage.getItem('theme') || 'ace/theme/monokai';
+    var id, i;
 
-    for (var i = 0; i < this.THEMES.length; i++) {
+    // theme
+    id = localStorage.getItem('theme') || 'ace/theme/monokai';
+    for (i = 0; i < this.THEMES.length; i++) {
       if (this.THEMES[i].id === id) {
-
         this.theme = this.THEMES[i];
         log('loaded theme', this.theme.id);
+        break;
+      }
+    }
+
+    // keyMode
+    id = localStorage.getItem('keyMode') || 'ace';
+    for (i = 0; i < this.KEY_MODES.length; i++) {
+      if (this.KEY_MODES[i].id === id) {
+        this.keyMode = this.KEY_MODES[i];
+        log('loaded keyMode', this.keyMode.id);
         break;
       }
     }
