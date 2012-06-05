@@ -5,9 +5,7 @@ app.factory('EditSession', function() {
 app.factory('editor', function(EditSession) {
   var editor = ace.edit('editor');
 
-  editor.setTheme("ace/theme/monokai");
   editor.renderer.setShowPrintMargin(false);
-
 
   return {
     focus: function() {
@@ -22,6 +20,10 @@ app.factory('editor', function(EditSession) {
 
     clearSession: function() {
       editor.setSession(new EditSession(''));
+    },
+
+    setTheme: function(theme) {
+      editor.setTheme(theme);
     },
 
     _editor: editor

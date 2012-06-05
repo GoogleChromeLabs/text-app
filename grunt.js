@@ -109,7 +109,11 @@ module.exports = function(grunt) {
 
     // concat css files
     // TODO(vojta): use LESS
-    grunt.file.write(DST + 'textdrive.css', grunt.file.read('app/css/app.css') + grunt.file.read('app/css/tabs.css'));
+    var css = '';
+    grunt.file.expand('app/css/*.css').forEach(function(filepath) {
+      css += grunt.file.read(filepath);
+    });
+    grunt.file.write(DST + 'textdrive.css', css);
 
     // copy files
     grunt.file.copy('app/manifest.json', DST + 'manifest.json');
@@ -121,6 +125,7 @@ module.exports = function(grunt) {
     var content = grunt.file.read('app/index.html');
     content = content.replace('css/app.css', 'textdrive.css');
     content = content.replace(/\n(.*)css\/tabs\.css(.*)\n/, '\n');
+    content = content.replace(/\n(.*)css\/themes\.css(.*)\n/, '\n');
     content = content.replace('lib/ace/src/ace-uncompressed-noconflict.js', 'lib/ace/ace-uncompressed-noconflict.js');
     content = content.replace('js/app.js', 'js/textdrive.js');
     content = content.replace(/<!--controllers-->(.|\n)*<\/body>/m, '</body>');

@@ -1,5 +1,9 @@
 
-app.controller('App', function($scope, log, fs, tabs) {
+app.controller('App', function($scope, log, fs, tabs, settings) {
+
+  $scope.isSettingsVisible = true;
+  $scope.settings = settings;
+  $scope.THEMES = settings.THEMES;
 
   $scope.files = fs.files;
   $scope.tabs = tabs;

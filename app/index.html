@@ -7,8 +7,9 @@
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
   <link href="css/tabs.css" rel="stylesheet">
+  <link href="css/themes.css" rel="stylesheet">
 </head>
-<body ng-controller="App">
+<body ng-controller="App" ng-class="settings.theme.cls">
 
 <header>
 <ul class="tabs" ng-cloak>
@@ -61,7 +62,7 @@
 
   <div ng-show="isSettingsVisible" id="settings">
     <h2>TextDrive Settings</h2>
-
+    Theme: <select ng-model="settings.theme" ng-options="i.name for i in THEMES"></select>
   </div>
 </div>
 
@@ -90,6 +91,8 @@
 <script src="js/services/fs.js" type="text/javascript"></script>
 <script src="js/services/tabs.js" type="text/javascript"></script>
 <script src="js/services/log.js" type="text/javascript"></script>
+<script src="js/services/settings.js" type="text/javascript"></script>
+<script src="js/services/localStorage.js" type="text/javascript"></script>
 
 <!--directives-->
 <script src="js/directives/onEnter.js" type="text/javascript"></script>

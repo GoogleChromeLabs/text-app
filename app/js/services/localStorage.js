@@ -1,0 +1,1 @@
+app.value('localStorage', localStorage);
