@@ -10,7 +10,7 @@ var BlackTheme = function(name, id) {
 };
 
 
-app.service('settings', function(editor, localStorage, log, VimHandler, EmacsHandler) {
+app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
   this.THEMES = [
     new WhiteTheme('Chrome'),
     new WhiteTheme('Clouds'),
@@ -46,25 +46,40 @@ app.service('settings', function(editor, localStorage, log, VimHandler, EmacsHan
   ];
 
 
-  var self = this, data = {};
-  var defineProperty = function(name, behavior) {
+  var data = {};
+  var listeners = {};
+  var self = this;
+
+  var defineProperty = function(name) {
     self.__defineGetter__(name, function() {
       return data[name];
     });
 
     self.__defineSetter__(name, function(value) {
       data[name] = value;
-      behavior.call(self, value);
+
+      if (!listeners[name]) {
+        return;
+      }
+
+      listeners[name].forEach(function(fn) {
+        fn(value);
+      });
     });
   };
 
-  defineProperty('theme', function(theme) {
-    editor.setTheme(theme.id);
-  });
+  defineProperty('theme');
+  defineProperty('keyMode');
+  defineProperty('useSoftTabs');
+  defineProperty('tabSize');
 
-  defineProperty('keyMode', function(mode) {
-    editor.setKeyboardHandler(mode.handler);
-  });
+  this.on = function(name, fn) {
+    if (!listeners[name]) {
+      listeners[name] = [];
+    }
+
+    listeners[name].push(fn);
+  };
 
   this.store = function() {
     // theme
@@ -74,6 +89,14 @@ app.service('settings', function(editor, localStorage, log, VimHandler, EmacsHan
     // keyMode
     localStorage.setItem('keyMode', this.keyMode.id);
     log('saving keyMode', this.keyMode.id);
+
+    // useSoftTabs
+    localStorage.setItem('useSoftTabs', this.useSoftTabs ? '1' : '0');
+    log('saving useSoftTabs', this.useSoftTabs);
+
+    // tabSize
+    localStorage.setItem('tabSize', String(this.tabSize));
+    log('saving tabSize', this.tabSize);
   };
 
   this.load = function() {
@@ -98,5 +121,13 @@ app.service('settings', function(editor, localStorage, log, VimHandler, EmacsHan
         break;
       }
     }
+
+    // useSoftTabs
+    this.useSoftTabs = !!parseInt(localStorage.getItem('useSoftTabs') || '1', 10);
+    log('loaded useSoftTabs', this.useSoftTabs);
+
+    // tabSize
+    this.tabSize = parseInt(localStorage.getItem('tabSize') || '4', 10);
+    log('loaded tabSize', this.tabSize);
   };
 });

@@ -11,10 +11,10 @@ mocks.value 'EditSession', (content) -> @content = content
 mocks.value 'VimHandler', ->
 mocks.value 'EmacsHandler', ->
 
-mocks.value 'localStorage', {
-  _data: {},
+mocks.factory 'localStorage', ->
+  _data: {}
   setItem: (key, data) -> @_data[key] = data
   getItem: (key) -> @_data[key]
-}
+
 
 beforeEach module 'TD', 'mocks'

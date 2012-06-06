@@ -62,8 +62,38 @@
 
   <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings">
     <h2>TextDrive Settings</h2>
-    Theme: <select ng-model="settings.theme" ng-options="i.name for i in THEMES"></select><br>
-    Key Mode: <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES"></select>
+
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="control-group">
+          <label class="control-label" for="settings-theme">Theme</label>
+          <div class="controls">
+            <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="settings-key-mode">Key Mode</label>
+          <div class="controls">
+            <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="settings-soft-tabs">Use soft tabs</label>
+          <div class="controls">
+            <input type="checkbox" ng-model="settings.useSoftTabs" id="settings-soft-tabs">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="settings-tab-size">Tab size</label>
+          <div class="controls">
+            <input type="number" ng-model="settings.tabSize" ng-disabled="!settings.useSoftTabs" min="1" id="settings-tab-size">
+          </div>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </div>
 
