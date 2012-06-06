@@ -45,8 +45,30 @@ app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
     {name: 'Emacs', id: 'emacs', handler: EmacsHandler}
   ];
 
+  this.SOFT_WRAP = [
+    {name: 'OFF', value: -1},
+    {name: 'FREE', value: 0},
+    {name: '80', value: 80},
+    {name: '100', value: 100}
+  ];
 
-  var data = {};
+  var findById = function(collection, id) {
+    for (var i = 0; i < collection.length; i++) {
+      if (collection[i].id === id) {
+        return collection[i];
+      }
+    }
+  };
+
+  // defaults
+  var data = {
+    theme: findById(this.THEMES, 'ace/theme/monokai'),
+    keyMode: findById(this.KEY_MODES, 'ace'),
+    useSoftTabs: true,
+    tabSize: 4,
+    softWrap: 0 // wrap free
+  };
+
   var listeners = {};
   var self = this;
 
@@ -72,6 +94,7 @@ app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
   defineProperty('keyMode');
   defineProperty('useSoftTabs');
   defineProperty('tabSize');
+  defineProperty('softWrap');
 
   this.on = function(name, fn) {
     if (!listeners[name]) {
@@ -97,37 +120,43 @@ app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
     // tabSize
     localStorage.setItem('tabSize', String(this.tabSize));
     log('saving tabSize', this.tabSize);
+
+    // softWrap
+    localStorage.setItem('softWrap', String(this.softWrap));
+    log('saving softWrap', this.softWrap);
   };
 
   this.load = function() {
-    var id, i;
+    var id;
 
     // theme
-    id = localStorage.getItem('theme') || 'ace/theme/monokai';
-    for (i = 0; i < this.THEMES.length; i++) {
-      if (this.THEMES[i].id === id) {
-        this.theme = this.THEMES[i];
-        log('loaded theme', this.theme.id);
-        break;
-      }
+    if (id = localStorage.getItem('theme')) {
+      this.theme = findById(this.THEMES, id);
+      log('loaded theme', this.theme.id);
     }
 
     // keyMode
-    id = localStorage.getItem('keyMode') || 'ace';
-    for (i = 0; i < this.KEY_MODES.length; i++) {
-      if (this.KEY_MODES[i].id === id) {
-        this.keyMode = this.KEY_MODES[i];
-        log('loaded keyMode', this.keyMode.id);
-        break;
-      }
+    if (id = localStorage.getItem('keyMode')) {
+      this.keyMode = findById(this.KEY_MODES, id);
+      log('loaded keyMode', this.keyMode.id);
     }
 
     // useSoftTabs
-    this.useSoftTabs = !!parseInt(localStorage.getItem('useSoftTabs') || '1', 10);
-    log('loaded useSoftTabs', this.useSoftTabs);
+    if (id = localStorage.getItem('useSoftTabs')) {
+      this.useSoftTabs = !!parseInt(id, 10);
+      log('loaded useSoftTabs', this.useSoftTabs);
+    }
 
     // tabSize
-    this.tabSize = parseInt(localStorage.getItem('tabSize') || '4', 10);
-    log('loaded tabSize', this.tabSize);
+    if (id = localStorage.getItem('tabSize')) {
+      this.tabSize = parseInt(id, 10);
+      log('loaded tabSize', this.tabSize);
+    }
+
+    // softWrap
+    if (id = localStorage.getItem('softWrap')) {
+      this.softWrap = parseInt(id, 10);
+      log('loaded softWrap', this.softWrap);
+    }
   };
 });

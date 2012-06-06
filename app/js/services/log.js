@@ -18,7 +18,7 @@ app.provider('log', function() {
 
   this.log = function() {
     var args = Array.prototype.slice.call(arguments).map(function(arg) {
-      return arg.name || arg;
+      return arg && arg.name || arg;
 //        return arg instanceof FileEntry ? arg.name : arg;
     });
 

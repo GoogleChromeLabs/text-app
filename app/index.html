@@ -92,6 +92,13 @@
             <input type="number" ng-model="settings.tabSize" ng-disabled="!settings.useSoftTabs" min="1" id="settings-tab-size">
           </div>
         </div>
+
+        <div class="control-group">
+          <label class="control-label" for="settings-soft-wrap">Use soft wrap</label>
+          <div class="controls">
+            <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
+          </div>
+        </div>
       </fieldset>
     </form>
   </div>

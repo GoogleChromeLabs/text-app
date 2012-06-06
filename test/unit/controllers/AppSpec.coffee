@@ -1,6 +1,9 @@
 describe 'controllers.App', ->
   scope = editor = null
 
+  # use all mocks
+  beforeEach module 'mocks'
+
   beforeEach inject ($controller, $rootScope, _editor_) ->
     scope = $rootScope
     editor = _editor_

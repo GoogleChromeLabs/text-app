@@ -2,66 +2,86 @@ app.factory('EditSession', function() {
   return ace.require("ace/edit_session").EditSession;
 });
 
+
+// TODO(vojta): lazy load handlers
 app.factory('VimHandler', function() {
   return ace.require("ace/keyboard/keybinding/vim").Vim;
 });
 
-// TODO(vojta): lazy load handlers
 app.factory('EmacsHandler', function() {
   return ace.require("ace/keyboard/keybinding/emacs").Emacs;
 });
 
-app.factory('editor', function(EditSession, settings) {
-  var editor = ace.edit('editor');
+
+app.factory('ace', function() {
+  return ace.edit('editor');
+});
+
+
+app.factory('editor', function(EditSession, settings, ace) {
 
   // default configs
-  editor.renderer.setShowPrintMargin(false);
+  ace.setShowPrintMargin(false);
+
+  var updateSoftWrapSettings = function(wrap, session) {
+    switch (wrap) {
+      case -1:
+        session.setUseWrapMode(false);
+        break;
+      case 0:
+        session.setUseWrapMode(true);
+        session.setWrapLimitRange(null, null);
+        break;
+      default:
+        session.setUseWrapMode(true);
+        session.setWrapLimitRange(wrap, wrap);
+    }
+  };
 
   // listen on settings changes
   settings.on('theme', function(theme) {
-    editor.setTheme(theme.id);
+    ace.setTheme(theme.id);
   });
 
   settings.on('keyMode', function(mode) {
-    editor.setKeyboardHandler(mode.handler);
+    ace.setKeyboardHandler(mode.handler);
   });
 
   settings.on('useSoftTabs', function(use) {
-    editor.getSession().setUseSoftTabs(use);
+    ace.getSession().setUseSoftTabs(use);
   });
 
   settings.on('tabSize', function(size) {
-    editor.getSession().setTabSize(size);
+    ace.getSession().setTabSize(size);
+  });
+
+  settings.on('softWrap', function(wrap) {
+    updateSoftWrapSettings(wrap, ace.getSession());
   });
 
 
   return {
     focus: function() {
       setTimeout(function() {
-        editor.focus();
+        ace.focus();
       }, 0);
     },
 
     setSession: function(session) {
       session.setFoldStyle('markbegin');
+
+      // apply current settings
       session.setUseSoftTabs(settings.useSoftTabs);
       session.setTabSize(settings.tabSize);
+      updateSoftWrapSettings(settings.softWrap, session);
 
-      editor.setSession(session);
+      ace.setSession(session);
     },
 
     clearSession: function() {
-      editor.setSession(new EditSession(''));
+      ace.setSession(new EditSession(''));
     },
 
-    setTheme: function(theme) {
-      editor.setTheme(theme);
-    },
-
-    setKeyboardHandler: function(handler) {
-      editor.setKeyboardHandler(handler);
-    },
-
-    _editor: editor
+    _editor: ace
   };
 });
