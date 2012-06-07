@@ -12,4 +12,17 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   $window.onunload = function() {
     settings.store();
   };
+
+  // clipboard - copy, paste, cut
+  angular.element(document.getElementById('editor')).bind('keydown', function(event) {
+    if (!event.metaKey && !event.ctrlKey) return;
+
+    if (event.keyCode === 67) {
+      document.execCommand('copy');
+    } else if (event.keyCode === 86) {
+      document.execCommand('paste');
+    } else if (event.keyCode === 88) {
+      document.execCommand('cut');
+    }
+  });
 });
