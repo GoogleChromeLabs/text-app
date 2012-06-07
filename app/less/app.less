@@ -1,6 +1,6 @@
 // VARIABLES
 @toolbar-height: 30px;
-@footer-height: 20px;
+@footer-height: 22px;
 
 
 // HEADER (toolbar)
@@ -122,9 +122,9 @@ header {
 #status-bar {
   background-color: #EBEBEB;
   color: #A4A4A4;
-  padding: 1px 6px;
+  padding: 2px 6px;
 
-  a.icon-cog {
+  a {
     color: inherit;
     font-size: 1.4em;
     padding: 2px;
@@ -132,13 +132,18 @@ header {
     line-height: 9px;
   }
 
-  a.icon-cog:hover {
+  a:hover {
     text-decoration: none;
   }
 
   .delimiter {
     border-right: 1px solid #D6D6D6;
     margin: 0 5px;
+  }
+
+  input {
+    margin: -4px 0px -1px -4px;
+    padding: 0 4px;
   }
 }
 

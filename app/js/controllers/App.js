@@ -1,5 +1,5 @@
 
-app.controller('App', function($scope, log, fs, tabs, editor) {
+app.controller('App', function($scope, log, fs, tabs, editor, focus) {
 
   $scope.files = fs.files;
   $scope.tabs = tabs;
@@ -74,5 +74,19 @@ app.controller('App', function($scope, log, fs, tabs, editor) {
     if (!$scope.isSettingsVisible) {
       editor.focus();
     }
-  }
+  };
+
+
+  $scope.toggleSearch = function() {
+    $scope.isSearchVisible = !$scope.isSearchVisible;
+
+    if ($scope.isSearchVisible) {
+      $scope.search = '';
+      focus('input[ng-model=search]');
+    }
+  };
+
+  $scope.hideSearch = function() {
+    $scope.isSearchVisible = false;
+  };
 });

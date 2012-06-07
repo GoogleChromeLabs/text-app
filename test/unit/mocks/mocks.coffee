@@ -46,7 +46,8 @@ m.value 'VimHandler', ->
 m.value 'EmacsHandler', ->
 
 # all mocks
-angular.module 'mocks', ['mocks.editor', 'mocks.localStorage', 'mocks.classes']
+m = angular.module 'mocks', ['mocks.editor', 'mocks.localStorage', 'mocks.classes']
+m.value 'focus', ->
 
 # load the default module before each test
 # TODO(vojta): this should be placed somewhere else
