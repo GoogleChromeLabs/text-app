@@ -10,7 +10,9 @@ var BlackTheme = function(name, id) {
 };
 
 
-app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
+app.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandler) {
+  var settings = this;
+
   this.THEMES = [
     new WhiteTheme('Chrome'),
     new WhiteTheme('Clouds'),
@@ -70,14 +72,14 @@ app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
   };
 
   var listeners = {};
-  var self = this;
+
 
   var defineProperty = function(name) {
-    self.__defineGetter__(name, function() {
+    settings.__defineGetter__(name, function() {
       return data[name];
     });
 
-    self.__defineSetter__(name, function(value) {
+    settings.__defineSetter__(name, function(value) {
       data[name] = value;
 
       if (!listeners[name]) {
@@ -105,58 +107,51 @@ app.service('settings', function(localStorage, log, VimHandler, EmacsHandler) {
   };
 
   this.store = function() {
-    // theme
-    localStorage.setItem('theme', this.theme.id);
-    log('saving theme', this.theme.id);
-
-    // keyMode
-    localStorage.setItem('keyMode', this.keyMode.id);
-    log('saving keyMode', this.keyMode.id);
-
-    // useSoftTabs
-    localStorage.setItem('useSoftTabs', this.useSoftTabs ? '1' : '0');
-    log('saving useSoftTabs', this.useSoftTabs);
-
-    // tabSize
-    localStorage.setItem('tabSize', String(this.tabSize));
-    log('saving tabSize', this.tabSize);
-
-    // softWrap
-    localStorage.setItem('softWrap', String(this.softWrap));
-    log('saving softWrap', this.softWrap);
+    storage.set({
+      settings: {
+        theme: data.theme.id,
+        keyMode: data.keyMode.id,
+        useSoftTabs: data.useSoftTabs,
+        tabSize: data.tabSize,
+        softWrap: data.softWrap
+      }
+    }, function() {
+      $rootScope.$apply(function() {
+        log('settings saved');
+      });
+    });
   };
 
   this.load = function() {
-    var id;
+    storage.get(['settings'], function(data) {
+      $rootScope.$apply(function() {
+        data = data.settings || {};
 
-    // theme
-    if (id = localStorage.getItem('theme')) {
-      this.theme = findById(this.THEMES, id);
-      log('loaded theme', this.theme.id);
-    }
+        if (data.theme) {
+          settings.theme = findById(settings.THEMES, data.theme);
+          log('loaded theme', settings.theme.id);
+        }
 
-    // keyMode
-    if (id = localStorage.getItem('keyMode')) {
-      this.keyMode = findById(this.KEY_MODES, id);
-      log('loaded keyMode', this.keyMode.id);
-    }
+        if (data.keyMode) {
+          settings.keyMode = findById(settings.KEY_MODES, data.keyMode);
+          log('loaded keyMode', settings.keyMode.id);
+        }
 
-    // useSoftTabs
-    if (id = localStorage.getItem('useSoftTabs')) {
-      this.useSoftTabs = !!parseInt(id, 10);
-      log('loaded useSoftTabs', this.useSoftTabs);
-    }
+        if (angular.isDefined(data.useSoftTabs)) {
+          settings.useSoftTabs = data.useSoftTabs;
+          log('loaded useSoftTabs', settings.useSoftTabs);
+        }
 
-    // tabSize
-    if (id = localStorage.getItem('tabSize')) {
-      this.tabSize = parseInt(id, 10);
-      log('loaded tabSize', this.tabSize);
-    }
+        if (angular.isDefined(data.tabSize)) {
+          settings.tabSize = data.tabSize;
+          log('loaded tabSize', settings.tabSize);
+        }
 
-    // softWrap
-    if (id = localStorage.getItem('softWrap')) {
-      this.softWrap = parseInt(id, 10);
-      log('loaded softWrap', this.softWrap);
-    }
+        if (angular.isDefined(data.softWrap)) {
+          settings.softWrap = data.softWrap;
+          log('loaded softWrap', settings.softWrap);
+        }
+      });
+    });
   };
 });

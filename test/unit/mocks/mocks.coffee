@@ -17,12 +17,33 @@ m.factory 'ace', ->
   ace
 
 
-# mocks.localStorage
-m = angular.module 'mocks.localStorage', []
-m.factory 'localStorage', ->
+# mocks.storage
+m = angular.module 'mocks.storage', []
+
+# mock version of chrome.storage.local
+# http://code.google.com/chrome/extensions/trunk/storage.html
+m.factory 'storage', ->
   _data: {}
-  setItem: (key, data) -> @_data[key] = data
-  getItem: (key) -> @_data[key]
+  _queue: []
+
+  set: (data, fn) ->
+    angular.extend(@_data, data)
+    @_queue.push fn
+
+  get: (keys, fn) ->
+    # TODO(vojta): accept null and string as keys
+    result = {}
+    data = @_data
+    keys.forEach (key) ->
+      result[key] = data[key]
+
+    @_queue.push ->
+      fn result
+
+  _flush: ->
+    while @_queue.length
+      @_queue.shift()()
+    undefined
 
 
 # mocks.classes
@@ -46,7 +67,7 @@ m.value 'VimHandler', ->
 m.value 'EmacsHandler', ->
 
 # all mocks
-m = angular.module 'mocks', ['mocks.editor', 'mocks.localStorage', 'mocks.classes']
+m = angular.module 'mocks', ['mocks.editor', 'mocks.storage', 'mocks.classes']
 m.value 'focus', ->
 
 # load the default module before each test

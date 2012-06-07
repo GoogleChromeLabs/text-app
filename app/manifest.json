@@ -18,7 +18,10 @@
     "experimental",
     "clipboardRead",
     "clipboardWrite",
+    // for FileSystem API
     "unlimitedStorage",
+    // chrome.storage
+    "storage",
     "appWindow"
   ]
 }

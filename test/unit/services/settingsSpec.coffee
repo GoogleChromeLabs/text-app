@@ -4,9 +4,9 @@ describe 'services.settings', ->
   # use all mocks
   beforeEach module 'mocks'
 
-  beforeEach inject (_settings_, localStorage) ->
+  beforeEach inject (_settings_, _storage_) ->
     settings = _settings_
-    storage = localStorage
+    storage = _storage_
 
   describe 'on', ->
 
@@ -39,56 +39,67 @@ describe 'services.settings', ->
       settings.softWrap = value
       expect(softWrapSpy).toHaveBeenCalledWith value
 
+
   describe 'load', ->
 
-    it 'should load theme from localStorage', ->
-      storage.setItem 'theme', 'ace/theme/monokai'
+    it 'should load theme from storage', ->
+      storage._data.settings = theme: 'ace/theme/monokai'
       settings.load()
 
+      storage._flush()
       expect(settings.theme).toBeDefined()
       expect(settings.theme.name).toBe 'Monokai'
 
 
-    it 'should load keyMode from localStorage', ->
-      storage.setItem 'keyMode', 'vim'
+    it 'should load keyMode from storage', ->
+      storage._data.settings = keyMode: 'vim'
       settings.load()
 
+      storage._flush()
       expect(settings.keyMode).toBeDefined()
       expect(settings.keyMode.name).toBe 'Vim'
 
 
-    it 'should load useSoftTabs', ->
-      storage.setItem 'useSoftTabs', '0'
+    it 'should load useSoftTabs from storage', ->
+      storage._data.settings = useSoftTabs: false
       settings.load()
+
+      storage._flush()
       expect(settings.useSoftTabs).toBe false
 
-      storage.setItem 'useSoftTabs', '1'
+      storage._data.settings = useSoftTabs: true
       settings.load()
+
+      storage._flush()
       expect(settings.useSoftTabs).toBe true
 
 
-    it 'should load tabSize', ->
-      storage.setItem 'tabSize', '10'
+    it 'should load tabSize from storage', ->
+      storage._data.settings = tabSize: 10
       settings.load()
+
+      storage._flush()
       expect(settings.tabSize).toBe 10
 
 
     it 'should load softWrap', ->
-      storage.setItem 'softWrap', '0'
+      storage._data.settings = softWrap: 0
       settings.load()
+
+      storage._flush()
       expect(settings.softWrap).toBe 0
 
-      storage.setItem 'softWrap', '-1'
+      storage._data.settings = softWrap: -1
       settings.load()
-      expect(settings.softWrap).toBe -1
 
-      storage.setItem 'softWrap', '40'
-      settings.load()
-      expect(settings.softWrap).toBe 40
+      storage._flush()
+      expect(settings.softWrap).toBe -1
 
 
     it 'should set defaults', ->
       settings.load()
+      storage._flush()
+
       expect(settings.useSoftTabs).toBe true
       expect(settings.tabSize).toBe 4
       expect(settings.keyMode.id).toBe 'ace'
@@ -96,43 +107,54 @@ describe 'services.settings', ->
       expect(settings.softWrap).toBe 0
 
 
+    it 'should $digest', inject ($rootScope) ->
+      tabSize = null
+      $rootScope.$watch -> tabSize = settings.tabSize
+
+      storage._data.settings = tabSize: 15
+      settings.load()
+      storage._flush()
+
+      expect(tabSize).toBe 15
+
+
   describe 'store', ->
 
-    it 'should save theme into localStorage', ->
+    it 'should save theme to storage', ->
       settings.theme = settings.THEMES[0]
       settings.store()
 
-      expect(storage.getItem 'theme').toBe 'ace/theme/chrome'
+      expect(storage._data.settings.theme).toBe 'ace/theme/chrome'
 
 
-    it 'should save keyMode into localStorage', ->
+    it 'should save keyMode to storage', ->
       settings.keyMode = settings.KEY_MODES[1]
       settings.store()
 
-      expect(storage.getItem 'keyMode').toBe 'vim'
+      expect(storage._data.settings.keyMode).toBe 'vim'
 
 
-    it 'should save useSoftTabs', ->
+    it 'should save useSoftTabs to storage', ->
       settings.useSoftTabs = true
       settings.store()
 
-      expect(storage.getItem 'useSoftTabs').toBe '1'
+      expect(storage._data.settings.useSoftTabs).toBe true
 
 
-    it 'should save tabSize', ->
+    it 'should save tabSize to storage', ->
       settings.tabSize = 10
       settings.store()
 
-      expect(storage.getItem 'tabSize').toBe '10'
+      expect(storage._data.settings.tabSize).toBe 10
 
 
-    it 'should save softWrap', ->
+    it 'should save softWrap to storage', ->
       settings.softWrap = -1
       settings.store()
 
-      expect(storage.getItem 'softWrap').toBe '-1'
+      expect(storage._data.settings.softWrap).toBe -1
 
       settings.softWrap = 0
       settings.store()
 
-      expect(storage.getItem 'softWrap').toBe '0'
+      expect(storage._data.settings.softWrap).toBe 0
