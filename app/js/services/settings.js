@@ -62,15 +62,7 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
     }
   };
 
-  // defaults
-  var data = {
-    theme: findById(this.THEMES, 'ace/theme/monokai'),
-    keyMode: findById(this.KEY_MODES, 'ace'),
-    useSoftTabs: true,
-    tabSize: 4,
-    softWrap: 0 // wrap free
-  };
-
+  var data = {};
   var listeners = {};
 
 
@@ -127,26 +119,41 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
       if (data.theme) {
         settings.theme = findById(settings.THEMES, data.theme);
         log('loaded theme', settings.theme.id);
+      } else {
+        settings.theme = findById(settings.THEMES, 'ace/theme/monokai');
+        log('default theme', settings.theme.id);
       }
 
       if (data.keyMode) {
         settings.keyMode = findById(settings.KEY_MODES, data.keyMode);
         log('loaded keyMode', settings.keyMode.id);
+      } else {
+        settings.keyMode = findById(settings.KEY_MODES, 'ace');
+        log('default keyMode', settings.keyMode.id);
       }
 
       if (angular.isDefined(data.useSoftTabs)) {
         settings.useSoftTabs = data.useSoftTabs;
         log('loaded useSoftTabs', settings.useSoftTabs);
+      } else {
+        settings.useSoftTabs = true;
+        log('default useSoftTabs', settings.useSoftTabs);
       }
 
       if (angular.isDefined(data.tabSize)) {
         settings.tabSize = data.tabSize;
         log('loaded tabSize', settings.tabSize);
+      } else {
+        settings.tabSize = 4;
+        log('default tabSize', settings.tabSize);
       }
 
       if (angular.isDefined(data.softWrap)) {
         settings.softWrap = data.softWrap;
         log('loaded softWrap', settings.softWrap);
+      } else {
+        settings.softWrap = 0;
+        log('default softWrap', settings.softWrap);
       }
     });
   };
