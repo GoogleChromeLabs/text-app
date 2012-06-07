@@ -4,7 +4,7 @@ TD.log = angular.module('TD.log', []);
 
 // we ask for editor, to get it instantiated before we load settings,
 // because editor register listeners
-angular.module('TD', ['TD.app']).run(function($window, settings, editor) {
+angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor) {
   // load settings from local storage
   settings.load();
 
