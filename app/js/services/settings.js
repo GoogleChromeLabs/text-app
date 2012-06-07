@@ -116,42 +116,38 @@ app.service('settings', function($rootScope, storage, log, VimHandler, EmacsHand
         softWrap: data.softWrap
       }
     }, function() {
-      $rootScope.$apply(function() {
-        log('settings saved');
-      });
+      log('settings saved');
     });
   };
 
   this.load = function() {
     storage.get(['settings'], function(data) {
-      $rootScope.$apply(function() {
-        data = data.settings || {};
+      data = data.settings || {};
 
-        if (data.theme) {
-          settings.theme = findById(settings.THEMES, data.theme);
-          log('loaded theme', settings.theme.id);
-        }
+      if (data.theme) {
+        settings.theme = findById(settings.THEMES, data.theme);
+        log('loaded theme', settings.theme.id);
+      }
 
-        if (data.keyMode) {
-          settings.keyMode = findById(settings.KEY_MODES, data.keyMode);
-          log('loaded keyMode', settings.keyMode.id);
-        }
+      if (data.keyMode) {
+        settings.keyMode = findById(settings.KEY_MODES, data.keyMode);
+        log('loaded keyMode', settings.keyMode.id);
+      }
 
-        if (angular.isDefined(data.useSoftTabs)) {
-          settings.useSoftTabs = data.useSoftTabs;
-          log('loaded useSoftTabs', settings.useSoftTabs);
-        }
+      if (angular.isDefined(data.useSoftTabs)) {
+        settings.useSoftTabs = data.useSoftTabs;
+        log('loaded useSoftTabs', settings.useSoftTabs);
+      }
 
-        if (angular.isDefined(data.tabSize)) {
-          settings.tabSize = data.tabSize;
-          log('loaded tabSize', settings.tabSize);
-        }
+      if (angular.isDefined(data.tabSize)) {
+        settings.tabSize = data.tabSize;
+        log('loaded tabSize', settings.tabSize);
+      }
 
-        if (angular.isDefined(data.softWrap)) {
-          settings.softWrap = data.softWrap;
-          log('loaded softWrap', settings.softWrap);
-        }
-      });
+      if (angular.isDefined(data.softWrap)) {
+        settings.softWrap = data.softWrap;
+        log('loaded softWrap', settings.softWrap);
+      }
     });
   };
 });

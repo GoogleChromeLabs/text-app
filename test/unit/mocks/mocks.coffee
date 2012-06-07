@@ -22,7 +22,7 @@ m = angular.module 'mocks.storage', []
 
 # mock version of chrome.storage.local
 # http://code.google.com/chrome/extensions/trunk/storage.html
-m.factory 'storage', ->
+m.factory 'chromeStorage', ->
   _data: {}
   _queue: []
 

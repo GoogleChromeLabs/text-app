@@ -4,9 +4,9 @@ describe 'services.settings', ->
   # use all mocks
   beforeEach module 'mocks'
 
-  beforeEach inject (_settings_, _storage_) ->
+  beforeEach inject (_settings_, chromeStorage) ->
     settings = _settings_
-    storage = _storage_
+    storage = chromeStorage
 
   describe 'on', ->
 

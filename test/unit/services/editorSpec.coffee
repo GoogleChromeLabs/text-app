@@ -1,7 +1,7 @@
 describe 'services.editor', ->
   editor = ace = settings = null
 
-  beforeEach module 'mocks.classes', 'mocks.ace', 'mocks.localStorage'
+  beforeEach module 'mocks.classes', 'mocks.ace', 'mocks.storage'
 
   beforeEach inject (_settings_, _editor_, _ace_) ->
     editor = _editor_

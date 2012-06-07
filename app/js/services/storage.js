@@ -1,12 +1,33 @@
-// chrome.storage (when extension / platform app)
-// http://code.google.com/chrome/extensions/trunk/storage.html
-//
-// localStorage (when testing as a web app)
-app.value('storage', chrome.storage && chrome.storage.local || {
-  get: function(key) {
-    return localStorage.getItem(key);
+app.value('chromeStorage', chrome.storage && chrome.storage.local || {
+  set: function(data, fn) {
+    localStorage.setItem('storage', JSON.stringify(data));
+    setTimeout(function() {
+      fn();
+    }, 0);
   },
-  set: function(key, value) {
-    localStorage.setItem(key, value);
+  get: function(keys, fn) {
+    setTimeout(function() {
+      fn(JSON.parse(localStorage.getItem('storage') || '{}'));
+    }, 0);
   }
+});
+
+
+app.factory('storage', function($rootScope, chromeStorage) {
+  return {
+    get: function(keys, fn) {
+      chromeStorage.get(keys, function(data) {
+        $rootScope.$apply(function() {
+          fn(data);
+        });
+      });
+    },
+    set: function(data, fn) {
+      chromeStorage.set(data, function() {
+        $rootScope.$apply(function() {
+          fn();
+        });
+      });
+    }
+  };
 });
