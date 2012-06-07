@@ -42,12 +42,14 @@ module.exports = function(grunt) {
         proto: true
       },
       globals: {
+        TD: true,
         angular: true,
         ace: true,
-        app: true,
+
         PERSISTENT: true,
         FileError: true,
-        EditSession: true
+        chrome: true,
+        WebKitBlobBuilder: true
       }
     },
     coffee: {
