@@ -1,4 +1,6 @@
-var app = angular.module('TD.app', []);
+var TD = angular.module('TD.app', []);
+
+TD.log = angular.module('TD.log', []);
 
 // we ask for editor, to get it instantiated before we load settings,
 // because editor register listeners

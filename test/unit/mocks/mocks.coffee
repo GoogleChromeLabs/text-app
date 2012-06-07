@@ -66,10 +66,16 @@ m.value 'EditSession', (content) ->
 m.value 'VimHandler', ->
 m.value 'EmacsHandler', ->
 
+
+# mocks.log
+m = angular.module 'mocks.log', []
+m.value 'log', ->
+
+
 # all mocks
 m = angular.module 'mocks', ['mocks.editor', 'mocks.storage', 'mocks.classes']
 m.value 'focus', ->
 
 # load the default module before each test
 # TODO(vojta): this should be placed somewhere else
-beforeEach module 'TD.app'
+beforeEach module 'TD.app', 'mocks.log'

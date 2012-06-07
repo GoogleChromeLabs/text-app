@@ -1,4 +1,4 @@
-app.directive('openFiles', function($exceptionHandler) {
+TD.directive('openFiles', function($exceptionHandler) {
   return {
     compile: function(tplElm, tplAttr) {
       tplElm.after('<input type="file" multiple style="display: none;">');

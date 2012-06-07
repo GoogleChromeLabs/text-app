@@ -1,6 +1,4 @@
-var BlobBuilder = window.WebKitBlobBuilder;
-
-app.factory('fs', function(log, $window, $q, $rootScope) {
+TD.factory('fs', function(log, $window, $q, $rootScope) {
 
   var SIZE = 1024 * 1024 * 10; // 10MB
   var d_fs = $q.defer();
@@ -99,7 +97,7 @@ app.factory('fs', function(log, $window, $q, $rootScope) {
       var defered = $q.defer();
 
       fileEntry.createWriter(function(writer) {
-        var bb = new BlobBuilder();
+        var bb = new WebKitBlobBuilder();
         bb.append(content);
 
         var blob = bb.getBlob(type || 'text/plain');

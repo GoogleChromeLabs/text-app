@@ -1,4 +1,4 @@
-app.value('chromeStorage', chrome.storage && chrome.storage.local || {
+TD.value('chromeStorage', chrome.storage && chrome.storage.local || {
   set: function(data, fn) {
     localStorage.setItem('storage', JSON.stringify(data));
     setTimeout(function() {
@@ -13,7 +13,7 @@ app.value('chromeStorage', chrome.storage && chrome.storage.local || {
 });
 
 
-app.factory('storage', function($rootScope, chromeStorage) {
+TD.factory('storage', function($rootScope, chromeStorage) {
   return {
     get: function(keys, fn) {
       chromeStorage.get(keys, function(data) {

@@ -1,0 +1,1 @@
+mocks.common.value 'focus', ->

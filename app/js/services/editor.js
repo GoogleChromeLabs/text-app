@@ -1,24 +1,24 @@
-app.factory('EditSession', function() {
+TD.factory('EditSession', function() {
   return ace.require("ace/edit_session").EditSession;
 });
 
 
 // TODO(vojta): lazy load handlers
-app.factory('VimHandler', function() {
+TD.factory('VimHandler', function() {
   return ace.require("ace/keyboard/keybinding/vim").Vim;
 });
 
-app.factory('EmacsHandler', function() {
+TD.factory('EmacsHandler', function() {
   return ace.require("ace/keyboard/keybinding/emacs").Emacs;
 });
 
 
-app.factory('ace', function() {
+TD.factory('ace', function() {
   return ace.edit('editor');
 });
 
 
-app.factory('editor', function(EditSession, settings, ace) {
+TD.factory('editor', function(EditSession, settings, ace) {
 
   // default configs
   ace.setShowPrintMargin(false);

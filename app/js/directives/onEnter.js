@@ -1,4 +1,4 @@
-app.directive('onEnter', function() {
+TD.directive('onEnter', function() {
   return function(scope, elm, attr) {
     elm.bind('keypress', function(event) {
       if (event.charCode === 13) {

@@ -1,5 +1,4 @@
-
-app.controller('App', function($scope, log, fs, tabs, editor, focus) {
+TD.controller('App', function($scope, log, fs, tabs, editor, focus) {
 
   $scope.files = fs.files;
   $scope.tabs = tabs;

@@ -10,7 +10,7 @@ var BlackTheme = function(name, id) {
 };
 
 
-app.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandler) {
+TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandler) {
   var settings = this;
 
   this.THEMES = [
