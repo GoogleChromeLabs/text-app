@@ -72,8 +72,10 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('coffee', 'Compile coffee script', function() {
     var coffee = require('coffee-script');
+    // using patched grunt, see https://github.com/cowboy/grunt/issues/46
+    var files = grunt._watch_changed_files || grunt.file.expand(this.data);
 
-    grunt.file.expandFiles(this.data).forEach(function(filepath) {
+    files.forEach(function(filepath) {
       grunt.log.writeln('Compiling ' + filepath);
       try {
         // TODO(vojta): make this async
@@ -89,8 +91,9 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('less', 'Concat and compile less styles', function() {
     var less = require('less');
+    var files = grunt._watch_changed_files || grunt.file.expand(this.data);
 
-    grunt.file.expand(this.data).forEach(function(filepath) {
+    files.forEach(function(filepath) {
       less.render(grunt.file.read(filepath), function(e, css) {
         if (e) {
           grunt.log.error(e.message);
