@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/tomorrow', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/tomorrow', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.isDark = false;
 exports.cssClass = "ace-tomorrow";
@@ -86,7 +86,7 @@ exports.cssText = "\
 }\
 \
 .ace-tomorrow .ace_marker-layer .ace_step {\
-  background: rgb(198, 219, 174);\
+  background: rgb(255, 255, 0);\
 }\
 \
 .ace-tomorrow .ace_marker-layer .ace_bracket {\
@@ -96,6 +96,10 @@ exports.cssText = "\
 \
 .ace-tomorrow .ace_marker-layer .ace_active_line {\
   background: #EFEFEF;\
+}\
+\
+.ace-tomorrow .ace_gutter_active_line {\
+  background-color : #dcdcdc;\
 }\
 \
 .ace-tomorrow .ace_marker-layer .ace_selected_word {\

@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/twilight', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/twilight', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-twilight";
@@ -86,7 +86,7 @@ exports.cssText = "\
 }\
 \
 .ace-twilight .ace_marker-layer .ace_step {\
-  background: rgb(198, 219, 174);\
+  background: rgb(102, 82, 0);\
 }\
 \
 .ace-twilight .ace_marker-layer .ace_bracket {\
@@ -96,6 +96,10 @@ exports.cssText = "\
 \
 .ace-twilight .ace_marker-layer .ace_active_line {\
   background: rgba(255, 255, 255, 0.031);\
+}\
+\
+.ace-twilight .ace_gutter_active_line {\
+  background-color : #dcdcdc;\
 }\
 \
 .ace-twilight .ace_marker-layer .ace_selected_word {\

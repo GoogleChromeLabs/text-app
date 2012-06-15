@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/kr_theme', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/kr_theme', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-kr-theme";
@@ -86,7 +86,7 @@ exports.cssText = "\
 }\
 \
 .ace-kr-theme .ace_marker-layer .ace_step {\
-  background: rgb(198, 219, 174);\
+  background: rgb(102, 82, 0);\
 }\
 \
 .ace-kr-theme .ace_marker-layer .ace_bracket {\
@@ -96,6 +96,10 @@ exports.cssText = "\
 \
 .ace-kr-theme .ace_marker-layer .ace_active_line {\
   background: #38403D;\
+}\
+\
+.ace-kr-theme .ace_gutter_active_line {\
+  background-color : #dcdcdc;\
 }\
 \
 .ace-kr-theme .ace_marker-layer .ace_selected_word {\

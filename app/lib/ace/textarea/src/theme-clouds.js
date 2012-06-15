@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/clouds', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/clouds', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.isDark = false;
 exports.cssClass = "ace-clouds";
@@ -86,7 +86,7 @@ exports.cssText = "\
 }\
 \
 .ace-clouds .ace_marker-layer .ace_step {\
-  background: rgb(198, 219, 174);\
+  background: rgb(255, 255, 0);\
 }\
 \
 .ace-clouds .ace_marker-layer .ace_bracket {\
@@ -96,6 +96,10 @@ exports.cssText = "\
 \
 .ace-clouds .ace_marker-layer .ace_active_line {\
   background: #FFFBD1;\
+}\
+\
+.ace-clouds .ace_gutter_active_line {\
+  background-color : #dcdcdc;\
 }\
 \
 .ace-clouds .ace_marker-layer .ace_selected_word {\

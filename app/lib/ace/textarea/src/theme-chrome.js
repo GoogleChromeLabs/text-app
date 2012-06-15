@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/chrome', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/chrome', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.cssClass = "ace-chrome";
 exports.cssText = ".ace-chrome .ace_editor {\
@@ -50,11 +50,6 @@ exports.cssText = ".ace-chrome .ace_editor {\
   background: #e8e8e8;\
   color: #333;\
   overflow : hidden;\
-}\
-\
-.ace-chrome .ace_gutter-layer {\
-  width: 100%;\
-  text-align: right;\
 }\
 \
 .ace-chrome .ace_print_margin {\

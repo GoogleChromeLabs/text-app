@@ -6,18 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Ace Kitchen Sink</title>
     <meta name="author" content="Fabian Jakobs">
-    <link rel="stylesheet" href="demo/kitchen-sink/styles.css" type="text/css" media="screen" charset="utf-8">
     <!--
 
     Ace
       version 0.2.0
-      commit  461baf4e583262d49fb5cef2a811415d8f55ef93
+      commit  cd24d928b06037871e6c41363b1b104b8ec64d16
 
 
     -->
+
+    
+
+    
+      <link rel="stylesheet" href="kitchen-sink/styles.css" type="text/css" media="screen" charset="utf-8">
+    
 </head>
 <body>
-  <img id="logo" src="demo/kitchen-sink/logo.png">
+  <a href="http://ajaxorg.github.com/ace/" >
+    <img id="logo" src="kitchen-sink/logo.png">
+  </a> 
   <table id="controls">
     <tr>
       <td>
@@ -106,6 +113,33 @@
       </td>
     </tr>
     <tr>
+      <td >
+        <label for="keybinding">Key Binding</label>
+      </td><td>
+        <select id="keybinding" size="1">
+          <option value="ace">Ace</option>
+          <option value="vim">Vim</option>
+          <option value="emacs">Emacs</option>
+          <option value="custom">Custom</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label for="soft_wrap">Soft Wrap</label>
+      </td><td>
+        <select id="soft_wrap" size="1">
+          <option value="off">Off</option>
+          <option value="40">40 Chars</option>
+          <option value="80">80 Chars</option>
+          <option value="free">Free</option>
+        </select>
+      </td>
+    </tr>
+  
+	<tr><td colspan="2">
+	<table id="more-controls">
+    <tr>
       <td>
         <label for="select_style">Full Line Selection</label>
       </td><td>
@@ -138,30 +172,6 @@
         <label for="animate_scroll">Animate scrolling</label>
       </td><td>
         <input type="checkbox" name="animate_scroll" id="animate_scroll">
-      </td>
-    </tr>
-    <tr>
-      <td >
-        <label for="keybinding">Key Binding</label>
-      </td><td>
-        <select id="keybinding" size="1">
-          <option value="ace">Ace</option>
-          <option value="vim">Vim</option>
-          <option value="emacs">Emacs</option>
-          <option value="custom">Custom</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td >
-        <label for="soft_wrap">Soft Wrap</label>
-      </td><td>
-        <select id="soft_wrap" size="1">
-          <option value="off">Off</option>
-          <option value="40">40 Chars</option>
-          <option value="80">80 Chars</option>
-          <option value="free">Free</option>
-        </select>
       </td>
     </tr>
     <tr>
@@ -209,30 +219,23 @@
         <input type="checkbox" id="fade_fold_widgets" checked>
       </td>
     </tr>
-    </table>
-
-    <div id="editor">
-    </div>
-
-<!-- 
-  <script type="text/javascript">
-      var require = {
-          baseUrl: window.location.protocol + "//" + window.location.host + window.location.pathname.split("/").slice(0, -1).join("/"),
-          paths: {
-              ace: "lib/ace"
-          }
-      };
-  </script>
-  <script src="demo/kitchen-sink/require.js" data-main="demo/kitchen-sink/demo" type="text/javascript"></script>
-
- -->
+  </table>
+  </td></tr>
+  </table>
+</div>
+  <div id="editor"></div>
 
 
-  <script src="demo/kitchen-sink/kitchen-sink-uncompressed.js" data-ace-suffix="-uncompressed.js" data-ace-base="demo/kitchen-sink" type="text/javascript" charset="utf-8"></script>
+
+
+  <script src="src/ace.js" data-ace-base="src" type="text/javascript" charset="utf-8"></script>
+  <script src="src/keybinding-vim.js"></script>
+  <script src="src/keybinding-emacs.js"></script>
+  <script src="kitchen-sink/demo.js"></script>
   <script type="text/javascript" charset="utf-8">
     require("kitchen-sink/demo");
   </script>
-<!--
+    
 
 </body>
 </html>

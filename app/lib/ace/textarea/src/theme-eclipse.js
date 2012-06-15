@@ -35,8 +35,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/eclipse', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
-"use strict";
+__ace_shadowed__.define('ace/theme/eclipse', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
+
 
 exports.isDark = false;
 exports.cssText = ".ace-eclipse .ace_editor {\
@@ -134,6 +134,9 @@ exports.cssText = ".ace-eclipse .ace_editor {\
 \
 .ace-eclipse .ace_entity.ace_other.ace_attribute-name {\
   color:rgb(127, 0, 127);\
+}\
+.ace-eclipse .ace_marker-layer .ace_step {\
+  background: rgb(255, 255, 0);\
 }\
 \
 .ace-eclipse .ace_marker-layer .ace_active_line {\

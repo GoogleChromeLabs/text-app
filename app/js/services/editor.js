@@ -5,11 +5,11 @@ TD.factory('EditSession', function() {
 
 // TODO(vojta): lazy load handlers
 TD.factory('VimHandler', function() {
-  return ace.require("ace/keyboard/keybinding/vim").Vim;
+  return ace.require("ace/keyboard/vim").Vim;
 });
 
 TD.factory('EmacsHandler', function() {
-  return ace.require("ace/keyboard/keybinding/emacs").Emacs;
+  return ace.require("ace/keyboard/emacs").Emacs;
 });
 
 

@@ -35,7 +35,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-__ace_shadowed__.define('ace/theme/tomorrow_night_blue', ['require', 'exports', 'module' , 'ace/lib/dom'], function(require, exports, module) {
+__ace_shadowed__.define('ace/theme/tomorrow_night_blue', ['require', 'exports', 'module', 'ace/lib/dom'], function(require, exports, module) {
 
 exports.isDark = true;
 exports.cssClass = "ace-tomorrow-night-blue";
@@ -86,7 +86,7 @@ exports.cssText = "\
 }\
 \
 .ace-tomorrow-night-blue .ace_marker-layer .ace_step {\
-  background: rgb(198, 219, 174);\
+  background: rgb(127, 111, 19);\
 }\
 \
 .ace-tomorrow-night-blue .ace_marker-layer .ace_bracket {\
@@ -94,11 +94,12 @@ exports.cssText = "\
   border: 1px solid #404F7D;\
 }\
 \
-.ace-tomorrow-night-blue .ace_marker-layer .ace_active_line{\
+.ace-tomorrow-night-blue .ace_marker-layer .ace_active_line {\
   background: #00346E;\
 }\
-.ace-tomorrow-night-blue .ace_gutter_active_line{\
-  background: #022040;\
+\
+.ace-tomorrow-night-blue .ace_gutter_active_line {\
+  background-color: #022040;\
 }\
 \
 .ace-tomorrow-night-blue .ace_marker-layer .ace_selected_word {\
