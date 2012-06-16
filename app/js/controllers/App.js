@@ -7,18 +7,28 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
   $scope.save = function() {
     var tab = tabs.current;
 
-    chromeFs.getWritableFileEntry(tab.file, function(writableFileEntry) {
-    // chromeFs.chooseFile({type: "saveFile"}, function(writableFileEntry) {
+    var saveFile = function(writableFileEntry) {
       if (!writableFileEntry) {
         return;
       }
 
       fs.saveFile(writableFileEntry, tab.session.getValue()).then(function() {
         tab.file = writableFileEntry;
-        tab.label = writableFileEntry.name
+        tab.label = writableFileEntry.name;
         tab.modified = false;
       });
-    });
+    };
+
+    if (tab.file) {
+      chromeFs.getWritableFileEntry(tab.file, saveFile);
+    } else {
+      chromeFs.chooseFile({type: "saveFile"}, saveFile);
+    }
+  };
+
+  $scope.add = function() {
+    tabs.select(tabs.add(null, ''));
+    // tabs.current.modified = true;
   };
 
   $scope.files = fs.files;
@@ -81,8 +91,14 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
 //  };
 
   $scope.isSaveDisabled = function() {
+    // no tab
     if (!tabs.current) {
       return true;
+    }
+
+    // new file
+    if (!tabs.current.file) {
+      return false;
     }
 
     return !tabs.current.modified;
