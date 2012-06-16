@@ -1,4 +1,4 @@
-TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs) {
+TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs, lru) {
   var tabs = [];
 
   tabs.select = function(tab) {
@@ -7,6 +7,7 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs) 
     // move to editor
     if (tab) {
       editor.setSession(tab.session);
+      lru.touch(tab);
       editor.focus();
     } else {
       editor.clearSession();
@@ -16,11 +17,8 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs) 
   tabs.close = function(tab) {
     var removeTab = function() {
       tabs.splice(tabs.indexOf(tab), 1);
-
-      if (tab === tabs.current) {
-        // TODO(vojta): make this LRU queue
-        tabs.select(tabs[0]);
-      }
+      lru.remove(tab);
+      tabs.select(lru.head());
     };
 
     // save the file
@@ -43,14 +41,12 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs) 
     } else {
       chromeFs.chooseFile({type: "saveFile"}, saveFile);
     }
-
-
   };
 
   tabs.selectByFile = function(file) {
     for (var i = 0; i < tabs.length; i++) {
       // TODO(vojta): use chromeFs.getDisplayPath() instead
-      if (tabs[i].file.fullPath === file.fullPath) {
+      if (tabs[i].file && tabs[i].file.fullPath === file.fullPath) {
         tabs.select(tabs[i]);
         return true;
       }
