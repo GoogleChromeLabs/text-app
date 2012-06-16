@@ -39,3 +39,19 @@ describe 'util.lru', ->
 
       lru.remove B
       expect(lru.head()).toBe null
+
+
+  describe 'tail', ->
+
+    it 'should return the least used item', ->
+      lru.touch A
+      expect(lru.tail()).toBe A
+
+      lru.touch B
+      expect(lru.tail()).toBe A
+
+      lru.touch C
+      expect(lru.tail()).toBe A
+
+      lru.touch A
+      expect(lru.tail()).toBe B

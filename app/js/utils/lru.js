@@ -15,6 +15,10 @@ TD.factory('lru', function() {
     return lru[lru.length - 1] || null;
   };
 
+  lru.tail = function() {
+    return lru[0] || null;
+  };
+
   lru.remove = function(item) {
     lru.splice(lru.indexOf(item), 1);
   };

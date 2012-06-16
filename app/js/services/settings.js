@@ -89,6 +89,7 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
   defineProperty('useSoftTabs');
   defineProperty('tabSize');
   defineProperty('softWrap');
+  defineProperty('maxOpenTabs');
 
   this.on = function(name, fn) {
     if (!listeners[name]) {
@@ -105,7 +106,8 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
         keyMode: data.keyMode && data.keyMode.id,
         useSoftTabs: data.useSoftTabs,
         tabSize: data.tabSize,
-        softWrap: data.softWrap
+        softWrap: data.softWrap,
+        maxOpenTabs: data.maxOpenTabs
       }
     }, function() {
       log('settings saved');
@@ -154,6 +156,14 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
       } else {
         settings.softWrap = 0;
         log('default softWrap', settings.softWrap);
+      }
+
+      if (angular.isDefined(data.maxOpenTabs)) {
+        settings.maxOpenTabs = data.maxOpenTabs;
+        log('loaded maxOpenTabs', settings.maxOpenTabs);
+      } else {
+        settings.maxOpenTabs = 10;
+        log('default maxOpenTabs', settings.maxOpenTabs);
       }
     });
   };

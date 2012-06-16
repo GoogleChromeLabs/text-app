@@ -16,12 +16,14 @@ describe 'services.settings', ->
       useSoftSpy = jasmine.createSpy 'useSoftTabs'
       tabSizeSpy = jasmine.createSpy 'tabSize'
       softWrapSpy = jasmine.createSpy 'softWrap'
+      maxOpenSpy = jasmine.createSpy 'maxOpenTabs'
 
       settings.on 'theme', themeSpy
       settings.on 'keyMode', keyModeSpy
       settings.on 'useSoftTabs', useSoftSpy
       settings.on 'tabSize', tabSizeSpy
       settings.on 'softWrap', softWrapSpy
+      settings.on 'maxOpenTabs', maxOpenSpy
 
       value = {}
       settings.theme = value
@@ -38,6 +40,9 @@ describe 'services.settings', ->
 
       settings.softWrap = value
       expect(softWrapSpy).toHaveBeenCalledWith value
+
+      settings.maxOpenTabs = value
+      expect(maxOpenSpy).toHaveBeenCalledWith value
 
 
   describe 'load', ->
@@ -96,6 +101,14 @@ describe 'services.settings', ->
       expect(settings.softWrap).toBe -1
 
 
+    it 'should load maxOpenTabs', ->
+      storage._data.settings = maxOpenTabs: 5
+      settings.load()
+
+      storage._flush()
+      expect(settings.maxOpenTabs).toBe 5
+
+
     it 'should set defaults', ->
       settings.load()
       storage._flush()
@@ -105,6 +118,7 @@ describe 'services.settings', ->
       expect(settings.keyMode.id).toBe 'ace'
       expect(settings.theme.id).toBe 'ace/theme/monokai'
       expect(settings.softWrap).toBe 0
+      expect(settings.maxOpenTabs).toBe 10
 
 
     it 'should $digest', inject ($rootScope) ->
