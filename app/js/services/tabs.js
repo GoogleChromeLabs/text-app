@@ -27,7 +27,7 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession) {
 
   tabs.selectByFile = function(file) {
     for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i].file === file) {
+      if (tabs[i].file.fullPath === file.fullPath) {
         tabs.select(tabs[i]);
         return true;
       }
@@ -45,7 +45,7 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession) {
       if (!tab.modified) {
         log(tab.file, 'modified');
         tab.modified = true;
-        $rootScope.$apply();
+        $rootScope.$digest();
       }
     });
 

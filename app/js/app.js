@@ -9,9 +9,10 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   settings.load();
 
   // save settings on page unload
-  $window.onunload = function() {
-    settings.store();
-  };
+  // TODO(vojta): store settings, onunload not available on platform apps
+  // $window.onunload = function() {
+  //   settings.store();
+  // };
 
   // clipboard - copy, paste, cut
   angular.element(document.getElementById('editor')).bind('keydown', function(event) {

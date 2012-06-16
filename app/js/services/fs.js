@@ -97,24 +97,29 @@ TD.factory('fs', function(log, $window, $q, $rootScope) {
       var defered = $q.defer();
 
       fileEntry.createWriter(function(writer) {
-        var bb = new WebKitBlobBuilder();
-        bb.append(content);
+        // var bb = new WebKitBlobBuilder();
+        // bb.append(content);
+        // var blob = bb.getBlob(type || 'text/plain');
 
-        var blob = bb.getBlob(type || 'text/plain');
+        var blob = new Blob([content], {type: type || 'text/plain'});
+        var error = false;
 
         writer.onwriteend = function(e) {
-          writer.onwriteend = function(e) {
-            defered.resolve();
-            log('File saved ', fileEntry);
-            $rootScope.$digest();
-          };
+          // writer.onwriteend = function(e) {
+            if (!error) {
+              defered.resolve(true);
+              log('File saved ', fileEntry, e);
+              $rootScope.$digest();
+            }
+          // };
 
-          writer.truncate(blob.size);
+          // writer.truncate(blob.size);
         };
 
         writer.onerror = function(e) {
+          error = true;
           defered.reject(e);
-          log('File saving failed ', fileEntry);
+          log('File saving failed ', fileEntry, e);
           $rootScope.$digest();
         };
 
