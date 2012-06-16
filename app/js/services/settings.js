@@ -101,8 +101,8 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
   this.store = function() {
     storage.set({
       settings: {
-        theme: data.theme.id,
-        keyMode: data.keyMode.id,
+        theme: data.theme && data.theme.id,
+        keyMode: data.keyMode && data.keyMode.id,
         useSoftTabs: data.useSoftTabs,
         tabSize: data.tabSize,
         softWrap: data.softWrap
