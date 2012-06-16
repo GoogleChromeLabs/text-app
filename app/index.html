@@ -12,7 +12,7 @@
 <body ng-controller="App" ng-class="settings.theme.cls">
 
 <header>
-<ul class="tabs" ng-cloak>
+<ul class="tabs ng-cloak">
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}">
     <a ng-click="tabs.select(tab)">{{tab.label}}</a><a ng-click="tabs.close(tab)" ng-class="iconFor(tab)" class="icon"></a>
   </li>
@@ -34,12 +34,12 @@
       <span class="delimiter"></span>
       <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
-    <input type="text" ng-model="search" ng-show="isSearchVisible" on-esc="hideSearch()" ng-cloak>
+    <input type="text" ng-model="search" ng-show="isSearchVisible" on-esc="hideSearch()" class="ng-cloak">
     <a ng-click="toggleSearch()" class="icon-search"></a>
     Yep, the greatest status bar you've ever seen.
   </div>
 
-  <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" ng-cloak>
+  <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" class="ng-cloak">
     <h2>TextDrive Settings</h2>
 
     <form class="form-horizontal">
