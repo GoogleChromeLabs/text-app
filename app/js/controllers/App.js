@@ -4,32 +4,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
     chromeFs.chooseFile({type: 'openFile'}, $scope.openFile);
   };
 
-  $scope.save = function() {
-    var tab = tabs.current;
-
-    var saveFile = function(writableFileEntry) {
-      if (!writableFileEntry) {
-        return;
-      }
-
-      fs.saveFile(writableFileEntry, tab.session.getValue()).then(function() {
-        tab.file = writableFileEntry;
-        tab.label = writableFileEntry.name;
-        tab.modified = false;
-      });
-    };
-
-    if (tab.file) {
-      chromeFs.getWritableFileEntry(tab.file, saveFile);
-    } else {
-      chromeFs.chooseFile({type: "saveFile"}, saveFile);
-    }
-  };
-
-  $scope.add = function() {
-    tabs.select(tabs.add(null, ''));
-    // tabs.current.modified = true;
-  };
+  $scope.save = tabs.saveCurrent;
 
   $scope.files = fs.files;
   $scope.tabs = tabs;
@@ -46,7 +21,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
     }
 
     fs.loadFile(fileEntry).then(function(content) {
-      tabs.select(tabs.add(fileEntry, content));
+      tabs.add(fileEntry, content);
     }, function() {
       log('Error during opening file');
     });

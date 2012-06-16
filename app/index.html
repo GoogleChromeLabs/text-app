@@ -16,7 +16,7 @@
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}">
     <a ng-click="tabs.select(tab)">{{tab.label}}</a><a ng-click="tabs.close(tab)" ng-class="iconFor(tab)" class="icon"></a>
   </li>
-  <li class="add-new"><a ng-click="add()" class="icon-plus"></a></li>
+  <li class="add-new"><a ng-click="tabs.add()" class="icon-plus"></a></li>
 </ul>
 </header>
 

@@ -4,7 +4,7 @@ TD.log = angular.module('TD.log', []);
 
 // we ask for editor, to get it instantiated before we load settings,
 // because editor register listeners
-angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor) {
+angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope) {
   // load settings from local storage
   settings.load();
 
@@ -15,15 +15,43 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   // };
 
   // clipboard - copy, paste, cut
-  angular.element(document.getElementById('editor')).bind('keydown', function(event) {
+  document.getElementById('editor').addEventListener('keydown', function(event) {
     if (!event.metaKey && !event.ctrlKey) return;
 
-    if (event.keyCode === 67) {
-      document.execCommand('copy');
-    } else if (event.keyCode === 86) {
-      document.execCommand('paste');
-    } else if (event.keyCode === 88) {
-      document.execCommand('cut');
+    switch (event.keyCode) {
+      case 67: // C
+        document.execCommand('copy');
+        break;
+      case 86: // V
+        document.execCommand('paste');
+        break;
+      case 88: // X
+        document.execCommand('cut');
+        break;
+    }
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (!event.metaKey && !event.ctrlKey) return;
+
+    switch (event.keyCode) {
+      case 87: // W
+        $rootScope.$apply(function() {
+          tabs.close();
+        });
+        break;
+      case 78: // N
+        $rootScope.$apply(function() {
+          tabs.add();
+        });
+        break;
+      case 83: // S
+        $rootScope.$apply(function() {
+          tabs.saveCurrent();
+        });
+        break;
+      // default:
+        // console.log(event.keyCode);
     }
   });
 });
