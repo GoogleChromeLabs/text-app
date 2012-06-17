@@ -1,16 +1,18 @@
 {
   "name": "Text Drive",
   "description": "Just a text editor.",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "icons": {
-    "128": "icon_128.png",
-    "16": "icon_16.png"
+    "16": "icon_16.png",
+    "128": "icon_128.png"
   },
   "manifest_version": 2,
   "offline_enabled": true,
   "app": {
     "background": {
-      "scripts": ["js/background.js"]
+      "scripts": [
+        "js/background.js"
+      ]
     }
   },
   "permissions": [
@@ -23,17 +25,25 @@
     "fileSystem"
   ],
   "intents": {
-    "http://webintents.org/view" : [{
-      "title" : "Txt Reader",
-      "type" : ["text/*"],
-      "href" : "/index.html",
-      "disposition" : "window"
-    }],
-    "http://webintents.org/edit" : [{
-      "title" : "Txt Reader",
-      "type" : ["text/*"],
-      "href" : "/index.html",
-      "disposition" : "window"
-    }]
+    "http://webintents.org/view": [
+      {
+        "title": "Txt Reader",
+        "type": [
+          "text/*"
+        ],
+        "href": "/index.html",
+        "disposition": "window"
+      }
+    ],
+    "http://webintents.org/edit": [
+      {
+        "title": "Txt Reader",
+        "type": [
+          "text/*"
+        ],
+        "href": "/index.html",
+        "disposition": "window"
+      }
+    ]
   }
 }
