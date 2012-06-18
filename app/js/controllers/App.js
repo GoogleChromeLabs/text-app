@@ -1,10 +1,7 @@
 TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings) {
 
-  $scope.open = function() {
-    chromeFs.chooseFile({type: 'openFile'}, $scope.openFile);
-  };
-
   $scope.save = tabs.saveCurrent;
+  $scope.open = tabs.open;
 
   $scope.files = fs.files;
   $scope.tabs = tabs;

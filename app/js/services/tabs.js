@@ -116,6 +116,24 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
     }
   };
 
+  tabs.open = function() {
+    chromeFs.chooseFile({type: 'openFile'}, function(fileEntry) {
+      if (!fileEntry) {
+        return;
+      }
+
+      if (tabs.selectByFile(fileEntry)) {
+        return;
+      }
+
+      fs.loadFile(fileEntry).then(function(content) {
+        tabs.add(fileEntry, content);
+      }, function() {
+        log('Error during opening file');
+      });
+    });
+  };
+
   tabs.selectByFile = function(file) {
     for (var i = 0; i < tabs.length; i++) {
       // TODO(vojta): use chromeFs.getDisplayPath() instead

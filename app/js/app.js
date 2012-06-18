@@ -51,6 +51,11 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
           tabs.saveCurrent();
         });
         break;
+      case 79: // O
+        $rootScope.$apply(function() {
+          tabs.open();
+        });
+        break;
       // default:
         // console.log(event.keyCode);
     }
