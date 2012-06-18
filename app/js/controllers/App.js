@@ -10,7 +10,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   $scope.tabs = tabs;
   $scope.settings = settings;
 
-  fs.refresh();
+  // fs.refresh();
 
   $scope.openFile = function(fileEntry) {
     if (!fileEntry) {

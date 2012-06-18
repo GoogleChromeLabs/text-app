@@ -7,6 +7,7 @@ TD.log = angular.module('TD.log', []);
 angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope) {
   // load settings from local storage
   settings.load();
+  tabs.add();
 
   // save settings on page unload
   // TODO(vojta): store settings, onunload not available on platform apps
