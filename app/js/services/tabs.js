@@ -1,4 +1,34 @@
-TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs, lru, settings) {
+TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
+  return function(fileEntry, content) {
+
+    this._onSessionChange = function() {
+      if (this.modified) {
+        return;
+      }
+
+      $rootScope.$apply(function() {
+        log(this.file, 'modified');
+        this.modified = true;
+      });
+    };
+
+    this.setFileEntry = function(fileEntry) {
+      this.file = fileEntry || null;
+      this.label = fileEntry && fileEntry.name || '<new file>';
+      this.modified = false;
+      this.mode = modeForPath(this.label);
+      log('Set mode to', this.mode);
+      this.session.setMode(this.mode.id);
+    }
+
+    this.session = new EditSession(content || '');
+    this.setFileEntry(fileEntry);
+    this.session.on('change', this._onSessionChange.bind(this));
+  };
+});
+
+
+TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
   var tabs = [];
   var limit = Number.MAX_VALUE;
 
@@ -70,9 +100,7 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs, 
       }
 
       fs.saveFile(writableFileEntry, tab.session.getValue()).then(function() {
-        tab.file = writableFileEntry;
-        tab.label = writableFileEntry.name;
-        tab.modified = false;
+        tab.setFileEntry(writableFileEntry);
       });
     };
 
@@ -100,18 +128,8 @@ TD.factory('tabs', function(editor, fs, $rootScope, log, EditSession, chromeFs, 
     return false;
   };
 
-  tabs.add = function(file, content) {
-    var session = new EditSession(content || '');
-    var tab = {file: file || null, session: session, label: file && file.name || '<new file>'};
-
-    session.setMode("ace/mode/javascript");
-    session.on('change', function() {
-      if (!tab.modified) {
-        log(tab.file, 'modified');
-        tab.modified = true;
-        $rootScope.$digest();
-      }
-    });
+  tabs.add = function(fileEntry, content) {
+    var tab = new Tab(fileEntry, content);
 
     tabs.push(tab);
     tabs.select(tab);
