@@ -1,4 +1,4 @@
-TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
+TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings) {
 
   $scope.open = function() {
     chromeFs.chooseFile({type: 'openFile'}, $scope.openFile);
@@ -8,6 +8,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs) {
 
   $scope.files = fs.files;
   $scope.tabs = tabs;
+  $scope.settings = settings;
 
   fs.refresh();
 

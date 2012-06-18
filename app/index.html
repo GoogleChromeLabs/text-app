@@ -34,6 +34,10 @@
   <div id="status-bar">
     <div class="right">
       <span class="delimiter"></span>
+      Mode: {{tabs.current.mode.name}}
+      <span class="delimiter"></span>
+      Tab size: {{settings.tabSize}}
+      <span class="delimiter"></span>
       <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
     <input type="text" ng-model="search" ng-show="isSearchVisible" on-esc="hideSearch()" class="ng-cloak">
