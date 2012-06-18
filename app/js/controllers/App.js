@@ -102,4 +102,14 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   $scope.hideSearch = function() {
     $scope.isSearchVisible = false;
   };
+
+  $scope.$on('escape', function(event) {
+    if ($scope.isSearchVisible) {
+      $scope.toggleSearch();
+    } else if ($scope.isSettingsVisible) {
+      $scope.toggleSettings();
+    }
+  });
+
+  $scope.$on('search', $scope.toggleSearch);
 });

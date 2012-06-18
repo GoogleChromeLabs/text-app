@@ -15,49 +15,68 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   //   settings.store();
   // };
 
+  var KEY = {};
+  // create key map A - Z
+  for (var i = 65; i <= 90; i++) {
+    KEY[String.fromCharCode(i).toUpperCase()] = i;
+  }
+
   // clipboard - copy, paste, cut
   document.getElementById('editor').addEventListener('keydown', function(event) {
     if (!event.metaKey && !event.ctrlKey) return;
 
     switch (event.keyCode) {
-      case 67: // C
+      case KEY.C:
         document.execCommand('copy');
         break;
-      case 86: // V
+      case KEY.V:
         document.execCommand('paste');
         break;
-      case 88: // X
+      case KEY.X:
         document.execCommand('cut');
         break;
     }
   });
 
   document.addEventListener('keydown', function(event) {
+
+    // ESC
+    if (event.keyCode === 27) {
+      $rootScope.$apply(function() {
+        $rootScope.$broadcast('escape');
+      });
+
+      return;
+    }
+
     if (!event.metaKey && !event.ctrlKey) return;
 
     switch (event.keyCode) {
-      case 87: // W
+      case KEY.W:
         $rootScope.$apply(function() {
           tabs.close();
         });
         break;
-      case 78: // N
+      case KEY.N:
         $rootScope.$apply(function() {
           tabs.add();
         });
         break;
-      case 83: // S
+      case KEY.S:
         $rootScope.$apply(function() {
           tabs.saveCurrent();
         });
         break;
-      case 79: // O
+      case KEY.O:
         $rootScope.$apply(function() {
           tabs.open();
         });
         break;
-      // default:
-        // console.log(event.keyCode);
+      case KEY.F:
+        $rootScope.$apply(function() {
+          $rootScope.$broadcast('search');
+        });
+        break;
     }
   });
 });
