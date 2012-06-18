@@ -33,21 +33,15 @@
 <div id="footer">
   <div id="status-bar">
     <div class="right">
-      <span class="delimiter"></span>
-      Mode: {{tabs.current.mode.name}}
-      <span class="delimiter"></span>
-      Tab size: {{settings.tabSize}}
+      {{tabs.current.mode.name}}
       <span class="delimiter"></span>
       <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
     <input type="text" ng-model="search" ng-show="isSearchVisible" on-esc="hideSearch()" class="ng-cloak">
     <a ng-click="toggleSearch()" class="icon-search"></a>
-    Yep, the greatest status bar you've ever seen.
   </div>
 
   <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" class="ng-cloak">
-    <h2>TextDrive Settings</h2>
-
     <form class="form-horizontal">
       <fieldset>
         <div class="control-group">
@@ -58,14 +52,14 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="settings-key-mode">Key Mode</label>
+          <label class="control-label" for="settings-key-mode">Key Bindings</label>
           <div class="controls">
             <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
           </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="settings-soft-tabs">Use soft tabs</label>
+          <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
           <div class="controls">
             <input type="checkbox" ng-model="settings.useSoftTabs" id="settings-soft-tabs">
           </div>
@@ -79,14 +73,14 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="settings-soft-wrap">Use soft wrap</label>
+          <label class="control-label" for="settings-soft-wrap">Wrapping</label>
           <div class="controls">
             <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
           </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="settings-max-open-tabs">Max open tabs</label>
+          <label class="control-label" for="settings-max-open-tabs">Max Tabs</label>
           <div class="controls">
             <input type="number" ng-model="settings.maxOpenTabs" min="1" id="settings-max-open-tabs">
           </div>

@@ -48,8 +48,8 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
   ];
 
   this.SOFT_WRAP = [
-    {name: 'OFF', value: -1},
-    {name: 'FREE', value: 0},
+    {name: 'None', value: -1},
+    {name: 'Window Width', value: 0},
     {name: '80', value: 80},
     {name: '100', value: 100}
   ];
