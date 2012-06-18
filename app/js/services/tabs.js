@@ -6,9 +6,10 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
         return;
       }
 
+      var tab = this;
       $rootScope.$apply(function() {
-        log(this.file, 'modified');
-        this.modified = true;
+        log(tab.file, 'modified');
+        tab.modified = true;
       });
     };
 
