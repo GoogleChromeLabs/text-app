@@ -1,37 +1,54 @@
 module.exports = function(grunt) {
-  grunt.registerTask('pack', 'Create zip package of the app.', function() {
+  grunt.registerTask('pack', 'Create zip package of the app.', function(arg) {
     var version = grunt.config('manifest').version;
-    var DST = 'build/package-' + version + '/';
     var exec = require('child_process').exec;
 
     var copyAll = function(src, dest) {
+      grunt.log.writeln('Copy ' + src + ' -> ' + dest);
       grunt.file.expand(src).forEach(function(filepath) {
-        // grunt.log.writeln('Copy ' + filepath ' -> ' + filepath.replace(/^app\//, dest));
         grunt.file.copy(filepath, filepath.replace(/^app\//, dest));
       });
     };
 
+    var copyOne = function(src, dest, process) {
+      grunt.log.writeln('Copy ' + src + ' -> ' + dest);
+      grunt.file.copy(src, dest, {process: process});
+    };
+
     var cssFile = grunt.config('concat.css.dest').replace(/^build/, 'css');
     var jsFile = grunt.config('concat.js.dest').replace(/^build/, 'js');
+    var angularFile = 'lib/angular/angular.js';
+    var aceFolder = 'lib/ace/src-noconflict/';
+
+    if (arg === 'min') {
+      // create minified package
+      jsFile = jsFile.replace('.js', '.min.js');
+      angularFile = angularFile.replace('.js', '.min.js');
+      aceFolder = 'lib/ace/src-min-noconflict/';
+      version += '-min';
+    }
+
+    var DST = 'build/package-' + version + '/';
 
     // copy files
-    grunt.file.copy('build/textdrive.js', DST + jsFile);
-    grunt.file.copy('build/textdrive.css', DST + cssFile);
+    copyOne('build/textdrive.js', DST + jsFile);
+    copyOne('build/textdrive.css', DST + cssFile);
     copyAll('app/manifest.json', DST);
     copyAll('app/js/background.js', DST);
     copyAll('app/icon_*.png', DST);
 
 
     // copy and rewrite index.html
-    grunt.file.copy('app/index.html', DST + 'index.html', {
-      process: function(content) {
-        content = content.replace(/<!-- APP-CSS -->(.|\n)*<!-- APP-CSS-END -->/m, '<link href="' + cssFile + '" rel="stylesheet">');
-        return content.replace(/\n<!-- APP-JS -->(.|\n)*<!-- APP-JS-END -->/m, '<script src="' + jsFile + '" type="text/javascript"></script>');
-      }
+    copyOne('app/index.html', DST + 'index.html', function(content) {
+      content = content.replace(/<!-- APP-CSS -->(.|\n)*<!-- APP-CSS-END -->/m, '<link href="' + cssFile + '" rel="stylesheet">');
+      content = content.replace(/\n<!-- APP-JS -->(.|\n)*<!-- APP-JS-END -->/m, '<script src="' + jsFile + '" type="text/javascript"></script>');
+      content = content.replace('lib/angular/angular.js', angularFile);
+      content = content.replace(/lib\/ace\/src-noconflict\//g, aceFolder);
+      return content;
     });
 
     // angular
-    copyAll('app/lib/angular/angular.js', DST);
+    copyAll('app/' + angularFile, DST);
 
     // bootstrap
     copyAll('app/lib/bootstrap/css/bootstrap.css', DST);
@@ -42,7 +59,7 @@ module.exports = function(grunt) {
     copyAll('app/lib/font-awesome/font/fontawesome-webfont.*', DST);
 
     // ace
-    copyAll('app/lib/ace/src-noconflict/*.js', DST);
+    copyAll('app/' + aceFolder + '*.js', DST);
 
     // create a zip
     exec('zip -vr build/textdrive-' + version + '.zip ' + DST, this.async());
