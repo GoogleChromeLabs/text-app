@@ -1,4 +1,4 @@
-TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings) {
+TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings, MODES) {
 
   $scope.save = tabs.saveCurrent;
   $scope.open = tabs.open;
@@ -6,6 +6,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   $scope.files = fs.files;
   $scope.tabs = tabs;
   $scope.settings = settings;
+  $scope.MODES = MODES;
 
   // fs.refresh();
 
@@ -62,6 +63,12 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
 //      reader.readAsBinaryString(file);
 //    });
 //  };
+
+  $scope.updateMode = function() {
+    var tab = tabs.current;
+    tab.session.setMode(tab.mode.id);
+    tab.manualMode = true;
+  };
 
   $scope.isSaveDisabled = function() {
     // no tab

@@ -8,11 +8,7 @@ Mode.prototype.supportsFile = function(filename) {
   return filename.match(this.extRe);
 };
 
-
-TD.factory('modeForPath', function() {
-  var modes = [];
-  var modesById = {};
-
+TD.factory('MODES', function() {
   // https://github.com/ajaxorg/ace/blob/master/demo/kitchen-sink/demo.js#L68
   var aceModes = {
     coffee:     ["CoffeeScript" , "coffee|^Cakefile"],
@@ -55,20 +51,28 @@ TD.factory('modeForPath', function() {
   };
 
   var mode;
+  var modes = [];
+  modes.byId = {};
+
   for (var id in aceModes) {
     mode = new Mode(id, aceModes[id][0], aceModes[id][1]);
     modes.push(mode);
-    modesById[id] = mode;
+    modes.byId[id] = mode;
   }
 
+  return modes;
+});
+
+
+TD.factory('modeForPath', function(MODES) {
   return function(path) {
-    for (var i = 0, ii = modes.length; i < ii; i++) {
-      if (modes[i].supportsFile(path)) {
-        return modes[i];
+    for (var i = 0, ii = MODES.length; i < ii; i++) {
+      if (MODES[i].supportsFile(path)) {
+        return MODES[i];
       }
     }
 
     // default
-    return modesById.text;
+    return MODES.byId.text;
   };
 });

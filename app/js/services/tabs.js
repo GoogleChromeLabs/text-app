@@ -17,11 +17,16 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
       this.file = fileEntry || null;
       this.label = fileEntry && fileEntry.name || '<new file>';
       this.modified = false;
-      this.mode = modeForPath(this.label);
-      log('Set mode to', this.mode);
-      this.session.setMode(this.mode.id);
+      if (!this.manualMode) {
+        this.mode = modeForPath(this.label);
+        this.session.setMode(this.mode.id);
+        log('Set mode to', this.mode);
+      } else {
+        log('Keeping current mode (set manually).');
+      }
     }
 
+    this.manualMode = false;
     this.session = new EditSession(content || '');
     this.setFileEntry(fileEntry);
     this.session.on('change', this._onSessionChange.bind(this));

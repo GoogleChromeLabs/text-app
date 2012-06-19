@@ -36,7 +36,9 @@
 <div id="footer">
   <div id="status-bar">
     <div class="right">
-      <span ng-bind="tabs.current.mode.name"></span>
+      <div class="selectable ng-cloak">
+        <select ng-model="tabs.current.mode" ng-options="mode.name for mode in MODES" ng-change="updateMode()"></select>
+        {{tabs.current.mode.name}}</div>
       <span class="delimiter"></span>
       <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
