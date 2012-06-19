@@ -78,7 +78,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   };
 
   $scope.iconFor = function(tab) {
-    return tab.modified ? 'icon-edit' : 'icon-remove';
+    return tab.modified ? 'icon-certificate' : 'icon-remove';
   };
 
   $scope.toggleSettings = function() {
