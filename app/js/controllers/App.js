@@ -88,6 +88,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     return tab.modified ? 'icon-certificate' : 'icon-remove';
   };
 
+  $scope.isSettingsVisible = false;
   $scope.toggleSettings = function() {
     $scope.isSettingsVisible = !$scope.isSettingsVisible;
 
@@ -96,7 +97,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     }
   };
 
-
+  $scope.isSearchVisible = false;
   $scope.toggleSearch = function() {
     $scope.isSearchVisible = !$scope.isSearchVisible;
 
@@ -104,10 +105,6 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
       $scope.search = '';
       focus('input[ng-model=search]');
     }
-  };
-
-  $scope.hideSearch = function() {
-    $scope.isSearchVisible = false;
   };
 
   $scope.$on('escape', function(event) {
