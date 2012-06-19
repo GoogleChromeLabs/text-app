@@ -112,4 +112,5 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   });
 
   $scope.$on('search', $scope.toggleSearch);
+  $scope.$on('settings', $scope.toggleSettings);
 });

@@ -77,6 +77,11 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
           $rootScope.$broadcast('search');
         });
         break;
+      case 188: // CMD+,
+        $rootScope.$apply(function() {
+          $rootScope.$broadcast('settings');
+        });
+        break;
     }
   });
 });
