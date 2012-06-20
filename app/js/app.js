@@ -84,4 +84,28 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
         break;
     }
   });
+
+  var MAX_TAB_SIZE = 200;
+  var MIN_TAB_SIZE = 50;
+  var countTabSize = function() {
+    var countedWidth = (window.innerWidth - 59) / tabs.length;
+    return Math.max(Math.min(countedWidth + 23, MAX_TAB_SIZE), MIN_TAB_SIZE);
+  };
+
+  $rootScope.tabWidth = MAX_TAB_SIZE
+
+  $rootScope.$watch(function() { return tabs.length; }, function() {
+    $rootScope.tabWidth = countTabSize();
+  });
+
+  window.addEventListener('resize', function(e) {
+    var tabWidth = countTabSize();
+
+    if ($rootScope.tabWidth === tabWidth) {
+      return;
+    }
+
+    $rootScope.tabWidth = tabWidth;
+    $rootScope.$digest();
+  });
 });
