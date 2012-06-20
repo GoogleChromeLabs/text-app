@@ -16,14 +16,12 @@ describe 'services.settings', ->
       useSoftSpy = jasmine.createSpy 'useSoftTabs'
       tabSizeSpy = jasmine.createSpy 'tabSize'
       softWrapSpy = jasmine.createSpy 'softWrap'
-      maxOpenSpy = jasmine.createSpy 'maxOpenTabs'
 
       settings.on 'theme', themeSpy
       settings.on 'keyMode', keyModeSpy
       settings.on 'useSoftTabs', useSoftSpy
       settings.on 'tabSize', tabSizeSpy
       settings.on 'softWrap', softWrapSpy
-      settings.on 'maxOpenTabs', maxOpenSpy
 
       value = {}
       settings.theme = value
@@ -40,9 +38,6 @@ describe 'services.settings', ->
 
       settings.softWrap = value
       expect(softWrapSpy).toHaveBeenCalledWith value
-
-      settings.maxOpenTabs = value
-      expect(maxOpenSpy).toHaveBeenCalledWith value
 
 
   describe 'load', ->

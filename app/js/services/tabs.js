@@ -36,16 +36,6 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
 
 TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
   var tabs = [];
-  var limit = Number.MAX_VALUE;
-
-  settings.on('maxOpenTabs', function(maxOpenTabs) {
-    limit = maxOpenTabs;
-
-    while (tabs.length > limit) {
-      log('Auto closing tab.');
-      tabs.close(lru.tail());
-    }
-  });
 
   tabs.select = function(tab) {
     tabs.current = tab;
@@ -157,11 +147,6 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
 
     tabs.push(tab);
     tabs.select(tab);
-
-    while (tabs.length > limit) {
-      log('Auto closing tab.');
-      tabs.close(lru.tail());
-    }
 
     return tab;
   };
