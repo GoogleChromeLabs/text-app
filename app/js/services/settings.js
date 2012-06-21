@@ -1,12 +1,17 @@
-var WhiteTheme = function(name, id) {
+var Theme = function(name, id) {
   this.name = name;
   this.id = id || 'ace/theme/' + name.toLowerCase().replace(/\s/g, '_');
-  this.cls = 'ace-theme-white';
+  this.cls = this.id.replace(/[_\/]/g, '-');
 };
 
-var BlackTheme = function(name, id) {
-  WhiteTheme.call(this, name, id);
-  this.cls = 'ace-theme-black';
+var LightTheme = function() {
+  Theme.apply(this, arguments);
+  this.cls += ' ace-theme-light';
+};
+
+var DarkTheme = function() {
+  Theme.apply(this, arguments);
+  this.cls += ' ace-theme-dark';
 };
 
 
@@ -14,31 +19,31 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
   var settings = this;
 
   this.THEMES = [
-    new WhiteTheme('Chrome'),
-    new WhiteTheme('Clouds'),
-    new BlackTheme('Clouds Midnight'),
-    new BlackTheme('Cobalt'),
-    new WhiteTheme('Crimson Editor'),
-    new WhiteTheme('Dawn'),
-    new WhiteTheme('Dreamweaver'),
-    new WhiteTheme('Eclipse'),
-    new BlackTheme('idleFingers', 'ace/theme/idle_fingers'),
-    new BlackTheme('krTheme', 'ace/theme/kr_theme'),
-    new BlackTheme('Merbivore'),
-    new BlackTheme('Merbivore Soft'),
-    new BlackTheme('Mono Industrial'),
-    new BlackTheme('Monokai'),
-    new BlackTheme('Pastel on dark'),
-    new BlackTheme('Solarized Dark'),
-    new WhiteTheme('Solarized Light'),
-    new WhiteTheme('TextMate'),
-    new BlackTheme('Twilight'),
-    new WhiteTheme('Tomorrow'),
-    new BlackTheme('Tomorrow Night'),
-    new BlackTheme('Tomorrow Night Blue'),
-    new BlackTheme('Tomorrow Night Bright'),
-    new BlackTheme('Tomorrow Night 80s', 'ace/theme/tomorrow_night_eighties'),
-    new BlackTheme('Vibrant Ink')
+    new LightTheme('Chrome'),
+    new LightTheme('Clouds'),
+    new DarkTheme('Clouds Midnight'),
+    new DarkTheme('Cobalt'),
+    new LightTheme('Crimson Editor'),
+    new LightTheme('Dawn'),
+    new LightTheme('Dreamweaver'),
+    new LightTheme('Eclipse'),
+    new DarkTheme('idleFingers', 'ace/theme/idle_fingers'),
+    new DarkTheme('krTheme', 'ace/theme/kr_theme'),
+    new DarkTheme('Merbivore'),
+    new DarkTheme('Merbivore Soft'),
+    new DarkTheme('Mono Industrial'),
+    new DarkTheme('Monokai'),
+    new DarkTheme('Pastel on dark'),
+    new DarkTheme('Solarized Dark'),
+    new LightTheme('Solarized Light'),
+    new LightTheme('TextMate'),
+    new DarkTheme('Twilight'),
+    new LightTheme('Tomorrow'),
+    new DarkTheme('Tomorrow Night'),
+    new DarkTheme('Tomorrow Night Blue'),
+    new DarkTheme('Tomorrow Night Bright'),
+    new DarkTheme('Tomorrow Night 80s', 'ace/theme/tomorrow_night_eighties'),
+    new DarkTheme('Vibrant Ink')
   ];
 
   this.KEY_MODES = [
@@ -120,7 +125,7 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
         settings.theme = findById(settings.THEMES, data.theme);
         log('loaded theme', settings.theme.id);
       } else {
-        settings.theme = findById(settings.THEMES, 'ace/theme/monokai');
+        settings.theme = findById(settings.THEMES, 'ace/theme/dawn');
         log('default theme', settings.theme.id);
       }
 

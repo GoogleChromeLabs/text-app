@@ -1,2 +1,119 @@
-.ace-theme-black {}
-.ace-theme-white {}
+// DEFAULT THEME
+////////////////////////////////////////////////////////////////////////////////
+.tabs {
+  box-shadow: inset 0 1px 1px #fff, inset 0 -1px 1px #9c9c9c;
+  background: -webkit-linear-gradient(top, rgba(207,207,207,1) 0%,rgba(176,176,176,1) 100%);
+
+  li {
+    box-shadow: inset 0 0 2px #fff;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(220,221,220,1) 4%,rgba(207,208,207,1) 39%,rgba(156,156,156,1) 40%);
+    border: 1px solid #9c9c9c;
+  }
+
+  li.selected {
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(231,231,231,1) 30%);
+  }
+
+  li:hover {
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(231,231,231,1) 30%);
+  }
+
+  li.selected .left-mask, li.selected .right-mask, li:hover .left-mask, li:hover .right-mask {
+    span {
+      border-color: rgba(231,231,231,1);
+    }
+  }
+}
+
+.left-mask, .right-mask {
+  span {
+    border-color: rgba(207,208,207,1);
+  }
+}
+
+.left-mask {
+  span {
+    box-shadow: inset -1px 0 1px #9c9c9c;
+  }
+}
+
+.right-mask{
+  span {
+    box-shadow: inset 1px 0 1px #9c9c9c;
+  }
+}
+
+
+
+// DAWN THEME
+////////////////////////////////////////////////////////////////////////////////
+body.ace-theme-dawn {
+  background: #F9F9F9;
+
+  .tabs {
+    li.selected, li:hover {
+      background: #F9F9F9;
+    }
+
+    li.selected .left-mask, li.selected .right-mask, li:hover .left-mask, li:hover .right-mask {
+      span {
+        border-color: #F9F9F9;
+      }
+    }
+  }
+
+  #status-bar {
+    border-top: 1px solid #CBCBCB;
+  }
+}
+
+
+
+// MONOKAI THEME
+////////////////////////////////////////////////////////////////////////////////
+body.ace-theme-monokai {
+  background: #272822;
+
+  .tabs {
+    background: #171814;
+    box-shadow: 0 0;
+
+    a {
+      color: #929291;
+    }
+
+    li {
+      background: #393937;
+      box-shadow: inset 0 0 2px #3B3C37;
+      border: 1px solid #3B3C37;
+    }
+
+    li.selected, li:hover {
+      background: #272822;
+    }
+
+    li.selected .left-mask, li.selected .right-mask, li:hover .left-mask, li:hover .right-mask {
+      span {
+        border-color: #272822;
+      }
+    }
+  }
+
+  .left-mask, .right-mask {
+    span {
+      border-color: #393937;
+    }
+  }
+
+  .left-mask {
+    span {
+      box-shadow: inset -1px 0 1px #3B3C37;
+    }
+  }
+
+  .right-mask{
+    span {
+      box-shadow: inset 1px 0 1px #3B3C37;
+    }
+  }
+}
