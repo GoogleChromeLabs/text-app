@@ -47,44 +47,81 @@
   </div>
 
   <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" class="ng-cloak">
-    <form class="form-horizontal">
-      <fieldset>
-        <div class="control-group">
-          <label class="control-label" for="settings-theme">Theme</label>
-          <div class="controls">
-            <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
+    <div class="inner">
+      <form class="form-horizontal settings">
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="settings-theme">Theme</label>
+            <div class="controls">
+              <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <label class="control-label" for="settings-key-mode">Key Bindings</label>
-          <div class="controls">
-            <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
+          <div class="control-group">
+            <label class="control-label" for="settings-key-mode">Key Bindings</label>
+            <div class="controls">
+              <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
-          <div class="controls">
-            <input type="checkbox" ng-model="settings.useSoftTabs" id="settings-soft-tabs">
+          <div class="control-group">
+            <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
+            <div class="controls">
+              <input type="checkbox" ng-model="settings.useSoftTabs" id="settings-soft-tabs">
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <label class="control-label" for="settings-tab-size">Tab size</label>
-          <div class="controls">
-            <input type="number" ng-model="settings.tabSize" ng-disabled="!settings.useSoftTabs" min="1" id="settings-tab-size">
+          <div class="control-group">
+            <label class="control-label" for="settings-tab-size">Tab size</label>
+            <div class="controls">
+              <input type="number" ng-model="settings.tabSize" ng-disabled="!settings.useSoftTabs" min="1" id="settings-tab-size">
+            </div>
           </div>
-        </div>
 
-        <div class="control-group">
-          <label class="control-label" for="settings-soft-wrap">Wrapping</label>
-          <div class="controls">
-            <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
+          <div class="control-group">
+            <label class="control-label" for="settings-soft-wrap">Wrapping</label>
+            <div class="controls">
+              <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
+            </div>
           </div>
-        </div>
-      </fieldset>
-    </form>
+        </fieldset>
+      </form>
+
+      <div class="shortcuts">
+        <h3>Shortcuts</h3>
+        <table>
+          <tr>
+            <td class="keys">CTRL + O</td>
+            <td>Open file</td>
+          </tr>
+
+          <tr>
+            <td class="keys">CTRL + S</td>
+            <td>Save current file</td>
+          </tr>
+
+          <tr>
+            <td class="keys">CTRL + N</td>
+            <td>Create new file</td>
+          </tr>
+
+          <tr>
+            <td class="keys">CTRL + W</td>
+            <td>Close current tab</td>
+          </tr>
+
+          <tr>
+            <td class="keys">CTRL + F</td>
+            <td>Filter the document</td>
+          </tr>
+
+          <tr>
+            <td class="keys">CTRL + ,</td>
+            <td>Toggle settings</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
