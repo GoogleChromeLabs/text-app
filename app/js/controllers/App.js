@@ -68,6 +68,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     var tab = tabs.current;
     tab.session.setMode(tab.mode.id);
     tab.manualMode = true;
+    editor.focus();
   };
 
   $scope.isSaveDisabled = function() {
