@@ -39,13 +39,13 @@ TD.factory('fs', function(log, $window, $q, $rootScope) {
   };
 
   // get the FileSystem object
-  $window.webkitStorageInfo.requestQuota(PERSISTENT, SIZE, function(grantedBytes) {
-    $window.webkitRequestFileSystem(PERSISTENT, grantedBytes, function(fs) {
-      d_fs.resolve(fs);
-      log('FS loaded, quota', grantedBytes);
-      $rootScope.$digest();
-    }, createErrorHandler(d_fs));
-  }, createErrorHandler(d_fs));
+  // $window.webkitStorageInfo.requestQuota(PERSISTENT, SIZE, function(grantedBytes) {
+  //   $window.webkitRequestFileSystem(PERSISTENT, grantedBytes, function(fs) {
+  //     d_fs.resolve(fs);
+  //     log('FS loaded, quota', grantedBytes);
+  //     $rootScope.$digest();
+  //   }, createErrorHandler(d_fs));
+  // }, createErrorHandler(d_fs));
 
   return {
     files: [],
