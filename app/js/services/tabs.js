@@ -144,8 +144,14 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
 
   tabs.add = function(fileEntry, content) {
     var tab = new Tab(fileEntry, content);
+    var current = tabs.current;
 
-    tabs.push(tab);
+    if (current) {
+      tabs.splice(tabs.indexOf(current) + 1, 0, tab);
+    } else {
+      tabs.push(tab);
+    }
+
     tabs.select(tab);
 
     return tab;
