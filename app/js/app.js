@@ -9,11 +9,6 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   settings.load();
   tabs.add();
 
-  // save settings on page unload
-  // TODO(vojta): store settings, onunload not available on platform apps
-  // $window.onunload = function() {
-  //   settings.store();
-  // };
 
   var KEY = {};
   // create key map A - Z
@@ -69,6 +64,9 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
         break;
       case KEY.F:
         applyEvent('search');
+        break;
+      case KEY.Q:
+        $rootScope.$broadcast('quit');
         break;
       case 188: // CMD+,
         applyEvent('settings');

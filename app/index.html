@@ -14,6 +14,8 @@
 <body ng-controller="App" ng-class="settings.theme.cls">
 
 <header>
+<a ng-click="quit()" class="icon-remove"></a>
+
 <ul class="tabs ng-cloak">
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth">
     <a ng-click="tabs.select(tab)">{{tab.label}}</a>

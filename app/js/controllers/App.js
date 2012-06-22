@@ -1,4 +1,10 @@
-TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings, MODES) {
+TD.factory('quitApp', function(settings) {
+  return function() {
+    window.close();
+  };
+});
+
+TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings, MODES, quitApp) {
 
   $scope.save = tabs.saveCurrent;
   $scope.open = tabs.open;
@@ -44,6 +50,11 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     } else {
       log('No file to save.');
     }
+  };
+
+  $scope.quit = function() {
+    settings.store();
+    quitApp();
   };
 
 
@@ -171,5 +182,9 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   $scope.$on('open', function() {
     $scope.toggleSearch(false);
     tabs.open();
+  });
+
+  $scope.$on('quit', function() {
+    $scope.quit();
   });
 });
