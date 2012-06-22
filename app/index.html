@@ -43,7 +43,7 @@
       <a ng-click="toggleSettings()" class="icon-cog"></a>
     </div>
     <a ng-click="toggleSearch()" class="icon-search"></a>
-    <input type="text" ng-model="search" ng-change="doSearch()" on-enter="toggleSearch()" ng-show="isSearchVisible" class="ng-cloak">
+    <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()" ng-show="isSearchVisible" class="ng-cloak">
   </div>
 
   <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" class="ng-cloak">

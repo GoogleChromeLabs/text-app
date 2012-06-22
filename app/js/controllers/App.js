@@ -106,6 +106,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
       $scope.search = '';
       focus('input[ng-model=search]');
     } else {
+      editor.clearFilter();
       editor.focus();
     }
   };
@@ -116,6 +117,23 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
       if (lineNumber) {
         editor.goToLine(lineNumber);
       }
+    } else if ($scope.search.charAt(0) === '/') {
+      var filter = $scope.search.substr(1);
+      if (filter.length >= 3) {
+        // TODO(vojta): delay
+        editor.filter(new RegExp(filter));
+      } else {
+        editor.clearFilter();
+      }
+    }
+  };
+
+  $scope.enterSearch = function() {
+    if ($scope.search.charAt(0) === '/') {
+      editor.goToFirstFiltered();
+      editor.focus();
+    } else {
+      $scope.toggleSearch();
     }
   };
 
