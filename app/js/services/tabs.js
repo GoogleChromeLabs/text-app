@@ -39,10 +39,14 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
 });
 
 
-TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings) {
+TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $rootScope) {
   var tabs = [];
 
   tabs.select = function(tab) {
+    if (tabs.current) {
+      $rootScope.$broadcast('tab_deselected');
+    }
+
     tabs.current = tab;
 
     // move to editor

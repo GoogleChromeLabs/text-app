@@ -79,20 +79,7 @@ TD.controller('StatusBar', function($scope, editor, tabs, MODES, focus) {
     $scope.toggleSearch();
   });
 
-  // TODO(vojta): close search only if tab really lost focus (add new tab or close tab)
-  $scope.$on('close', function() {
-    $scope.toggleSearch(false);
-  });
-
-  $scope.$on('new', function() {
-    $scope.toggleSearch(false);
-  });
-
-  $scope.$on('save', function() {
-    $scope.toggleSearch(false);
-  });
-
-  $scope.$on('open', function() {
+  $scope.$on('tab_deselected', function() {
     $scope.toggleSearch(false);
   });
 });
