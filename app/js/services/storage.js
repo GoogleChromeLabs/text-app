@@ -1,4 +1,4 @@
-TD.value('chromeStorage', chrome.storage && chrome.storage.local || {
+TD.value('chromeStorage', chrome.storage && chrome.storage.sync || {
   set: function(data, fn) {
     localStorage.setItem('storage', JSON.stringify(data));
     setTimeout(function() {
