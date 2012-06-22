@@ -27,6 +27,7 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
     }
 
     this.manualMode = false;
+    // TODO(vojta): pass mode to the constructor to avoid extra parsing
     this.session = new EditSession(content || '');
     this.setFileEntry(fileEntry);
     this.session.on('change', this._onSessionChange.bind(this));
