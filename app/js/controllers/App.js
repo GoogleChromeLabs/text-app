@@ -4,53 +4,15 @@ TD.factory('quitApp', function(settings) {
   };
 });
 
-TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, settings, MODES, quitApp) {
 
-  $scope.save = tabs.saveCurrent;
-  $scope.open = tabs.open;
+TD.controller('App', function($scope, tabs, settings, quitApp) {
 
-  $scope.files = fs.files;
   $scope.tabs = tabs;
   $scope.settings = settings;
-  $scope.MODES = MODES;
 
-  // fs.refresh();
+  $scope.isSettingsVisible = false;
+  $scope.isSearchVisible = false;
 
-  $scope.openFile = function(fileEntry) {
-    if (!fileEntry) {
-      return;
-    }
-
-    if (tabs.selectByFile(fileEntry)) {
-      return;
-    }
-
-    fs.loadFile(fileEntry).then(function(content) {
-      tabs.add(fileEntry, content);
-    }, function() {
-      log('Error during opening file');
-    });
-  };
-
-  $scope.createNewFile = function() {
-    fs.createFile($scope.newFilename).then(function(fileEntry) {
-      $scope.openFile(fileEntry);
-    });
-
-    $scope.newFilename = '';
-  };
-
-
-  $scope.saveCurrentFile = function() {
-    var tab = tabs.current;
-    if (tab) {
-      fs.saveFile(tab.file, tab.session.getValue()).then(function() {
-        tab.modified = false;
-      });
-    } else {
-      log('No file to save.');
-    }
-  };
 
   $scope.quit = function() {
     settings.store();
@@ -58,29 +20,30 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   };
 
 
-  // open file using html5 api
-//  $scope.openFiles = function(files) {
-//    angular.forEach(files, function(file) {
-//      log('opening file ' + file.name);
-//      var reader = new FileReader();
-//
-//      reader.onload = function(e) {
-//        log('file loaded ' + file.name);
-//        editor.setContent(e.target.result);
-//        $scope.current = file;
-//        $scope.$digest();
-//      };
-//
-//      reader.readAsBinaryString(file);
-//    });
-//  };
+  $scope.$on('close', function() {
+    tabs.close();
+  });
 
-  $scope.updateMode = function() {
-    var tab = tabs.current;
-    tab.session.setMode(tab.mode.id);
-    tab.manualMode = true;
-    editor.focus();
-  };
+  $scope.$on('new', function() {
+    tabs.add();
+  });
+
+  $scope.$on('save', function() {
+    tabs.saveCurrent();
+  });
+
+  $scope.$on('open', function() {
+    tabs.open();
+  });
+
+  $scope.$on('quit', function() {
+    $scope.quit();
+  });
+
+
+  // save / open stuff, currently disabled
+  $scope.save = tabs.saveCurrent;
+  $scope.open = tabs.open;
 
   $scope.isSaveDisabled = function() {
     // no tab
@@ -95,96 +58,4 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
 
     return !tabs.current.modified;
   };
-
-  $scope.iconFor = function(tab) {
-    return tab.modified ? 'icon-certificate' : 'icon-remove';
-  };
-
-  $scope.isSettingsVisible = false;
-  $scope.toggleSettings = function(value) {
-    $scope.isSettingsVisible = angular.isDefined(value) ? value : !$scope.isSettingsVisible;
-
-    if (!$scope.isSettingsVisible) {
-      editor.focus();
-    }
-  };
-
-  $scope.isSearchVisible = false;
-  $scope.toggleSearch = function(value) {
-    $scope.isSearchVisible = angular.isDefined(value) ? value : !$scope.isSearchVisible;
-
-    if ($scope.isSearchVisible) {
-      $scope.search = '';
-      focus('input[ng-model=search]');
-    } else {
-      editor.clearFilter();
-      editor.focus();
-    }
-  };
-
-  $scope.doSearch = function() {
-    if ($scope.search.charAt(0) === ':') {
-      var lineNumber = parseInt($scope.search.substr(1), 10);
-      if (lineNumber) {
-        editor.goToLine(lineNumber);
-      }
-    } else if ($scope.search.charAt(0) === '/') {
-      var filter = $scope.search.substr(1);
-      if (filter.length >= 3) {
-        // TODO(vojta): delay
-        editor.filter(new RegExp(filter, filter.toLowerCase() === filter ? 'i' : ''));
-      } else {
-        editor.clearFilter();
-      }
-    }
-  };
-
-  $scope.enterSearch = function() {
-    if ($scope.search.charAt(0) === '/') {
-      editor.goToFirstFiltered();
-      editor.focus();
-    } else {
-      $scope.toggleSearch();
-    }
-  };
-
-  $scope.$on('escape', function(event) {
-    if ($scope.isSearchVisible) {
-      $scope.toggleSearch();
-    } else if ($scope.isSettingsVisible) {
-      $scope.toggleSettings();
-    }
-  });
-
-  $scope.$on('settings', function() {
-    $scope.toggleSettings();
-  });
-
-  $scope.$on('search', function() {
-    $scope.toggleSearch();
-  });
-
-  $scope.$on('close', function() {
-    $scope.toggleSearch(false);
-    tabs.close();
-  });
-
-  $scope.$on('new', function() {
-    $scope.toggleSearch(false);
-    tabs.add();
-  });
-
-  $scope.$on('save', function() {
-    $scope.toggleSearch(false);
-    tabs.saveCurrent();
-  });
-
-  $scope.$on('open', function() {
-    $scope.toggleSearch(false);
-    tabs.open();
-  });
-
-  $scope.$on('quit', function() {
-    $scope.quit();
-  });
 });

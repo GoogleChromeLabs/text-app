@@ -24,7 +24,11 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
       } else {
         log('Keeping current mode (set manually).');
       }
-    }
+    };
+
+    this.icon = function() {
+      return this.modified ? 'icon-certificate' : 'icon-remove';
+    };
 
     this.manualMode = false;
     // TODO(vojta): pass mode to the constructor to avoid extra parsing

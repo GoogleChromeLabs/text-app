@@ -19,7 +19,7 @@
 <ul class="tabs ng-cloak">
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth">
     <a ng-click="tabs.select(tab)">{{tab.label}}</a>
-    <a ng-click="tabs.close(tab)" ng-class="iconFor(tab)" class="icon"></a>
+    <a ng-click="tabs.close(tab)" ng-class="tab.icon()" class="icon"></a>
     <div class="left-mask"><span></span></div>
     <div class="right-mask"><span></span></div>
   </li>
@@ -36,7 +36,7 @@
 <div id="editor" ng-non-bindable></div>
 
 <div id="footer">
-  <div id="status-bar">
+  <div ng-controller="StatusBar" id="status-bar">
     <div class="right">
       <div class="selectable ng-cloak">
         <select ng-model="tabs.current.mode" ng-options="mode.name for mode in MODES" ng-change="updateMode()"></select>
@@ -144,6 +144,7 @@
 <!--controllers-->
 <script src="js/controllers/App.js" type="text/javascript"></script>
 <script src="js/controllers/Settings.js" type="text/javascript"></script>
+<script src="js/controllers/StatusBar.js" type="text/javascript"></script>
 
 <!--services-->
 <script src="js/services/editor.js" type="text/javascript"></script>
