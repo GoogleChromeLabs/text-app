@@ -23,7 +23,7 @@ TD.factory('AceRange', function() {
 });
 
 
-TD.factory('HiddingFolding', function(AceRange) {
+TD.factory('FilterFolding', function(AceRange) {
   return function(regexp) {
     var cache = [];
 
@@ -69,7 +69,7 @@ TD.factory('HiddingFolding', function(AceRange) {
 });
 
 
-TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
+TD.factory('editor', function(EditSession, FilterFolding, settings, ace) {
 
   var updateSoftWrapSettings = function(wrap, session) {
     switch (wrap) {
@@ -150,7 +150,7 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
       var session = ace.getSession();
 
       session.unfold();
-      session.$setFolding(new HiddingFolding(regexp));
+      session.$setFolding(new FilterFolding(regexp));
       session.foldAll();
       isFiltered = true;
     },

@@ -83,34 +83,25 @@ describe 'services.settings', ->
       expect(settings.softWrap).toBe -1
 
 
-    it 'should load maxOpenTabs', ->
-      storage._data.settings = maxOpenTabs: 5
-      settings.load()
-
-      storage._flush()
-      expect(settings.maxOpenTabs).toBe 5
-
-
     it 'should set defaults', ->
       settings.load()
       storage._flush()
 
       expect(settings.softTabs).toBe 2
       expect(settings.keyMode.id).toBe 'ace'
-      expect(settings.theme.id).toBe 'ace/theme/monokai'
+      expect(settings.theme.id).toBe 'ace/theme/dawn'
       expect(settings.softWrap).toBe 0
-      expect(settings.maxOpenTabs).toBe 10
 
 
     it 'should $digest', inject ($rootScope) ->
-      tabSize = null
-      $rootScope.$watch -> tabSize = settings.tabSize
+      softTabs = null
+      $rootScope.$watch -> softTabs = settings.softTabs
 
-      storage._data.settings = tabSize: 15
+      storage._data.settings = softTabs: 8
       settings.load()
       storage._flush()
 
-      expect(tabSize).toBe 15
+      expect(softTabs).toBe 8
 
 
   describe 'store', ->
