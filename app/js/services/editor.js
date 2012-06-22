@@ -49,9 +49,13 @@ TD.factory('HiddingFolding', function(AceRange) {
 
       while (!cache[row]) {
         if (typeof cache[row] === 'undefined') {
-          if (row >= session.getLength()) break;
+          if (row >= session.getLength()) {
+            break;
+          }
           this.getFoldWidget(session, foldStyle, row);
-          if (cache[row]) break;
+          if (cache[row]) {
+            break;
+          }
         }
         row++;
       }
@@ -94,7 +98,7 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
       session.setUseSoftTabs(true);
       session.setTabSize(tabs);
     }
-  }
+  };
 
   // listen on settings changes
   settings.on('theme', function(theme) {
@@ -139,7 +143,7 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
     },
 
     goToLine: function(lineNumber) {
-      ace.gotoLine(lineNumber)
+      ace.gotoLine(lineNumber);
     },
 
     filter: function(regexp) {

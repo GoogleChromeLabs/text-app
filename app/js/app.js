@@ -5,6 +5,7 @@ TD.log = angular.module('TD.log', []);
 // we ask for editor, to get it instantiated before we load settings,
 // because editor register listeners
 angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope) {
+
   // load settings from local storage
   settings.load();
   tabs.add();
@@ -18,7 +19,10 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
 
   // clipboard - copy, paste, cut
   document.getElementById('editor').addEventListener('keydown', function(event) {
-    if (!event.metaKey && !event.ctrlKey) return;
+
+    if (!event.metaKey && !event.ctrlKey) {
+      return;
+    }
 
     switch (event.keyCode) {
       case KEY.C:
@@ -47,7 +51,9 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
       return;
     }
 
-    if (!event.metaKey && !event.ctrlKey) return;
+    if (!event.metaKey && !event.ctrlKey) {
+      return;
+    }
 
     switch (event.keyCode) {
       case KEY.W:
@@ -81,7 +87,7 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
     return Math.max(Math.min(countedWidth + 23, MAX_TAB_SIZE), MIN_TAB_SIZE);
   };
 
-  $rootScope.tabWidth = MAX_TAB_SIZE
+  $rootScope.tabWidth = MAX_TAB_SIZE;
 
   $rootScope.$watch(function() { return tabs.length; }, function() {
     $rootScope.tabWidth = countTabSize();

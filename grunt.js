@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         PERSISTENT: true,
         FileError: true,
         chrome: true,
-        WebKitBlobBuilder: true
+        Blob: true
       }
     },
     coffee: {
