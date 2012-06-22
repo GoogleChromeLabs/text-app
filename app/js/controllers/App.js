@@ -1,3 +1,4 @@
+// TODO(vojta): move to separate file
 TD.factory('quitApp', function(settings) {
   return function() {
     window.close();

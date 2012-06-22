@@ -16,3 +16,4 @@ mocks.classes.value 'EditSession', (content) ->
 
 mocks.classes.value 'VimHandler', ->
 mocks.classes.value 'EmacsHandler', ->
+mocks.classes.value 'AceRange', ->

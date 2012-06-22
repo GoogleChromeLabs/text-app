@@ -16,7 +16,7 @@ TD.controller('StatusBar', function($scope, editor, tabs, MODES, focus) {
   $scope.toggleSettings = function(value) {
     $scope.$parent.isSettingsVisible = angular.isDefined(value) ? value : !$scope.isSettingsVisible;
 
-    if (!parent.isSettingsVisible) {
+    if (!$scope.isSettingsVisible) {
       editor.focus();
     }
   };
@@ -26,9 +26,9 @@ TD.controller('StatusBar', function($scope, editor, tabs, MODES, focus) {
     $scope.$parent.isSearchVisible = angular.isDefined(value) ? value : !$scope.isSearchVisible;
 
     if ($scope.isSearchVisible) {
-      $scope.search = '';
       focus('input[ng-model=search]');
     } else {
+      $scope.search = '';
       editor.clearFilter();
       editor.focus();
     }
@@ -58,26 +58,29 @@ TD.controller('StatusBar', function($scope, editor, tabs, MODES, focus) {
       editor.goToFirstFiltered();
       editor.focus();
     } else {
-      $scope.toggleSearch();
+      $scope.toggleSearch(false);
     }
   };
 
 
   $scope.$on('escape', function(event) {
     if ($scope.isSearchVisible) {
-      $scope.toggleSearch();
+      $scope.toggleSearch(false);
     } else if ($scope.isSettingsVisible) {
-      $scope.toggleSettings();
+      $scope.toggleSettings(false);
     }
   });
+
 
   $scope.$on('settings', function() {
     $scope.toggleSettings();
   });
 
+
   $scope.$on('search', function() {
     $scope.toggleSearch();
   });
+
 
   $scope.$on('tab_deselected', function() {
     $scope.toggleSearch(false);

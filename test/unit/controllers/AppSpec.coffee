@@ -5,32 +5,36 @@ describe 'controllers.App', ->
   beforeEach module 'mocks'
 
   beforeEach inject ($controller, $rootScope, _editor_) ->
-    scope = $rootScope
+    scope = $rootScope.$new()
     editor = _editor_
     $controller 'App', {$scope: scope}
 
 
-  it 'should public tabs and files', ->
-    expect(scope.files).toBeDefined()
-    expect(scope.tabs).toBeDefined()
+  it 'should publish tabs and settings', inject (settings, tabs) ->
+    expect(scope.settings).toBe settings
+    expect(scope.tabs).toBe tabs
 
 
-  describe 'toggleSettings', ->
+  describe 'events', ->
+    broadcast = null
 
-    it 'toggle isSettingsVisible', ->
-      scope.toggleSettings();
-      expect(scope.isSettingsVisible).toBe true
+    beforeEach inject ($rootScope) ->
+      broadcast = (event) ->
+        $rootScope.$broadcast event
 
-      scope.toggleSettings();
-      expect(scope.isSettingsVisible).toBe false
+    it 'should handle "quit"', inject (quitApp, settings) ->
+      spyOn settings, 'store'
+      broadcast 'quit'
 
-      scope.toggleSettings();
-      expect(scope.isSettingsVisible).toBe true
+      expect(settings.store).toHaveBeenCalled()
+      expect(quitApp).toHaveBeenCalled();
 
 
-    it 'should focus editor when closing settings panel', ->
-      scope.toggleSettings() # show
-      expect(editor.focus).not.toHaveBeenCalled()
+  describe 'quit', ->
 
-      scope.toggleSettings() # hide
-      expect(editor.focus).toHaveBeenCalled()
+    it 'should store settings and quit the app', inject (quitApp, settings) ->
+      spyOn settings, 'store'
+      scope.quit()
+
+      expect(settings.store).toHaveBeenCalled()
+      expect(quitApp).toHaveBeenCalled();
