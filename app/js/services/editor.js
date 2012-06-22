@@ -124,10 +124,12 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
       updateSoftWrapSettings(settings.softWrap, session);
 
       ace.setSession(session);
+      ace.setReadOnly(false);
     },
 
     clearSession: function() {
       ace.setSession(new EditSession(''));
+      ace.setReadOnly(true);
     },
 
     goToLine: function(lineNumber) {
