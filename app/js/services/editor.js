@@ -67,21 +67,22 @@ TD.factory('HiddingFolding', function(AceRange) {
 
 TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
 
-  // default configs
-  ace.setShowPrintMargin(false);
-
   var updateSoftWrapSettings = function(wrap, session) {
     switch (wrap) {
       case -1:
         session.setUseWrapMode(false);
+        ace.setShowPrintMargin(false);
         break;
       case 0:
         session.setUseWrapMode(true);
         session.setWrapLimitRange(null, null);
+        ace.setShowPrintMargin(false);
         break;
       default:
         session.setUseWrapMode(true);
         session.setWrapLimitRange(wrap, wrap);
+        ace.setPrintMarginColumn(wrap);
+        ace.setShowPrintMargin(true);
     }
   };
 
