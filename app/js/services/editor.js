@@ -82,6 +82,10 @@ TD.factory('editor', function(EditSession, settings, ace) {
       ace.setSession(new EditSession(''));
     },
 
+    goToLine: function(lineNumber) {
+      ace.gotoLine(lineNumber)
+    },
+
     _editor: ace
   };
 });

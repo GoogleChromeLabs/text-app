@@ -105,6 +105,17 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     if ($scope.isSearchVisible) {
       $scope.search = '';
       focus('input[ng-model=search]');
+    } else {
+      editor.focus();
+    }
+  };
+
+  $scope.doSearch = function() {
+    if ($scope.search.charAt(0) === ':') {
+      var lineNumber = parseInt($scope.search.substr(1), 10);
+      if (lineNumber) {
+        editor.goToLine(lineNumber);
+      }
     }
   };
 
