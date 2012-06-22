@@ -1,7 +1,7 @@
 {
   "name": "Text Drive",
   "description": "Just a text editor.",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "icons": {
     "16": "icon_16.png",
     "128": "icon_128.png"
@@ -23,27 +23,5 @@
     "storage",
     "appWindow",
     "fileSystem"
-  ],
-  "intents": {
-    "http://webintents.org/view": [
-      {
-        "title": "Txt Reader",
-        "type": [
-          "text/*"
-        ],
-        "href": "/index.html",
-        "disposition": "window"
-      }
-    ],
-    "http://webintents.org/edit": [
-      {
-        "title": "Txt Reader",
-        "type": [
-          "text/*"
-        ],
-        "href": "/index.html",
-        "disposition": "window"
-      }
-    ]
-  }
+  ]
 }
