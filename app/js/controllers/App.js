@@ -121,7 +121,7 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
       var filter = $scope.search.substr(1);
       if (filter.length >= 3) {
         // TODO(vojta): delay
-        editor.filter(new RegExp(filter));
+        editor.filter(new RegExp(filter, filter.toLowerCase() === filter ? 'i' : ''));
       } else {
         editor.clearFilter();
       }
