@@ -1,6 +1,6 @@
 mocks =
   common: angular.module('mocks', ['mocks.editor', 'mocks.storage', 'mocks.classes'])
-  editor: angular.module('mocks.editor', [])
+  editor: angular.module('mocks.editor', ['mocks.ace'])
   ace: angular.module('mocks.ace', [])
   storage: angular.module('mocks.storage', [])
   classes: angular.module('mocks.classes', [])
