@@ -86,6 +86,16 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
     }
   };
 
+  var updateSoftTabs = function(tabs, session) {
+    if (tabs === -1) {
+      session.setUseSoftTabs(false);
+      session.setTabSize(4);
+    } else {
+      session.setUseSoftTabs(true);
+      session.setTabSize(tabs);
+    }
+  }
+
   // listen on settings changes
   settings.on('theme', function(theme) {
     ace.setTheme(theme.id);
@@ -95,12 +105,8 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
     ace.setKeyboardHandler(mode.handler);
   });
 
-  settings.on('useSoftTabs', function(use) {
-    ace.getSession().setUseSoftTabs(use);
-  });
-
-  settings.on('tabSize', function(size) {
-    ace.getSession().setTabSize(size);
+  settings.on('softTabs', function(tabs) {
+    updateSoftTabs(tabs, ace.getSession());
   });
 
   settings.on('softWrap', function(wrap) {
@@ -120,8 +126,7 @@ TD.factory('editor', function(EditSession, HiddingFolding, settings, ace) {
       session.setFoldStyle('markbegin');
 
       // apply current settings
-      session.setUseSoftTabs(settings.useSoftTabs);
-      session.setTabSize(settings.tabSize);
+      updateSoftTabs(settings.softTabs, session);
       updateSoftWrapSettings(settings.softWrap, session);
 
       ace.setSession(session);

@@ -13,14 +13,12 @@ describe 'services.settings', ->
     it 'should call listeners when a property change', ->
       themeSpy = jasmine.createSpy 'theme'
       keyModeSpy = jasmine.createSpy 'keyMode'
-      useSoftSpy = jasmine.createSpy 'useSoftTabs'
-      tabSizeSpy = jasmine.createSpy 'tabSize'
+      softTabsSpy = jasmine.createSpy 'softTabs'
       softWrapSpy = jasmine.createSpy 'softWrap'
 
       settings.on 'theme', themeSpy
       settings.on 'keyMode', keyModeSpy
-      settings.on 'useSoftTabs', useSoftSpy
-      settings.on 'tabSize', tabSizeSpy
+      settings.on 'softTabs', softTabsSpy
       settings.on 'softWrap', softWrapSpy
 
       value = {}
@@ -30,11 +28,8 @@ describe 'services.settings', ->
       settings.keyMode = value
       expect(keyModeSpy).toHaveBeenCalledWith value
 
-      settings.useSoftTabs = value
-      expect(useSoftSpy).toHaveBeenCalledWith value
-
-      settings.tabSize = value
-      expect(tabSizeSpy).toHaveBeenCalledWith value
+      settings.softTabs = value
+      expect(softTabsSpy).toHaveBeenCalledWith value
 
       settings.softWrap = value
       expect(softWrapSpy).toHaveBeenCalledWith value
@@ -61,25 +56,17 @@ describe 'services.settings', ->
 
 
     it 'should load useSoftTabs from storage', ->
-      storage._data.settings = useSoftTabs: false
+      storage._data.settings = softTabs: -1
       settings.load()
 
       storage._flush()
-      expect(settings.useSoftTabs).toBe false
+      expect(settings.softTabs).toBe -1
 
-      storage._data.settings = useSoftTabs: true
+      storage._data.settings = softTabs: 4
       settings.load()
 
       storage._flush()
-      expect(settings.useSoftTabs).toBe true
-
-
-    it 'should load tabSize from storage', ->
-      storage._data.settings = tabSize: 10
-      settings.load()
-
-      storage._flush()
-      expect(settings.tabSize).toBe 10
+      expect(settings.softTabs).toBe 4
 
 
     it 'should load softWrap', ->
@@ -108,8 +95,7 @@ describe 'services.settings', ->
       settings.load()
       storage._flush()
 
-      expect(settings.useSoftTabs).toBe true
-      expect(settings.tabSize).toBe 4
+      expect(settings.softTabs).toBe 2
       expect(settings.keyMode.id).toBe 'ace'
       expect(settings.theme.id).toBe 'ace/theme/monokai'
       expect(settings.softWrap).toBe 0
@@ -143,18 +129,11 @@ describe 'services.settings', ->
       expect(storage._data.settings.keyMode).toBe 'vim'
 
 
-    it 'should save useSoftTabs to storage', ->
-      settings.useSoftTabs = true
+    it 'should save softTabs to storage', ->
+      settings.softTabs = 4
       settings.store()
 
-      expect(storage._data.settings.useSoftTabs).toBe true
-
-
-    it 'should save tabSize to storage', ->
-      settings.tabSize = 10
-      settings.store()
-
-      expect(storage._data.settings.tabSize).toBe 10
+      expect(storage._data.settings.softTabs).toBe 4
 
 
     it 'should save softWrap to storage', ->

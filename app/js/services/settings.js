@@ -59,6 +59,14 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
     {name: '100', value: 100}
   ];
 
+  this.SOFT_TABS = [
+    {name: 'Off', value: -1},
+    {name: '2', value: 2},
+    {name: '4', value: 4},
+    {name: '6', value: 6},
+    {name: '8', value: 8}
+  ];
+
   var findById = function(collection, id) {
     for (var i = 0; i < collection.length; i++) {
       if (collection[i].id === id) {
@@ -91,8 +99,7 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
 
   defineProperty('theme');
   defineProperty('keyMode');
-  defineProperty('useSoftTabs');
-  defineProperty('tabSize');
+  defineProperty('softTabs');
   defineProperty('softWrap');
 
   this.on = function(name, fn) {
@@ -108,8 +115,7 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
       settings: {
         theme: data.theme && data.theme.id,
         keyMode: data.keyMode && data.keyMode.id,
-        useSoftTabs: data.useSoftTabs,
-        tabSize: data.tabSize,
+        softTabs: data.softTabs,
         softWrap: data.softWrap
       }
     }, function() {
@@ -137,20 +143,12 @@ TD.service('settings', function($rootScope, storage, log, VimHandler, EmacsHandl
         log('default keyMode', settings.keyMode.id);
       }
 
-      if (angular.isDefined(data.useSoftTabs)) {
-        settings.useSoftTabs = data.useSoftTabs;
-        log('loaded useSoftTabs', settings.useSoftTabs);
+      if (angular.isDefined(data.softTabs)) {
+        settings.softTabs = data.softTabs;
+        log('loaded softTabs', settings.softTabs);
       } else {
-        settings.useSoftTabs = true;
-        log('default useSoftTabs', settings.useSoftTabs);
-      }
-
-      if (angular.isDefined(data.tabSize)) {
-        settings.tabSize = data.tabSize;
-        log('loaded tabSize', settings.tabSize);
-      } else {
-        settings.tabSize = 4;
-        log('default tabSize', settings.tabSize);
+        settings.softTabs = 2;
+        log('default softTabs', settings.softTabs);
       }
 
       if (angular.isDefined(data.softWrap)) {

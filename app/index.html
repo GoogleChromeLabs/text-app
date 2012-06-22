@@ -67,14 +67,7 @@
           <div class="control-group">
             <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
             <div class="controls">
-              <input type="checkbox" ng-model="settings.useSoftTabs" id="settings-soft-tabs">
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="settings-tab-size">Tab size</label>
-            <div class="controls">
-              <input type="number" ng-model="settings.tabSize" ng-disabled="!settings.useSoftTabs" min="1" id="settings-tab-size">
+              <select ng-model="settings.softTabs" ng-options="i.value as i.name for i in SOFT_TABS" id="settings-soft-tabs"></select>
             </div>
           </div>
 
@@ -112,7 +105,7 @@
 
           <tr>
             <td class="keys">CTRL + F</td>
-            <td>Filter the document</td>
+            <td>Filter the document, goto line</td>
           </tr>
 
           <tr>
