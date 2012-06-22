@@ -90,8 +90,8 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   };
 
   $scope.isSettingsVisible = false;
-  $scope.toggleSettings = function() {
-    $scope.isSettingsVisible = !$scope.isSettingsVisible;
+  $scope.toggleSettings = function(value) {
+    $scope.isSettingsVisible = angular.isDefined(value) ? value : !$scope.isSettingsVisible;
 
     if (!$scope.isSettingsVisible) {
       editor.focus();
@@ -99,8 +99,8 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
   };
 
   $scope.isSearchVisible = false;
-  $scope.toggleSearch = function() {
-    $scope.isSearchVisible = !$scope.isSearchVisible;
+  $scope.toggleSearch = function(value) {
+    $scope.isSearchVisible = angular.isDefined(value) ? value : !$scope.isSearchVisible;
 
     if ($scope.isSearchVisible) {
       $scope.search = '';
@@ -145,6 +145,31 @@ TD.controller('App', function($scope, log, fs, tabs, editor, focus, chromeFs, se
     }
   });
 
-  $scope.$on('search', $scope.toggleSearch);
-  $scope.$on('settings', $scope.toggleSettings);
+  $scope.$on('settings', function() {
+    $scope.toggleSettings();
+  });
+
+  $scope.$on('search', function() {
+    $scope.toggleSearch();
+  });
+
+  $scope.$on('close', function() {
+    $scope.toggleSearch(false);
+    tabs.close();
+  });
+
+  $scope.$on('new', function() {
+    $scope.toggleSearch(false);
+    tabs.add();
+  });
+
+  $scope.$on('save', function() {
+    $scope.toggleSearch(false);
+    tabs.saveCurrent();
+  });
+
+  $scope.$on('open', function() {
+    $scope.toggleSearch(false);
+    tabs.open();
+  });
 });

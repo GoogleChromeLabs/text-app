@@ -38,14 +38,17 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
     }
   });
 
+  var applyEvent = function(eventName) {
+    $rootScope.$apply(function() {
+      $rootScope.$broadcast(eventName);
+    });
+  };
+
   document.addEventListener('keydown', function(event) {
 
     // ESC
     if (event.keyCode === 27) {
-      $rootScope.$apply(function() {
-        $rootScope.$broadcast('escape');
-      });
-
+      applyEvent('escape');
       return;
     }
 
@@ -53,34 +56,22 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
 
     switch (event.keyCode) {
       case KEY.W:
-        $rootScope.$apply(function() {
-          tabs.close();
-        });
+        applyEvent('close');
         break;
       case KEY.N:
-        $rootScope.$apply(function() {
-          tabs.add();
-        });
+        applyEvent('new');
         break;
       case KEY.S:
-        $rootScope.$apply(function() {
-          tabs.saveCurrent();
-        });
+        applyEvent('save');
         break;
       case KEY.O:
-        $rootScope.$apply(function() {
-          tabs.open();
-        });
+        applyEvent('open');
         break;
       case KEY.F:
-        $rootScope.$apply(function() {
-          $rootScope.$broadcast('search');
-        });
+        applyEvent('search');
         break;
       case 188: // CMD+,
-        $rootScope.$apply(function() {
-          $rootScope.$broadcast('settings');
-        });
+        applyEvent('settings');
         break;
     }
   });
