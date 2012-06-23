@@ -1,4 +1,4 @@
-describe 'services.editor', ->
+describe 'services editor', ->
   editor = ace = settings = null
 
   beforeEach module 'mocks.classes', 'mocks.ace', 'mocks.storage'

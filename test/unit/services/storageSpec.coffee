@@ -1,4 +1,4 @@
-describe 'services.storage', ->
+describe 'services storage', ->
   storage = chromeStorage = scope = watchedData = null
 
   beforeEach module 'mocks.storage'

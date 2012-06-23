@@ -1,4 +1,4 @@
-describe 'controllers.Settings', ->
+describe 'controllers Settings', ->
   scope = null
 
   # use all mocks

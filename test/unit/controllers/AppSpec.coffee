@@ -1,4 +1,4 @@
-describe 'controllers.App', ->
+describe 'controllers App', ->
   scope = editor = null
 
   # use all mocks

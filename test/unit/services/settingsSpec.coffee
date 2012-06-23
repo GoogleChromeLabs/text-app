@@ -1,4 +1,4 @@
-describe 'services.settings', ->
+describe 'services settings', ->
   settings = storage = null
 
   # use all mocks

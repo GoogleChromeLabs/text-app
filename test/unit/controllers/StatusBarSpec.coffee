@@ -1,4 +1,4 @@
-describe 'controllers.StatusBar', ->
+describe 'controllers StatusBar', ->
   scope = editor = null
 
   # use all mocks

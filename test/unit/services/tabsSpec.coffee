@@ -1,4 +1,4 @@
-describe 'services.tabs', ->
+describe 'services tabs', ->
   tabs = tabDeselectedSpy = null
 
   beforeEach module 'mocks'

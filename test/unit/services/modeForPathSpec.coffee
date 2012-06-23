@@ -1,4 +1,4 @@
-describe 'services.modeForPath', ->
+describe 'services modeForPath', ->
 
   it 'should return mode based on extension of given path', inject (modeForPath) ->
     mode = modeForPath 'some/path.js'
