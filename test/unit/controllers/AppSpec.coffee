@@ -49,3 +49,13 @@ describe 'controllers App', ->
 
       scope.maximize()
       expect(appWindow.restore).toHaveBeenCalled()
+
+
+    it 'should set proper maximizeTitle', ->
+      expect(scope.maximizeTitle).toBe MAXIMIZE_TITLE
+
+      scope.maximize()
+      expect(scope.maximizeTitle).toBe RESTORE_TITLE
+
+      scope.maximize();
+      expect(scope.maximizeTitle).toBe MAXIMIZE_TITLE

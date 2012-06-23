@@ -15,19 +15,19 @@
 
 <header>
 <div class="main-icons">
-  <a ng-click="maximize()" class="icon-fullscreen"></a>
-  <a ng-click="quit()" class="icon-remove"></a>
+  <a ng-click="maximize()" class="icon-fullscreen" title="{{maximizeTitle}}"></a>
+  <a ng-click="quit()" class="icon-remove" title="Quit [CTRL+Q]"></a>
 </div>
 
 
 <ul class="tabs ng-cloak">
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth">
-    <a ng-click="tabs.select(tab)">{{tab.label}}</a>
-    <a ng-click="tabs.close(tab)" ng-class="tab.icon()" class="icon"></a>
+    <a ng-click="tabs.select(tab)" title="{{tab.label}}">{{tab.label}}</a>
+    <a ng-click="tabs.close(tab)" ng-class="tab.icon()" class="icon" title="Close"></a>
     <div class="left-mask"><span></span></div>
     <div class="right-mask"><span></span></div>
   </li>
-  <li class="add-new"><a ng-click="tabs.add()"></a></li>
+  <li class="add-new"><a ng-click="tabs.add()" title="Create new file"></a></li>
 </ul>
 </header>
 
@@ -43,12 +43,12 @@
   <div ng-controller="StatusBar" id="status-bar">
     <div class="right">
       <div class="selectable ng-cloak">
-        <select ng-model="tabs.current.mode" ng-options="mode.name for mode in MODES" ng-change="updateMode()"></select>
+        <select ng-model="tabs.current.mode" ng-options="mode.name for mode in MODES" ng-change="updateMode()" title="Change mode"></select>
         {{tabs.current.mode.name}}</div>
       <span class="delimiter"></span>
-      <a ng-click="toggleSettings()" class="icon-cog"></a>
+      <a ng-click="toggleSettings()" class="icon-cog" title="Toggle settings [CTRL+,]"></a>
     </div>
-    <a ng-click="toggleSearch()" class="icon-search"></a>
+    <a ng-click="toggleSearch()" class="icon-search" title="Toggle search [CTRL+F]"></a>
     <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()" ng-show="isSearchVisible" class="ng-cloak">
   </div>
 

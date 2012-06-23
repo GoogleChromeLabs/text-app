@@ -11,6 +11,8 @@ TD.value('appWindow', {
   }
 });
 
+var MAXIMIZE_TITLE = 'Maximize';
+var RESTORE_TITLE = 'Restore';
 
 TD.controller('App', function($scope, tabs, settings, appWindow) {
 
@@ -27,13 +29,16 @@ TD.controller('App', function($scope, tabs, settings, appWindow) {
   };
 
   var isMaximized = false;
+  $scope.maximizeTitle = MAXIMIZE_TITLE;
   $scope.maximize = function() {
     if (isMaximized) {
-      isMaximized = false;
       appWindow.restore();
+      isMaximized = false;
+      $scope.maximizeTitle = MAXIMIZE_TITLE;
     } else {
-      isMaximized = true
       appWindow.maximize();
+      isMaximized = true
+      $scope.maximizeTitle = RESTORE_TITLE;
     }
   };
 
