@@ -106,15 +106,15 @@ describe 'services.settings', ->
 
   describe 'store', ->
 
-    it 'should save theme to storage', ->
-      settings.theme = settings.THEMES[0]
+    it 'should save theme to storage', inject (THEMES) ->
+      settings.theme = THEMES[0]
       settings.store()
 
       expect(storage._data.settings.theme).toBe 'ace/theme/chrome'
 
 
-    it 'should save keyMode to storage', ->
-      settings.keyMode = settings.KEY_MODES[1]
+    it 'should save keyMode to storage', inject (KEY_MODES) ->
+      settings.keyMode = KEY_MODES[1]
       settings.store()
 
       expect(storage._data.settings.keyMode).toBe 'vim'

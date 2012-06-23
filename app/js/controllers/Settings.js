@@ -1,8 +1,8 @@
-TD.controller('Settings', function($scope, settings) {
+TD.controller('Settings', function($scope, settings, THEMES, KEY_MODES, SOFT_TABS, SOFT_WRAP) {
   $scope.settings = settings;
 
-  $scope.THEMES = settings.THEMES;
-  $scope.KEY_MODES = settings.KEY_MODES;
-  $scope.SOFT_TABS = settings.SOFT_TABS;
-  $scope.SOFT_WRAP = settings.SOFT_WRAP;
+  $scope.THEMES = THEMES;
+  $scope.KEY_MODES = KEY_MODES;
+  $scope.SOFT_TABS = SOFT_TABS;
+  $scope.SOFT_WRAP = SOFT_WRAP;
 });

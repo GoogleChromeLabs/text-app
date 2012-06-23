@@ -14,7 +14,7 @@ describe 'controllers.Settings', ->
 
 
   it 'should publish constants', inject (settings) ->
-    expect(scope.THEMES).toBe settings.THEMES
-    expect(scope.KEY_MODES).toBe settings.KEY_MODES
-    expect(scope.SOFT_WRAP).toBe settings.SOFT_WRAP
-    expect(scope.SOFT_TABS).toBe settings.SOFT_TABS
+    expect(scope.THEMES).toBeDefined()
+    expect(scope.KEY_MODES).toBeDefined()
+    expect(scope.SOFT_WRAP).toBeDefined()
+    expect(scope.SOFT_TABS).toBeDefined()
