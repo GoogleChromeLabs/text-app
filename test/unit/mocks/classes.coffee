@@ -4,8 +4,16 @@ mocks.classes.value 'EditSession', (content) ->
 
   lines = @content.split '\n'
   @getLength = -> lines.length
-  @getLine = (row) ->
-    lines[row]
+  @getLine = (row) -> lines[row]
+  @setMode = (mode) -> @mode = mode
+
+  # event emitter
+  @_listeners = {}
+  @on = (evt, fn) ->
+    @_listeners[evt] = @_listeners[evt] or []
+    @_listeners[evt].push fn
+
+  @emit = (evt) -> fn() for fn in @_listeners[evt]
 
   @setUseSoftTabs = jasmine.createSpy 'setUseSoftTabs'
   @setTabSize = jasmine.createSpy 'setTabSize'
