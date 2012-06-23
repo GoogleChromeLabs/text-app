@@ -22,19 +22,30 @@ describe 'controllers App', ->
       broadcast = (event) ->
         $rootScope.$broadcast event
 
-    it 'should handle "quit"', inject (quitApp, settings) ->
+    it 'should handle "quit"', inject (appWindow, settings) ->
       spyOn settings, 'store'
       broadcast 'quit'
 
       expect(settings.store).toHaveBeenCalled()
-      expect(quitApp).toHaveBeenCalled();
+      expect(appWindow.close).toHaveBeenCalled();
 
 
   describe 'quit', ->
 
-    it 'should store settings and quit the app', inject (quitApp, settings) ->
+    it 'should store settings and quit the app', inject (appWindow, settings) ->
       spyOn settings, 'store'
       scope.quit()
 
       expect(settings.store).toHaveBeenCalled()
-      expect(quitApp).toHaveBeenCalled();
+      expect(appWindow.close).toHaveBeenCalled();
+
+
+  describe 'maximize', ->
+
+    it 'should maximize/restore', inject (appWindow) ->
+      scope.maximize()
+      expect(appWindow.maximize).toHaveBeenCalled()
+      appWindow._resetAllSpies()
+
+      scope.maximize()
+      expect(appWindow.restore).toHaveBeenCalled()

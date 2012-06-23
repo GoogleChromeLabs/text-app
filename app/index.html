@@ -14,7 +14,11 @@
 <body ng-controller="App" ng-class="settings.theme.cls">
 
 <header>
-<a ng-click="quit()" class="icon-remove"></a>
+<div class="main-icons">
+  <a ng-click="maximize()" class="icon-fullscreen"></a>
+  <a ng-click="quit()" class="icon-remove"></a>
+</div>
+
 
 <ul class="tabs ng-cloak">
   <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth">

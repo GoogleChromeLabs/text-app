@@ -4,7 +4,7 @@ TD.log = angular.module('TD.log', []);
 
 // we ask for editor, to get it instantiated before we load settings,
 // because editor register listeners
-angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope) {
+angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope, log) {
 
   // load settings from local storage
   settings.load();
@@ -83,7 +83,7 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   var MAX_TAB_SIZE = 200;
   var MIN_TAB_SIZE = 50;
   var countTabSize = function() {
-    var countedWidth = (window.innerWidth - 59) / tabs.length;
+    var countedWidth = (window.innerWidth - 100) / tabs.length;
     return Math.max(Math.min(countedWidth + 23, MAX_TAB_SIZE), MIN_TAB_SIZE);
   };
 
@@ -91,6 +91,7 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
 
   $rootScope.$watch(function() { return tabs.length; }, function() {
     $rootScope.tabWidth = countTabSize();
+    log('tab width', $rootScope.tabWidth);
   });
 
   window.addEventListener('resize', function(e) {

@@ -1,12 +1,18 @@
 // TODO(vojta): move to separate file
-TD.factory('quitApp', function(settings) {
-  return function() {
+TD.value('appWindow', {
+  close: function() {
     window.close();
-  };
+  },
+  maximize: function() {
+    window.chrome.appWindow.maximize();
+  },
+  restore: function() {
+    window.chrome.appWindow.restore();
+  }
 });
 
 
-TD.controller('App', function($scope, tabs, settings, quitApp) {
+TD.controller('App', function($scope, tabs, settings, appWindow) {
 
   $scope.tabs = tabs;
   $scope.settings = settings;
@@ -17,7 +23,18 @@ TD.controller('App', function($scope, tabs, settings, quitApp) {
 
   $scope.quit = function() {
     settings.store();
-    quitApp();
+    appWindow.close();
+  };
+
+  var isMaximized = false;
+  $scope.maximize = function() {
+    if (isMaximized) {
+      isMaximized = false;
+      appWindow.restore();
+    } else {
+      isMaximized = true
+      appWindow.maximize();
+    }
   };
 
 
