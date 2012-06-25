@@ -11,7 +11,9 @@ Show all available grunt tasks.
 
 ### Install required packages
 
-    npm install -g testacular grunt coffee-script less
+    npm install
+
+Install `testacular`, `grunt`, `coffee-script`, `less`.
 
 
 ### Watch unit tests (coffee script) and styles (less)

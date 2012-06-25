@@ -1,0 +1,10 @@
+{
+  "name": "TextDrive",
+  "version": "0.0.0",
+  "dependencies" : {
+    "testacular": "*",
+    "grunt":  "*",
+    "coffee-script": "*",
+    "less": "*"
+  }
+}
