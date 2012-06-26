@@ -8,38 +8,30 @@
     box-shadow: inset 0 0 2px #fff;
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(220,221,220,1) 4%,rgba(207,208,207,1) 39%,rgba(156,156,156,1) 40%);
     border: 1px solid #9c9c9c;
+
+    .left-mask {
+      span {
+        box-shadow: inset -1px 0 1px #9c9c9c;
+        border-color: rgba(207,208,207,1);
+      }
+    }
+
+    .right-mask{
+      span {
+        box-shadow: inset 1px 0 1px #9c9c9c;
+        border-color: rgba(207,208,207,1);
+      }
+    }
   }
 
   li.selected {
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(231,231,231,1) 30%);
-  }
 
-  li:hover {
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(231,231,231,1) 30%);
-  }
-
-  li.selected .left-mask, li.selected .right-mask, li:hover .left-mask, li:hover .right-mask {
-    span {
-      border-color: rgba(231,231,231,1);
+    .left-mask, .right-mask {
+      span {
+        border-color: rgba(231,231,231,1);
+      }
     }
-  }
-}
-
-.left-mask, .right-mask {
-  span {
-    border-color: rgba(207,208,207,1);
-  }
-}
-
-.left-mask {
-  span {
-    box-shadow: inset -1px 0 1px #9c9c9c;
-  }
-}
-
-.right-mask{
-  span {
-    box-shadow: inset 1px 0 1px #9c9c9c;
   }
 }
 
@@ -51,11 +43,15 @@ body.ace-theme-dawn {
   background: #F9F9F9;
 
   .tabs {
-    li.selected, li:hover {
-      background: #F9F9F9;
+    li:hover {
+      background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,#F9F9F9 4%,rgba(207,208,207,1) 39%,rgba(156,156,156,1) 40%);
     }
 
-    li.selected .left-mask, li.selected .right-mask, li:hover .left-mask, li:hover .right-mask {
+    li.selected, li.selected:hover {
+      background: -webkit-linear-gradient(top, white 0%, #F9F9F9 4%, #F9F9F9 39%);
+    }
+
+    li.selected .left-mask, li.selected .right-mask {
       span {
         border-color: #F9F9F9;
       }
