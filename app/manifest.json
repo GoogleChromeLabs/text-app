@@ -3,8 +3,10 @@
   "description": "Just a text editor.",
   "version": "0.0.19",
   "icons": {
-    "16": "icon_16.png",
-    "128": "icon_128.png"
+    "16": "icon/16x16.png",
+    "96": "icon/96x96.png",
+    "128": "icon/128x128.png",
+    "256": "icon/256x256.png"
   },
   "manifest_version": 2,
   "offline_enabled": true,

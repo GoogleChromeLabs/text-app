@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     copyOne('build/textdrive.css', DST + cssFile);
     copyAll('app/manifest.json', DST);
     copyAll('app/js/background.js', DST);
-    copyAll('app/icon_*.png', DST);
+    copyAll('app/icon/*x*.png', DST);
 
 
     // copy and rewrite index.html
