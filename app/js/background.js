@@ -9,6 +9,7 @@ chrome.experimental.app.onLaunched.addListener(function (launchData) {
 
   chrome.appWindow.create('index.html', options, function (win) {
     win.launchData = launchData;
+    console.log(launchData);
 //    win.onload = function () {};
   });
 });
