@@ -19,14 +19,14 @@
 </div>
 
 
-<ul class="tabs ng-cloak">
-  <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth">
+<ul class="tabs">
+  <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth" class="ng-cloak">
     <a ng-click="tabs.select(tab)" title="{{tab.label}}">{{tab.label}}</a>
     <a ng-click="tabs.close(tab)" ng-class="tab.icon()" class="icon" title="Close"></a>
     <div class="left-mask"><span></span></div>
     <div class="right-mask"><span></span></div>
   </li>
-  <li class="add-new"><a ng-click="tabs.add()" title="Create new file"></a></li>
+  <li class="add-new ng-cloak"><a ng-click="tabs.add()" title="Create new file"></a></li>
 </ul>
 </header>
 
