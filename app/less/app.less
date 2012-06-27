@@ -111,6 +111,7 @@ header {
   z-index: 1000;
 }
 
+
 // STATUS BAR
 ////////////////////////////////////////////////////////////////////////////////
 #status-bar {
@@ -118,6 +119,7 @@ header {
   border-top: 1px solid #CBCBCB;
   color: #A4A4A4;
   padding: 2px 6px;
+  -webkit-box-shadow: 0 -3px 6px -3px #CBCBCB;
 
   a {
     color: inherit;
@@ -158,13 +160,11 @@ header {
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 #settings {
-  border-top: 2px solid #CBCBCB;
-  height: 165px;
-  padding: 10px 0;
   background-color: #D6D6D6;
-  color: #555;
-  overflow-x: scroll;
-  overflow-y: hidden;
+
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.2s ease-in-out;
 
   form {
     margin: 15px 0 0 0;
@@ -179,7 +179,10 @@ header {
   }
 
   .inner {
-    width: 680px;
+    padding: 10px 0;
+    border-top: 2px solid #CBCBCB;
+    min-width: 680px;
+    color: #555;
   }
 
   .settings, .shortcuts {
@@ -199,6 +202,12 @@ header {
     }
   }
 }
+
+#settings.open-true {
+  height: 185px;
+  overflow-x: scroll;
+}
+
 
 .right {
   float: right;

@@ -53,7 +53,7 @@
     <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()" ng-show="isSearchVisible" class="ng-cloak">
   </div>
 
-  <div ng-controller="Settings" ng-show="isSettingsVisible" id="settings" class="ng-cloak">
+  <div ng-controller="Settings" class="open-{{isSettingsVisible}}" id="settings">
     <div class="inner">
       <form class="form-horizontal settings">
         <fieldset>
