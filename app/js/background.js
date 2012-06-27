@@ -3,8 +3,10 @@ chrome.experimental.app.onLaunched.addListener(function (launchData) {
     frame: 'none',
     minWidth: 400,
     minHeight: 400,
-    width: 900,
-    height: 900
+    width: 700,
+    height: 750,
+    left: 0,
+    top: 0
   };
 
   chrome.appWindow.create('index.html', options, function (win) {
