@@ -22,6 +22,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2; // search is hidden under the header
 
   .main-icons {
     position: absolute;
@@ -206,6 +207,44 @@ header {
 #settings.open-true {
   height: 170px;
   overflow-x: scroll;
+}
+
+
+#search {
+  position: absolute;
+  top: -9px;
+  right: 38px;
+  width: 208px;
+  z-index: 1;
+  height: 42px;
+  border: 1px solid #9C9C9C;
+  border-bottom-right-radius: 15px 15px;
+  border-bottom-left-radius: 15px 15px;
+  background: -webkit-linear-gradient(top, #DCDDDC 20%, #CFD0CF 65%);
+
+  input {
+    border: 1px solid #9C9C9C;
+    border-radius: 4px 4px;
+    padding: 3px 5px 4px 5px;
+    color: #555;
+    width: 180px;
+    margin: 10px 8px;
+  }
+
+  input:focus {
+    outline: none;
+
+  }
+}
+
+#search.open-true {
+  top: 34px;
+  -webkit-transition: top 0.2s ease-in;
+}
+
+#search.open-false {
+  top: -9px;
+  -webkit-transition: top 0.2s ease-in;
 }
 
 

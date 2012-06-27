@@ -39,6 +39,10 @@
 <div id="editor" ng-non-bindable></div>
 <div class="gutter-bg"></div>
 
+<div id="search" class="open-{{isSearchVisible}}">
+  <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()">
+</div>
+
 <div id="footer">
   <div ng-controller="StatusBar" id="status-bar">
     <div class="right">
@@ -49,7 +53,6 @@
       <a ng-click="toggleSettings()" class="icon-cog" title="Toggle settings [CTRL+,]"></a>
     </div>
     <a ng-click="toggleSearch()" class="icon-search" title="Toggle search [CTRL+F]"></a>
-    <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()" ng-show="isSearchVisible" class="ng-cloak">
   </div>
 
   <div ng-controller="Settings" class="open-{{isSettingsVisible}}" id="settings">

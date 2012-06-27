@@ -14,7 +14,7 @@ TD.value('appWindow', {
 var MAXIMIZE_TITLE = 'Maximize';
 var RESTORE_TITLE = 'Restore';
 
-TD.controller('App', function($scope, tabs, settings, appWindow) {
+TD.controller('App', function($scope, tabs, settings, appWindow, editor, focus) {
 
   $scope.tabs = tabs;
   $scope.settings = settings;
@@ -43,6 +43,47 @@ TD.controller('App', function($scope, tabs, settings, appWindow) {
   };
 
 
+  $scope.toggleSearch = function(value) {
+    $scope.isSearchVisible = angular.isDefined(value) ? value : !$scope.isSearchVisible;
+
+    if ($scope.isSearchVisible) {
+      focus('input[ng-model=search]');
+    } else {
+      $scope.search = '';
+      editor.clearFilter();
+      editor.focus();
+    }
+  };
+
+
+  $scope.doSearch = function() {
+    if ($scope.search.charAt(0) === ':') {
+      var lineNumber = parseInt($scope.search.substr(1), 10);
+      if (lineNumber) {
+        editor.goToLine(lineNumber);
+      }
+    } else if ($scope.search.charAt(0) === '/') {
+      var filter = $scope.search.substr(1);
+      if (filter.length >= 3) {
+        // TODO(vojta): delay
+        editor.filter(new RegExp(filter, filter.toLowerCase() === filter ? 'i' : ''));
+      } else {
+        editor.clearFilter();
+      }
+    }
+  };
+
+
+  $scope.enterSearch = function() {
+    if ($scope.search.charAt(0) === '/') {
+      editor.goToFirstFiltered();
+      editor.focus();
+    } else {
+      $scope.toggleSearch(false);
+    }
+  };
+
+
   $scope.$on('close', function() {
     tabs.close();
   });
@@ -61,6 +102,14 @@ TD.controller('App', function($scope, tabs, settings, appWindow) {
 
   $scope.$on('quit', function() {
     $scope.quit();
+  });
+
+  $scope.$on('search', function() {
+    $scope.toggleSearch();
+  });
+
+  $scope.$on('tab_deselected', function() {
+    $scope.toggleSearch(false);
   });
 
 
