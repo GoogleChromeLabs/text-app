@@ -1,6 +1,6 @@
 // VARIABLES
-@toolbar-height: 35px;
-@footer-height: 22px;
+@toolbar-height: 42px; // 35 + 7
+@footer-height: 30px; // 23 + 7
 
 
 body {
@@ -24,8 +24,9 @@ header {
 
     a {
       color: #979797;
-      font-size: 1.6em;
+      font-size: 1.2em;
       position: relative;
+      padding: 1px;
     }
 
     a:hover {
@@ -114,6 +115,7 @@ header {
 ////////////////////////////////////////////////////////////////////////////////
 #status-bar {
   background-color: #EBEBEB;
+  border-top: 1px solid #CBCBCB;
   color: #A4A4A4;
   padding: 2px 6px;
 
@@ -204,4 +206,24 @@ header {
 
 .ng-cloak {
   display: none !important;
+}
+
+
+.ace_gutter {
+  font-size: 10px;
+  min-width: 50px;
+}
+
+.ace_gutter-cell {
+  padding-left: 5px !important;
+  line-height: 19px;
+}
+
+.gutter-bg {
+  position: absolute;
+  top: 35px;
+  bottom: 23px;
+  z-index: 0;
+  left: 0;
+  width: 50px;
 }
