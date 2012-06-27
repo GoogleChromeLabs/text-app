@@ -1,7 +1,7 @@
 {
   "name": "Text Drive",
   "description": "Just a text editor.",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "icons": {
     "16": "icon/16x16.png",
     "96": "icon/96x96.png",
@@ -23,7 +23,6 @@
     "clipboardWrite",
     "unlimitedStorage",
     "storage",
-    "appWindow",
     "fileSystem"
   ],
   "intents": {
