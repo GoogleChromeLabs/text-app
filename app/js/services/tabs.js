@@ -71,6 +71,8 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
     // save the file
     var saveFile = function(writableFileEntry) {
       if (!writableFileEntry) {
+        log('Closing file without saving.');
+        $rootScope.$apply(removeTab);
         return;
       }
 
