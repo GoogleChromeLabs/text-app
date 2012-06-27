@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>TextDrive</title>
-  <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
   <!-- APP-CSS -->
   <link href="css/app.css" rel="stylesheet">
@@ -55,38 +54,29 @@
 
   <div ng-controller="Settings" class="open-{{isSettingsVisible}}" id="settings">
     <div class="inner">
-      <form class="form-horizontal settings">
-        <fieldset>
-          <div class="control-group">
-            <label class="control-label" for="settings-theme">Theme</label>
-            <div class="controls">
-              <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
-            </div>
-          </div>
+      <form class="settings">
+        <div class="row">
+          <label class="control-label" for="settings-theme">Theme</label>
+          <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
+        </div>
 
-          <div class="control-group">
-            <label class="control-label" for="settings-key-mode">Key Bindings</label>
-            <div class="controls">
-              <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
-            </div>
-          </div>
+        <div class="row">
+          <label class="control-label" for="settings-key-mode">Key Bindings</label>
+          <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
+        </div>
 
-          <div class="control-group">
-            <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
-            <div class="controls">
-              <select ng-model="settings.softTabs" ng-options="i.value as i.name for i in SOFT_TABS" id="settings-soft-tabs"></select>
-            </div>
-          </div>
+        <div class="row">
+          <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
+          <select ng-model="settings.softTabs" ng-options="i.value as i.name for i in SOFT_TABS" id="settings-soft-tabs"></select>
+        </div>
 
-          <div class="control-group">
-            <label class="control-label" for="settings-soft-wrap">Wrapping</label>
-            <div class="controls">
-              <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
-            </div>
-          </div>
-        </fieldset>
+        <div class="row">
+          <label class="control-label" for="settings-soft-wrap">Wrapping</label>
+          <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
+        </div>
       </form>
 
+      <!--
       <div class="shortcuts">
         <h3>Shortcuts</h3>
         <table>
@@ -121,6 +111,7 @@
           </tr>
         </table>
       </div>
+      -->
     </div>
   </div>
 </div>

@@ -50,10 +50,6 @@ module.exports = function(grunt) {
     // angular
     copyAll('app/' + angularFile, DST);
 
-    // bootstrap
-    copyAll('app/lib/bootstrap/css/bootstrap.css', DST);
-    copyAll('app/lib/bootstrap/img/glyphicons-*.png', DST);
-
     // font-awesome
     copyAll('app/lib/font-awesome/css/font-awesome.css', DST);
     copyAll('app/lib/font-awesome/font/fontawesome-webfont.*', DST);

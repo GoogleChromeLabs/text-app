@@ -5,6 +5,13 @@
 
 body {
   overflow: hidden;
+  line-height: 18px;
+  font-size: 13px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 
@@ -129,10 +136,6 @@ header {
     top: 3px;
   }
 
-  a:hover {
-    text-decoration: none;
-  }
-
   .delimiter {
     border-right: 1px solid #D6D6D6;
     margin: 0 5px;
@@ -167,44 +170,41 @@ header {
   -webkit-transition: height 0.2s ease-in-out;
 
   form {
-    margin: 15px 0 0 0;
-  }
 
-  .control-group {
-    margin-bottom: 5px;
-  }
+    .row {
+      margin-bottom: 5px;
+    }
 
-  input[type=checkbox] {
-    margin-top: 8px;
+    label {
+      float: left;
+      display: block;
+      width: 140px;
+      padding-top: 3px;
+      padding-right: 10px;
+      text-align: right;
+    }
+
+    select {
+      display: inline-block;
+      width: 220px;
+      border: 1px solid #BBB;
+      height: 24px;
+      margin: 0;
+      color: #555;
+      vertical-align: middle;
+    }
   }
 
   .inner {
-    padding: 10px 0;
+    padding: 25px 0;
     border-top: 2px solid #CBCBCB;
     min-width: 680px;
     color: #555;
   }
-
-  .settings, .shortcuts {
-    float: left;
-  }
-
-  .shortcuts {
-    padding: 0 10px 0 30px;
-
-    h3 {
-      margin-bottom: 5px;
-    }
-
-    .keys {
-      font-weight: bold;
-      padding-right: 10px;
-    }
-  }
 }
 
 #settings.open-true {
-  height: 185px;
+  height: 170px;
   overflow-x: scroll;
 }
 
