@@ -141,7 +141,14 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
       }
 
       fs.loadFile(fileEntry).then(function(content) {
+        // TODO(vojta): make this nicer
+        var firstTab = tabs[0];
+        var closeInitialTab = !!(tabs.length === 1 && !firstTab.file && !firstTab.modified);
         tabs.add(fileEntry, content);
+        if (closeInitialTab) {
+          log('Closing initial empty tab');
+          tabs.close(firstTab);
+        }
       }, function() {
         log('Error during opening file');
       });
