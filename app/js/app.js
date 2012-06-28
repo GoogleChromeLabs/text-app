@@ -83,7 +83,7 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
   var MAX_TAB_SIZE = 200;
   var MIN_TAB_SIZE = 50;
   var countTabSize = function() {
-    var countedWidth = (window.innerWidth - 100) / tabs.length;
+    var countedWidth = (window.innerWidth - 140) / tabs.length;
     return Math.max(Math.min(countedWidth + 23, MAX_TAB_SIZE), MIN_TAB_SIZE);
   };
 
@@ -94,14 +94,20 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
     log('tab width', $rootScope.tabWidth);
   });
 
+  var timer;
   window.addEventListener('resize', function(e) {
-    var tabWidth = countTabSize();
-
-    if ($rootScope.tabWidth === tabWidth) {
+    if (timer) {
       return;
     }
 
-    $rootScope.tabWidth = tabWidth;
-    $rootScope.$digest();
+    timer = setTimeout(function() {
+      var tabWidth = countTabSize();
+
+      if ($rootScope.tabWidth !== tabWidth) {
+        $rootScope.tabWidth = tabWidth;
+        $rootScope.$digest();
+      }
+      timer = null;
+    }, 50);
   });
 });
