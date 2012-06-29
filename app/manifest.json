@@ -23,7 +23,8 @@
     "clipboardWrite",
     "unlimitedStorage",
     "storage",
-    "fileSystem"
+    "fileSystem",
+    "fileSystemWrite"
   ],
   "intents": {
     "http://webintents.org/edit": [

@@ -92,7 +92,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
     }
 
     if (tab.file) {
-      chromeFs.getWritableFileEntry(tab.file, saveFile);
+      saveFile(tab.file);
     } else {
       chromeFs.chooseFile({type: "saveFile"}, saveFile);
     }
@@ -106,9 +106,6 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
         return;
       }
 
-      // TODO(vojta): remove this hack when fixed in chrome
-      tab._hasWritePermission = true;
-
       fs.saveFile(writableFileEntry, tab.session.getValue()).then(function() {
         tab.setFileEntry(writableFileEntry);
       });
@@ -120,18 +117,14 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
     }
 
     if (tab.file) {
-      if (tab._hasWritePermission) {
-        saveFile(tab.file);
-      } else {
-        chromeFs.getWritableFileEntry(tab.file, saveFile);
-      }
+      saveFile(tab.file);
     } else {
       chromeFs.chooseFile({type: "saveFile"}, saveFile);
     }
   };
 
   tabs.open = function() {
-    chromeFs.chooseFile({type: 'openFile'}, function(fileEntry) {
+    chromeFs.chooseFile({type: 'openWritableFile'}, function(fileEntry) {
       if (!fileEntry) {
         return;
       }
