@@ -2,6 +2,27 @@
 
 Just a text editor for ChromeOS.
 
+## Running on Chrome
+
+* install [Chrome Canary](http://www.chromium.org/getting-involved/dev-channel/)
+* enable `Experimental Extension APIs` in `chrome://flags`
+* check `Developer Mode` in `chrome://chrome/extensions/`
+* load as "unpacked extension" in `chrome://chrome/extensions/`
+
+
+## Screenshots
+
+### Main Screen
+![Screenshot: TextDrive](https://github.com/vojtajina/textdrive/raw/master/screen_main.png)
+
+### Settings
+![Screenshot: Settings](https://github.com/vojtajina/textdrive/raw/master/screen_settings.png)
+
+### Search (grep like filtering)
+![Screenshot: Grep like filtering](https://github.com/vojtajina/textdrive/raw/master/screen_grep.png)
+
+
+
 ## Development
 
     grunt --help
@@ -54,5 +75,4 @@ Create `build/package-*.zip/` package, ready for uploading to [Chrome Web Store]
 
 - [AngularJS](http://angularjs.org/)
 - [ACE Editor](http://ace.ajax.org/)
-- [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
 - [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
