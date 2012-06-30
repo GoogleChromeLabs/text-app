@@ -140,23 +140,4 @@ TD.controller('App', function($scope, tabs, settings, appWindow, editor, focus) 
   $scope.$on('tab_deselected', function() {
     $scope.toggleSearch(false);
   });
-
-
-  // save / open stuff, currently disabled
-  $scope.save = tabs.saveCurrent;
-  $scope.open = tabs.open;
-
-  $scope.isSaveDisabled = function() {
-    // no tab
-    if (!tabs.current) {
-      return true;
-    }
-
-    // new file
-    if (!tabs.current.file) {
-      return false;
-    }
-
-    return !tabs.current.modified;
-  };
 });
