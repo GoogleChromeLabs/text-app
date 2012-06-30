@@ -80,6 +80,21 @@ TD.controller('App', function($scope, tabs, settings, appWindow, editor, focus) 
     }
   };
 
+  $scope.searchPrevious = function() {
+    if (!$scope.search || $scope.search.charAt(0) === '/' || $scope.search.charAt(0) === ':') {
+      return;
+    }
+
+    editor._editor.findPrevious();
+  };
+
+  $scope.searchNext = function() {
+    if (!$scope.search || $scope.search.charAt(0) === '/' || $scope.search.charAt(0) === ':') {
+      return;
+    }
+
+    editor._editor.findNext();
+  };
 
   $scope.enterSearch = function() {
     // TODO(vojta): make this nicer, I/O rush :-D
