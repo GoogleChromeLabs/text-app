@@ -4,10 +4,10 @@ TD.value('appWindow', {
     window.close();
   },
   maximize: function() {
-    window.chrome.appWindow.maximize();
+    window.chrome.app.window.maximize();
   },
   restore: function() {
-    window.chrome.appWindow.restore();
+    window.chrome.app.window.restore();
   }
 });
 
