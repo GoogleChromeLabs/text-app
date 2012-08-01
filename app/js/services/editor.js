@@ -169,9 +169,11 @@ TD.factory('editor', function(EditSession, FilterFolding, settings, ace) {
 
     goToFirstFiltered: function() {
       var session = ace.getSession();
-      var firstFilteredRow = session.getNextFoldLine(0).end.row + 2;
+      var nextFoldLine = session.getNextFoldLine(0);
 
-      this.goToLine(firstFilteredRow);
+      if (nextFoldLine) {
+        this.goToLine(nextFoldLine.end.row + 2);
+      }
     },
 
     _editor: ace
