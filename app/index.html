@@ -12,7 +12,7 @@
 </head>
 <body ng-controller="App" ng-class="settings.theme.cls">
 
-<header>
+<header ng-controller="Tabs">
 <div class="main-icons">
   <a ng-click="maximize()" class="icon-fullscreen" title="{{maximizeTitle}}"></a>
   <a ng-click="quit()" class="icon-remove" title="Quit [CTRL+Q]"></a>
@@ -142,6 +142,7 @@
 <script src="js/controllers/App.js" type="text/javascript"></script>
 <script src="js/controllers/Settings.js" type="text/javascript"></script>
 <script src="js/controllers/StatusBar.js" type="text/javascript"></script>
+<script src="js/controllers/Tabs.js" type="text/javascript"></script>
 
 <!--services-->
 <script src="js/services/editor.js" type="text/javascript"></script>

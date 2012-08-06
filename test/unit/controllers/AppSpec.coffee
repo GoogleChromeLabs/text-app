@@ -10,9 +10,8 @@ describe 'controllers App', ->
     $controller 'App', {$scope: scope}
 
 
-  it 'should publish tabs and settings', inject (settings, tabs) ->
+  it 'should publish settings', inject (settings) ->
     expect(scope.settings).toBe settings
-    expect(scope.tabs).toBe tabs
 
 
   describe 'toggleSearch', ->
@@ -146,40 +145,11 @@ describe 'controllers App', ->
       broadcast = (event) ->
         $rootScope.$broadcast event
 
-    it 'should handle "quit"', inject (appWindow, settings) ->
-      spyOn settings, 'store'
-      broadcast 'quit'
+    it 'should handle "search"', ->
+      scope.isSearchVisible = false
 
-      expect(settings.store).toHaveBeenCalled()
-      expect(appWindow.close).toHaveBeenCalled();
+      broadcast 'search'
+      expect(scope.isSearchVisible).toBe true
 
-
-  describe 'quit', ->
-
-    it 'should store settings and quit the app', inject (appWindow, settings) ->
-      spyOn settings, 'store'
-      scope.quit()
-
-      expect(settings.store).toHaveBeenCalled()
-      expect(appWindow.close).toHaveBeenCalled();
-
-
-  describe 'maximize', ->
-
-    it 'should maximize/restore', inject (appWindow) ->
-      scope.maximize()
-      expect(appWindow.maximize).toHaveBeenCalled()
-      appWindow._resetAllSpies()
-
-      scope.maximize()
-      expect(appWindow.restore).toHaveBeenCalled()
-
-
-    it 'should set proper maximizeTitle', ->
-      expect(scope.maximizeTitle).toBe MAXIMIZE_TITLE
-
-      scope.maximize()
-      expect(scope.maximizeTitle).toBe RESTORE_TITLE
-
-      scope.maximize();
-      expect(scope.maximizeTitle).toBe MAXIMIZE_TITLE
+      broadcast 'search'
+      expect(scope.isSearchVisible).toBe false

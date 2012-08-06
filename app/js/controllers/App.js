@@ -14,33 +14,12 @@ TD.value('appWindow', {
 var MAXIMIZE_TITLE = 'Maximize';
 var RESTORE_TITLE = 'Restore';
 
-TD.controller('App', function($scope, tabs, settings, appWindow, editor, focus) {
+TD.controller('App', function($scope, settings, editor, focus) {
 
-  $scope.tabs = tabs;
   $scope.settings = settings;
 
   $scope.isSettingsVisible = false;
   $scope.isSearchVisible = false;
-
-
-  $scope.quit = function() {
-    settings.store();
-    appWindow.close();
-  };
-
-  var isMaximized = false;
-  $scope.maximizeTitle = MAXIMIZE_TITLE;
-  $scope.maximize = function() {
-    if (isMaximized) {
-      appWindow.restore();
-      isMaximized = false;
-      $scope.maximizeTitle = MAXIMIZE_TITLE;
-    } else {
-      appWindow.maximize();
-      isMaximized = true
-      $scope.maximizeTitle = RESTORE_TITLE;
-    }
-  };
 
 
   $scope.toggleSearch = function(value) {
@@ -112,26 +91,6 @@ TD.controller('App', function($scope, tabs, settings, appWindow, editor, focus) 
     }
   };
 
-
-  $scope.$on('close', function() {
-    tabs.close();
-  });
-
-  $scope.$on('new', function() {
-    tabs.add();
-  });
-
-  $scope.$on('save', function() {
-    tabs.saveCurrent();
-  });
-
-  $scope.$on('open', function() {
-    tabs.open();
-  });
-
-  $scope.$on('quit', function() {
-    $scope.quit();
-  });
 
   $scope.$on('search', function() {
     $scope.toggleSearch();
