@@ -1,8 +1,4 @@
-TD.factory('fs', function(log, $window, $q, $rootScope) {
-
-  var SIZE = 1024 * 1024 * 10; // 10MB
-  var d_fs = $q.defer();
-  var p_fs = d_fs.promise; // FileSystem
+TD.factory('fs', function($q, $rootScope, log) {
 
   var createErrorHandler = function(defered) {
     return function(e) {
@@ -38,60 +34,7 @@ TD.factory('fs', function(log, $window, $q, $rootScope) {
     };
   };
 
-  // get the FileSystem object
-  // $window.webkitStorageInfo.requestQuota(PERSISTENT, SIZE, function(grantedBytes) {
-  //   $window.webkitRequestFileSystem(PERSISTENT, grantedBytes, function(fs) {
-  //     d_fs.resolve(fs);
-  //     log('FS loaded, quota', grantedBytes);
-  //     $rootScope.$digest();
-  //   }, createErrorHandler(d_fs));
-  // }, createErrorHandler(d_fs));
-
   return {
-    files: [],
-
-
-    refresh: function() {
-      var defered = $q.defer();
-      var self = this;
-
-      p_fs.then(function(fs) {
-        var reader = fs.root.createReader();
-        reader.readEntries(function(results) {
-          // TODO(vojta): recycle previous FileEntry objects
-          self.files.length = 0;
-          Array.prototype.slice.call(results).forEach(function(item) {
-            self.files.push(item);
-          });
-
-          defered.resolve(self.files);
-          log('Loaded ' + self.files.length + ' files.');
-          $rootScope.$digest();
-        }, createErrorHandler(defered));
-      }, createErrorHandler(defered));
-
-      return defered.promise;
-    },
-
-
-    createFile: function(name, opt_content) {
-      log('Creating file', name);
-
-      var self = this;
-      var defered = $q.defer();
-
-      p_fs.then(function(fs) {
-        fs.root.getFile(name, {create: true, exclusive: true}, function(file) {
-          self.files.push(file);
-          defered.resolve(file);
-          log('File created', name);
-          $rootScope.$digest();
-        }, createErrorHandler(defered));
-      }, createErrorHandler(defered));
-
-      return defered.promise;
-    },
-
 
     saveFile: function(fileEntry, content, type) {
       var defered = $q.defer();
