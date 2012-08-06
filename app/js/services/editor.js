@@ -105,7 +105,17 @@ TD.factory('editor', function(EditSession, FilterFolding, settings, ace) {
       }
     },
 
-    _editor: ace
+    find: function(value) {
+      return ace.find(value);
+    },
+
+    findNext: function() {
+      return ace.findNext();
+    },
+
+    findPrevious: function() {
+      return ace.findPrevious();
+    }
   };
 });
 

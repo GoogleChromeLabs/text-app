@@ -13,6 +13,7 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
       });
     };
 
+
     this.setFileEntry = function(fileEntry) {
       this.file = fileEntry || null;
       this.label = fileEntry && fileEntry.name || '<new file>';
@@ -26,9 +27,11 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
       }
     };
 
+
     this.icon = function() {
       return this.modified ? 'icon-certificate' : 'icon-remove';
     };
+
 
     this.manualMode = false;
     // TODO(vojta): pass mode to the constructor to avoid extra parsing
@@ -40,7 +43,9 @@ TD.factory('Tab', function(EditSession, $rootScope, log, modeForPath) {
 
 
 TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $rootScope) {
+
   var tabs = [];
+
 
   tabs.select = function(tab) {
     if (tabs.current) {
@@ -58,6 +63,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
       editor.clearSession();
     }
   };
+
 
   tabs.close = function(tab) {
     tab = tab || tabs.current;
@@ -98,6 +104,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
     }
   };
 
+
   tabs.saveCurrent = function() {
     var tab = tabs.current;
 
@@ -122,6 +129,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
       chromeFs.chooseFile({type: "saveFile"}, saveFile);
     }
   };
+
 
   tabs.open = function() {
     chromeFs.chooseFile({type: 'openWritableFile'}, function(fileEntry) {
@@ -148,6 +156,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
     });
   };
 
+
   tabs.selectByFile = function(file) {
     for (var i = 0; i < tabs.length; i++) {
       // TODO(vojta): use chromeFs.getDisplayPath() instead
@@ -159,6 +168,7 @@ TD.factory('tabs', function(editor, fs, log, Tab, chromeFs, lru, settings, $root
 
     return false;
   };
+
 
   tabs.add = function(fileEntry, content) {
     var tab = new Tab(fileEntry, content);

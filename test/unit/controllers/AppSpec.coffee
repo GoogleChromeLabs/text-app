@@ -45,6 +45,11 @@ describe 'controllers App', ->
 
   describe 'doSearch', ->
 
+    it 'should ignore empty values', ->
+      scope.search = undefined
+      scope.doSearch()
+
+
     describe 'goToLine', ->
 
       it 'should goToLine when search starts with ":"', ->
@@ -117,6 +122,11 @@ describe 'controllers App', ->
 
   describe 'enterSearch', ->
 
+    it 'should ignore empty values', ->
+      scope.search = undefined
+      scope.enterSearch()
+
+
     describe 'goToLine', ->
 
       it 'should hide search', ->
@@ -152,4 +162,12 @@ describe 'controllers App', ->
       expect(scope.isSearchVisible).toBe true
 
       broadcast 'search'
+      expect(scope.isSearchVisible).toBe false
+
+
+    it 'should handle "tab_deselected"', ->
+      broadcast 'tab_deselected'
+      expect(scope.isSearchVisible).toBe false
+
+      broadcast 'tab_deselected'
       expect(scope.isSearchVisible).toBe false

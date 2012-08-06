@@ -113,3 +113,22 @@ describe 'services tabs', ->
 
       expect(tabs[0].session.content).toBe 'a'
       expect(tabs[1].session.content).toBe 'c'
+
+
+  describe 'Tab', ->
+
+    it 'should update modified and $digest if changed', inject (Tab, $rootScope) ->
+      tab = new Tab
+      spy = jasmine.createSpy 'on digest'
+
+      $rootScope.$watch(spy)
+      expect(tab.modified).toBe false
+
+      tab._onSessionChange()
+      expect(spy).toHaveBeenCalled()
+      expect(tab.modified).toBe true
+      spy.reset()
+
+      tab._onSessionChange()
+      expect(spy).not.toHaveBeenCalled()
+      expect(tab.modified).toBe true

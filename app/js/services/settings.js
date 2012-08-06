@@ -1,17 +1,17 @@
-TD.service('settings', function($rootScope, storage, log, THEMES, KEY_MODES, SOFT_WRAP, SOFT_TABS) {
-  var settings = this;
-
-  var findById = function(collection, id) {
-    for (var i = 0; i < collection.length; i++) {
-      if (collection[i].id === id) {
-        return collection[i];
-      }
+var findById = function(collection, id) {
+  for (var i = 0; i < collection.length; i++) {
+    if (collection[i].id === id) {
+      return collection[i];
     }
-  };
+  }
+};
 
+
+TD.service('settings', function($rootScope, storage, log, THEMES, KEY_MODES, SOFT_WRAP, SOFT_TABS) {
+
+  var settings = this;
   var data = {};
   var listeners = {};
-
 
   var defineProperty = function(name) {
     settings.__defineGetter__(name, function() {
@@ -36,6 +36,7 @@ TD.service('settings', function($rootScope, storage, log, THEMES, KEY_MODES, SOF
   defineProperty('softTabs');
   defineProperty('softWrap');
 
+
   this.on = function(name, fn) {
     if (!listeners[name]) {
       listeners[name] = [];
@@ -43,6 +44,7 @@ TD.service('settings', function($rootScope, storage, log, THEMES, KEY_MODES, SOF
 
     listeners[name].push(fn);
   };
+
 
   this.store = function() {
     storage.set({
@@ -56,6 +58,7 @@ TD.service('settings', function($rootScope, storage, log, THEMES, KEY_MODES, SOF
       log('settings saved');
     });
   };
+
 
   this.load = function() {
     storage.get(['settings'], function(data) {

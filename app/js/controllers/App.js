@@ -23,7 +23,6 @@ TD.controller('App', function($scope, settings, editor, focus) {
 
 
   $scope.doSearch = function() {
-    // TODO(vojta): make this nicer, I/O rush :-D
     if (!$scope.search) {
       return;
     }
@@ -42,28 +41,30 @@ TD.controller('App', function($scope, settings, editor, focus) {
         editor.clearFilter();
       }
     } else {
-      editor._editor.find($scope.search);
+      editor.find($scope.search);
     }
   };
+
 
   $scope.searchPrevious = function() {
     if (!$scope.search || $scope.search.charAt(0) === '/' || $scope.search.charAt(0) === ':') {
       return;
     }
 
-    editor._editor.findPrevious();
+    editor.findPrevious();
   };
+
 
   $scope.searchNext = function() {
     if (!$scope.search || $scope.search.charAt(0) === '/' || $scope.search.charAt(0) === ':') {
       return;
     }
 
-    editor._editor.findNext();
+    editor.findNext();
   };
 
+
   $scope.enterSearch = function() {
-    // TODO(vojta): make this nicer, I/O rush :-D
     if (!$scope.search) {
       return;
     }
@@ -74,7 +75,7 @@ TD.controller('App', function($scope, settings, editor, focus) {
     } else if ($scope.search.charAt(0) === ':') {
       $scope.toggleSearch(false);
     } else {
-      editor._editor.findNext();
+      editor.findNext();
     }
   };
 
@@ -82,6 +83,7 @@ TD.controller('App', function($scope, settings, editor, focus) {
   $scope.$on('search', function() {
     $scope.toggleSearch();
   });
+
 
   $scope.$on('tab_deselected', function() {
     $scope.toggleSearch(false);

@@ -137,3 +137,12 @@ describe 'services settings', ->
       settings.store()
 
       expect(storage._data.settings.softWrap).toBe 0
+
+
+  describe 'findById', ->
+
+    it 'should return first item with given id', ->
+      collection = [{id: 'some'}, {id: 'other'}, {id: 'some'}]
+
+      expect(findById collection, 'some').toBe collection[0]
+      expect(findById collection, 'other').toBe collection[1]
