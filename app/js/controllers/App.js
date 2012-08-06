@@ -1,16 +1,3 @@
-// TODO(vojta): move to separate file
-TD.value('appWindow', {
-  close: function() {
-    window.close();
-  },
-  maximize: function() {
-    window.chrome.app.window.maximize();
-  },
-  restore: function() {
-    window.chrome.app.window.restore();
-  }
-});
-
 var MAXIMIZE_TITLE = 'Maximize';
 var RESTORE_TITLE = 'Restore';
 

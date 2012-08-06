@@ -1,74 +1,3 @@
-TD.factory('EditSession', function() {
-  return ace.require("ace/edit_session").EditSession;
-});
-
-
-// TODO(vojta): lazy load handlers
-TD.factory('VimHandler', function() {
-  return ace.require("ace/keyboard/vim").handler;
-});
-
-TD.factory('EmacsHandler', function() {
-  return ace.require("ace/keyboard/emacs").handler;
-});
-
-
-TD.factory('ace', function() {
-  return ace.edit('editor');
-});
-
-
-TD.factory('AceRange', function() {
-  return ace.require('ace/range').Range;
-});
-
-
-TD.factory('FilterFolding', function(AceRange) {
-  return function(regexp) {
-    var cache = [];
-
-    this.getFoldWidget = function(session, foldStyle, row) {
-      var previousMatch = cache[row - 1];
-      var line = session.getLine(row);
-      var currentMatch = cache[row] = regexp.test(line);
-
-      if (row === 0) {
-        return currentMatch ? '' : 'start';
-      } else {
-        if (!previousMatch) {
-          return '';
-        } else {
-          return currentMatch ? '' : 'start';
-        }
-      }
-    };
-
-    this.getFoldWidgetRange = function(session, foldStyle, row) {
-      var start = {row: row, column: 0};
-      var end = {};
-
-      while (!cache[row]) {
-        if (typeof cache[row] === 'undefined') {
-          if (row >= session.getLength()) {
-            break;
-          }
-          this.getFoldWidget(session, foldStyle, row);
-          if (cache[row]) {
-            break;
-          }
-        }
-        row++;
-      }
-
-      end.row = row - 1;
-      end.column = session.getLine(end.row).length;
-
-      return AceRange.fromPoints(start, end);
-    };
-  };
-});
-
-
 TD.factory('editor', function(EditSession, FilterFolding, settings, ace) {
 
   var updateSoftWrapSettings = function(wrap, session) {
@@ -177,5 +106,51 @@ TD.factory('editor', function(EditSession, FilterFolding, settings, ace) {
     },
 
     _editor: ace
+  };
+});
+
+
+TD.factory('FilterFolding', function(AceRange) {
+  return function(regexp) {
+    var cache = [];
+
+    this.getFoldWidget = function(session, foldStyle, row) {
+      var previousMatch = cache[row - 1];
+      var line = session.getLine(row);
+      var currentMatch = cache[row] = regexp.test(line);
+
+      if (row === 0) {
+        return currentMatch ? '' : 'start';
+      } else {
+        if (!previousMatch) {
+          return '';
+        } else {
+          return currentMatch ? '' : 'start';
+        }
+      }
+    };
+
+    this.getFoldWidgetRange = function(session, foldStyle, row) {
+      var start = {row: row, column: 0};
+      var end = {};
+
+      while (!cache[row]) {
+        if (typeof cache[row] === 'undefined') {
+          if (row >= session.getLength()) {
+            break;
+          }
+          this.getFoldWidget(session, foldStyle, row);
+          if (cache[row]) {
+            break;
+          }
+        }
+        row++;
+      }
+
+      end.row = row - 1;
+      end.column = session.getLine(end.row).length;
+
+      return AceRange.fromPoints(start, end);
+    };
   };
 });
