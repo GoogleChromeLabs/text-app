@@ -1,4 +1,4 @@
-chrome.experimental.app.onLaunched.addListener(function (launchData) {
+chrome.app.runtime.onLaunched.addListener(function (launchData) {
   var options = {
     frame: 'none',
     minWidth: 400,
