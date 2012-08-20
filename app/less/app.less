@@ -30,6 +30,9 @@ header {
     top: 9px;
     z-index: 2;
 
+    // make footer non-draggable, to work-around windows bug
+    -webkit-widget-region: region(control rectangle);
+
     a {
       color: #979797;
       font-size: 1.2em;
