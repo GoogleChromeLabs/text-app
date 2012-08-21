@@ -3,6 +3,14 @@
 @footer-height: 30px; // 23 + 7
 
 
+.non-draggable {
+  -webkit-widget-region: region(control rectangle);
+}
+
+.non-selectable {
+  user-select: none
+}
+
 body {
   overflow: hidden;
   line-height: 18px;
@@ -18,6 +26,8 @@ a {
 // HEADER (toolbar)
 ////////////////////////////////////////////////////////////////////////////////
 header {
+  .non-selectable;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -25,13 +35,12 @@ header {
   z-index: 2; // search is hidden under the header
 
   .main-icons {
+    .non-draggable;
+
     position: absolute;
     right: 8px;
     top: 9px;
     z-index: 2;
-
-    // make footer non-draggable, to work-around windows bug
-    -webkit-widget-region: region(control rectangle);
 
     a {
       color: #979797;
@@ -45,12 +54,18 @@ header {
       color: #444;
     }
   }
+
+  .tabs li {
+    .non-draggable;
+  }
 }
 
 
 // ACE EDITOR
 ////////////////////////////////////////////////////////////////////////////////
 #editor {
+  .non-draggable;
+
   position: absolute;
   top: @toolbar-height;
   bottom: @footer-height;
@@ -101,6 +116,8 @@ header {
 
 
 #footer {
+  .non-draggable;
+
   position: absolute;
   bottom: 0;
   left: 0;
