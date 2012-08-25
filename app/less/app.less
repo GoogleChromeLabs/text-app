@@ -3,12 +3,16 @@
 @footer-height: 30px; // 23 + 7
 
 
-.non-draggable {
+.non-app-draggable {
   -webkit-widget-region: region(control rectangle);
 }
 
 .non-selectable {
-  user-select: none
+  user-select: none;
+}
+
+.non-draggable {
+  -webkit-user-drag: none;
 }
 
 body {
@@ -35,6 +39,7 @@ header {
   z-index: 2; // search is hidden under the header
 
   .main-icons {
+    .non-app-draggable;
     .non-draggable;
 
     position: absolute;
@@ -56,6 +61,7 @@ header {
   }
 
   .tabs li {
+    .non-app-draggable;
     .non-draggable;
   }
 }
@@ -64,7 +70,7 @@ header {
 // ACE EDITOR
 ////////////////////////////////////////////////////////////////////////////////
 #editor {
-  .non-draggable;
+  .non-app-draggable;
 
   position: absolute;
   top: @toolbar-height;
@@ -114,8 +120,12 @@ header {
 //  }
 //}
 
+a {
+  .non-draggable;
+}
 
 #footer {
+  .non-app-draggable;
   .non-draggable;
 
   position: absolute;
