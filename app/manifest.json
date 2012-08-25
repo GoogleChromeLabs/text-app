@@ -1,7 +1,7 @@
 {
   "name": "Text Drive",
   "description": "Just a text editor.",
-  "version": "0.0.30",
+  "version": "0.0.33",
   "icons": {
     "16": "icon/16x16.png",
     "96": "icon/96x96.png",
