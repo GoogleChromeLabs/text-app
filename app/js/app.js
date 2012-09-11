@@ -37,7 +37,9 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
     }
   });
 
-  var applyEvent = function(eventName) {
+  var applyEvent = function(eventName, event) {
+    event.preventDefault();
+
     $rootScope.$apply(function() {
       $rootScope.$broadcast(eventName);
     });
@@ -47,7 +49,7 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
 
     // ESC
     if (event.keyCode === 27) {
-      applyEvent('escape');
+      applyEvent('escape', event);
       return;
     }
 
@@ -57,26 +59,19 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
 
     switch (event.keyCode) {
       case KEY.W:
-        applyEvent('close');
-        break;
+        return applyEvent('close', event);
       case KEY.N:
-        applyEvent('new');
-        break;
+        return applyEvent('new', event);
       case KEY.S:
-        applyEvent('save');
-        break;
+        return applyEvent('save', event);
       case KEY.O:
-        applyEvent('open');
-        break;
+        return applyEvent('open', event);
       case KEY.F:
-        applyEvent('search');
-        break;
+        return applyEvent('search', event);
       case KEY.Q:
-        $rootScope.$broadcast('quit');
-        break;
+        return applyEvent('quit', event);
       case 188: // CMD+,
-        applyEvent('settings');
-        break;
+        return applyEvent('settings', event);
     }
   });
 
