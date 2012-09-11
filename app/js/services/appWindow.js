@@ -3,9 +3,9 @@ TD.value('appWindow', {
     window.close();
   },
   maximize: function() {
-    window.chrome.app.window.maximize();
+    window.chrome.app.window.current().maximize();
   },
   restore: function() {
-    window.chrome.app.window.restore();
+    window.chrome.app.window.current().restore();
   }
 });

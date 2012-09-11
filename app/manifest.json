@@ -9,6 +9,7 @@
     "256": "icon/256x256.png"
   },
   "manifest_version": 2,
+  "minimum_chrome_version": "23.0.1261",
   "offline_enabled": true,
   "app": {
     "background": {
