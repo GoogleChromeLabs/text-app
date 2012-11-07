@@ -37,6 +37,7 @@ header {
   left: 0;
   right: 0;
   z-index: 2; // search is hidden under the header
+  -webkit-app-region: drag;
 
   .main-icons {
     .non-app-draggable;
@@ -46,6 +47,7 @@ header {
     right: 8px;
     top: 9px;
     z-index: 2;
+    -webkit-app-region: no-drag;
 
     a {
       color: #979797;
