@@ -22,6 +22,10 @@ TD.controller('Header', function($scope, settings, appWindow) {
     }
   };
 
+  $scope.toggleSidebar = function() {
+    $scope.$parent.isSidebarVisible = !$scope.isSidebarVisible;
+  };
+
   $scope.$on('quit', function() {
     $scope.quit();
   });

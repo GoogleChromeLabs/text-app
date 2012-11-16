@@ -5,6 +5,7 @@ TD.controller('App', function($scope, settings, editor, focus) {
 
   $scope.settings = settings;
 
+  $scope.isSidebarVisible = false;
   $scope.isSettingsVisible = false;
   $scope.isSearchVisible = false;
 
