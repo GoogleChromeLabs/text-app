@@ -6,42 +6,33 @@
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
   <!-- APP-CSS -->
   <link href="css/app.css" rel="stylesheet">
-  <link href="css/tabs.css" rel="stylesheet">
+<!--  <link href="css/tabs.css" rel="stylesheet"> -->
   <link href="css/themes.css" rel="stylesheet">
   <!-- APP-CSS-END -->
 </head>
 <body ng-controller="App" ng-class="settings.theme.cls">
 
-<header ng-controller="Tabs">
-<div class="main-icons">
-  <a ng-click="maximize()" class="icon-fullscreen" title="{{maximizeTitle}}"></a>
-  <a ng-click="quit()" class="icon-remove" title="Quit [CTRL+Q]"></a>
-</div>
+  <div id="window-container">
+    <div id="sidebar" class="open-{{isSidebarVisible}}">
+      abc
+    </div>
+    <div id="main-container">
+      <header ng-controller="Header">
+        <button ng-clock="toggleSidebar()" id="sidebar-icon" class="icon-reorder" title="Open sidebar"></button>
+        <div id="title-filename">{{title}}</div>
+        <div class="main-icons">
+          <a ng-click="maximize()" class="icon-fullscreen" title="{{maximizeTitle}}"></a>
+          <a ng-click="quit()" class="icon-remove" title="Quit [CTRL+Q]"></a>
+        </div>
+      </header>
 
+      <!-- ACE editor -->
+      <div id="editor" ng-non-bindable></div>
+<!--  <div class="gutter-bg"></div>  -->
+    </div> <!-- main-container -->
+  </div> <!-- window-container -->
 
-<ul class="tabs">
-  <li ng-repeat="tab in tabs" ng-class="{selected: tab == tabs.current}" td-width="tabWidth" class="ng-cloak">
-    <a ng-click="tabs.select(tab)" title="{{tab.label}}">{{tab.label}}</a>
-    <a ng-click="tabs.close(tab)" ng-class="tab.icon()" class="icon" title="Close"></a>
-    <div class="left-mask"><span></span></div>
-    <div class="right-mask"><span></span></div>
-  </li>
-  <li class="add-new ng-cloak"><a ng-click="tabs.add()" title="Create new file"></a></li>
-</ul>
-</header>
-
-<!-- ACE editor -->
-<div id="editor" ng-non-bindable></div>
-<div class="gutter-bg"></div>
-
-<div id="search" class="open-{{isSearchVisible}}">
-  <input type="text" ng-model="search" ng-change="doSearch()" on-enter="enterSearch()">
-  <a ng-click="searchPrevious()" class="icon-chevron-up previous"></a>
-  <a ng-click="searchNext()" class="icon-chevron-down next"></a>
-  <a ng-click="toggleSearch()" class="icon-remove close"></a>
-</div>
-
-<div id="footer">
+<!-- <div id="footer">
   <div ng-controller="StatusBar" id="status-bar">
     <div class="right">
       <div class="selectable ng-cloak">
@@ -80,7 +71,7 @@
   </div>
 </div>
 
-<!--
+
 <div id="log" ng-hide="isHidden">
   <header>
     <a ng-click="isHidden = true">close</a><a ng-click="">digest</a><a ng-click="logs.clear()">clear</a>
@@ -105,7 +96,7 @@
 <script src="js/controllers/App.js" type="text/javascript"></script>
 <script src="js/controllers/Settings.js" type="text/javascript"></script>
 <script src="js/controllers/StatusBar.js" type="text/javascript"></script>
-<script src="js/controllers/Tabs.js" type="text/javascript"></script>
+<script src="js/controllers/Header.js" type="text/javascript"></script>
 
 <!--services-->
 <script src="js/services/editor.js" type="text/javascript"></script>
