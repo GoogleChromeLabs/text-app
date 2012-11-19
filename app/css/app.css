@@ -33,7 +33,7 @@ img {
   width: 0;
 }
 
-#sidebar.open-true {
+#sidebar.open {
   width: 220px;
   overflow-y: hidden;
 }
