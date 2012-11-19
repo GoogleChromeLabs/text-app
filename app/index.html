@@ -5,93 +5,38 @@
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
 </head>
-<body ng-controller="App" ng-class="settings.theme.cls">
-
+<body>
   <div id="window-container">
-    <div id="sidebar" ng-controller="SideBar" class="open-{{isSidebarVisible}}">
+    <div id="sidebar" class="open">
       <h1>TextDrive</h1>
 
       <hr>
 
       <ul id="file-menu">
-        <li><a href="" ng-click="new()">New</a></li>
-        <li><a href="" ng-click="open()">Open</a></li>
-        <li><a href="" ng-click="saveas()">Save as</a></li>
+        <li><a id="file-menu-new">New</a></li>
+        <li><a id="file-menu-open">Open</a></li>
+        <li><a id="file-menu-saveas">Save as</a></li>
       </ul>
 
-      <hr>      
+      <hr>
 
       <ul class="tabs-list">
-        <li ng-repeat="tab in tabs">{{tab}}</li>
+        <li>Untitled</li>
       </ul>
     </div>
     <div id="main-container">
-      <header ng-controller="Header">
-        <button ng-click="toggleSidebar()" id="sidebar-icon" class="icon-reorder" title="Open sidebar"></button>
-        <div id="title-filename">{{title}}</h2>
-        <div class="main-icons">
-          <a ng-click="maximize()" class="icon-fullscreen" title="{{maximizeTitle}}"></a>
-          <a ng-click="quit()" class="icon-remove" title="Quit [CTRL+Q]"></a>
+      <header>
+        <button id="sidebar-icon" title="Open sidebar"></button>
+        <div id="title-filename">Untitled</h2>
+        <div id="window-icons">
+          <a id="window-maximize" class="icon-fullscreen" title="Maximize"></a>
+          <a id="window-close" class="icon-remove" title="Quit [CTRL+Q]"></a>
         </div>
       </header>
 
-      <!-- ACE editor -->
-      <div id="editor" ng-non-bindable></div>
-<!--  <div class="gutter-bg"></div>  -->
+      <div id="editor"></div>
     </div> <!-- main-container -->
   </div> <!-- window-container -->
-
-<!-- <div id="footer">
-  <div ng-controller="StatusBar" id="status-bar">
-    <div class="right">
-      <div class="selectable ng-cloak">
-        <select ng-model="tabs.current.mode" ng-options="mode.name for mode in MODES" ng-change="updateMode()" title="Change mode"></select>
-        {{tabs.current.mode.name}}</div>
-      <span class="delimiter"></span>
-      <a ng-click="toggleSettings()" class="icon-cog" title="Toggle settings [CTRL+,]"></a>
-    </div>
-    <a ng-click="toggleSearch()" class="icon-search" title="Toggle search [CTRL+F]"></a>
-  </div>
-
-  <div ng-controller="Settings" class="open-{{isSettingsVisible}}" id="settings">
-    <div class="inner">
-      <form class="settings">
-        <div class="row">
-          <label class="control-label" for="settings-theme">Theme</label>
-          <select ng-model="settings.theme" ng-options="i.name for i in THEMES" id="settings-theme"></select>
-        </div>
-
-        <div class="row">
-          <label class="control-label" for="settings-key-mode">Key Bindings</label>
-          <select ng-model="settings.keyMode" ng-options="i.name for i in KEY_MODES" id="settings-key-mode"></select>
-        </div>
-
-        <div class="row">
-          <label class="control-label" for="settings-soft-tabs">Soft Tabs</label>
-          <select ng-model="settings.softTabs" ng-options="i.value as i.name for i in SOFT_TABS" id="settings-soft-tabs"></select>
-        </div>
-
-        <div class="row">
-          <label class="control-label" for="settings-soft-wrap">Wrapping</label>
-          <select ng-model="settings.softWrap" ng-options="i.value as i.name for i in SOFT_WRAP" id="settings-soft-wrap"></select>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-<div id="log" ng-hide="isHidden">
-  <header>
-    <a ng-click="isHidden = true">close</a><a ng-click="">digest</a><a ng-click="logs.clear()">clear</a>
-    <h5>Debug Log:</h5>
-  </header>
-
-  <ul class="unstyled">
-    <li ng-repeat="log in logs" class="{{log | toClass}}">{{log}}</li>
-  </ul>
-</div>
--->
 
 <script src="lib/ace/src-noconflict/ace.js" type="text/javascript"></script>
 <script src="lib/ace/src-noconflict/keybinding-vim.js" type="text/javascript"></script>

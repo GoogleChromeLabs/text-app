@@ -1,0 +1,118 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  -webkit-user-drag: none;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+#window-container {
+  -webkit-box-align: stretch;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#sidebar {
+  background-color: #323232;
+  color: white;
+  overflow: hidden;
+  -webkit-transition: width 0.2s ease-in-out;
+  width: 0;
+}
+
+#sidebar.open-true {
+  width: 220px;
+  overflow-y: hidden;
+}
+
+#sidebar h1 {
+  margin: 24px;
+}
+
+#sidebar ul {
+  margin: 24px;
+  padding: 0;
+  font-size: 140%;
+  list-style-type: none;
+}
+
+#sidebar ul li {
+  margin: 10px 0px 10px 0px;
+}
+
+#sidebar ul li a {
+  color: white;
+}
+
+#main-container {
+  -webkit-box-align: stretch;
+  -webkit-box-flex: 1.0;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+
+header {
+  -webkit-app-region: drag;
+  background-color: #EEE;
+  border-bottom: 1px solid #888;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  height: 35px;
+  position: relative;
+  text-align: center;
+  user-select: none;
+}
+
+#sidebar-icon {
+  -webkit-app-region: no-drag;
+  color: #979797;
+  position: absolute;
+  top: 5px;
+  left: 8px;
+}
+
+#title-filename {
+  color: #717171;
+  font-size: 120%;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#window-icons {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  z-index: 2;
+}
+
+#window-icons a {
+  color: #979797;
+  font-size: 1.2em;
+  padding: 1px;
+  position: relative;
+}
+
+#window-icons a:hover {
+  color: #444;
+}
+
+#editor {
+  -webkit-box-flex: 1.0;
+  position: relative;
+}
