@@ -10,19 +10,6 @@ chrome.app.runtime.onLaunched.addListener(function (launchData) {
   };
 
   chrome.app.window.create('index.html', options, function (win) {
-    win.launchData = launchData;
-    console.log(launchData);
-//    win.onload = function () {};
+    console.log('Window created.', launchData);
   });
 });
-
-
-//chrome.runtime.onInstalled.addListener(function() {
-//  console.log('INSTALLED');
-//});
-
-
-//chrome.experimental.identity.getAuthToken(function(token) {
-//  console.log('token', token);
-//
-//});

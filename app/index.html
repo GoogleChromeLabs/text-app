@@ -26,7 +26,8 @@
     </div>
     <div id="main-container">
       <header>
-        <button id="sidebar-icon" title="Open sidebar"></button>
+        <button id="toggle-sidebar" class="icon-reorder" title="Open sidebar">
+        </button>
         <div id="title-filename">Untitled</h2>
         <div id="window-icons">
           <a id="window-maximize" class="icon-fullscreen" title="Maximize"></a>
@@ -38,48 +39,16 @@
     </div> <!-- main-container -->
   </div> <!-- window-container -->
 
+<script src="lib/jquery-1.8.3.js" type="text/javascript"></script>
+
 <script src="lib/ace/src-noconflict/ace.js" type="text/javascript"></script>
-<script src="lib/ace/src-noconflict/keybinding-vim.js" type="text/javascript"></script>
-<script src="lib/ace/src-noconflict/keybinding-emacs.js" type="text/javascript"></script>
+<script src="lib/ace/src-noconflict/keybinding-vim.js" type="text/javascript">
+</script>
+<script src="lib/ace/src-noconflict/keybinding-emacs.js" type="text/javascript">
+</script>
 
-<!-- APP-JS -->
 <script src="js/app.js" type="text/javascript"></script>
-
-<!--controllers-->
-<script src="js/controllers/App.js" type="text/javascript"></script>
-<script src="js/controllers/SideBar.js" type="text/javascript"></script>
-<script src="js/controllers/Header.js" type="text/javascript"></script>
-
-<!--services-->
-<script src="js/services/editor.js" type="text/javascript"></script>
-<script src="js/services/fs.js" type="text/javascript"></script>
-<script src="js/services/tabs.js" type="text/javascript"></script>
-<script src="js/services/log.js" type="text/javascript"></script>
-<script src="js/services/settings.js" type="text/javascript"></script>
-<script src="js/services/storage.js" type="text/javascript"></script>
-<script src="js/services/focus.js" type="text/javascript"></script>
-<script src="js/services/chromeFs.js" type="text/javascript"></script>
-<script src="js/services/modeForPath.js" type="text/javascript"></script>
-<script src="js/services/appWindow.js" type="text/javascript"></script>
-<script src="js/services/ace.js" type="text/javascript"></script>
-
-<!--directives-->
-<script src="js/directives/onEnter.js" type="text/javascript"></script>
-<script src="js/directives/tdWidth.js" type="text/javascript"></script>
-
-<!-- utils -->
-<script src="js/utils/lru.js" type="text/javascript"></script>
-
-<!--filters-->
-<script src="js/filters/toClass.js" type="text/javascript"></script>
-
-<!-- constants -->
-<script src="js/constants/KEY_MODES.js" type="text/javascript"></script>
-<script src="js/constants/MODES.js" type="text/javascript"></script>
-<script src="js/constants/SOFT_TABS.js" type="text/javascript"></script>
-<script src="js/constants/SOFT_WRAP.js" type="text/javascript"></script>
-<script src="js/constants/THEMES.js" type="text/javascript"></script>
-<!-- APP-JS-END -->
+<script src="js/window_controller.js" type="text/javascript"></script>
 
 </body>
 </html>

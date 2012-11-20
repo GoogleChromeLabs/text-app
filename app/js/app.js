@@ -1,11 +1,21 @@
-var TD = angular.module('TD.app', []);
+/**
+ * @constructor
+ */
+function TextDrive() {
+  this.tabs_ = null;
+  this.windowController_ = null;
+}
 
-TD.log = angular.module('TD.log', []);
+TextDrive.prototype.init = function() {
+  this.tabs_ = new Tabs();
+  this.windowController_ = new WindowController(this.tabs_);
+};
 
-// we ask for editor, to get it instantiated before we load settings,
-// because editor register listeners
-angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, editor, tabs, $rootScope, log) {
+var textDrive = new TextDrive();
 
+$(document).ready(textDrive.init.bind(textDrive));
+
+function oldInit() {
   // load settings from local storage
   settings.load();
   tabs.add();
@@ -105,4 +115,4 @@ angular.module('TD', ['TD.app', 'TD.log']).run(function($window, settings, edito
       timer = null;
     }, 50);
   });
-});
+}

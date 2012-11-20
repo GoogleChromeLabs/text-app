@@ -26,7 +26,7 @@ img {
 }
 
 #sidebar {
-  background-color: #323232;
+  background-color: #333;
   color: white;
   overflow: hidden;
   -webkit-transition: width 0.2s ease-in-out;
@@ -77,7 +77,7 @@ header {
   user-select: none;
 }
 
-#sidebar-icon {
+#toggle-sidebar {
   -webkit-app-region: no-drag;
   color: #979797;
   position: absolute;
@@ -86,7 +86,7 @@ header {
 }
 
 #title-filename {
-  color: #717171;
+  color: #777;
   font-size: 120%;
   font-weight: bold;
   margin-left: auto;
