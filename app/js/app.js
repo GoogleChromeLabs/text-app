@@ -7,13 +7,18 @@ function TextDrive() {
 }
 
 TextDrive.prototype.init = function() {
-  this.tabs_ = new Tabs();
-  this.windowController_ = new WindowController(this.tabs_);
+  this.editor_ = new Editor('editor');
+  this.tabs_ = new Tabs(this.editor_);
+  this.menu_controller_ = new MenuController(this.tabs_);
+  this.windowController_ = new WindowController();
 };
 
 var textDrive = new TextDrive();
 
 $(document).ready(textDrive.init.bind(textDrive));
+
+
+
 
 function oldInit() {
   // load settings from local storage

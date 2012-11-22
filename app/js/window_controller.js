@@ -1,10 +1,8 @@
-function WindowController(tabs) {
-  this.tabs_ = tabs;
+function WindowController() {
   this.maximized_ = false;
   $('#window-close').click(this.close.bind(this));
   $('#window-maximize').click(this.maximize.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar.bind(this));
-  ace.edit('editor');
 }
 
 WindowController.prototype.close = function() {
