@@ -1,12 +1,12 @@
-var EditSession = ace.require("ace/edit_session").EditSession;
+var EditSession = ace.require('ace/edit_session').EditSession;
 
 function Editor(editorElement) {
   this.element_ = editorElement;
   this.editor_ = null;
 }
 
-Editor.prototype.newSession = function() {
-  return new EditSession('');
+Editor.prototype.newSession = function(opt_content) {
+  return new EditSession(opt_content || '');
 };
 
 Editor.prototype.setSession = function(session) {

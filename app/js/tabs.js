@@ -1,4 +1,4 @@
-function Tab(id, name, session) {
+function Tab(id, name, session, opt_content) {
   this.name_ = name;
   this.id_ = id;
   this.session_ = session;
@@ -17,7 +17,6 @@ Tab.prototype.getSession = function() {
 };
 
 
-
 /**
  * @constructor
  */
@@ -34,14 +33,14 @@ Tabs.prototype.getTabById = function(id) {
   return null;
 };
 
-Tabs.prototype.newTab = function() {
+Tabs.prototype.newTab = function(opt_name, opt_content) {
   var id = 1;
   while (this.getTabById(id)) {
     id++;
   }
 
-  var name = 'Untitled ' + id;
-  var session = this.editor_.newSession()
+  var name = opt_name || 'Untitled ' + id;
+  var session = this.editor_.newSession(opt_content)
   var tab = new Tab(id, name, session);
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
@@ -55,4 +54,18 @@ Tabs.prototype.showTab = function(tabId) {
 };
 
 Tabs.prototype.onFileOpen = function(entry) {
+  if (!entry) {
+    return;
+  }
+  var self = this;
+  entry.file(function(file) {
+    var reader = new FileReader();
+    reader.onerror = function(err) {
+      console.error('Error while reading file:', err);
+    };
+    reader.onloadend = function(e) {
+      self.newTab(entry.name, this.result)
+    };
+    reader.readAsText(file);
+  });
 };

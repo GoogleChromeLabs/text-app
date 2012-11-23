@@ -13,9 +13,7 @@
   "offline_enabled": true,
   "app": {
     "background": {
-      "scripts": [
-        "js/background.js"
-      ]
+      "scripts": ["js/background.js"]
     }
   },
   "permissions": [
@@ -30,9 +28,7 @@
     "http://webintents.org/edit": [
       {
         "title": "TextDrive",
-        "type": [
-          "text/*"
-        ]
+        "type": ["text/*"]
       }
     ]
   }
