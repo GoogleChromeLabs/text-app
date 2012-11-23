@@ -9,3 +9,7 @@ mkdir $TARGET/lib
 cp -rv app/lib/jquery-1.8.3.js app/lib/font-awesome $TARGET/lib
 mkdir -p $TARGET/lib/ace/src-noconflict
 cp app/lib/ace/src-noconflict/ace.js $TARGET/lib/ace/src-noconflict
+
+cd $TARGET/..
+rm -rf textdrive.zip
+zip -r textdrive.zip textdrive/
