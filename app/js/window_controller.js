@@ -1,15 +1,16 @@
 function WindowController() {
   this.maximized_ = false;
-  $('#window-close').click(this.close.bind(this));
-  $('#window-maximize').click(this.maximize.bind(this));
-  $('#toggle-sidebar').click(this.toggleSidebar.bind(this));
+  $('#window-close').click(this.close_.bind(this));
+  $('#window-maximize').click(this.maximize_.bind(this));
+  $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
+  $(document).bind('switchtab', this.onChangeTab_.bind(this));
 }
 
-WindowController.prototype.close = function() {
+WindowController.prototype.close_ = function() {
   window.close();
 };
 
-WindowController.prototype.maximize = function() {
+WindowController.prototype.maximize_ = function() {
   if (this.maximized_) {
     window.chrome.app.window.current().restore();
     this.maximized_ = false;
@@ -19,6 +20,11 @@ WindowController.prototype.maximize = function() {
   }
 };
 
-WindowController.prototype.toggleSidebar = function() {
+WindowController.prototype.toggleSidebar_ = function() {
   $('#sidebar').toggleClass('open');
+};
+
+WindowController.prototype.onChangeTab_ = function(e, tab) {
+  console.log('onChangeTab_', tab);
+  $('#title-filename').text(tab.getName());
 };

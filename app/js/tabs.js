@@ -19,7 +19,7 @@ Tab.prototype.getSession = function() {
 
 
 /**
- * @costructor
+ * @constructor
  */
 function Tabs(editor) {
   this.editor_ = editor;
@@ -44,9 +44,15 @@ Tabs.prototype.newTab = function() {
   var session = this.editor_.newSession()
   var tab = new Tab(id, name, session);
   this.tabs_.push(tab);
-  return tab;
+  $.event.trigger('newtab', tab);
+  this.showTab(tab.getID());
 };
 
 Tabs.prototype.showTab = function(tabId) {
-  this.editor_.setSession(this.getTabById(tabId).getSession());
+  var tab = this.getTabById(tabId)
+  this.editor_.setSession(tab.getSession());
+  $.event.trigger('switchtab', tab);
+};
+
+Tabs.prototype.onFileOpen = function(entry) {
 };
