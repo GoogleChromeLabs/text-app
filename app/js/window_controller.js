@@ -4,6 +4,7 @@ function WindowController() {
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
+  $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
 }
 
 WindowController.prototype.close_ = function() {
@@ -25,6 +26,5 @@ WindowController.prototype.toggleSidebar_ = function() {
 };
 
 WindowController.prototype.onChangeTab_ = function(e, tab) {
-  console.log('onChangeTab_', tab);
   $('#title-filename').text(tab.getName());
 };

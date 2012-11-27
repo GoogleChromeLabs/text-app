@@ -1,4 +1,4 @@
-chrome.app.runtime.onLaunched.addListener(function (launchData) {
+function launch(launchData) {
   var options = {
     frame: 'none',
     minWidth: 400,
@@ -9,7 +9,9 @@ chrome.app.runtime.onLaunched.addListener(function (launchData) {
     top: 0
   };
 
-  chrome.app.window.create('index.html', options, function (win) {
+  chrome.app.window.create('index.html', options, function(win) {
     console.log('Window created.', launchData);
   });
-});
+}
+
+chrome.app.runtime.onLaunched.addListener(launch);
