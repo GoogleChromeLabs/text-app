@@ -6,6 +6,8 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.parse
+import urllib.request
 
 APP_NAME = 'TextDrive'
 
@@ -21,6 +23,8 @@ FILES = [
   'icon/128x128.png',
   'icon/256x256.png',
   'js/background.js',
+  'lib/jquery-1.8.3.min.js',
+  'lib/ace/src-min-noconflict/ace.js',
   'lib/font-awesome/css/font-awesome.css',
   'lib/font-awesome/font/fontawesome-webfont.woff'
 ]
@@ -32,6 +36,9 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
                      '</script>')
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
+CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
+JQUERY_EXTERNS = ('http://closure-compiler.googlecode.com/'
+                  'svn/trunk/contrib/externs/jquery-1.8.js')
 
 
 def delete(*paths):
@@ -86,15 +93,56 @@ def process_index(out_dir):
   return js_files
 
 
+def print_errors(errors, js_files):
+  for error in errors:
+    fileno = int(error['file'][6:])
+    if 'error' in error:
+      text = error['error']
+    else:
+      text = error['warning']
+    print(js_files[fileno] + ':' + str(error['lineno']) + ' ' + text)
+    print(error['line'])
+
+
 def compile_js(out_dir, js_files):
   print('Compiling JavaScript code.')
-  all_js = ''
+  js_code = []
   for js_file in js_files:
-    all_js += open(os.path.join(SOURCE_DIR, js_file)).read() + '\n'
+    js_code.append(open(os.path.join(SOURCE_DIR, js_file)).read())
+
+  params = [
+      ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+      ('formatting', 'pretty_print'),
+      ('output_format', 'json'),
+      ('output_info', 'statistics'),
+      ('output_info', 'warnings'),
+      ('output_info', 'errors'),
+      ('output_info', 'compiled_code'),
+    ]
+  for code in js_code:
+    params.append(('js_code', code))
+
+  params = bytes(urllib.parse.urlencode(params, encoding='utf8'), 'utf8')
+  headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+
+  print('Connecting', CLOSURE_URL)
+  out = urllib.request.urlopen(CLOSURE_URL, data=params)
+  result = json.loads(out.read().decode('utf8'))
+
+  if 'errors' in result and len(result['errors']):
+    print('Errors:')
+    print_errors(result['errors'], js_files)
+    print()
+
+  if 'warnings' in result and len(result['warnings']):
+    print('Warnings:')
+    print_errors(result['warnings'], js_files)
+    print()
+
   all_js_dst = os.path.join(out_dir, TARGET_JS)
-  os.makedirs(os.path.dirname(all_js_dst), exist_ok=True)
   print('Writing', all_js_dst)
-  open(all_js_dst, 'w').write(all_js)
+  os.makedirs(os.path.dirname(all_js_dst), exist_ok=True)
+  open(all_js_dst, 'w').write(result['compiledCode'])
 
 
 def main():

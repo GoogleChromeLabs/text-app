@@ -1,5 +1,8 @@
 var EditSession = ace.require('ace/edit_session').EditSession;
 
+/**
+ * @constructor
+ */
 function Editor(editorElement) {
   this.element_ = editorElement;
   this.editor_ = null;

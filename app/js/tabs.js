@@ -1,3 +1,6 @@
+/**
+ * @constructor
+ */
 function Tab(id, session, entry) {
   this.id_ = id;
   this.session_ = session;

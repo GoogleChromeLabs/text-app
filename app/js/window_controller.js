@@ -1,3 +1,6 @@
+/**
+ * @constructor
+ */
 function WindowController() {
   this.maximized_ = false;
   $('#window-close').click(this.close_.bind(this));
