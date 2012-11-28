@@ -13,7 +13,6 @@ SOURCE_DIR = os.path.join(BASE_DIR, 'app')
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 FILES = [
-  'manifest.json',
   'index.html',
   'css/app.css',
   'icon/16x16.png',
@@ -33,6 +32,8 @@ FILES = [
   'lib/font-awesome/css/font-awesome.css',
   'lib/font-awesome/font/fontawesome-webfont.woff'
 ]
+
+MANIFEST = 'manifest.json'
 
 
 def delete(*paths):
@@ -58,15 +59,24 @@ def get_version():
   version = subprocess.check_output(['git', 'describe'],
                                     universal_newlines=True)
   return version.strip()[1:]
+
+
+def process_manifest(out_dir, version):
+  manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
+  manifest['version'] = version
+  json.dump(manifest, open(os.path.join(out_dir, MANIFEST), 'w'))
   
 
 def main():
   version = get_version()
-  print(version)
+
   out_dir = os.path.join(BUILD_DIR, APP_NAME + '-' + version)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
   copy_files(SOURCE_DIR, out_dir, FILES)
+
+  process_manifest(out_dir, version)
+  
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip', os.path.abspath(BUILD_DIR),
                       os.path.abspath(out_dir))
