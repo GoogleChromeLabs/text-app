@@ -3,6 +3,7 @@
 import json
 import os
 import shutil
+import subprocess
 import sys
 
 APP_NAME = 'TextDrive'
@@ -53,9 +54,15 @@ def copy_files(src, dst, files):
     shutil.copy(full_path, target_path)
 
 
+def get_version():
+  version = subprocess.check_output(['git', 'describe'],
+                                    universal_newlines=True)
+  return version.strip()[1:]
+  
+
 def main():
-  manifest = json.load(open(os.path.join(SOURCE_DIR, 'manifest.json')))
-  version = manifest['version']
+  version = get_version()
+  print(version)
   out_dir = os.path.join(BUILD_DIR, APP_NAME + '-' + version)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
