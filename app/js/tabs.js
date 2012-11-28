@@ -1,7 +1,7 @@
 function Tab(id, session, entry) {
   this.id_ = id;
   this.session_ = session;
-  this.entry_ = null;
+  this.entry_ = entry;
 };
 
 Tab.prototype.getId = function() {
@@ -92,7 +92,7 @@ Tabs.prototype.showTab = function(tabId) {
 Tabs.prototype.openFile = function() {
   chrome.fileSystem.chooseEntry(
       {'type': 'openWritableFile'},
-      this.onFileOpen.bind(this));
+      this.onFileOpen_.bind(this));
 };
 
 Tabs.prototype.saveAs = function() {
