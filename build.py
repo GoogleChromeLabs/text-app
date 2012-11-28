@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -19,21 +20,18 @@ FILES = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
-  'js/app.js',
   'js/background.js',
-  'js/editor.js',
-  'js/menu_controller.js',
-  'js/tabs.js',
-  'js/tabs_controller.js',
-  'js/util.js',
-  'js/window_controller.js',
-  'lib/jquery-1.8.3.js',
-  'lib/ace/src-noconflict/ace.js',
   'lib/font-awesome/css/font-awesome.css',
   'lib/font-awesome/font/fontawesome-webfont.woff'
 ]
 
 MANIFEST = 'manifest.json'
+INDEX_HTML = 'index.html'
+TARGET_JS = 'js/all.js'
+TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
+                     '</script>')
+JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
+JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 
 
 def delete(*paths):
@@ -58,14 +56,46 @@ def copy_files(src, dst, files):
 def get_version():
   version = subprocess.check_output(['git', 'describe'],
                                     universal_newlines=True)
-  return version.strip()[1:]
+  match = re.compile('v(\d+(?:\.\d+))(?:-(\d+)-g.*)?').match(version)
+  version = match.group(1)
+  if match.group(2):
+    version += '.' + match.group(2)
+  return version
 
 
 def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
   manifest['version'] = version
   json.dump(manifest, open(os.path.join(out_dir, MANIFEST), 'w'))
-  
+
+
+def process_index(out_dir):
+  html = open(os.path.join(SOURCE_DIR, INDEX_HTML)).read()
+  match = JS_INCLUDES.search(html)
+  if not match:
+    print('Can\'t find JS includes in index.html.')
+    exit(1)
+  js_includes = match.group(1)
+
+  html = JS_INCLUDES.sub(TARGET_JS_INCLUDE, html)
+  open(os.path.join(out_dir, INDEX_HTML), 'w').write(html)
+
+  js_files = []
+  for match in JS_SRC.finditer(js_includes):
+    js_files.append(match.group(1))
+  return js_files
+
+
+def compile_js(out_dir, js_files):
+  print('Compiling JavaScript code.')
+  all_js = ''
+  for js_file in js_files:
+    all_js += open(os.path.join(SOURCE_DIR, js_file)).read() + '\n'
+  all_js_dst = os.path.join(out_dir, TARGET_JS)
+  os.makedirs(os.path.dirname(all_js_dst), exist_ok=True)
+  print('Writing', all_js_dst)
+  open(all_js_dst, 'w').write(all_js)
+
 
 def main():
   version = get_version()
@@ -76,6 +106,8 @@ def main():
   copy_files(SOURCE_DIR, out_dir, FILES)
 
   process_manifest(out_dir, version)
+  js_files = process_index(out_dir)
+  compile_js(out_dir, js_files)
   
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip', os.path.abspath(BUILD_DIR),
