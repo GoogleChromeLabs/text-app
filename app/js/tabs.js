@@ -95,7 +95,7 @@ Tabs.prototype.showTab = function(tabId) {
 Tabs.prototype.openFile = function() {
   chrome.fileSystem.chooseEntry(
       {'type': 'openWritableFile'},
-      this.onFileOpen_.bind(this));
+      this.openFileEntry.bind(this));
 };
 
 Tabs.prototype.saveAs = function() {
@@ -104,7 +104,7 @@ Tabs.prototype.saveAs = function() {
       this.onSaveAsFileOpen_.bind(this));
 };
 
-Tabs.prototype.onFileOpen_ = function(entry) {
+Tabs.prototype.openFileEntry = function(entry) {
   if (!entry) {
     return;
   }

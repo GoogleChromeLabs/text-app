@@ -23,12 +23,12 @@
     "storage",
     {"fileSystem": ["write"]}
   ],
-  "intents": {
-    "http://webintents.org/edit": [
-      {
-        "title": "TextDrive",
-        "type": ["text/*"]
-      }
-    ]
+  "file_handlers": {
+    "text": {
+      "title": "TextDrive",
+      "icons": {"16": "icon/16x16.png", "96": "icon/96x96.png"},
+      "types": ["text/*"],
+      "extensions": ["c", "cc", "css", "html", "json", "js", "pl", "py", "txt"]
+    }
   }
 }
