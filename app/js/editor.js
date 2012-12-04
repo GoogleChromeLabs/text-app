@@ -18,3 +18,19 @@ Editor.prototype.setSession = function(session) {
   }
   this.editor_.setSession(session);
 };
+
+Editor.prototype.find = function(string) {
+  var selection = this.editor_.getSelectionRange();
+  options = {'wrap': true,
+             'start': selection.start};
+  this.editor_.find(string, options, true);
+};
+
+Editor.prototype.findNext = function() {
+  this.editor_.findNext({'wrap': true}, true);
+};
+
+Editor.prototype.clearSearch = function() {
+  var selection = this.editor_.getSelectionRange();
+  this.editor_.moveCursorToPosition(selection.start);
+};

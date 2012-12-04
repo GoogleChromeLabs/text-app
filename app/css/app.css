@@ -79,10 +79,47 @@ header {
 
 #toggle-sidebar {
   -webkit-app-region: no-drag;
-  color: #979797;
+  color: #999;
   position: absolute;
   top: 5px;
   left: 8px;
+}
+
+#search-button {
+  -webkit-app-region: no-drag;
+  color: #999;
+  display: box;
+  font-size: 150%;
+  position: absolute;
+  top: 10px;
+  left: 48px;
+}
+
+#search-button:hover {
+  color: #666;
+}
+
+#search-button.hidden {
+  display: none;
+}
+
+#search-input {
+  -webkit-app-region: no-drag;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  position: absolute;
+  top: 7px;
+  left: 48px;
+  width: 0;
+  -webkit-transition: width 0.5s ease-in-out;
+}
+
+#search-input.hidden {
+  display: none;
+}
+
+#search-input.open {
+  width: 180px;
 }
 
 #title-filename {
