@@ -57,6 +57,10 @@ img {
   color: white;
 }
 
+#tabs-list li a.tabchanged:after {
+  content: " *";
+}
+
 #main-container {
   -webkit-box-align: stretch;
   -webkit-box-flex: 1.0;

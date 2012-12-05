@@ -35,6 +35,10 @@ TextDrive.prototype.openEntries = function(entries) {
   }
 };
 
+TextDrive.prototype.openNew = function() {
+  this.tabs_.newTab();
+};
+
 var textDrive = new TextDrive();
 
 $(document).ready(textDrive.init.bind(textDrive));

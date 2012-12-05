@@ -5,6 +5,7 @@ function Tab(id, session, entry) {
   this.id_ = id;
   this.session_ = session;
   this.entry_ = entry;
+  this.saved_ = true;
 };
 
 Tab.prototype.getId = function() {
@@ -39,15 +40,27 @@ Tab.prototype.save = function() {
     var blob = new Blob([this.session_.getValue()], {type: 'text/plain'});
 
     writer.onwriteend = function(e) {
-      $.event.trigger('tabsaved', this);
+      this.saved_ = true;
+      $.event.trigger('tabsave', this);
     }.bind(this);
 
     writer.onerror = function(e) {
-      console.log('File saving failed:', fileEntry, e);
+      console.warning('File saving failed:', fileEntry, e);
     };
 
     writer.write(blob);
   }.bind(this));
+};
+
+Tab.prototype.isSaved = function() {
+  return this.saved_;
+};
+
+Tab.prototype.changed = function() {
+  if (this.saved_) {
+    this.saved_ = false;
+    $.event.trigger('tabchange', this);
+  }
 };
 
 
@@ -57,7 +70,8 @@ Tab.prototype.save = function() {
 function Tabs(editor) {
   this.editor_ = editor;
   this.tabs_ = [];
-  this.currentTab_ = null;  // Tab id.
+  this.currentTab_ = null;
+  $(document).bind('docchange', this.onDocChanged_.bind(this));
 }
 
 Tabs.prototype.getTabById = function(id) {
@@ -98,6 +112,14 @@ Tabs.prototype.openFile = function() {
       this.openFileEntry.bind(this));
 };
 
+Tabs.prototype.save = function() {
+  if (this.currentTab_.getEntry()) {
+    this.currentTab_.save();
+  } else {
+    this.saveAs();
+  }
+};
+
 Tabs.prototype.saveAs = function() {
   chrome.fileSystem.chooseEntry(
       {'type': 'saveFile'},
@@ -129,3 +151,25 @@ Tabs.prototype.onSaveAsFileOpen_ = function(entry) {
   this.currentTab_.save();
 };
 
+Tabs.prototype.onDocChanged_ = function(e, session) {
+  var tab = this.currentTab_;
+  if (this.currentTab_.getSession() !== session) {
+    console.warning('Something wrong. Current session should be',
+                    this.currentTab_.getSession(),
+                    ', but this session was changed:',
+                    session);
+    for (var i = 0; i < this.tabs_; i++) {
+      if (this.tabs_[i].getSession() === session) {
+        tab = this.tabs_[i];
+        break;
+      }
+    }
+
+    if (tab === this.currentTab_) {
+      console.error('Unkown tab changed.');
+      return;
+    }
+  }
+
+  tab.changed();
+};

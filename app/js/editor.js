@@ -5,7 +5,8 @@ var EditSession = ace.require('ace/edit_session').EditSession;
  */
 function Editor(editorElement) {
   this.element_ = editorElement;
-  this.editor_ = null;
+  this.editor_ = ace.edit(this.element_);
+  this.editor_.on('change', this.onChange.bind(this));
 }
 
 Editor.prototype.newSession = function(opt_content) {
@@ -13,9 +14,6 @@ Editor.prototype.newSession = function(opt_content) {
 };
 
 Editor.prototype.setSession = function(session) {
-  if (!this.editor_) {
-    this.editor_ = ace.edit(this.element_);
-  }
   this.editor_.setSession(session);
 };
 
@@ -34,3 +32,8 @@ Editor.prototype.clearSearch = function() {
   var selection = this.editor_.getSelectionRange();
   this.editor_.moveCursorToPosition(selection.start);
 };
+
+Editor.prototype.onChange = function(e) {
+  $.event.trigger('docchange', this.editor_.getSession());
+};
+

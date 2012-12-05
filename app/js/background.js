@@ -53,6 +53,8 @@ function openEntriesInWindow(td) {
   if (entriesToOpen.length > 0) {
     td.openEntries(entriesToOpen);
     entriesToOpen = [];
+  } else {
+    td.openNew();
   }
 };
 
