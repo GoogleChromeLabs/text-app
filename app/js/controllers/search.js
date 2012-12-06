@@ -33,7 +33,6 @@ SearchController.prototype.onFocusOut_ = function() {
 };
 
 SearchController.prototype.onChange_ = function() {
-  console.log('change', $('#search-input').val());
   var searchString = $('#search-input').val();
   if (searchString === this.currentSearch_)
     return;

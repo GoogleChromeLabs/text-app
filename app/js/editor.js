@@ -37,3 +37,12 @@ Editor.prototype.onChange = function(e) {
   $.event.trigger('docchange', this.editor_.getSession());
 };
 
+Editor.prototype.undo = function() {
+  console.log('undo');
+  this.editor_.undo();
+};
+
+Editor.prototype.redo = function() {
+  console.log('redo');
+  this.editor_.redo();
+};

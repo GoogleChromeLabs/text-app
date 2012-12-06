@@ -99,6 +99,19 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   this.showTab(tab.getId());
 };
 
+Tabs.prototype.nextTab = function() {
+  for (var i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i] === this.currentTab_) {
+      var next = i + 1;
+      if (next === this.tabs_.length)
+        next = 0;
+      if (next !== i)
+        this.showTab(this.tabs_[next].getId());
+      return;
+    }
+  }
+};
+
 Tabs.prototype.showTab = function(tabId) {
   var tab = this.getTabById(tabId)
   this.editor_.setSession(tab.getSession());
