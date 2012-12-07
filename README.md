@@ -5,7 +5,7 @@ Just a text editor for ChromeOS. Can also be used on any other system with Chrom
 ## Running on Chrome
 
 * Check `Developer Mode` in `chrome://chrome/extensions/`
-* Load as "unpacked extension" in `chrome://chrome/extensions/`. The pre-built app is available in [Downloads](https://github.com/eterevsky/textdrive-app/downloads)
+* Load as "unpacked extension" in `chrome://chrome/extensions/`. The pre-built app is available in [Downloads](https://github.com/eterevsky/textdrive-app/downloads).
 
 The extension can also be installed directly from `app/` directory in sources, without building.
 
