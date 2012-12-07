@@ -14,6 +14,10 @@ function HotkeysController(tabs, editor) {
   $(document).keydown(this.onKeydown_.bind(this));
 };
 
+/**
+ * Some hotkeys are handled by Ace directly. Some of them are:
+ * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A
+ */
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (!e.metaKey && !e.ctrlKey)
     return;
@@ -47,16 +51,10 @@ HotkeysController.prototype.onKeydown_ = function(e) {
       }
       return false;
 
-    case this.KEY.Y:
-      this.editor_.redo();
-      return false;
-
     case this.KEY.Z:
       if (e.shiftKey) {
         this.editor_.redo();
-      } else {
-        this.editor_.undo();
+        return false;
       }
-      return false;
   }
 };

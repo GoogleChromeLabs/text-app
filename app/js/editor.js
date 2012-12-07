@@ -1,4 +1,5 @@
 var EditSession = ace.require('ace/edit_session').EditSession;
+var UndoManager = ace.require('ace/undomanager').UndoManager;
 
 /**
  * @constructor
@@ -10,7 +11,10 @@ function Editor(editorElement) {
 }
 
 Editor.prototype.newSession = function(opt_content) {
-  return new EditSession(opt_content || '');
+  session = new EditSession(opt_content || '');
+  var undoManager = new UndoManager();
+  session.setUndoManager(undoManager);
+  return session;
 };
 
 Editor.prototype.setSession = function(session) {
@@ -38,11 +42,9 @@ Editor.prototype.onChange = function(e) {
 };
 
 Editor.prototype.undo = function() {
-  console.log('undo');
   this.editor_.undo();
 };
 
 Editor.prototype.redo = function() {
-  console.log('redo');
   this.editor_.redo();
 };
