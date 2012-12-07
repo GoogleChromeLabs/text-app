@@ -51,6 +51,9 @@ img {
 
 #sidebar ul li {
   margin: 10px 0px 10px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #sidebar ul li a {
@@ -74,8 +77,11 @@ header {
   border-bottom: 1px solid #888;
   -webkit-box-align: center;
   -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
   display: -webkit-box;
   height: 35px;
+  padding-left: 80px;
+  padding-right: 60px;
   position: relative;
   text-align: center;
   user-select: none;
@@ -130,8 +136,14 @@ header {
   color: #777;
   font-size: 120%;
   font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#title-filename.hidden {
+  display: none;
 }
 
 #window-icons {
