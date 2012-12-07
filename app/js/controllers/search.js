@@ -17,6 +17,7 @@ SearchController.prototype.onSearchButton_ = function() {
 
   // Timeout is for search box first to appear, and then to stretch.
   setTimeout(function() {
+    // Hide title if it overlaps with search box.
     if ($('#title-filename').position().left < 240)
       $('#title-filename').addClass('hidden');
     $('#search-input').addClass('open');
