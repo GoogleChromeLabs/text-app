@@ -22,11 +22,13 @@ FILES = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
+  'images/close.svg',
+  'images/maximize.svg',
+  'images/menu.svg',
+  'images/search.svg',
   'js/background.js',
   'lib/jquery-1.8.3.min.js',
-  'lib/ace/src-min-noconflict/ace.js',
-  'lib/font-awesome/css/font-awesome.css',
-  'lib/font-awesome/font/fontawesome-webfont.woff'
+  'lib/ace/src-min-noconflict/ace.js'
 ]
 
 MANIFEST = 'manifest.json'
@@ -156,7 +158,7 @@ def main():
   process_manifest(out_dir, version)
   js_files = process_index(out_dir)
   compile_js(out_dir, js_files)
-  
+
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip', os.path.abspath(BUILD_DIR),
                       os.path.abspath(out_dir))

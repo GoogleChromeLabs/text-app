@@ -12,26 +12,15 @@ function SearchController(editor) {
 }
 
 SearchController.prototype.onSearchButton_ = function() {
-  $('#search-button').addClass('hidden');
-  $('#search-input').removeClass('hidden');
-
-  // Timeout is for search box first to appear, and then to stretch.
-  setTimeout(function() {
-    if ($('#title-filename').position().left < 240)
-      $('#title-filename').addClass('hidden');
-    $('#search-input').addClass('open');
-    $('#search-input').focus();
-  }, 0);
+  $('header').addClass('search-active');
+  setTimeout(function() {$('#search-input').focus();}, 0);
 
   return false;
 };
 
 SearchController.prototype.onFocusOut_ = function() {
   if ($('#search-input').val() === '') {
-    $('#search-input').removeClass('open');
-    $('#search-input').addClass('hidden');
-    $('#search-button').removeClass('hidden');
-    $('#title-filename').removeClass('hidden');
+    $('header').removeClass('search-active');
   }
 };
 

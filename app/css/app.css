@@ -1,5 +1,9 @@
+* {
+  -webkit-box-sizing: border-box;
+}
+
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
   font-size: 13px;
   line-height: 18px;
   overflow: hidden;
@@ -27,7 +31,8 @@ img {
 
 #sidebar {
   background-color: #333;
-  color: white;
+  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
+  color: #EBEBEB;
   overflow: hidden;
   -webkit-transition: width 0.2s ease-in-out;
   width: 0;
@@ -39,7 +44,17 @@ img {
 }
 
 #sidebar h1 {
+  cursor: default;
+  font-size: 21px;
+  font-weight: normal;
   margin: 24px;
+  -webkit-user-select: none;
+}
+
+#sidebar hr {
+  height: 1px;
+  border: none;
+  background-color: rgba(0,0,0,0.16);
 }
 
 #sidebar ul {
@@ -58,6 +73,7 @@ img {
 
 #sidebar ul li a {
   color: white;
+  -webkit-user-select: none;
 }
 
 #tabs-list li a.tabchanged:after {
@@ -73,36 +89,54 @@ img {
 
 header {
   -webkit-app-region: drag;
-  background-color: #EEE;
+  background-color: #F5F5F5;
   border-bottom: 1px solid #888;
   -webkit-box-align: center;
   -webkit-box-orient: horizontal;
   -webkit-box-pack: center;
   display: -webkit-box;
-  height: 35px;
-  padding-left: 80px;
-  padding-right: 60px;
+  height: 60px;
+  padding-left: 10px 60px 0 80px;
   position: relative;
   text-align: center;
   user-select: none;
 }
 
-#toggle-sidebar {
+header * {
+  -webkit-user-select: none;
+}
+
+.icon-button {
   -webkit-app-region: no-drag;
-  color: #999;
-  position: absolute;
-  top: 5px;
-  left: 8px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: 1px solid transparent;
+  cursor: pointer;
+  height: 40px;
+  margin: 0 10px;
+  opacity: 0.65;
+  width: 40px;
+}
+
+.icon-button:hover, .icon-button:active, .icon-button.selected {
+  border: 1px solid rgba(0,0,0,0.16);
+  border-radius: 3px;
+  color: #333;
+  opacity: 0.8;
+}
+
+#toggle-sidebar {
+    background-image: url('../images/menu.svg');
 }
 
 #search-button {
-  -webkit-app-region: no-drag;
-  color: #999;
-  display: box;
-  font-size: 150%;
-  position: absolute;
-  top: 10px;
-  left: 48px;
+    background-image: url('../images/search.svg');
+    -webkit-transition: opacity 200ms linear;
+}
+
+header.search-active #search-button {
+  opacity: 0;
+  pointer-events: none;
 }
 
 #search-button:hover {
@@ -115,57 +149,74 @@ header {
 
 #search-input {
   -webkit-app-region: no-drag;
-  border: 1px solid #ddd;
-  border-radius: 1px;
+  border: 1px solid #DDD;
+  border-radius: 2px;
+  font-size: 14px;
+  height: 30px;
+  opacity: 0;
+  padding: 5px 8px;
   position: absolute;
-  top: 7px;
-  left: 48px;
+  top: 15px;
+  left: 70px;
+  visibility: hidden;
+  -webkit-transition: all 200ms ease-in-out;
+  -webkit-user-select: auto;
   width: 0;
-  -webkit-transition: width 0.5s ease-in-out;
 }
 
-#search-input.hidden {
-  display: none;
-}
-
-#search-input.open {
-  width: 180px;
+header.search-active #search-input {
+  visibility: visible;
+  opacity: 1;
+  width: 220px;
 }
 
 #title-filename {
+  -webkit-box-flex: 1;
   color: #777;
-  font-size: 120%;
+  font-size: 21px;
   font-weight: bold;
   max-width: 100%;
   overflow: hidden;
+  text-align: center;
   text-overflow: ellipsis;
+  -webkit-transition: all 200ms ease-in-out;
+  -webkit-user-select: auto;
   white-space: nowrap;
 }
 
-#title-filename.hidden {
-  display: none;
+header.search-active #title-filename {
+  opacity: 0;
+  visibility: hidden;
 }
 
-#window-icons {
-  -webkit-app-region: no-drag;
-  position: absolute;
-  top: 9px;
-  right: 8px;
-  z-index: 2;
+#window-maximize {
+    background-image: url('../images/maximize.svg');
 }
 
-#window-icons a {
-  color: #979797;
-  font-size: 1.2em;
-  padding: 1px;
-  position: relative;
-}
-
-#window-icons a:hover {
-  color: #444;
+#window-close {
+    background-image: url('../images/close.svg');
 }
 
 #editor {
   -webkit-box-flex: 1.0;
   position: relative;
 }
+
+
+/* Markup below overrides default search input box styling. */
+input[type=search] {
+  -webkit-appearance:none;
+}
+
+input[type=search]:focus {
+  border: 1px solid #15C;
+  outline: none;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
