@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>TextDrive</title>
-  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
 </head>
 <body>
@@ -26,15 +25,12 @@
     </div>
     <div id="main-container">
       <header>
-        <button id="toggle-sidebar" class="icon-reorder" title="Open sidebar">
-        </button>
-        <input type="search" id="search-input" class="hidden">
-        <a href="" id="search-button" class="icon-search"></a>
-        <div id="title-filename"></div>
-        <div id="window-icons">
-          <a id="window-maximize" class="icon-fullscreen" title="Maximize"></a>
-          <a id="window-close" class="icon-remove" title="Quit [CTRL+Q]"></a>
-        </div>
+        <div class="icon-button" id="toggle-sidebar" title="Open sidebar"></div>
+        <div class="icon-button" id="search-button" title="Search"></div>
+        <input type="search" id="search-input">
+        <div id="title-filename">some file.txt</div>
+        <div class="icon-button" id="window-maximize" title="Maximize"></div>
+        <div class="icon-button" id="window-close" title="Quit"></div>
       </header>
 
       <div id="editor"></div>
