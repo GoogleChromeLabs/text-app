@@ -9,6 +9,7 @@ function Editor(editorElement) {
   this.editor_ = ace.edit(this.element_);
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
+  this.editor_.setFontSize(20);
 }
 
 Editor.prototype.newSession = function(opt_content) {

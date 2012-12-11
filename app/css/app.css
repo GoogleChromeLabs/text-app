@@ -220,3 +220,11 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
+
+/* Style for the editor pane. */
+.ace_editor {
+  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
+      monospace !important; 
+  font-size: 14px !important;
+}
+
