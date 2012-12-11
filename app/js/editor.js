@@ -14,6 +14,7 @@ Editor.prototype.newSession = function(opt_content) {
   session = new EditSession(opt_content || '');
   var undoManager = new UndoManager();
   session.setUndoManager(undoManager);
+  session.setUseWrapMode(true);
   return session;
 };
 
