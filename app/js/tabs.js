@@ -119,6 +119,33 @@ Tabs.prototype.showTab = function(tabId) {
   $.event.trigger('switchtab', tab);
 };
 
+Tabs.prototype.close = function(tabId) {
+  for (var i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i].getId() == tabId)
+      break;
+  }
+
+  if (i >= this.tabs_.length) {
+    console.error('Can\'t find tab', tabId);
+    return;
+  }
+
+  var tab = this.tabs_[i];
+
+  // TODO: Confirmation window in case of unsaved file.
+
+  if (tab === this.currentTab_) {
+    if (this.tabs_.length > 1)
+      this.nextTab();
+    else
+      this.newTab();
+  }  
+
+  this.tabs_.splice(i, 1);
+  $.event.trigger('tabclosed', tab);
+
+};
+
 Tabs.prototype.openFile = function() {
   chrome.fileSystem.chooseEntry(
       {'type': 'openWritableFile'},
@@ -143,6 +170,7 @@ Tabs.prototype.openFileEntry = function(entry) {
   if (!entry) {
     return;
   }
+
   var self = this;
   entry.file(function(file) {
     var reader = new FileReader();
@@ -150,10 +178,15 @@ Tabs.prototype.openFileEntry = function(entry) {
       console.error('Error while reading file:', err);
     };
     reader.onloadend = function(e) {
-      self.newTab(this.result, entry)
+      self.newTab(this.result, entry);
+      if (self.tabs_.length === 2 &&
+          !self.tabs_[0].getEntry() &&
+          self.tabs_[0].isSaved()) {
+        self.close(self.tabs_[0].getId());
+      }
     };
     reader.readAsText(file);
-  });
+  }.bind(this));
 };
 
 Tabs.prototype.onSaveAsFileOpen_ = function(entry) {

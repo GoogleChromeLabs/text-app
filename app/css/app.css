@@ -58,31 +58,79 @@ img {
 }
 
 #sidebar ul {
-  margin: 24px;
   padding: 0;
   font-size: 140%;
   list-style-type: none;
 }
 
 #sidebar ul li {
-  margin: 10px 0px 10px 0px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0px;
   white-space: nowrap;
 }
 
-#sidebar ul li a {
-  color: white;
+#sidebar ul li {
   -webkit-user-select: none;
 }
 
-#tabs-list li a.tabchanged:after {
+#sidebar ul li:hover {
+  color: #FFF;
+}
+
+#file-menu {
+  margin: 24px;
+}
+
+#file-menu li {
+  padding: 10px 0px 10px 0px;
+}
+
+#tabs-list {
+  margin: 24px 0 24px 0;
+}
+
+#tabs-list li {
+  -webkit-box-flex: 1.0;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  padding: 10px 0px 10px 24px;
+}
+
+#tabs-list li.active {
+  border-left: 10px solid #DDD;
+  padding-left: 14px;
+}
+
+#tabs-list li .filename {
+  -webkit-flex: 1.0;
+  width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tabs-list li.unsaved .filename:after {
   content: " *";
+}
+
+#tabs-list li .close {
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 20px;
+}
+
+
+#tabs-list li:hover .close {
+  background-image: url('../images/close-tab.svg');
+  opacity: 0.8;
+}
+
+#tabs-list li .close:hover {
+  opacity: 1;
 }
 
 #main-container {
   -webkit-box-align: stretch;
-  -webkit-box-flex: 1.0;
+  -webkit-box-flex: 1;
   -webkit-box-orient: vertical;
   display: -webkit-box;
 }
@@ -96,7 +144,7 @@ header {
   -webkit-box-pack: center;
   display: -webkit-box;
   height: 60px;
-  padding-left: 10px 60px 0 80px;
+  padding-left: 10px;
   position: relative;
   text-align: center;
   user-select: none;
@@ -190,11 +238,11 @@ header.search-active #title-filename {
 }
 
 #window-maximize {
-    background-image: url('../images/maximize.svg');
+  background-image: url('../images/maximize.svg');
 }
 
 #window-close {
-    background-image: url('../images/close.svg');
+  background-image: url('../images/close.svg');
 }
 
 #editor {
