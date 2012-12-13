@@ -146,6 +146,10 @@ Tabs.prototype.close = function(tabId) {
 
 };
 
+Tabs.prototype.closeCurrent = function() {
+  this.close(this.currentTab_.getId());
+};
+
 Tabs.prototype.openFile = function() {
   chrome.fileSystem.chooseEntry(
       {'type': 'openWritableFile'},

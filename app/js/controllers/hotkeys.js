@@ -51,6 +51,10 @@ HotkeysController.prototype.onKeydown_ = function(e) {
       }
       return false;
 
+    case this.KEY.W:
+      this.tabs_.closeCurrent();
+      return false;
+  
     case this.KEY.Z:
       if (e.shiftKey) {
         this.editor_.redo();
