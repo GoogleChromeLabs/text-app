@@ -26,6 +26,7 @@ WindowController.prototype.maximize_ = function() {
 
 WindowController.prototype.toggleSidebar_ = function() {
   $('#sidebar').toggleClass('open');
+  setTimeout(function() {$.event.trigger('resize');}, 200);
 };
 
 WindowController.prototype.onChangeTab_ = function(e, tab) {

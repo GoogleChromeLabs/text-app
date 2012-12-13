@@ -10,6 +10,7 @@ function Editor(editorElement) {
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
   this.editor_.setFontSize(20);
+  $(document).bind('resize', this.editor_.resize.bind(this.editor_));
 }
 
 Editor.prototype.newSession = function(opt_content) {
