@@ -23,6 +23,7 @@ FILES = [
   'icon/128x128.png',
   'icon/256x256.png',
   'images/close.svg',
+  'images/close-tab.svg',
   'images/maximize.svg',
   'images/menu.svg',
   'images/search.svg',
@@ -150,7 +151,8 @@ def compile_js(out_dir, js_files):
 def main():
   version = get_version()
 
-  out_dir = os.path.join(BUILD_DIR, APP_NAME + '-' + version)
+  dir_name = APP_NAME + '-' + version
+  out_dir = os.path.join(BUILD_DIR, dir_name)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
   copy_files(SOURCE_DIR, out_dir, FILES)
@@ -160,8 +162,10 @@ def main():
   compile_js(out_dir, js_files)
 
   print('Archiving', archive_path)
-  shutil.make_archive(out_dir, 'zip', os.path.abspath(BUILD_DIR),
-                      os.path.abspath(out_dir))
+  shutil.make_archive(out_dir, 'zip',
+                      root_dir=os.path.abspath(BUILD_DIR),
+                      base_dir=dir_name,
+                      verbose=True)
 
 
 if __name__ == '__main__':
