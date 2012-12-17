@@ -6,6 +6,9 @@ function Tab(id, session, entry) {
   this.session_ = session;
   this.entry_ = entry;
   this.saved_ = true;
+  this.path_ = null;
+  if (this.entry_)
+    this.setPath_();
 };
 
 Tab.prototype.getId = function() {
@@ -29,10 +32,21 @@ Tab.prototype.setEntry = function(entry) {
   this.entry_ = entry;
   if (nameChanged)
     $.event.trigger('tabrenamed', this);
+  this.setPath_();
 };
 
 Tab.prototype.getEntry = function() {
   return this.entry_;
+};
+
+Tab.prototype.getPath = function() {
+  return this.path_;
+};
+
+Tab.prototype.setPath_ = function() {
+  chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
+    this.path_ = path;
+  }.bind(this));
 };
 
 Tab.prototype.save = function() {
@@ -175,23 +189,32 @@ Tabs.prototype.openFileEntry = function(entry) {
     return;
   }
 
-  var self = this;
-  entry.file(function(file) {
-    var reader = new FileReader();
-    reader.onerror = function(err) {
-      console.error('Error while reading file:', err);
-    };
-    reader.onloadend = function(e) {
-      self.newTab(this.result, entry);
-      if (self.tabs_.length === 2 &&
-          !self.tabs_[0].getEntry() &&
-          self.tabs_[0].isSaved()) {
-        self.close(self.tabs_[0].getId());
+  var thisPath = chrome.fileSystem.getDisplayPath(entry, function(path) {
+    for (var i = 0; i < this.tabs_.length; i++) {
+      if (this.tabs_[i].getPath() === path) {
+        this.showTab(this.tabs_[i].getId());
+        return;
       }
-    };
-    reader.readAsText(file);
+    }
+
+    entry.file(this.readFileToNewTab_.bind(this, entry));
   }.bind(this));
 };
+
+Tabs.prototype.readFileToNewTab_ = function(entry, file) {
+  var self = this;
+  var reader = new FileReader();
+  reader.onerror = util.handleFSError;
+  reader.onloadend = function(e) {
+    self.newTab(this.result, entry);
+    if (self.tabs_.length === 2 &&
+        !self.tabs_[0].getEntry() &&
+        self.tabs_[0].isSaved()) {
+      self.close(self.tabs_[0].getId());
+    }
+  };
+  reader.readAsText(file);
+}
 
 Tabs.prototype.onSaveAsFileOpen_ = function(entry) {
   if (!entry) {
