@@ -276,3 +276,63 @@ input[type="search"]::-webkit-search-results-decoration {
   font-size: 14px !important;
 }
 
+
+/* Dialog */
+#dialog-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;    
+}
+
+#dialog-container.open {
+  display: -webkit-box;
+}
+
+.dialog-window {
+  background-color: #F5F5F5;
+  border: 1px solid #DDD;
+  box-shadow: 0px 0px 100px #888888;
+  display: -webkit-box;
+  max-width: 50%;
+  opacity: 1.0;
+  -webkit-box-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;    
+}
+
+.dialog-text {
+  display: -webkit-box;
+  padding: 10px;
+}
+
+.dialog-buttons {
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;    
+}
+
+.dialog-button {
+  border: 1px solid rgba(0,0,0,0.16);
+  border-radius: 3px;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;    
+  color: #333;
+  display: -webkit-box;
+  height: 40px;
+  margin: 10px;
+  opacity: 0.8;
+  padding: 0 10px 0 10px;
+}
+
+.dialog-button:hover {
+  border: 1px solid rgba(0,0,0,0.32);
+  color: #000;
+}

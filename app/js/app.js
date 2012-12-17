@@ -4,6 +4,7 @@
 function TextDrive() {
   this.editor_ = null;
   this.tabs_ = null;
+  this.dialogController_ = null;
   this.menuController_ = null;
   this.windowController_ = null;
 }
@@ -13,8 +14,9 @@ function TextDrive() {
  * here.
  */
 TextDrive.prototype.init = function() {
+  this.dialogController_ = new DialogController($('#dialog-container'))
   this.editor_ = new Editor('editor');
-  this.tabs_ = new Tabs(this.editor_);
+  this.tabs_ = new Tabs(this.editor_, this.dialogController_);
   this.menu_controller_ = new MenuController(this.tabs_);
   this.windowController_ = new WindowController();
   this.searchController_ = new SearchController(this.editor_);

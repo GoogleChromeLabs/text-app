@@ -81,8 +81,9 @@ Tab.prototype.changed = function() {
 /**
  * @constructor
  */
-function Tabs(editor) {
+function Tabs(editor, dialogController) {
   this.editor_ = editor;
+  this.dialogController_ = dialogController;
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
@@ -146,8 +147,31 @@ Tabs.prototype.close = function(tabId) {
 
   var tab = this.tabs_[i];
 
-  // TODO: Confirmation window in case of unsaved file.
+  if (!tab.isSaved()) {
+    this.dialogController_.setText(
+        'Do you want to save the file before closing?');
+    this.dialogController_.resetButtons();
+    this.dialogController_.addButton('yes', 'Yes');
+    this.dialogController_.addButton('no', 'No');
+    this.dialogController_.addButton('cancel', 'Cancel');
+    this.dialogController_.show(function(answer) {
+      console.log('Answer:', answer);
+      if (answer === 'yes') {
+        this.save(true /* close */);
+        return;
+      }
+      
+      if (answer === 'no') {
+        this.closeTab_(tab, i);
+        return;
+      }
+    }.bind(this));    
+  } else {
+    this.closeTab_(tab, i);
+  }
+};
 
+Tabs.prototype.closeTab_ = function(tab, itab) {
   if (tab === this.currentTab_) {
     if (this.tabs_.length > 1)
       this.nextTab();
@@ -155,7 +179,7 @@ Tabs.prototype.close = function(tabId) {
       this.newTab();
   }  
 
-  this.tabs_.splice(i, 1);
+  this.tabs_.splice(itab, 1);
   $.event.trigger('tabclosed', tab);
 
 };
@@ -170,7 +194,7 @@ Tabs.prototype.openFile = function() {
       this.openFileEntry.bind(this));
 };
 
-Tabs.prototype.save = function() {
+Tabs.prototype.save = function(opt_close) {
   if (this.currentTab_.getEntry()) {
     this.currentTab_.save();
   } else {
