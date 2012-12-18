@@ -13,6 +13,13 @@ DialogController.prototype.show = function(callback) {
   }
   this.callback_ = callback;
   this.container_.addClass('open');
+
+  // In case any new focusable elements appear, they either should be added here
+  // and in onClick_, or some general code should be written to disable/enable
+  // them.
+  $('#editor textarea').attr('tabIndex', '-1');
+
+  this.container_.find('.dialog-button').first().focus();
 };
 
 DialogController.prototype.resetButtons = function() {
@@ -32,6 +39,7 @@ DialogController.prototype.setText = function(text) {
 };
 
 DialogController.prototype.onClick_ = function(id) {
+  $('#editor textarea').attr('tabIndex', '0');
   this.container_.removeClass('open');
   this.callback_(id);
 };

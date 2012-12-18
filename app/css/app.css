@@ -308,7 +308,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .dialog-text {
   display: -webkit-box;
-  padding: 10px;
+  font-size: 15px;
+  padding: 20px 20px 10px 20px;
 }
 
 .dialog-buttons {
