@@ -49,13 +49,15 @@ Tab.prototype.setPath_ = function() {
   }.bind(this));
 };
 
-Tab.prototype.save = function() {
+Tab.prototype.save = function(opt_callbackDone) {
   this.entry_.createWriter(function(writer) {
     var blob = new Blob([this.session_.getValue()], {type: 'text/plain'});
 
     writer.onwriteend = function(e) {
       this.saved_ = true;
       $.event.trigger('tabsave', this);
+      if (opt_callbackDone)
+        opt_callbackDone();
     }.bind(this);
 
     writer.onerror = function(e) {
@@ -155,23 +157,22 @@ Tabs.prototype.close = function(tabId) {
     this.dialogController_.addButton('no', 'No');
     this.dialogController_.addButton('cancel', 'Cancel');
     this.dialogController_.show(function(answer) {
-      console.log('Answer:', answer);
       if (answer === 'yes') {
-        this.save(true /* close */);
+        this.save(tab, true /* close */);
         return;
       }
       
       if (answer === 'no') {
-        this.closeTab_(tab, i);
+        this.closeTab_(tab);
         return;
       }
     }.bind(this));    
   } else {
-    this.closeTab_(tab, i);
+    this.closeTab_(tab);
   }
 };
 
-Tabs.prototype.closeTab_ = function(tab, itab) {
+Tabs.prototype.closeTab_ = function(tab) {
   if (tab === this.currentTab_) {
     if (this.tabs_.length > 1)
       this.nextTab();
@@ -179,7 +180,12 @@ Tabs.prototype.closeTab_ = function(tab, itab) {
       this.newTab();
   }  
 
-  this.tabs_.splice(itab, 1);
+  for (var i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i] === tab)
+      break
+  }
+
+  this.tabs_.splice(i, 1);
   $.event.trigger('tabclosed', tab);
 
 };
@@ -194,18 +200,25 @@ Tabs.prototype.openFile = function() {
       this.openFileEntry.bind(this));
 };
 
-Tabs.prototype.save = function(opt_close) {
-  if (this.currentTab_.getEntry()) {
-    this.currentTab_.save();
+Tabs.prototype.save = function(opt_tab, opt_close) {
+  if (!opt_tab)
+    opt_tab = this.currentTab_;
+  if (opt_tab.getEntry()) {
+    var callback = null;
+    if (opt_close)
+      callback = this.closeTab_.bind(this, opt_tab);
+    opt_tab.save(callback);
   } else {
-    this.saveAs();
+    this.saveAs(opt_tab, opt_close);
   }
 };
 
-Tabs.prototype.saveAs = function() {
+Tabs.prototype.saveAs = function(opt_tab, opt_close) {
+  if (!opt_tab)
+    opt_tab = this.currentTab_;
   chrome.fileSystem.chooseEntry(
       {'type': 'saveFile'},
-      this.onSaveAsFileOpen_.bind(this));
+      this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
 };
 
 Tabs.prototype.openFileEntry = function(entry) {
@@ -240,12 +253,12 @@ Tabs.prototype.readFileToNewTab_ = function(entry, file) {
   reader.readAsText(file);
 }
 
-Tabs.prototype.onSaveAsFileOpen_ = function(entry) {
+Tabs.prototype.onSaveAsFileOpen_ = function(tab, close, entry) {
   if (!entry) {
     return;
   }
-  this.currentTab_.setEntry(entry);
-  this.currentTab_.save();
+  tab.setEntry(entry);
+  this.save(tab, close);
 };
 
 Tabs.prototype.onDocChanged_ = function(e, session) {
