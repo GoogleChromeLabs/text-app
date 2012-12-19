@@ -10,7 +10,7 @@ function Editor(editorElement) {
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
-  this.editor_.setFontSize(20);
+  this.editor_.setFontSize('14px');
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
 }
 
@@ -28,17 +28,23 @@ Editor.prototype.initTheme_ = function() {
   if (!stylesheet) {
     console.error('Didn\'t find stylesheet for Ace');
   }
-    
+
+  var cssText = '';
+  for (var i = 0; i < stylesheet.cssRules.length; i++) {
+    cssText += '\n' + stylesheet.cssRules[i].cssText;
+  }
+
   ace.define(
-    'ace/theme/chrome',
+    'ace/theme/textdrive',
     ['require', 'exports', 'module', 'ace/lib/dom'],
     function(require, exports, module) {
-      exports.cssClass = "ace-chrome";
-      exports.cssText = ;
-
-      var dom = require("../lib/dom");
+      exports.cssClass = 'ace-td';
+      exports.cssText = cssText;
+      var dom = require('../lib/dom');
       dom.importCssString(exports.cssText, exports.cssClass);
     });
+
+   this.editor_.setTheme('ace/theme/textdrive');
 };
 
 Editor.prototype.newSession = function(opt_content) {

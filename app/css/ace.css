@@ -1,28 +1,34 @@
-.ace_gutter-cell {
+.ace_editor {
+  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
+      monospace !important;
+}
+
+.ace-td .ace_gutter {
+  color: #999;
+}
+
+.ace-td .ace_gutter-cell {
   padding-left: 0;
   padding-right: 0;
 }
 
-.ace_folding-enabled > .ace_gutter-cell {
-  padding-right: 0;
-}
-
-.ace_gutter-cell {
-  text-align: center;
-}
-
-.ace-gutter {
-  color: red;
-}
-
-.ace_gutter-active-line {
+.ace-td .ace_gutter_active_line {
   background-color: #EEE;
 }
- 
-.ace_editor {
-  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
-      monospace; 
-  font-size: 14px;
+
+.ace-td .ace_cursor {
+  border-left: 2px solid black;
 }
 
+.ace-td .ace_cursor.ace_overwrite {
+  border-left: 0px;
+  border-bottom: 1px solid black;
+}
 
+.ace-td .ace_marker-layer .ace_selection {
+  background: #B5D5FF;
+}
+
+.ace-td .ace_marker-layer .ace_active_line {
+  background: rgba(0, 0, 0, 0.07);
+}
