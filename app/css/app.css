@@ -273,11 +273,18 @@ input[type=search]:focus {
   outline: none;
 }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
+::-webkit-search-decoration,
+::-webkit-search-results-button,
+::-webkit-search-results-decoration {
   display: none;
+}
+
+::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  background-image: url('../images/close.svg');
+  height: 20px;
+  opacity: 0.5;
+  width: 20px;
 }
 
 /* Dialog */
@@ -290,7 +297,7 @@ input[type="search"]::-webkit-search-results-decoration {
   left: 0;
   z-index: 4;
   -webkit-box-align: center;
-  -webkit-box-pack: center;    
+  -webkit-box-pack: center;
 }
 
 #dialog-container.open {
@@ -306,7 +313,7 @@ input[type="search"]::-webkit-search-results-decoration {
   opacity: 1.0;
   -webkit-box-align: center;
   -webkit-box-orient: vertical;
-  -webkit-box-pack: center;    
+  -webkit-box-pack: center;
 }
 
 .dialog-text {
@@ -319,7 +326,7 @@ input[type="search"]::-webkit-search-results-decoration {
   display: -webkit-box;
   -webkit-box-align: center;
   -webkit-box-orient: horizontal;
-  -webkit-box-pack: center;    
+  -webkit-box-pack: center;
 }
 
 .dialog-button {
@@ -327,7 +334,7 @@ input[type="search"]::-webkit-search-results-decoration {
   border-radius: 3px;
   -webkit-box-align: center;
   -webkit-box-orient: horizontal;
-  -webkit-box-pack: center;    
+  -webkit-box-pack: center;
   color: #333;
   display: -webkit-box;
   height: 40px;
