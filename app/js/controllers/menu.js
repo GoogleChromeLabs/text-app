@@ -45,6 +45,7 @@ MenuController.prototype.onTabSave = function(e, tab) {
 MenuController.prototype.onSwitchTab = function(e, tab) {
   $('#tabs-list li.active').removeClass('active');
   $('#tab' + tab.getId()).addClass('active');
+  $('#editor textarea').focus();
 };
 
 MenuController.prototype.newTab_ = function() {

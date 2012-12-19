@@ -2,11 +2,14 @@
  * @constructor
  */
 function WindowController() {
+  this.currentTab_ = null;
   $('#window-close').click(this.close_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
+  $(document).bind('tabchange', this.onTabChange_.bind(this));
+  $(document).bind('tabsave', this.onTabChange_.bind(this));
 }
 
 WindowController.prototype.close_ = function() {
@@ -25,10 +28,19 @@ WindowController.prototype.maximize_ = function() {
 };
 
 WindowController.prototype.toggleSidebar_ = function() {
-  $('#sidebar').toggleClass('open');
+  $('body').toggleClass('sidebar-open');
   setTimeout(function() {$.event.trigger('resize');}, 200);
 };
 
 WindowController.prototype.onChangeTab_ = function(e, tab) {
+  this.currentTab_ = tab;
   $('#title-filename').text(tab.getName());
+};
+
+WindowController.prototype.onTabChange_ = function(e, tab) {
+  if (this.currentTab_.isSaved()) {
+    $('#title-filename').removeClass('unsaved');
+  } else {
+    $('#title-filename').addClass('unsaved');
+  }
 };
