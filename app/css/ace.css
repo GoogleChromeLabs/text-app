@@ -1,0 +1,28 @@
+.ace_gutter-cell {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ace_folding-enabled > .ace_gutter-cell {
+  padding-right: 0;
+}
+
+.ace_gutter-cell {
+  text-align: center;
+}
+
+.ace-gutter {
+  color: red;
+}
+
+.ace_gutter-active-line {
+  background-color: #EEE;
+}
+ 
+.ace_editor {
+  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
+      monospace; 
+  font-size: 14px;
+}
+
+

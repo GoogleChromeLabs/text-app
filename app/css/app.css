@@ -280,36 +280,6 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-
-/* Style for the editor pane. */
-.ace_gutter-cell {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.ace_folding-enabled > .ace_gutter-cell {
-  padding-right: 0 !important;
-}
-
-.ace_gutter-cell {
-  text-align: center !important;
-}
-
-.ace-gutter {
-  color: red !important;
-}
-
-.ace_gutter-active-line {
-  background-color: #EEE !important;
-}
- 
-.ace_editor {
-  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
-      monospace !important; 
-  font-size: 14px !important;
-}
-
-
 /* Dialog */
 #dialog-container {
   display: none;

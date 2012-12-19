@@ -7,11 +7,39 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 function Editor(editorElement) {
   this.element_ = editorElement;
   this.editor_ = ace.edit(this.element_);
+  this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
   this.editor_.setFontSize(20);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
 }
+
+Editor.prototype.initTheme_ = function() {
+  var stylesheet = null;
+
+  for (var i = 0; i < document.styleSheets.length; i++) {
+      if (document.styleSheets[i].href &&
+          document.styleSheets[i].href.indexOf("ace.css") ) {
+        stylesheet = document.styleSheets[i];
+        break;
+      }
+  }
+
+  if (!stylesheet) {
+    console.error('Didn\'t find stylesheet for Ace');
+  }
+    
+  ace.define(
+    'ace/theme/chrome',
+    ['require', 'exports', 'module', 'ace/lib/dom'],
+    function(require, exports, module) {
+      exports.cssClass = "ace-chrome";
+      exports.cssText = ;
+
+      var dom = require("../lib/dom");
+      dom.importCssString(exports.cssText, exports.cssClass);
+    });
+};
 
 Editor.prototype.newSession = function(opt_content) {
   session = new EditSession(opt_content || '');
