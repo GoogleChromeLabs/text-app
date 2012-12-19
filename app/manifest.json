@@ -28,7 +28,7 @@
       "title": "TextDrive",
       "icons": {"16": "icon/16x16.png", "96": "icon/96x96.png"},
       "types": ["text/*"],
-      "extensions": ["c", "cc", "css", "html", "json", "js", "pl", "py", "txt"]
+      "extensions": ["asp", "aspx", "abc", "acgi", "aip", "asm", "c", "c++", "cc", "clj", "com", "coffee", "conf", "cpp", "cs", "csh", "css", "csv", "cxx", "def", "diff", "el", "ejs", "etx", "f", "f77", "f90", "flx", "for", "g", "gemspec", "go", "groovy", "h", "hh", "hlb", "hpp", "hs", "htc", "htm", "html", "htmls", "htt", "htx", "ics", "idc", "ifb", "jav", "java", "js", "json", "jsp", "ksh", "list", "log", "lsp", "lst", "lsx", "lua", "m", "man", "manifest", "mar", "mcf", "mdoc", "me", "ms", "p", "pas", "patch", "pl", "pm", "pod", "py", "rake", "rb", "rexx", "roff", "rst", "rt", "rtf", "rtx", "ru", "s", "scm", "sdml", "sgm", "sgml", "sh", "shtml", "spc", "ssi", "st", "t", "talk", "tcl", "tcsh", "text", "tr", "tsv", "txt", "uil", "uni", "unis", "uri", "uris", "uu", "uue", "vcf", "vcs", "wml", "wmls", "wsc", "xml", "yaml", "yml", "zsh"]
     }
   }
 }
