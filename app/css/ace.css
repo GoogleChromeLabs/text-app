@@ -4,16 +4,17 @@
 }
 
 .ace-td .ace_gutter {
+  background-color: #F0F0F0;
   color: #999;
 }
 
 .ace-td .ace_gutter-cell {
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .ace-td .ace_gutter_active_line {
-  background-color: #EEE;
+  background-color: #E0E0E0;
 }
 
 .ace-td .ace_cursor {
