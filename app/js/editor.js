@@ -50,6 +50,12 @@ Editor.prototype.initTheme_ = function() {
 
 Editor.prototype.newSession = function(opt_content) {
   session = new EditSession(opt_content || '');
+
+  var mode = session.getMode();
+  mode.getNextLineIndent = function(state, line, tab) {
+    return this.$getIndent(line);
+  };
+
   var undoManager = new UndoManager();
   session.setUndoManager(undoManager);
   session.setUseWrapMode(true);
