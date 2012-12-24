@@ -53,18 +53,21 @@ Tab.prototype.save = function(opt_callbackDone) {
   this.entry_.createWriter(function(writer) {
     var blob = new Blob([this.session_.getValue()], {type: 'text/plain'});
 
+    writer.onerror = util.handleFSError;
+
     writer.onwriteend = function(e) {
-      this.saved_ = true;
-      $.event.trigger('tabsave', this);
-      if (opt_callbackDone)
-        opt_callbackDone();
+      // File truncated.
+      writer.onwriteend = function(e) {
+        this.saved_ = true;
+        $.event.trigger('tabsave', this);
+        if (opt_callbackDone)
+          opt_callbackDone();
+      }.bind(this);
+      
+      writer.write(blob);
     }.bind(this);
 
-    writer.onerror = function(e) {
-      console.warning('File saving failed:', fileEntry, e);
-    };
-
-    writer.write(blob);
+    writer.truncate(blob.size);
   }.bind(this));
 };
 
