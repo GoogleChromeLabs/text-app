@@ -29,6 +29,12 @@ WindowController.prototype.maximize_ = function() {
 
 WindowController.prototype.toggleSidebar_ = function() {
   $('body').toggleClass('sidebar-open');
+  $('#editor textarea').focus();
+  if ($('body').hasClass('sidebar-open')) {
+    $('#toggle-sidebar').attr('title', 'Close sidebar');
+  } else {
+    $('#toggle-sidebar').attr('title', 'Open sidebar');
+  }
   setTimeout(function() {$.event.trigger('resize');}, 200);
 };
 
