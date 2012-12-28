@@ -43,7 +43,7 @@ SearchController.prototype.onKeydown_ = function(e) {
     case 27:
       e.stopPropagation();
       $('#search-input').val('');
-      $('#editor textarea').focus();
+      this.editor_.focus();
       break;
   }
 };

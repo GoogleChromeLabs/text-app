@@ -1,7 +1,8 @@
 /**
  * @constructor
  */
-function WindowController() {
+function WindowController(editor) {
+  this.editor_ = editor;
   this.currentTab_ = null;
   $('#window-close').click(this.close_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
@@ -29,7 +30,7 @@ WindowController.prototype.maximize_ = function() {
 
 WindowController.prototype.toggleSidebar_ = function() {
   $('body').toggleClass('sidebar-open');
-  $('#editor textarea').focus();
+  this.editor_.focus();
   if ($('body').hasClass('sidebar-open')) {
     $('#toggle-sidebar').attr('title', 'Close sidebar');
   } else {

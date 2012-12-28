@@ -93,3 +93,7 @@ Editor.prototype.undo = function() {
 Editor.prototype.redo = function() {
   this.editor_.redo();
 };
+
+Editor.prototype.focus = function() {
+  this.editor_.focus();
+};

@@ -2,7 +2,7 @@
  * @constructor
  */
 function MenuController(tabs) {
-  this.tabs_ = tabs
+  this.tabs_ = tabs;
   $('#file-menu-new').click(this.newTab_.bind(this));
   $('#file-menu-open').click(this.open_.bind(this));
   $('#file-menu-save').click(this.save_.bind(this));
@@ -45,7 +45,6 @@ MenuController.prototype.onTabSave = function(e, tab) {
 MenuController.prototype.onSwitchTab = function(e, tab) {
   $('#tabs-list li.active').removeClass('active');
   $('#tab' + tab.getId()).addClass('active');
-  $('#editor textarea').focus();
 };
 
 MenuController.prototype.newTab_ = function() {

@@ -137,6 +137,7 @@ Tabs.prototype.showTab = function(tabId) {
   this.editor_.setSession(tab.getSession());
   this.currentTab_ = tab;
   $.event.trigger('switchtab', tab);
+  this.editor_.focus();
 };
 
 Tabs.prototype.close = function(tabId) {
