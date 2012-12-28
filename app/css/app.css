@@ -53,8 +53,7 @@ body.sidebar-open #sidebar {
   cursor: default;
   font-size: 21px;
   font-weight: normal;
-  margin: 0;
-  padding: 24px;
+  padding: 20px 24px 14px 24px;
   -webkit-user-select: none;
 }
 
