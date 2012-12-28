@@ -23,8 +23,10 @@ WindowController.prototype.maximize_ = function() {
 
   if (maximized) {
     window.chrome.app.window.current().restore();
+    $('#window-maximize').attr('title', 'Maximize');
   } else {
     window.chrome.app.window.current().maximize();
+    $('#window-maximize').attr('title', 'Restore');
   }
 };
 
