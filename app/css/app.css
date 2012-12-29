@@ -53,7 +53,7 @@ body.sidebar-open #sidebar {
   cursor: default;
   font-size: 21px;
   font-weight: normal;
-  padding: 20px 24px 14px 24px;
+  padding: 6px 24px 7px;
   -webkit-user-select: none;
 }
 
@@ -184,8 +184,9 @@ header * {
 }
 
 #search-button {
-    background-image: url('../images/search.svg');
-    -webkit-transition: opacity 200ms linear;
+  background-image: url('../images/search.svg');
+  background-size: 22px;
+  -webkit-transition: opacity 200ms linear;
 }
 
 header.search-active #search-button {
