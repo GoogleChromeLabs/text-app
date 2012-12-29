@@ -1,2 +1,3 @@
+*.geany
 build
 test/unit/*/*.js
