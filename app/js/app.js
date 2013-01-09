@@ -7,6 +7,7 @@ function TextDrive() {
   this.dialogController_ = null;
   this.menuController_ = null;
   this.windowController_ = null;
+  this.hasFrame_ = false;
 }
 
 /**
@@ -40,6 +41,11 @@ TextDrive.prototype.openEntries = function(entries) {
 
 TextDrive.prototype.openNew = function() {
   this.tabs_.newTab();
+};
+
+TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
+  this.hasFrame_ = hasFrame;
+  this.windowController_.windowControlsVisible(!hasFrame);
 };
 
 var textDrive = new TextDrive();

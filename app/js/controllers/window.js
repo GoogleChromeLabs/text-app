@@ -13,6 +13,14 @@ function WindowController(editor) {
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 }
 
+WindowController.prototype.windowControlsVisible = function(show) {
+  if (show) {
+    $('header').removeClass('hide-controls');
+  } else {
+    $('header').addClass('hide-controls');
+  }
+};
+
 WindowController.prototype.close_ = function() {
   window.close();
 };

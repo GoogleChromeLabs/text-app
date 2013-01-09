@@ -1,9 +1,22 @@
 var entriesToOpen = [];
 var instances = [];
 
+function ifShowFrame() {
+  var version = parseInt(navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+  var os = 'other';
+  if (navigator.appVersion.indexOf('Linux') != -1) {
+    os = 'linux';
+  } else if (navigator.appVersion.indexOf('CrOS') != -1) {
+    os = 'cros';
+  }
+
+  return (os === 'linux' && version < 26) ||
+         (os === 'cros' && version < 24);
+}
+
 function launch(launchData) {
   var options = {
-    frame: 'none',
+    frame: (ifShowFrame() ? 'chrome' : 'none'),
     minWidth: 400,
     minHeight: 400,
     width: 700,
@@ -46,6 +59,7 @@ function onWindowClosed(win) {
 
 function onWindowReady(td) {
   instances.push(td);
+  td.setHasChromeFrame(ifShowFrame());
   openEntriesInWindow(td);
 };
 
