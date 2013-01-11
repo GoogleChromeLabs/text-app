@@ -10,8 +10,7 @@ function ifShowFrame() {
     os = 'cros';
   }
 
-  return (os === 'linux' && version < 26) ||
-         (os === 'cros' && version < 24);
+  return os === 'linux' && version < 26;
 }
 
 function launch(launchData) {
