@@ -19,7 +19,7 @@ function launch(launchData) {
     minWidth: 400,
     minHeight: 400,
     width: 700,
-    height: 750,
+    height: 700,
     left: 0,
     top: 0
   };
