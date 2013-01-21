@@ -8,9 +8,12 @@ function ifShowFrame() {
     os = 'linux';
   } else if (navigator.appVersion.indexOf('CrOS') != -1) {
     os = 'cros';
+  } else if (navigator.appVersion.indexOf('Mac OS X') != -1) {
+    os = 'mac';
   }
 
-  return os === 'linux' && version < 26;
+  return os === 'linux' && version < 26 ||
+         os === 'mac' && version < 25;
 }
 
 function launch(launchData) {
