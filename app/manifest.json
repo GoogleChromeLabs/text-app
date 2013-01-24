@@ -19,8 +19,8 @@
   "permissions": [
     "clipboardRead",
     "clipboardWrite",
-    "unlimitedStorage",
     "storage",
+    "unlimitedStorage",
     {"fileSystem": ["write"]}
   ],
   "file_handlers": {

@@ -8,21 +8,40 @@
 <body>
   <div id="window-container">
     <div id="sidebar">
-      <h1>TextDrive</h1>
+      <div id="file-tabs-menu">
+        <h1>TextDrive</h1>
 
-      <hr>
+        <hr>
 
-      <ul id="file-menu">
-        <li><div id="file-menu-new">New</a></li>
-        <li><div id="file-menu-open">Open</a></li>
-        <li><div id="file-menu-save">Save</a></li>
-        <li><div id="file-menu-saveas">Save as</a></li>
-      </ul>
+        <ul id="file-menu">
+          <li><div id="file-menu-new">New</div></li>
+          <li><div id="file-menu-open">Open</div></li>
+          <li><div id="file-menu-save">Save</div></li>
+          <li><div id="file-menu-saveas">Save as</div></li>
+        </ul>
 
-      <hr>
+        <hr>
 
-      <ul id="tabs-list">
-      </ul>
+        <div id="tabs-list-container">
+          <ul id="tabs-list"></ul>
+        </div>
+
+        <hr>
+        <ul class="settings-switch-ul">
+          <li><div id="open-settings">Settings</div></li>
+        </ul>
+      </div>
+      <div id="settings-menu">
+        <h1>Settings</h1>
+        <hr>
+        <div id="settings-container">
+          <ul id="settings-list"></ul>
+        </div>
+        <hr>
+        <ul class="settings-switch-ul">
+          <li><div id="close-settings">&lt; Back</div></li>
+        </ul>
+      </div>
     </div>
     <div id="main-container">
       <header>
@@ -61,6 +80,7 @@
   <script src="js/controllers/hotkeys.js" type="text/javascript"></script>
   <script src="js/controllers/menu.js" type="text/javascript"></script>
   <script src="js/controllers/search.js" type="text/javascript"></script>
+  <script src="js/controllers/settings.js" type="text/javascript"></script>
   <script src="js/controllers/window.js" type="text/javascript"></script>
   <!-- /JS -->
 

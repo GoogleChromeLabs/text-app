@@ -22,6 +22,7 @@ TextDrive.prototype.init = function() {
   this.windowController_ = new WindowController(this.editor_);
   this.searchController_ = new SearchController(this.editor_);
   this.hotkeysController_ = new HotkeysController(this.tabs_, this.editor_);
+  this.settingsController_ = new SettingsController();
 
   chrome.runtime.getBackgroundPage(function(bg) {
     bg.onWindowReady(this);

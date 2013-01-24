@@ -32,8 +32,11 @@ img {
 
 #sidebar {
   background-color: #333;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
   -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   color: #EBEBEB;
+  display: -webkit-box;
   overflow: hidden;
   -webkit-transition: width 0.2s ease-in-out;
   width: 0;
@@ -45,7 +48,6 @@ img {
 
 body.sidebar-open #sidebar {
   width: 220px;
-  overflow-y: hidden;
 }
 
 #sidebar h1 {
@@ -81,8 +83,25 @@ body.sidebar-open #sidebar {
   color: #FFF;
 }
 
+#sidebar ::-webkit-scrollbar {
+  width: 12px;
+}
+ 
+#sidebar ::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #888;
+}
+
 #file-menu {
   margin: 24px 0;
+}
+
+#tabs-list-container, #settings-container {
+  display: -webkit-box;
+  height: auto;
+  -webkit-box-flex: 1.0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #tabs-list {
@@ -126,6 +145,33 @@ body.sidebar-open #sidebar {
 
 #tabs-list li .close:hover {
   opacity: 1;
+}
+
+#file-tabs-menu {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: justify;
+  display: -webkit-box;
+  min-height: 100%;
+  overflow: hidden;
+  -webkit-transition: width 0.2s ease-in-out;  
+  width: 220px;
+}
+
+.open-settings #file-tabs-menu {
+  width: 0;
+}
+
+#settings-menu {
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: justify;
+  display: -webkit-box;
+  min-height: 100%;
+  overflow: hidden;
+  width: 220px;
+}
+
+.settings-switch-ul {
+  margin: 4px 0 10px 0;
 }
 
 #main-container {
