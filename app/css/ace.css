@@ -1,6 +1,6 @@
 .ace_editor {
   font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
-      monospace !important;
+      "Menlo", monospace !important;
 }
 
 .ace-td .ace_gutter {
