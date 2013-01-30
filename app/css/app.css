@@ -170,6 +170,28 @@ body.sidebar-open #sidebar {
   width: 220px;
 }
 
+#settings-list {
+  width: 100%;
+}
+
+#settings-list li {
+  background-color: inherit;
+  -webkit-box-flex: 1.0;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  padding-right: 15px;
+  width: 100%;
+}
+
+#settings-list li:hover {
+  background-color: inherit;
+}
+
+.setting-title {
+  -webkit-box-flex: 1.0;
+  display: box;
+}
+
 .settings-switch-ul {
   margin: 4px 0 10px 0;
 }
