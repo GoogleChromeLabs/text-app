@@ -9,9 +9,10 @@ function Settings() {
     this.settings_[key] = Settings.SETTINGS[key].default;
     storageKeys['settings-' + key] = this.settings_[key];
   }
+  // Can be changed to chrome.storage.local.
+  this.storage_ = chrome.storage.sync;
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
-  chrome.storage.local.get(storageKeys,
-                           this.getSettingsCallback_.bind(this));
+  this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
 }
 
 Settings.SETTINGS = {
@@ -29,7 +30,7 @@ Settings.prototype.getAll = function() {
 Settings.prototype.set = function(key, value) {
   var item = {};
   item['settings-' + key] = value;
-  chrome.storage.local.set(item);
+  this.storage_.set(item);
   // this.settings_ will be updated in onChanged_ to keep them in sync with
   // storage.
 };
