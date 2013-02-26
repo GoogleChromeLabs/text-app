@@ -11,6 +11,7 @@
   "manifest_version": 2,
   "minimum_chrome_version": "23.0.1261",
   "offline_enabled": true,
+  "api_console_project_id": "511145861127",
   "app": {
     "background": {
       "scripts": ["js/background.js"]
