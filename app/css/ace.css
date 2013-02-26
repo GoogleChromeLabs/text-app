@@ -33,3 +33,64 @@
 .ace-td .ace_marker-layer .ace_active_line {
   background: rgba(0, 0, 0, 0.07);
 }
+
+.ace-td .ace_marker-layer .ace_selected_word {
+  border: 1px solid #BDD5FC;
+}
+
+.ace-td .ace_invisible {
+  color: #BFBFBF;
+}
+
+.ace-td .ace_keyword {
+  color: #AF956F;
+}
+
+.ace-td .ace_meta {
+  color: #AF956F;
+}
+
+.ace-td .ace_keyword.ace_operator {
+  color: #484848;
+}
+
+.ace-td .ace_constant.ace_language {
+  color: #39946A;
+}
+
+.ace-td .ace_constant.ace_numeric {
+  color: #46A609;
+}
+
+.ace-td .ace_invalid {
+  background-color: #FF002A;
+}
+
+.ace-td .ace_fold {
+  background-color: #AF956F;
+  border-color: #000000;
+}
+
+.ace-td .ace_support.ace_function {
+  color: #C52727;
+}
+
+.ace-td .ace_storage {
+  color: #C52727;
+}
+
+.ace-td .ace_string {
+  color: #5D90CD;
+}
+
+.ace-td .ace_comment {
+  color: #888;
+}
+
+.ace-td .ace_entity.ace_other.ace_attribute-name {
+  color: #606060;
+}
+
+.ace-td .ace_markup.ace_underline {
+    text-decoration:underline;
+}

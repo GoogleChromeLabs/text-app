@@ -13,7 +13,71 @@ function Editor(editorElement) {
   this.editor_.setFontSize('14px');
   this.editor_.setShowFoldWidgets(false);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
+  $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
 }
+
+Editor.EXTENSION_TO_MODE = {
+    'bash': 'sh',
+    'bib': 'latex',
+    'cfm': 'coldfusion',
+    'clj': 'clojure',
+    'coffee': 'coffee',
+    'c': 'c_cpp',
+    'c++': 'c_cpp',
+    'cc': 'c_cpp',
+    'cs': 'csharp',
+    'css': 'css',
+    'cpp': 'c_cpp',
+    'cxx': 'c_cpp',
+    'diff': 'diff',
+    'gemspec': 'ruby',
+    'go': 'golang',
+    'groovy': 'groovy',
+    'h': 'c_cpp',
+    'hh': 'c_cpp',
+    'hpp': 'c_cpp',
+    'htm': 'html',
+    'html': 'html',
+    'hx': 'haxe',
+    'java': 'java',
+    'js': 'javascript',
+    'json': 'json',
+    'latex': 'latex',
+    'less': 'less',
+    'liquid': 'liquid',
+    'ltx': 'latex',
+    'lua': 'lua',
+    'markdown': 'markdown',
+    'md': 'markdown',
+    'ml': 'ocaml',
+    'mli': 'ocaml',
+    'patch': 'diff',
+    'pgsql': 'pgsql',
+    'pl': 'perl',
+    'pm': 'perl',
+    'php': 'php',
+    'phtml': 'php',
+    'ps1': 'powershell',
+    'py': 'python',
+    'rb': 'ruby',
+    'rdf': 'xml',
+    'rss': 'xml',
+    'ru': 'ruby',
+    'rake': 'rake',
+    'scad': 'scad',
+    'scala': 'scala',
+    'sass': 'scss',
+    'scss': 'scss',
+    'sh': 'sh',
+    'sql': 'sql',
+    'svg': 'svg',
+    'tex': 'latex',
+    'txt': 'txt',
+    'textile': 'textile',
+    'xhtml': 'html',
+    'xml': 'xml',
+    'xq': 'xquery',
+    'yaml': 'yaml'};
 
 Editor.prototype.initTheme_ = function() {
   var stylesheet = null;
@@ -96,4 +160,20 @@ Editor.prototype.redo = function() {
 
 Editor.prototype.focus = function() {
   this.editor_.focus();
+};
+
+/**
+ * @param {Session} session
+ * @param {string} extension
+ */
+Editor.prototype.setMode = function(session, extension) {
+  var mode = Editor.EXTENSION_TO_MODE[extension];
+  if (mode)
+    session.setMode('ace/mode/' + mode);
+};
+
+Editor.prototype.onTabRenamed_ = function(tab) {
+  var extension = tab.getExtension();
+  if (extension)
+    this.setMode(tab.getSession, extension);
 };
