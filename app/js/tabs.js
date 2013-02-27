@@ -8,7 +8,7 @@ function Tab(id, session, entry) {
   this.saved_ = true;
   this.path_ = null;
   if (this.entry_)
-    this.setPath_();
+    this.updatePath_();
 };
 
 Tab.prototype.getId = function() {
@@ -23,16 +23,33 @@ Tab.prototype.getName = function() {
   }
 };
 
+/**
+ * @return {string?} Filename extension or null.
+ */
+Tab.prototype.getExtension = function() {
+  if (!this.entry_)
+    return null;
+
+  var match = /\.([^.\\\/]+)$/.exec(this.getName());
+
+  if (match) {
+    return match[1];
+  } else {
+    return null;
+  }
+};
+
 Tab.prototype.getSession = function() {
   return this.session_;
 };
 
 Tab.prototype.setEntry = function(entry) {
+  console.log('setEntry', entry);
   var nameChanged = this.getName() != entry.name;
   this.entry_ = entry;
   if (nameChanged)
     $.event.trigger('tabrenamed', this);
-  this.setPath_();
+  this.updatePath_();
 };
 
 Tab.prototype.getEntry = function() {
@@ -43,7 +60,7 @@ Tab.prototype.getPath = function() {
   return this.path_;
 };
 
-Tab.prototype.setPath_ = function() {
+Tab.prototype.updatePath_ = function() {
   chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
   }.bind(this));
@@ -63,7 +80,7 @@ Tab.prototype.save = function(opt_callbackDone) {
         if (opt_callbackDone)
           opt_callbackDone();
       }.bind(this);
-      
+
       writer.write(blob);
     }.bind(this);
 
@@ -114,6 +131,9 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
 
   var session = this.editor_.newSession(opt_content)
   var tab = new Tab(id, session, opt_entry || null);
+  var fileNameExtension = tab.getExtension();
+  if (fileNameExtension)
+    this.editor_.setMode(session, fileNameExtension);
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
   this.showTab(tab.getId());
@@ -165,12 +185,12 @@ Tabs.prototype.close = function(tabId) {
         this.save(tab, true /* close */);
         return;
       }
-      
+
       if (answer === 'no') {
         this.closeTab_(tab);
         return;
       }
-    }.bind(this));    
+    }.bind(this));
   } else {
     this.closeTab_(tab);
   }
@@ -182,7 +202,7 @@ Tabs.prototype.closeTab_ = function(tab) {
       this.nextTab();
     else
       this.newTab();
-  }  
+  }
 
   for (var i = 0; i < this.tabs_.length; i++) {
     if (this.tabs_[i] === tab)

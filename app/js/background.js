@@ -12,7 +12,7 @@ function ifShowFrame() {
     os = 'mac';
   }
 
-  return os === 'linux' && version < 26 ||
+  return os === 'linux' && version < 27 ||
          os === 'mac' && version < 25;
 }
 
