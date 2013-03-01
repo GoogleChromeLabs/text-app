@@ -25,7 +25,7 @@ TextDrive.prototype.init = function() {
 
   this.editor_ = new Editor('editor');
   this.settings_ = new Settings();
-  this.tabs_ = new Tabs(this.editor_, this.dialogController_);
+  this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
 
   this.hotkeysController_ = new HotkeysController(this.tabs_, this.editor_);
   this.menuController_ = new MenuController(this.tabs_);

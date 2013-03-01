@@ -1,5 +1,8 @@
 /**
  * @constructor
+ * @param {number} id
+ * @param {EditSession} session Ace edit session.
+ * @param {FileEntry} entry
  */
 function Tab(id, session, entry) {
   this.id_ = id;
@@ -43,8 +46,10 @@ Tab.prototype.getSession = function() {
   return this.session_;
 };
 
+/**
+ * @param {FileEntry} entry
+ */
 Tab.prototype.setEntry = function(entry) {
-  console.log('setEntry', entry);
   var nameChanged = this.getName() != entry.name;
   this.entry_ = entry;
   if (nameChanged)
@@ -103,9 +108,10 @@ Tab.prototype.changed = function() {
 /**
  * @constructor
  */
-function Tabs(editor, dialogController) {
+function Tabs(editor, dialogController, settings) {
   this.editor_ = editor;
   this.dialogController_ = dialogController;
+  this.settings_ = settings;
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
@@ -174,23 +180,27 @@ Tabs.prototype.close = function(tabId) {
   var tab = this.tabs_[i];
 
   if (!tab.isSaved()) {
-    this.dialogController_.setText(
-        'Do you want to save the file before closing?');
-    this.dialogController_.resetButtons();
-    this.dialogController_.addButton('yes', 'Yes');
-    this.dialogController_.addButton('no', 'No');
-    this.dialogController_.addButton('cancel', 'Cancel');
-    this.dialogController_.show(function(answer) {
-      if (answer === 'yes') {
-        this.save(tab, true /* close */);
-        return;
-      }
+    if (this.settings_.get('autosave')) {
+      this.save(tab, true /* close */);
+    } else {
+      this.dialogController_.setText(
+          'Do you want to save the file before closing?');
+      this.dialogController_.resetButtons();
+      this.dialogController_.addButton('yes', 'Yes');
+      this.dialogController_.addButton('no', 'No');
+      this.dialogController_.addButton('cancel', 'Cancel');
+      this.dialogController_.show(function(answer) {
+        if (answer === 'yes') {
+          this.save(tab, true /* close */);
+          return;
+        }
 
-      if (answer === 'no') {
-        this.closeTab_(tab);
-        return;
-      }
-    }.bind(this));
+        if (answer === 'no') {
+          this.closeTab_(tab);
+          return;
+        }
+      }.bind(this));
+    }
   } else {
     this.closeTab_(tab);
   }
