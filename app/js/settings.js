@@ -18,6 +18,10 @@ Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'}
 };
 
+/**
+ * @param {string} key Setting name.
+ * @return {Object}
+ */
 Settings.prototype.get = function(key) {
   return this.settings_[key];
 };

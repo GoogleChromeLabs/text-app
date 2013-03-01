@@ -1,7 +1,17 @@
-var entriesToOpen = [];
-var instances = [];
+/**
+ * @constructor
+ */
+function Background() {
+  this.entriesToOpen_ = [];
+  this.windows_ = [];
+}
 
-function ifShowFrame() {
+/**
+ * @return {boolean}
+ * True if the system window frame should be shown. It is on the systems where
+ * borderless window can't be dragged or resized.
+ */
+Background.prototype.ifShowFrame_ = function() {
   var version = parseInt(navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
   var os = 'other';
   if (navigator.appVersion.indexOf('Linux') != -1) {
@@ -14,11 +24,15 @@ function ifShowFrame() {
 
   return os === 'linux' && version < 27 ||
          os === 'mac' && version < 25;
-}
+};
 
-function launch(launchData) {
+/**
+ * @param {Object} launchData
+ * Handle onLaunch event.
+ */
+Background.prototype.launch = function(launchData) {
   var options = {
-    frame: (ifShowFrame() ? 'chrome' : 'none'),
+    frame: (this.ifShowFrame_() ? 'chrome' : 'none'),
     minWidth: 400,
     minHeight: 400,
     width: 700,
@@ -34,44 +48,80 @@ function launch(launchData) {
     }
   }
 
-  if (entries.length > 0 && instances.length > 0) {
+  if (entries.length > 0 && this.windows_.length > 0) {
     console.log('Opening files in existing window.');
-    instances[0].openEntries(entries);
+    this.windows_[0].openEntries(entries);
   } else {
-    entriesToOpen.push.apply(entriesToOpen, entries);
-    console.log('Files to open:', entriesToOpen);
+    this.entriesToOpen_.push.apply(this.entriesToOpen_, entries);
+    console.log('Files to open:', this.entriesToOpen_);
     chrome.app.window.create('index.html', options, function(win) {
       console.log('Window opened:', win);
-      win.onClosed.addListener(onWindowClosed.bind(undefined, win));
-    });
+      win.onClosed.addListener(this.onWindowClosed.bind(this, win));
+    }.bind(this));
   }
-}
+};
 
-function onWindowClosed(win) {
+/**
+ * @param {Window} win
+ * Handle onClosed.
+ */
+Background.prototype.onWindowClosed = function(win) {
   console.log('Window closed:', win);
   if (!win.contentWindow || !win.contentWindow.textDrive)
     return;
   var td = win.contentWindow.textDrive;
-  for (var i = 0; i < instances.length; i++) {
-    if (td === instances[i]) {
-      instances.splice(i, 1);
+  for (var i = 0; i < this.windows_.length; i++) {
+    if (td === this.windows_[i]) {
+      this.windows_.splice(i, 1);
     }
+  }
+
+  var toSave = td.getFilesToSave();
+  console.log('Got ' + toSave.length + ' files to save:', toSave);
+  for (var i = 0; i < toSave.length; i++) {
+    var entry = toSave[i].entry;
+    var contents = toSave[i].contents;
+    this.saveFile_(entry, contents);
   }
 };
 
-function onWindowReady(td) {
-  instances.push(td);
-  td.setHasChromeFrame(ifShowFrame());
-  openEntriesInWindow(td);
+/**
+ * @param {FileEntry} entry
+ * @param {string} contents
+ */
+Background.prototype.saveFile_ = function(entry, contents) {
+  var blob = new Blob([contents], {type: 'text/plain'});
+  entry.createWriter(function(writer) {
+    writer.onerror = util.handleFSError;
+
+    writer.onwriteend = function(e) {
+      // File truncated.
+      writer.onwriteend = function(e) {
+        console.log('Saved', entry.name);
+      };
+
+      writer.write(blob);
+    }.bind(this);
+
+    writer.truncate(blob.size);
+  }.bind(this));
 };
 
-function openEntriesInWindow(td) {
-  if (entriesToOpen.length > 0) {
-    td.openEntries(entriesToOpen);
-    entriesToOpen = [];
+/**
+ * @param {TextDrive} td
+ * Called by the TextDrive object in the window when the window is ready.
+ */
+Background.prototype.onWindowReady = function(td) {
+  this.windows_.push(td);
+  td.setHasChromeFrame(this.ifShowFrame_());
+
+  if (this.entriesToOpen_.length > 0) {
+    td.openEntries(this.entriesToOpen_);
+    this.entriesToOpen_ = [];
   } else {
     td.openNew();
   }
 };
 
-chrome.app.runtime.onLaunched.addListener(launch);
+var background = new Background();
+chrome.app.runtime.onLaunched.addListener(background.launch.bind(background));

@@ -172,8 +172,12 @@ Editor.prototype.setMode = function(session, extension) {
     session.setMode('ace/mode/' + mode);
 };
 
-Editor.prototype.onTabRenamed_ = function(tab) {
+/**
+ * @param {Event} e
+ * @param {Tab} tab
+ */
+Editor.prototype.onTabRenamed_ = function(e, tab) {
   var extension = tab.getExtension();
   if (extension)
-    this.setMode(tab.getSession, extension);
+    this.setMode(tab.getSession(), extension);
 };

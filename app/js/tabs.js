@@ -1,5 +1,8 @@
 /**
  * @constructor
+ * @param {number} id
+ * @param {EditSession} session Ace edit session.
+ * @param {FileEntry} entry
  */
 function Tab(id, session, entry) {
   this.id_ = id;
@@ -43,8 +46,10 @@ Tab.prototype.getSession = function() {
   return this.session_;
 };
 
+/**
+ * @param {FileEntry} entry
+ */
 Tab.prototype.setEntry = function(entry) {
-  console.log('setEntry', entry);
   var nameChanged = this.getName() != entry.name;
   this.entry_ = entry;
   if (nameChanged)
@@ -54,6 +59,10 @@ Tab.prototype.setEntry = function(entry) {
 
 Tab.prototype.getEntry = function() {
   return this.entry_;
+};
+
+Tab.prototype.getContents = function() {
+  return this.session_.getValue();
 };
 
 Tab.prototype.getPath = function() {
@@ -103,9 +112,10 @@ Tab.prototype.changed = function() {
 /**
  * @constructor
  */
-function Tabs(editor, dialogController) {
+function Tabs(editor, dialogController, settings) {
   this.editor_ = editor;
   this.dialogController_ = dialogController;
+  this.settings_ = settings;
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
@@ -174,28 +184,37 @@ Tabs.prototype.close = function(tabId) {
   var tab = this.tabs_[i];
 
   if (!tab.isSaved()) {
-    this.dialogController_.setText(
-        'Do you want to save the file before closing?');
-    this.dialogController_.resetButtons();
-    this.dialogController_.addButton('yes', 'Yes');
-    this.dialogController_.addButton('no', 'No');
-    this.dialogController_.addButton('cancel', 'Cancel');
-    this.dialogController_.show(function(answer) {
-      if (answer === 'yes') {
-        this.save(tab, true /* close */);
-        return;
-      }
+    if (this.settings_.get('autosave')) {
+      this.save(tab, true /* close */);
+    } else {
+      this.dialogController_.setText(
+          'Do you want to save the file before closing?');
+      this.dialogController_.resetButtons();
+      this.dialogController_.addButton('yes', 'Yes');
+      this.dialogController_.addButton('no', 'No');
+      this.dialogController_.addButton('cancel', 'Cancel');
+      this.dialogController_.show(function(answer) {
+        if (answer === 'yes') {
+          this.save(tab, true /* close */);
+          return;
+        }
 
-      if (answer === 'no') {
-        this.closeTab_(tab);
-        return;
-      }
-    }.bind(this));
+        if (answer === 'no') {
+          this.closeTab_(tab);
+          return;
+        }
+      }.bind(this));
+    }
   } else {
     this.closeTab_(tab);
   }
 };
 
+/**
+ * @param {Tab} tab
+ * Close tab without checking whether it needs to be saved. The safe version
+ * (invoking auto-save and, if needed, SaveAs dialog) is Tabs.close().
+ */
 Tabs.prototype.closeTab_ = function(tab) {
   if (tab === this.currentTab_) {
     if (this.tabs_.length > 1)
@@ -243,6 +262,23 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   chrome.fileSystem.chooseEntry(
       {'type': 'saveFile'},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+};
+
+/**
+ * @return {Array.<Object>} Each element:
+ *     {entry: <FileEntry>, contents: <string>}.
+ */
+Tabs.prototype.getFilesToSave = function() {
+  var toSave = [];
+  
+  for (i = 0; i < this.tabs_.length; i++) {
+    if (!this.tabs_[i].isSaved() && this.tabs_[i].getEntry()) {
+      toSave.push({'entry': this.tabs_[i].getEntry(),
+                   'contents': this.tabs_[i].getContents()});
+    }
+  }
+
+  return toSave;
 };
 
 Tabs.prototype.openFileEntry = function(entry) {
