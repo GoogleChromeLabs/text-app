@@ -13,7 +13,7 @@ function SearchController(editor) {
 
 SearchController.prototype.onSearchButton_ = function() {
   $('header').addClass('search-active');
-  setTimeout(function() {$('#search-input').focus();}, 0);
+  setTimeout(function() {$('#search-input').focus();}, 100);
 
   return false;
 };
