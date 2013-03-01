@@ -61,6 +61,10 @@ Tab.prototype.getEntry = function() {
   return this.entry_;
 };
 
+Tab.prototype.getContents = function() {
+  return this.session_.getValue();
+};
+
 Tab.prototype.getPath = function() {
   return this.path_;
 };
@@ -206,6 +210,11 @@ Tabs.prototype.close = function(tabId) {
   }
 };
 
+/**
+ * @param {Tab} tab
+ * Close tab without checking whether it needs to be saved. The safe version
+ * (invoking auto-save and, if needed, SaveAs dialog) is Tabs.close().
+ */
 Tabs.prototype.closeTab_ = function(tab) {
   if (tab === this.currentTab_) {
     if (this.tabs_.length > 1)
@@ -253,6 +262,23 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   chrome.fileSystem.chooseEntry(
       {'type': 'saveFile'},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+};
+
+/**
+ * @return {Array.<Object>} Each element:
+ *     {entry: <FileEntry>, contents: <string>}.
+ */
+Tabs.prototype.getFilesToSave = function() {
+  var toSave = [];
+  
+  for (i = 0; i < this.tabs_.length; i++) {
+    if (!this.tabs_[i].isSaved() && this.tabs_[i].getEntry()) {
+      toSave.push({'entry': this.tabs_[i].getEntry(),
+                   'contents': this.tabs_[i].getContents()});
+    }
+  }
+
+  return toSave;
 };
 
 Tabs.prototype.openFileEntry = function(entry) {

@@ -63,7 +63,7 @@ Background.prototype.launch = function(launchData) {
 
 /**
  * @param {Window} win
- * Handle onClosed
+ * Handle onClosed.
  */
 Background.prototype.onWindowClosed = function(win) {
   console.log('Window closed:', win);
@@ -75,6 +75,36 @@ Background.prototype.onWindowClosed = function(win) {
       this.windows_.splice(i, 1);
     }
   }
+
+  var toSave = td.getFilesToSave();
+  console.log('Got ' + toSave.length + ' files to save:', toSave);
+  for (var i = 0; i < toSave.length; i++) {
+    var entry = toSave[i].entry;
+    var contents = toSave[i].contents;
+    this.saveFile_(entry, contents);
+  }
+};
+
+/**
+ * @param {FileEntry} entry
+ * @param {string} contents
+ */
+Background.prototype.saveFile_ = function(entry, contents) {
+  var blob = new Blob([contents], {type: 'text/plain'});
+  entry.createWriter(function(writer) {
+    writer.onerror = util.handleFSError;
+
+    writer.onwriteend = function(e) {
+      // File truncated.
+      writer.onwriteend = function(e) {
+        console.log('Saved', entry.name);
+      };
+
+      writer.write(blob);
+    }.bind(this);
+
+    writer.truncate(blob.size);
+  }.bind(this));
 };
 
 /**

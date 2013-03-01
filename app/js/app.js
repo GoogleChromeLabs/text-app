@@ -58,6 +58,14 @@ TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
   this.windowController_.windowControlsVisible(!hasFrame);
 };
 
+/**
+ * @return {Array.<Object>} Each element:
+ *     {entry: <FileEntry>, contents: <string>}.
+ */
+TextDrive.prototype.getFilesToSave = function() {
+  return this.tabs_.getFilesToSave();
+};
+
 var textDrive = new TextDrive();
 
 $(document).ready(textDrive.init.bind(textDrive));
