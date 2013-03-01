@@ -187,6 +187,10 @@ body.sidebar-open #sidebar {
   background-color: inherit;
 }
 
+#settings-list li input[type="number"] {
+  width: 35px;
+}
+
 .setting-title {
   -webkit-box-flex: 1.0;
   display: box;
