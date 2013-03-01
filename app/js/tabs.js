@@ -139,7 +139,15 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     id++;
   }
 
-  var session = this.editor_.newSession(opt_content)
+  var session = this.editor_.newSession(opt_content);
+  var tabSize = this.settings_.get('tabsize');
+  session.setTabSize(tabSize);
+  $(document).bind('settingschange', function(e, key, value) {
+    if(key === 'tabsize') {
+      session.setTabSize(value);
+    }
+  });
+
   var tab = new Tab(id, session, opt_entry || null);
   var fileNameExtension = tab.getExtension();
   if (fileNameExtension)

@@ -23,6 +23,7 @@ SettingsController.prototype.bindChanges_ = function() {
   for (var key in Settings.SETTINGS) {
     switch (Settings.SETTINGS[key].widget) {
       case 'checkbox':
+      case 'number':
         $('#setting-' + key).change(this.onWidgetChange_.bind(this, key));
         break;
     }
@@ -49,6 +50,9 @@ SettingsController.prototype.show_ = function(key, value) {
     case 'checkbox':
       $('#setting-' + key).prop('checked', value);
       break;
+    case 'number':
+      $('#setting-' +key).val(value);
+      break;
   }
 };
 
@@ -61,6 +65,9 @@ SettingsController.prototype.onWidgetChange_ = function(key) {
   switch (Settings.SETTINGS[key].widget) {
     case 'checkbox':
       value = $('#setting-' + key).prop('checked');
+      break;
+    case 'number':
+      value = parseInt($('#setting-' + key).val());
       break;
   }
 
