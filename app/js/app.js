@@ -34,7 +34,7 @@ TextDrive.prototype.init = function() {
   this.windowController_ = new WindowController(this.editor_);
 
   chrome.runtime.getBackgroundPage(function(bg) {
-    bg.onWindowReady(this);
+    bg.background.onWindowReady(this);
   }.bind(this));
 };
 
