@@ -114,11 +114,13 @@ Tab.prototype.changed = function() {
  */
 function Tabs(editor, dialogController, settings) {
   this.editor_ = editor;
+  editor.setTheme(settings.get('theme'));
   this.dialogController_ = dialogController;
   this.settings_ = settings;
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
+  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
 }
 
 Tabs.prototype.getTabById = function(id) {
@@ -350,4 +352,12 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
   }
 
   tab.changed();
+};
+
+Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
+  switch(key) {
+    case 'theme':
+      this.editor_.setTheme(value);
+      break;
+  }
 };

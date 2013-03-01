@@ -16,7 +16,8 @@ function Settings() {
 
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
-  'tabsize': {'default': 6, 'type': 'integer', 'widget': 'number'}
+  'tabsize': {'default': 6, 'type': 'integer', 'widget': 'number'},
+  'theme': {'default': 'textmate', 'type': 'string', 'widget': 'select'}
 };
 
 /**
