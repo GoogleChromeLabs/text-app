@@ -29,6 +29,7 @@ FILES = [
   'images/menu.svg',
   'images/search.svg',
   'js/background.js',
+  'js/util.js',
   'lib/jquery-1.8.3.min.js',
   'lib/ace/src-min-noconflict/ace.js',
   'lib/ace/src-min-noconflict/mode-c_cpp.js',
