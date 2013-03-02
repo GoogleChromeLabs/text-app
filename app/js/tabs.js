@@ -122,6 +122,7 @@ Tab.prototype.changed = function() {
  */
 function Tabs(editor, dialogController, settings) {
   this.editor_ = editor;
+  editor.setTheme(settings.get('theme'));
   this.dialogController_ = dialogController;
   this.settings_ = settings;
   this.tabs_ = [];

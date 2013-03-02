@@ -172,6 +172,10 @@ Editor.prototype.setMode = function(session, extension) {
     session.setMode('ace/mode/' + mode);
 };
 
+Editor.prototype.setTheme = function(theme) {
+  this.editor_.setTheme('ace/theme/' + theme);
+};
+
 /**
  * @param {Event} e
  * @param {Tab} tab

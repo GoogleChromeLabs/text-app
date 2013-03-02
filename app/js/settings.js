@@ -6,7 +6,7 @@ function Settings() {
   this.settings_ = {};
   var storageKeys = {};
   for (var key in Settings.SETTINGS) {
-    this.settings_[key] = Settings.SETTINGS[key].default;
+    this.settings_[key] = Settings.SETTINGS[key]['default'];
     storageKeys['settings-' + key] = this.settings_[key];
   }
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
@@ -16,7 +16,8 @@ function Settings() {
 
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
-  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'}
+  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
+  'theme': {'default': 'textmate', 'type': 'string', 'widget': 'select'}
 };
 
 /**
