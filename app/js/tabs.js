@@ -69,6 +69,14 @@ Tab.prototype.getPath = function() {
   return this.path_;
 };
 
+/**
+ * @param {number} tabSize
+ */
+Tab.prototype.setTabSize = function(tabSize) {
+  console.log('setTabSize', tabSize);
+  this.session_.setTabSize(tabSize);
+};
+
 Tab.prototype.updatePath_ = function() {
   chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
@@ -119,6 +127,7 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
+  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
 }
 
 Tabs.prototype.getTabById = function(id) {
@@ -140,15 +149,9 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   }
 
   var session = this.editor_.newSession(opt_content);
-  var tabSize = this.settings_.get('tabsize');
-  session.setTabSize(tabSize);
-  $(document).bind('settingschange', function(e, key, value) {
-    if(key === 'tabsize') {
-      session.setTabSize(value);
-    }
-  });
 
   var tab = new Tab(id, session, opt_entry || null);
+  tab.setTabSize(this.settings_.get('tabsize'));
   var fileNameExtension = tab.getExtension();
   if (fileNameExtension)
     this.editor_.setMode(session, fileNameExtension);
@@ -278,7 +281,7 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
  */
 Tabs.prototype.getFilesToSave = function() {
   var toSave = [];
-  
+
   for (i = 0; i < this.tabs_.length; i++) {
     if (!this.tabs_[i].isSaved() && this.tabs_[i].getEntry()) {
       toSave.push({'entry': this.tabs_[i].getEntry(),
@@ -350,4 +353,12 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
   }
 
   tab.changed();
+};
+
+Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
+  if (key === 'tabsize') {
+    for (var i = 0; i < this.tabs_.length; i++) {
+      this.tabs_[i].setTabSize(value);
+    }
+  }
 };
