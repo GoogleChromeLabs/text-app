@@ -122,7 +122,6 @@ Tab.prototype.changed = function() {
  */
 function Tabs(editor, dialogController, settings) {
   this.editor_ = editor;
-  editor.setTheme(settings.get('theme'));
   this.dialogController_ = dialogController;
   this.settings_ = settings;
   this.tabs_ = [];
@@ -361,5 +360,7 @@ Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
     for (var i = 0; i < this.tabs_.length; i++) {
       this.tabs_[i].setTabSize(value);
     }
+  } else if (key === 'theme') {
+    this.editor_.setTheme(value);
   }
 };

@@ -4,8 +4,9 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 /**
  * @constructor
  */
-function Editor(editorElement) {
+function Editor(editorElement, settings) {
   this.element_ = editorElement;
+  this.settings_ = settings;
   this.editor_ = ace.edit(this.element_);
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
@@ -14,6 +15,12 @@ function Editor(editorElement) {
   this.editor_.setShowFoldWidgets(false);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
+  
+  var self = this;
+  $(document).bind('settingsready', function onSettingsReady() {
+    $(document).unbind('settingsready', onSettingsReady);
+    self.setTheme(self.settings_.get('theme'));
+  });
 }
 
 Editor.EXTENSION_TO_MODE = {
@@ -108,8 +115,6 @@ Editor.prototype.initTheme_ = function() {
       var dom = require('../lib/dom');
       dom.importCssString(exports.cssText, exports.cssClass);
     });
-
-   this.editor_.setTheme('ace/theme/textdrive');
 };
 
 Editor.prototype.newSession = function(opt_content) {

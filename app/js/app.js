@@ -23,8 +23,8 @@ function TextDrive() {
 TextDrive.prototype.init = function() {
   this.dialogController_ = new DialogController($('#dialog-container'))
 
-  this.editor_ = new Editor('editor');
   this.settings_ = new Settings();
+  this.editor_ = new Editor('editor', this.settings_);
   this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
 
   this.hotkeysController_ = new HotkeysController(this.tabs_, this.editor_);

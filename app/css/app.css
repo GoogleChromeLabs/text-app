@@ -178,7 +178,8 @@ body.sidebar-open #sidebar {
   background-color: inherit;
   -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
-  display: -webkit-box;
+  -webkit-flex-wrap: wrap;
+  display: -webkit-flex;
   padding-right: 15px;
   width: 100%;
 }
@@ -192,8 +193,12 @@ body.sidebar-open #sidebar {
 }
 
 .setting-title {
-  -webkit-box-flex: 1.0;
+  -webkit-flex: 1;
   display: box;
+}
+
+#setting-theme {
+  -webkit-flex: 100% 1;
 }
 
 .settings-switch-ul {
