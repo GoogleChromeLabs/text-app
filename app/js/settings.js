@@ -16,9 +16,14 @@ function Settings() {
 }
 
 Settings.SETTINGS = {
-  'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'}
+  'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
+  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'}
 };
 
+/**
+ * @param {string} key Setting name.
+ * @return {Object}
+ */
 Settings.prototype.get = function(key) {
   return this.settings_[key];
 };

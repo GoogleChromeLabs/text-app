@@ -25,7 +25,7 @@ TextDrive.prototype.init = function() {
 
   this.editor_ = new Editor('editor');
   this.settings_ = new Settings();
-  this.tabs_ = new Tabs(this.editor_, this.dialogController_);
+  this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
 
   this.hotkeysController_ = new HotkeysController(this.tabs_, this.editor_);
   this.menuController_ = new MenuController(this.tabs_);
@@ -34,7 +34,7 @@ TextDrive.prototype.init = function() {
   this.windowController_ = new WindowController(this.editor_);
 
   chrome.runtime.getBackgroundPage(function(bg) {
-    bg.onWindowReady(this);
+    bg.background.onWindowReady(this);
   }.bind(this));
 };
 
@@ -56,6 +56,14 @@ TextDrive.prototype.openNew = function() {
 TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
   this.hasFrame_ = hasFrame;
   this.windowController_.windowControlsVisible(!hasFrame);
+};
+
+/**
+ * @return {Array.<Object>} Each element:
+ *     {entry: <FileEntry>, contents: <string>}.
+ */
+TextDrive.prototype.getFilesToSave = function() {
+  return this.tabs_.getFilesToSave();
 };
 
 var textDrive = new TextDrive();
