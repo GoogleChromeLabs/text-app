@@ -28,8 +28,6 @@ FILES = [
   'images/maximize.svg',
   'images/menu.svg',
   'images/search.svg',
-  'js/background.js',
-  'js/util.js',
   'lib/jquery-1.8.3.min.js',
   'lib/ace/src-min-noconflict/ace.js',
   'lib/ace/src-min-noconflict/mode-c_cpp.js',
@@ -81,6 +79,7 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
                      '</script>')
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
+JS_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
 CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
 JQUERY_EXTERNS = ('http://closure-compiler.googlecode.com/'
                   'svn/trunk/contrib/externs/jquery-1.8.js')
@@ -118,7 +117,10 @@ def get_version():
 def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
   manifest['version'] = version
-  json.dump(manifest, open(os.path.join(out_dir, MANIFEST), 'w'))
+  background_js = manifest['app']['background']['scripts']
+  manifest['app']['background']['scripts'] = ['js/background.js']
+  json.dump(manifest, open(os.path.join(out_dir, MANIFEST), 'w'), indent=2)
+  return background_js
 
 
 def process_index(out_dir):
@@ -140,29 +142,34 @@ def process_index(out_dir):
 
 def print_errors(errors, js_files):
   for error in errors:
-    fileno = int(error['file'][6:])
+    if error['file'].find('Externs') >= 0:
+      filename = 'externs'
+    else:
+      fileno = int(error['file'][6:])
+      filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
     else:
       text = error['warning']
-    print(js_files[fileno] + ':' + str(error['lineno']) + ' ' + text)
+    print(filename + ':' + str(error['lineno']) + ' ' + text)
     print(error['line'])
 
 
-def compile_js(out_dir, js_files):
+def compile_js(out_path, js_files, level='ADVANCED_OPTIMIZATIONS'):
   print('Compiling JavaScript code.')
   js_code = []
   for js_file in js_files:
     js_code.append(open(os.path.join(SOURCE_DIR, js_file)).read())
 
   params = [
-      ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+      ('compilation_level', level),
       ('formatting', 'pretty_print'),
       ('output_format', 'json'),
       ('output_info', 'statistics'),
       ('output_info', 'warnings'),
       ('output_info', 'errors'),
       ('output_info', 'compiled_code'),
+      ('js_externs', open(JS_EXTERNS).read())
     ]
   for code in js_code:
     params.append(('js_code', code))
@@ -184,10 +191,9 @@ def compile_js(out_dir, js_files):
     print_errors(result['warnings'], js_files)
     print()
 
-  all_js_dst = os.path.join(out_dir, TARGET_JS)
-  print('Writing', all_js_dst)
-  os.makedirs(os.path.dirname(all_js_dst), exist_ok=True)
-  open(all_js_dst, 'w').write(result['compiledCode'])
+  print('Writing', out_path)
+  os.makedirs(os.path.dirname(out_path), exist_ok=True)
+  open(out_path, 'w').write(result['compiledCode'])
 
 
 def main():
@@ -199,9 +205,10 @@ def main():
   delete(out_dir, archive_path)
   copy_files(SOURCE_DIR, out_dir, FILES)
 
-  process_manifest(out_dir, version)
+  background_js_files = process_manifest(out_dir, version)
+  compile_js(os.path.join(out_dir, 'js', 'background.js'), background_js_files)
   js_files = process_index(out_dir)
-  compile_js(out_dir, js_files)
+  compile_js(os.path.join(out_dir, TARGET_JS), js_files, 'SIMPLE_OPTIMIZATIONS')
 
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip',

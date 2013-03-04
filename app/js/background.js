@@ -125,3 +125,8 @@ Background.prototype.onWindowReady = function(td) {
 
 var background = new Background();
 chrome.app.runtime.onLaunched.addListener(background.launch.bind(background));
+
+
+/* Exports */
+window['background'] = background;
+Background.prototype['onWindowReady'] = Background.prototype.onWindowReady;
