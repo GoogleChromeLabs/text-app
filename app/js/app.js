@@ -63,7 +63,11 @@ TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
  *     {entry: <FileEntry>, contents: <string>}.
  */
 TextDrive.prototype.getFilesToSave = function() {
-  return this.tabs_.getFilesToSave();
+  if (this.settings_.get('autosave')) {
+    return this.tabs_.getFilesToSave();
+  } else {
+    return [];
+  }
 };
 
 var textDrive = new TextDrive();

@@ -91,20 +91,24 @@ Background.prototype.onWindowClosed = function(win) {
  */
 Background.prototype.saveFile_ = function(entry, contents) {
   var blob = new Blob([contents], {type: 'text/plain'});
-  entry.createWriter(function(writer) {
-    writer.onerror = util.handleFSError;
+  chrome.fileSystem.getWritableEntry(
+      entry,
+      function(entry2) {
+        entry2.createWriter(function(writer) {
+          writer.onerror = util.handleFSError;
 
-    writer.onwriteend = function(e) {
-      // File truncated.
-      writer.onwriteend = function(e) {
-        console.log('Saved', entry.name);
-      };
+          writer.onwriteend = function(e) {
+            // File truncated.
+            writer.onwriteend = function(e) {
+              console.log('Saved', entry.name);
+            };
 
-      writer.write(blob);
-    }.bind(this);
+            writer.write(blob);
+          }.bind(this);
 
-    writer.truncate(blob.size);
-  }.bind(this));
+          writer.truncate(blob.size);
+        }.bind(this));
+      }.bind(this));
 };
 
 /**
