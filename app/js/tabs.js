@@ -194,7 +194,7 @@ Tabs.prototype.close = function(tabId) {
   var tab = this.tabs_[i];
 
   if (!tab.isSaved()) {
-    if (this.settings_.get('autosave')) {
+    if (this.settings_.get('autosave') && tab.getEntry()) {
       this.save(tab, true /* close */);
     } else {
       this.dialogController_.setText(
@@ -227,20 +227,20 @@ Tabs.prototype.close = function(tabId) {
  */
 Tabs.prototype.closeTab_ = function(tab) {
   if (tab === this.currentTab_) {
-    if (this.tabs_.length > 1)
+    if (this.tabs_.length > 1) {
       this.nextTab();
-    else
-      this.newTab();
+    } else {
+      window.close();
+    }
   }
 
   for (var i = 0; i < this.tabs_.length; i++) {
     if (this.tabs_[i] === tab)
-      break
+      break;
   }
 
   this.tabs_.splice(i, 1);
   $.event.trigger('tabclosed', tab);
-
 };
 
 Tabs.prototype.closeCurrent = function() {
