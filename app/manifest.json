@@ -13,7 +13,11 @@
   "offline_enabled": true,
   "app": {
     "background": {
-      "scripts": ["js/background.js", "js/util.js"]
+      "scripts": [
+        "js/background.js",
+        "js/settings.js",
+        "js/util.js"
+      ]
     }
   },
   "permissions": [
