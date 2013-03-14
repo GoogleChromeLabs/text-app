@@ -73,7 +73,6 @@ Tab.prototype.getPath = function() {
  * @param {number} tabSize
  */
 Tab.prototype.setTabSize = function(tabSize) {
-  console.log('setTabSize', tabSize);
   this.session_.setTabSize(tabSize);
 };
 
