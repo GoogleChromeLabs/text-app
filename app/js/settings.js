@@ -10,10 +10,16 @@ function Settings() {
     storageKeys['settings-' + key] = this.settings_[key];
   }
   // Can be changed to chrome.storage.local.
-  this.storage_ = chrome.storage.sync;
+  this.storage_ = chrome.storage[Settings.AREA];
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
   this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
 }
+
+/**
+ * @type {string}
+ * 'sync' or 'local'.
+ */
+Settings.AREA = 'sync';
 
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
@@ -55,14 +61,17 @@ Settings.prototype.getSettingsCallback_ = function(settings) {
 };
 
 Settings.prototype.onChanged_ = function(changes, areaName) {
-  if (areaName !== 'local')
+  if (areaName !== Settings.AREA) {
+    console.warning('Storage change in wrong area. Maybe a bug?');
     return;
+  }
 
   for (var key in changes) {
     if (key.indexOf('settings-') !== 0)
       continue;
     var value = changes[key].newValue;
     key = key.substring(9);
+    console.log('Settings changed:', key, value);
     this.settings_[key] = value;
     $.event.trigger('settingschange', [key, value]);
   }
