@@ -34,12 +34,15 @@ img {
   background-color: #333;
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
-  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   color: #EBEBEB;
   display: -webkit-box;
   overflow: hidden;
   -webkit-transition: width 0.2s ease-in-out;
   width: 0;
+}
+
+#sidebar > div {
+  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
 }
 
 #sidebar *:active {
@@ -183,6 +186,7 @@ body.sidebar-open #sidebar {
   background-color: inherit;
   -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
+  -webkit-box-align: end;
   display: -webkit-box;
   padding-right: 15px;
   width: 100%;
@@ -192,18 +196,36 @@ body.sidebar-open #sidebar {
   background-color: inherit;
 }
 
-#settings-list li input[type="number"] {
-  width: 35px;
-}
-
 .setting-title {
   -webkit-box-flex: 1.0;
-  display: box;
+  display: -webkit-box;
 }
 
 .settings-switch-ul {
   margin: 4px 0 10px 0;
 }
+
+#settings-list li input[type="text"] {
+  -webkit-app-region: no-drag;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #888;
+  border-radius: 1px;
+  color: #EBEBEB;
+  font-size: 14px;
+  height: 29px;
+  line-height: 27px;
+  padding: 5px 8px;
+  position: relative;
+  top: 5px;
+  -webkit-user-select: auto;
+}
+
+#settings-list li input[type="text"]:focus {
+  border: 1px solid #EBEBEB;
+  outline: none;
+}
+
+
 
 #main-container {
   -webkit-box-align: stretch;
