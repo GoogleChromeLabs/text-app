@@ -23,7 +23,8 @@ Settings.AREA = 'sync';
 
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
-  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'}
+  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
+  'theme': {'default': 'textdrive', 'type': 'string', 'widget': 'select'}
 };
 
 /**
