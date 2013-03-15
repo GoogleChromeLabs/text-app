@@ -27,7 +27,7 @@ Background.prototype.ifShowFrame_ = function() {
 };
 
 /**
- * @param {Object} launchData
+ * @param {Object.<string, Object>} launchData
  * Handle onLaunch event.
  */
 Background.prototype.launch = function(launchData) {
@@ -42,9 +42,9 @@ Background.prototype.launch = function(launchData) {
   };
 
   var entries = [];
-  if (launchData && launchData.items) {
-    for (var i = 0; i < launchData.items.length; i++) {
-      entries.push(launchData.items[i].entry);
+  if (launchData && launchData['items']) {
+    for (var i = 0; i < launchData['items'].length; i++) {
+      entries.push(launchData['items'][i]['entry']);
     }
   }
 
