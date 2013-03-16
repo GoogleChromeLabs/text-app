@@ -12,6 +12,7 @@ function Editor(editorElement) {
   this.editor_.setShowPrintMargin(false);
   this.editor_.setFontSize('14px');
   this.editor_.setShowFoldWidgets(false);
+  this.editor_.commands.bindKey('ctrl-shift-l', null);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
 }
