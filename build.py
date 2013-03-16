@@ -23,6 +23,7 @@ FILES = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
+  'images/check_no_box_white.png',
   'images/close.svg',
   'images/close-tab.svg',
   'images/maximize.svg',

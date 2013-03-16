@@ -205,7 +205,7 @@ body.sidebar-open #sidebar {
   margin: 4px 0 10px 0;
 }
 
-#settings-list li input[type="text"] {
+#settings-list input[type="text"] {
   -webkit-app-region: no-drag;
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #888;
@@ -220,11 +220,36 @@ body.sidebar-open #sidebar {
   -webkit-user-select: auto;
 }
 
-#settings-list li input[type="text"]:focus {
+#settings-list input[type="text"]:focus {
   border: 1px solid #EBEBEB;
   outline: none;
 }
 
+#settings-list input[type="checkbox"] {
+ -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #888;
+  border-radius: 1px;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  cursor: default;
+  position: relative;
+}
+
+#settings-list input[type="checkbox"]:focus {
+  border-color: #EBEBEB;
+  outline: none;
+}
+
+#settings-list input[type="checkbox"]:checked::after {
+  content: url('../images/check_no_box_white.png');
+  display: block;
+  position: absolute;
+  top: -6px;
+  left: -5px;
+}
 
 
 #main-container {
