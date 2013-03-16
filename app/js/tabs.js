@@ -356,6 +356,10 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
 
 Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
   if (key === 'tabsize') {
+    if (value === 0) {
+      this.settings_.set('tabsize', 8);
+      return;
+    }
     for (var i = 0; i < this.tabs_.length; i++) {
       this.tabs_[i].setTabSize(value);
     }
