@@ -65,8 +65,11 @@ Background.prototype.launch = function(launchData) {
  */
 Background.prototype.onWindowClosed = function(win) {
   console.log('Window closed:', win);
-  if (!win.contentWindow || !win.contentWindow.textDrive)
+  if (!win.contentWindow || !win.contentWindow.textDrive) {
+    console.warn('No TextDrive object in the window being closed:',
+                 win.contentWindow, win.contentWindow.textDrive);
     return;
+  }
   var td = win.contentWindow.textDrive;
   for (var i = 0; i < this.windows_.length; i++) {
     if (td === this.windows_[i]) {

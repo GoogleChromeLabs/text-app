@@ -23,7 +23,10 @@ AppWindow.prototype.onClosed = {};
  * @param {function} callback
  */
 AppWindow.prototype.onClosed.addListener = function(callback) {};
-
+/**
+ * @type {Window}
+ */
+AppWindow.prototype.contentWindow = {};
 
 /**
  * @constructor
@@ -38,3 +41,8 @@ TextDrive.prototype.setHasChromeFrame = function(v) {};
  */
 TextDrive.prototype.openEntries = function(entries) {};
 TextDrive.prototype.openNew = function() {};
+
+/**
+ * @type {TextDrive}
+ */
+window.textDrive = {};
