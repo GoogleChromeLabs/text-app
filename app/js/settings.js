@@ -22,8 +22,9 @@ function Settings() {
 Settings.AREA = 'sync';
 
 Settings.SETTINGS = {
-  'autosave': {'default': false, 'type': 'boolean','widget': 'checkbox'},
-  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'}
+  'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
+  'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };
 
 /**

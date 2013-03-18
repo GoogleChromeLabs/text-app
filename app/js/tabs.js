@@ -76,6 +76,13 @@ Tab.prototype.setTabSize = function(tabSize) {
   this.session_.setTabSize(tabSize);
 };
 
+/**
+ * @param {boolean} wrapLines
+ */
+Tab.prototype.setWrapping = function(wrapLines) {
+  this.session_.setUseWrapMode(wrapLines);
+};
+
 Tab.prototype.updatePath_ = function() {
   chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
@@ -354,14 +361,29 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
   tab.changed();
 };
 
+/**
+ * @param {Event} e
+ * @param {string} key
+ * @param {*} value
+ */
 Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
-  if (key === 'tabsize') {
-    if (value === 0) {
-      this.settings_.set('tabsize', 8);
-      return;
-    }
-    for (var i = 0; i < this.tabs_.length; i++) {
-      this.tabs_[i].setTabSize(value);
-    }
+  var i;
+
+  switch (key) {
+    case 'tabsize':
+      if (value === 0) {
+        this.settings_.set('tabsize', 8);
+        return;
+      }
+      for (i = 0; i < this.tabs_.length; i++) {
+        this.tabs_[i].setTabSize(value);
+      }
+      break;
+
+    case 'wraplines':
+      for (i = 0; i < this.tabs_.length; i++) {
+        this.tabs_[i].setWrapping(value);
+      }
+      break;
   }
 };

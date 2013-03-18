@@ -3,9 +3,12 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 
 /**
  * @constructor
+ * @param {Element} editorElement
+ * @param {Settings} settings
  */
-function Editor(editorElement) {
+function Editor(editorElement, settings) {
   this.element_ = editorElement;
+  this.settings_ = settings;
   this.editor_ = ace.edit(this.element_);
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
@@ -113,6 +116,11 @@ Editor.prototype.initTheme_ = function() {
    this.editor_.setTheme('ace/theme/textdrive');
 };
 
+/**
+ * @param {string} opt_content
+ * @return {EditSession}
+ * Create an edit session for a new file. Each tab should have its own session.
+ */
 Editor.prototype.newSession = function(opt_content) {
   session = new EditSession(opt_content || '');
 
@@ -123,10 +131,14 @@ Editor.prototype.newSession = function(opt_content) {
 
   var undoManager = new UndoManager();
   session.setUndoManager(undoManager);
-  session.setUseWrapMode(true);
+  session.setUseWrapMode(this.settings_.get('wraplines'));
   return session;
 };
 
+/**
+ * @param {EditSession} session
+ * Change the current session, e.g. to edit another tab.
+ */
 Editor.prototype.setSession = function(session) {
   this.editor_.setSession(session);
 };
