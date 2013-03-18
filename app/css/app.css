@@ -369,8 +369,7 @@ header.search-active #search-input {
 }
 
 header.search-active #title-filename {
-  opacity: 0;
-  visibility: hidden;
+  margin-left: 190px;
 }
 
 header.hide-controls #window-maximize {
