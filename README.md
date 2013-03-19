@@ -1,17 +1,17 @@
-# TextDrive
+# Text Editor
 
-Just a text editor for ChromeOS. Can also be used on any other system with Chrome.
+Just a text editor for ChromeOS. Can also be used on any other system with Chrome. To install visit the [Text Editor page in Chrome WebStore](https://chrome.google.com/webstore/detail/text-drive/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
 
 ## Getting the code
 
 You can download the whole source code [as one archive](https://github.com/eterevsky/textdrive-app/archive/master.zip), or get it from the repository using git:
 
-    git clone git://github.com/eterevsky/textdrive-app.git textdrive
-    cd textdrive
+    git clone git://github.com/eterevsky/textdrive-app.git texteditor
+    cd texteditor
     git submodule init
     git submodule update
 
-## Running on Chrome
+## Running the development version
 
 * Check `Developer Mode` in `chrome://chrome/extensions/`
 * Click "Load unpacked extension..." in `chrome://chrome/extensions/` and open the `app/` directory.
@@ -24,4 +24,4 @@ Building script requires Python3 and will use online Closure Compiler. Just run
 
     python3 build.py
 
-and the package will be written to `textdrive/build/` directory in zipped and unzipped formats.
+and the package will be written to `texteditor/build/` directory in zipped and unzipped formats.

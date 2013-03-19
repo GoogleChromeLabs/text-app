@@ -1,6 +1,6 @@
 {
-  "name": "Text Drive",
-  "description": "Just a text editor.",
+  "name": "Text Editor",
+  "description": "A text editor for ChromeOS and Chrome.",
   "version": "0.3",
   "icons": {
     "16": "icon/16x16.png",
@@ -9,7 +9,7 @@
     "256": "icon/256x256.png"
   },
   "manifest_version": 2,
-  "minimum_chrome_version": "23.0.1261",
+  "minimum_chrome_version": "25.0",
   "offline_enabled": true,
   "app": {
     "background": {
