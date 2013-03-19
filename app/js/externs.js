@@ -13,6 +13,14 @@ chrome.app.window = {};
  */
 chrome.app.window.create = function(callback) {};
 
+
+chrome.fileSystem = {};
+/**
+ * @param {FileEntry} entry
+ * @param {function(FileEntry)} callback
+ */
+chrome.fileSystem.getWritableEntry = function(entry, callback) {};
+
 /**
  * @constructor
  */
