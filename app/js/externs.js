@@ -49,6 +49,10 @@ TextDrive.prototype.setHasChromeFrame = function(v) {};
  */
 TextDrive.prototype.openEntries = function(entries) {};
 TextDrive.prototype.openNew = function() {};
+/**
+ * @return {Array.<Object>}
+ */
+TextDrive.prototype.getFilesToSave = function() {};
 
 /**
  * @type {TextDrive}
