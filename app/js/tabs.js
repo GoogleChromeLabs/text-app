@@ -90,25 +90,14 @@ Tab.prototype.updatePath_ = function() {
 };
 
 Tab.prototype.save = function(opt_callbackDone) {
-  this.entry_.createWriter(function(writer) {
-    var blob = new Blob([this.session_.getValue()], {type: 'text/plain'});
-
-    writer.onerror = util.handleFSError;
-
-    writer.onwriteend = function(e) {
-      // File truncated.
-      writer.onwriteend = function(e) {
+  util.writeFile(
+      this.entry_, this.session_.getValue(),
+      function() {
         this.saved_ = true;
         $.event.trigger('tabsave', this);
         if (opt_callbackDone)
           opt_callbackDone();
-      }.bind(this);
-
-      writer.write(blob);
-    }.bind(this);
-
-    writer.truncate(blob.size);
-  }.bind(this));
+      }.bind(this));
 };
 
 Tab.prototype.isSaved = function() {

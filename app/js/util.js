@@ -24,5 +24,40 @@ util.handleFSError = function(e) {
       break;
   }
 
-  console.log('FS Error:', e, msg);
+  console.warn('FS Error:', e, msg);
+};
+
+/**
+ * @param {FileEntry} entry
+ * @param {string} content
+ * @param {Function} onsuccess
+ * Make a writable copy of entry, truncate the file and write the content.
+ */
+util.writeFile = function(entry, content, onsuccess) {
+  var blob = new Blob([content], {type: 'text/plain'});
+  chrome.fileSystem.getWritableEntry(
+      entry, util.truncateAndWriteWritable_.bind(null, blob, onsuccess));
+};
+
+/**
+ * @param {FileEntry} entry
+ * @param {Blob} blob
+ * @param {Function} onsuccess
+ */
+util.truncateAndWriteWritable_ = function(blob, onsuccess, entry) {
+  entry.createWriter(function(writer) {
+    writer.onerror = util.handleFSError;
+    writer.onwrite = util.writeToWriter_.bind(null, writer, blob, onsuccess);
+    writer.truncate(blob.size);
+  });
+};
+
+/**
+ * @param {FileWriter} writer
+ * @param {Blob} blob
+ * @param {Function} onsuccess
+ */
+util.writeToWriter_ = function(writer, blob, onsuccess) {
+  writer.onwrite = onsuccess;
+  writer.write(blob);
 };

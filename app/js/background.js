@@ -91,25 +91,8 @@ Background.prototype.onWindowClosed = function(win) {
  * @param {string} contents
  */
 Background.prototype.saveFile_ = function(entry, contents) {
-  var blob = new Blob([contents], {type: 'text/plain'});
-  chrome.fileSystem.getWritableEntry(
-      entry,
-      function(entry2) {
-        entry2.createWriter(function(writer) {
-          writer.onerror = util.handleFSError;
-
-          writer.onwriteend = function(e) {
-            // File truncated.
-            writer.onwriteend = function(e) {
-              console.log('Saved', entry.name);
-            };
-
-            writer.write(blob);
-          }.bind(this);
-
-          writer.truncate(blob.size);
-        }.bind(this));
-      }.bind(this));
+  util.writeFile(
+      entry, contents, function() {console.log('Saved', entry.name);});
 };
 
 /**
