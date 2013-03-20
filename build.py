@@ -9,7 +9,7 @@ import sys
 import urllib.parse
 import urllib.request
 
-APP_NAME = 'TextDrive'
+APP_NAME = 'Text'
 
 BASE_DIR = os.path.dirname(sys.argv[0])
 SOURCE_DIR = os.path.join(BASE_DIR, 'app')
