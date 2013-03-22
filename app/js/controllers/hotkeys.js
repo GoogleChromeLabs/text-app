@@ -11,54 +11,57 @@ function HotkeysController(tabs, editor) {
     this.KEY[String.fromCharCode(i).toUpperCase()] = i;
   }
 
+  this.KEY.TAB = 9;
+  this.KEY.SPACE = 32;
+
   $(document).keydown(this.onKeydown_.bind(this));
 };
 
 /**
- * Some hotkeys are handled by Ace directly. Some of them are:
+ * Some hotkeys are handled by Ace directly. Among them:
  * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A
  */
 HotkeysController.prototype.onKeydown_ = function(e) {
-  if (!e.metaKey && !e.ctrlKey)
-    return;
+  if (e.ctrlKey || e.metaKey) {
+    switch (e.keyCode) {
+      case this.KEY.TAB:  // Tab
+        this.tabs_.nextTab();
+        return false;
 
-  switch (e.keyCode) {
-    case 9:  // Tab
-      this.tabs_.nextTab();
-      return false;
-    
-    case 32:  // Space
+      case this.KEY.F:
+        $('#search-button').click();
+        return false;
+
+      case this.KEY.N:
+        this.tabs_.newTab();
+        return false;
+
+      case this.KEY.O:
+        this.tabs_.openFile();
+        return false;
+
+      case this.KEY.S:
+        if (e.shiftKey) {
+          this.tabs_.saveAs();
+        } else {
+          this.tabs_.save();
+        }
+        return false;
+
+      case this.KEY.W:
+        this.tabs_.closeCurrent();
+        return false;
+
+      case this.KEY.Z:
+        if (e.shiftKey) {
+          this.editor_.redo();
+          return false;
+        }
+    }
+  } else if (e.altKey) {
+    if (e.keyCode === this.KEY.SPACE) {
       $('#toggle-sidebar').click();
       return false;
-    
-    case this.KEY.F:
-      $('#search-button').click();
-      return false;
-    
-    case this.KEY.N:
-      this.tabs_.newTab();
-      return false;
-
-    case this.KEY.O:
-      this.tabs_.openFile();
-      return false;
-
-    case this.KEY.S:
-      if (e.shiftKey) {
-        this.tabs_.saveAs();
-      } else {
-        this.tabs_.save();
-      }
-      return false;
-
-    case this.KEY.W:
-      this.tabs_.closeCurrent();
-      return false;
-  
-    case this.KEY.Z:
-      if (e.shiftKey) {
-        this.editor_.redo();
-        return false;
-      }
+    }
   }
 };
