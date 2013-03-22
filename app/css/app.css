@@ -188,6 +188,7 @@ body.sidebar-open #sidebar {
   -webkit-box-orient: horizontal;
   -webkit-box-align: end;
   display: -webkit-box;
+  height: 38px;
   padding-right: 15px;
   width: 100%;
 }
@@ -196,7 +197,7 @@ body.sidebar-open #sidebar {
   background-color: inherit;
 }
 
-.setting-title {
+label {
   -webkit-box-flex: 1.0;
   display: -webkit-box;
 }
@@ -214,9 +215,8 @@ body.sidebar-open #sidebar {
   font-size: 14px;
   height: 29px;
   line-height: 27px;
-  padding: 5px 8px;
-  position: relative;
-  top: 5px;
+  margin: -5px 0;
+  padding: 0 8px;
   -webkit-user-select: auto;
 }
 
@@ -226,16 +226,15 @@ body.sidebar-open #sidebar {
 }
 
 #settings-list input[type="checkbox"] {
- -webkit-appearance: none;
-  width: 13px;
-  height: 13px;
+  -webkit-appearance: none;
   border: 1px solid #888;
   border-radius: 1px;
   -webkit-box-sizing: border-box;
-  margin: 0;
-  -webkit-box-sizing: border-box;
   cursor: default;
+  height: 13px;
+  margin: 0 2px 0 0;
   position: relative;
+  width: 13px;
 }
 
 #settings-list input[type="checkbox"]:focus {
