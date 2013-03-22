@@ -117,6 +117,7 @@ def get_version():
 
 def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
+  manifest['name'] = APP_NAME
   manifest['version'] = version
   background_js = manifest['app']['background']['scripts']
   manifest['app']['background']['scripts'] = ['js/background.js']
