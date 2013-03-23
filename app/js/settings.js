@@ -63,7 +63,7 @@ Settings.prototype.getSettingsCallback_ = function(settings) {
 
 Settings.prototype.onChanged_ = function(changes, areaName) {
   if (areaName !== Settings.AREA) {
-    console.warning('Storage change in wrong area. Maybe a bug?');
+    console.warn('Storage change in wrong area. Maybe a bug?');
     return;
   }
 
