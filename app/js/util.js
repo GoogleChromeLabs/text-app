@@ -33,9 +33,10 @@ util.handleFSError = function(e) {
  * @param {Function} onsuccess
  * Make a writable copy of entry, truncate the file and write the content.
  * 
- * Creating a copy of the entry with getWritableEntry is necessary because otherwise
- * this will fail when called from autosave on window close. The entry object belongs
- * to the window and seems to be garbage collected before createWriter is finished.
+ * Creating a copy of the entry with getWritableEntry is necessary because
+ * otherwise this will fail when called from autosave on window close. The entry
+ * object belongs to the window and seems to be garbage collected before
+ * createWriter is finished. See http://crbug.com/223651.
  */
 util.writeFile = function(entry, content, onsuccess) {
   var blob = new Blob([content], {type: 'text/plain'});
