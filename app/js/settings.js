@@ -21,8 +21,14 @@ function Settings() {
  */
 Settings.AREA = 'sync';
 
+/**
+ * @type {Object.<string, Object>}
+ */
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
+  // 'tabsize' currently is not shown in Settings tab, only changed with
+  // Ctrl-+ / Ctrl--
   'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };

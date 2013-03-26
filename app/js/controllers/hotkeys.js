@@ -13,6 +13,8 @@ function HotkeysController(tabs, editor) {
 
   this.KEY.TAB = 9;
   this.KEY.SPACE = 32;
+  this.KEY.EQUALS = 187;
+  this.KEY.MINUS = 189;
 
   $(document).keydown(this.onKeydown_.bind(this));
 };
@@ -57,6 +59,15 @@ HotkeysController.prototype.onKeydown_ = function(e) {
           this.editor_.redo();
           return false;
         }
+        break;
+
+      case this.KEY.EQUALS:
+        this.editor_.increaseFontSize();
+        return false;
+
+      case this.KEY.MINUS:
+        this.editor_.decreseFontSize();
+        return false;
     }
   } else if (e.altKey) {
     if (e.keyCode === this.KEY.SPACE) {

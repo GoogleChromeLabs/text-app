@@ -13,10 +13,11 @@ function Editor(editorElement, settings) {
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
-  this.editor_.setFontSize('14px');
   this.editor_.setShowFoldWidgets(false);
   this.editor_.commands.bindKey('ctrl-shift-l', null);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
+  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
+  $(document).bind('settingsready', this.updateFontSize.bind(this));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
 }
 
@@ -194,3 +195,39 @@ Editor.prototype.onTabRenamed_ = function(e, tab) {
   if (extension)
     this.setMode(tab.getSession(), extension);
 };
+
+/**
+ * The actual changing of the font size will be triggered by settings change
+ * event.
+ */
+Editor.prototype.increaseFontSize = function() {
+  var fontSize = this.settings_.get('fontsize');
+  this.settings_.set('fontsize', fontSize * (9/8));
+};
+
+/**
+ * The actual changing of the font size will be triggered by settings change
+ * event.
+ */
+Editor.prototype.decreseFontSize = function() {
+  var fontSize = this.settings_.get('fontsize');
+  this.settings_.set('fontsize', fontSize / (9/8));
+};
+
+/**
+ * Update font size from settings.
+ */
+Editor.prototype.updateFontSize = function() {
+  var fontSize = Math.round(this.settings_.get('fontsize')) + 'px';
+  this.editor_.setFontSize(fontSize);
+};
+
+/**
+ * @param {Event} e
+ * @param {string} key
+ * @param {*} value
+ */
+Editor.prototype.onSettingsChanged_ = function(e, key, value) {
+  if (key === 'fontsize')
+    this.updateFontSize();
+}
