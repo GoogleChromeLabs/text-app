@@ -3,13 +3,13 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 
 /**
  * @constructor
- * @param {Element} editorElement
+ * @param {string} elementId
  * @param {Settings} settings
  */
-function Editor(editorElement, settings) {
-  this.element_ = editorElement;
+function Editor(elementId, settings) {
+  this.elementId_ = elementId;
   this.settings_ = settings;
-  this.editor_ = ace.edit(this.element_);
+  this.editor_ = ace.edit(this.elementId_);
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
@@ -17,8 +17,12 @@ function Editor(editorElement, settings) {
   this.editor_.commands.bindKey('ctrl-shift-l', null);
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
-  $(document).bind('settingsready', this.updateFontSize.bind(this));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
+  if (this.settings_.isReady()) {
+    this.editor_.initFromSettings_();  // In case the settings are already loaded.
+  } else {
+    $(document).bind('settingsready', this.initFromSettings_.bind(this));
+  }
 }
 
 Editor.EXTENSION_TO_MODE = {
@@ -117,6 +121,11 @@ Editor.prototype.initTheme_ = function() {
    this.editor_.setTheme('ace/theme/textdrive');
 };
 
+Editor.prototype.initFromSettings_ = function() {
+  this.setFontSize(this.settings_.get('fontsize'));
+  this.showHideLineNumbers_(this.settings_.get('linenumbers'));
+};
+
 /**
  * @param {string} opt_content
  * @return {EditSession}
@@ -197,6 +206,23 @@ Editor.prototype.onTabRenamed_ = function(e, tab) {
 };
 
 /**
+ * @param {Event} e
+ * @param {string} key
+ * @param {*} value
+ */
+Editor.prototype.onSettingsChanged_ = function(e, key, value) {
+  switch (key) {
+    case 'fontsize':
+      this.updateFontSize(value);
+      break;
+
+    case 'linenumbers':
+      this.showHideLineNumbers_(value);
+      break;
+  }
+}
+
+/**
  * The actual changing of the font size will be triggered by settings change
  * event.
  */
@@ -215,19 +241,17 @@ Editor.prototype.decreseFontSize = function() {
 };
 
 /**
+ * @param {number} fontSize
  * Update font size from settings.
  */
-Editor.prototype.updateFontSize = function() {
-  var fontSize = Math.round(this.settings_.get('fontsize')) + 'px';
-  this.editor_.setFontSize(fontSize);
+Editor.prototype.setFontSize = function(fontSize) {
+  this.editor_.setFontSize(Math.round(fontSize) + 'px');
 };
 
 /**
- * @param {Event} e
- * @param {string} key
- * @param {*} value
+ * @param {boolean} show
  */
-Editor.prototype.onSettingsChanged_ = function(e, key, value) {
-  if (key === 'fontsize')
-    this.updateFontSize();
-}
+Editor.prototype.showHideLineNumbers_ = function(show) {
+  $('#' + this.elementId_).toggleClass('hide-line-numbers', !show);
+  this.editor_.resize(true /* force */);
+};

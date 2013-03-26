@@ -27,6 +27,7 @@ Settings.AREA = 'sync';
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
+  'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   // 'tabsize' currently is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
   'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},

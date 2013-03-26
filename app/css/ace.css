@@ -3,6 +3,10 @@
       "Menlo", monospace !important;
 }
 
+.ace-td.hide-line-numbers .ace_gutter {
+  display: none;
+}
+
 .ace-td .ace_gutter {
   background-color: #F0F0F0;
   color: #999;
