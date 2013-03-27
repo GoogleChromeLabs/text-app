@@ -26,10 +26,12 @@ Settings.AREA = 'sync';
  */
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
-  'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
-  'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
-  // 'tabsize' currently is not shown in Settings tab, only changed with
+  // 'fontsize' currently is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
+  'fontsize': {'default': 14, 'type': 'number', 'widget': null},
+  'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
+  'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'margincol': {'degault': 80, 'type': 'integer', 'widget': 'number'},
   'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };
