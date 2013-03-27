@@ -213,7 +213,7 @@ Editor.prototype.onTabRenamed_ = function(e, tab) {
 Editor.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
     case 'fontsize':
-      this.updateFontSize(value);
+      this.setFontSize(value);
       break;
 
     case 'linenumbers':
