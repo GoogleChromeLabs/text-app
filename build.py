@@ -80,10 +80,14 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
                      '</script>')
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
-JS_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
 CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
+JS_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
 JQUERY_EXTERNS = ('http://closure-compiler.googlecode.com/'
                   'svn/trunk/contrib/externs/jquery-1.8.js')
+
+USE_LOCALIZED_NAME = False
+COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
+BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
 
 
 def delete(*paths):
@@ -117,7 +121,10 @@ def get_version():
 
 def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
-  manifest['name'] = APP_NAME
+  if USE_LOCALIZED_NAME:
+    manifest['name'] = '__MSG_extName__'
+  else:
+    manifest['name'] = APP_NAME
   manifest['version'] = version
   background_js = manifest['app']['background']['scripts']
   manifest['app']['background']['scripts'] = ['js/background.js']
@@ -157,7 +164,7 @@ def print_errors(errors, js_files):
     print(error['line'])
 
 
-def compile_js(out_path, js_files, level='ADVANCED_OPTIMIZATIONS'):
+def compile_js(out_path, js_files, level):
   print('Compiling JavaScript code.')
   js_code = []
   for js_file in js_files:
@@ -208,9 +215,13 @@ def main():
   copy_files(SOURCE_DIR, out_dir, FILES)
 
   background_js_files = process_manifest(out_dir, version)
-  compile_js(os.path.join(out_dir, 'js', 'background.js'), background_js_files)
+  compile_js(os.path.join(out_dir, 'js', 'background.js'),
+             background_js_files,
+             BACKGROUND_COMPILATION_LEVEL)
   js_files = process_index(out_dir)
-  compile_js(os.path.join(out_dir, TARGET_JS), js_files, 'SIMPLE_OPTIMIZATIONS')
+  compile_js(os.path.join(out_dir, TARGET_JS),
+             js_files,
+             COMPILATION_LEVEL)
 
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip',
