@@ -124,6 +124,8 @@ Editor.prototype.initTheme_ = function() {
 Editor.prototype.initFromSettings_ = function() {
   this.setFontSize(this.settings_.get('fontsize'));
   this.showHideLineNumbers_(this.settings_.get('linenumbers'));
+  this.showHideMargin_(this.settings_.get('margin'),
+                       this.settings_.get('margincol'));
 };
 
 /**
@@ -219,6 +221,12 @@ Editor.prototype.onSettingsChanged_ = function(e, key, value) {
     case 'linenumbers':
       this.showHideLineNumbers_(value);
       break;
+
+    case 'margin':
+    case 'margincol':
+      this.showHideMargin_(this.settings_.get('margin'),
+                           this.settings_.get('margincol'));
+      break;
   }
 }
 
@@ -254,4 +262,15 @@ Editor.prototype.setFontSize = function(fontSize) {
 Editor.prototype.showHideLineNumbers_ = function(show) {
   $('#' + this.elementId_).toggleClass('hide-line-numbers', !show);
   this.editor_.resize(true /* force */);
+};
+
+/**
+ * @param {boolean} show
+ * @param {number} col
+ */
+Editor.prototype.showHideMargin_ = function(show, col) {
+  this.editor_.setShowPrintMargin(show);
+  if (show) {
+    this.editor_.setPrintMarginColumn(col);
+  }
 };

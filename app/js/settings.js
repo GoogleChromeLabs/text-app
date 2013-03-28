@@ -31,7 +31,7 @@ Settings.SETTINGS = {
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
-  'margincol': {'degault': 80, 'type': 'integer', 'widget': 'number'},
+  'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
   'tabsize': {'default': 8, 'type': 'integer', 'widget': 'number'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };

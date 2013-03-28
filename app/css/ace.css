@@ -12,6 +12,11 @@
   color: #999;
 }
 
+.ace-td .ace_print_margin {
+  width: 1px;
+  background: #CCC;
+}
+
 .ace-td .ace_gutter-cell {
   padding: 0;
   text-align: center;

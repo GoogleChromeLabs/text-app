@@ -38,7 +38,7 @@
           <ul id="settings-list">
             <li>
               <label for="setting-tabsize">Tab size</label>
-              <input type="text" id="setting-tabsize" size="2" maxlength="2"
+              <input type="text" id="setting-tabsize" size="1" maxlength="2"
                      pattern="\d\d?" value="8">
             </li>
             <li>
@@ -46,8 +46,18 @@
               <input type="checkbox" id="setting-wraplines">
             </li>
             <li>
-              <label for="setting-linenumbers">Show line numbers</label>
+              <label for="setting-linenumbers">Line numbers</label>
               <input type="checkbox" id="setting-linenumbers">
+            </li>
+            <li>
+              <label for="settings-margin">Right margin</label>
+              <input type="checkbox" id="setting-margin">
+            </li>
+            <li>
+              <label for="settings-margincol">Margin column</label>
+              <input type="text" id="setting-margincol" size="1" maxlength="3"
+                     pattern="\d+" value="80">
+
             </li>
           </ul>
         </div>
