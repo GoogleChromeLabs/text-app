@@ -31,25 +31,10 @@ util.handleFSError = function(e) {
  * @param {FileEntry} entry
  * @param {string} content
  * @param {Function} onsuccess
- * Make a writable copy of entry, truncate the file and write the content.
- * 
- * Creating a copy of the entry with getWritableEntry is necessary because
- * otherwise this will fail when called from autosave on window close. The entry
- * object belongs to the window and seems to be garbage collected before
- * createWriter is finished. See http://crbug.com/223651.
+ * Truncate the file and write the content.
  */
 util.writeFile = function(entry, content, onsuccess) {
   var blob = new Blob([content], {type: 'text/plain'});
-  chrome.fileSystem.getWritableEntry(
-      entry, util.truncateAndWriteWritable_.bind(null, blob, onsuccess));
-};
-
-/**
- * @param {FileEntry} entry
- * @param {Blob} blob
- * @param {Function} onsuccess
- */
-util.truncateAndWriteWritable_ = function(blob, onsuccess, entry) {
   entry.createWriter(function(writer) {
     writer.onerror = util.handleFSError;
     writer.onwrite = util.writeToWriter_.bind(null, writer, blob, onsuccess);

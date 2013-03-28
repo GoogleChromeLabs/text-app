@@ -20,6 +20,11 @@ chrome.fileSystem = {};
  * @param {function(FileEntry)} callback
  */
 chrome.fileSystem.getWritableEntry = function(entry, callback) {};
+/**
+ * @param {FileEntry} entry
+ * @return {string}
+ */
+chrome.fileSystem.getEntryId = function(entry) {};
 
 /**
  * @constructor

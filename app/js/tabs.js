@@ -125,6 +125,22 @@ function Tabs(editor, dialogController, settings) {
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
 }
 
+/**
+ * @type {Object} params
+ * @type {function(FileEntry)} callback
+ * Open a file in the system file picker. The FileEntry is copied to be stored
+ * in background page, so that it wasn't destroyed when the window is closed.
+ */
+Tabs.chooseEntry = function(params, callback) {
+  chrome.fileSystem.chooseEntry(
+      params,
+      function(entry) {
+        chrome.runtime.getBackgroundPage(function(bg) {
+          bg.background.  copyFileEntry(entry, callback);
+        });
+      });
+};
+
 Tabs.prototype.getTabById = function(id) {
   for (var i = 0; i < this.tabs_.length; i++) {
     if (this.tabs_[i].getId() === id)
@@ -244,9 +260,7 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFile = function() {
-  chrome.fileSystem.chooseEntry(
-      {'type': 'openWritableFile'},
-      this.openFileEntry.bind(this));
+  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -265,7 +279,7 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  chrome.fileSystem.chooseEntry(
+  Tabs.chooseEntry(
       {'type': 'saveFile'},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
 };
@@ -323,6 +337,7 @@ Tabs.prototype.onSaveAsFileOpen_ = function(tab, close, entry) {
   if (!entry) {
     return;
   }
+
   tab.setEntry(entry);
   this.save(tab, close);
 };

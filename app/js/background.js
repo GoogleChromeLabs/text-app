@@ -111,6 +111,15 @@ Background.prototype.onWindowReady = function(td) {
   }
 };
 
+/**
+ * @param {FileEntry} entry
+ * @param {function(FileEntry)} callback
+ * Make a copy of a file entry.
+ */
+Background.prototype.copyFileEntry = function(entry, callback) {
+  chrome.fileSystem.getWritableEntry(entry, callback);
+};
+
 var background = new Background();
 chrome.app.runtime.onLaunched.addListener(background.launch.bind(background));
 
@@ -118,3 +127,4 @@ chrome.app.runtime.onLaunched.addListener(background.launch.bind(background));
 /* Exports */
 window['background'] = background;
 Background.prototype['onWindowReady'] = Background.prototype.onWindowReady;
+Background.prototype['copyFileEntry'] = Background.prototype.copyFileEntry;
