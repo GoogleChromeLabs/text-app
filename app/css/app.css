@@ -290,6 +290,18 @@ header {
   -webkit-user-select: none;
 }
 
+header.dark {
+  background-color: #333;
+}
+
+header.dark #title-filename {
+  color: #F5F5F5;
+}
+
+header.dark .icon-button {
+  -webkit-filter: invert(100%);
+}
+
 header * {
   -webkit-user-select: none;
 }
