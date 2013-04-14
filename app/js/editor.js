@@ -126,6 +126,7 @@ Editor.prototype.initFromSettings_ = function() {
   this.showHideLineNumbers_(this.settings_.get('linenumbers'));
   this.showHideMargin_(this.settings_.get('margin'),
                        this.settings_.get('margincol'));
+  this.editor_.setTheme('ace/theme/' + this.settings_.get('theme'));
 };
 
 /**
@@ -227,6 +228,8 @@ Editor.prototype.onSettingsChanged_ = function(e, key, value) {
       this.showHideMargin_(this.settings_.get('margin'),
                            this.settings_.get('margincol'));
       break;
+    case 'theme':
+      this.editor_.setTheme('ace/theme/' + this.settings_.get('theme'));
   }
 }
 

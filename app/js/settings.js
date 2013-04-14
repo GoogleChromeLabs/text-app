@@ -33,7 +33,8 @@ Settings.SETTINGS = {
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
   'tabsize': {'default': 2, 'type': 'integer', 'widget': 'number'},
-  'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
+  'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
+  'theme': {'default': 'default', 'type': 'string', 'widget': 'select'}
 };
 
 /**
