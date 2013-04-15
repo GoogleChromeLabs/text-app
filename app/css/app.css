@@ -249,6 +249,24 @@ label {
   left: -5px;
 }
 
+#settings-list select {
+  -webkit-app-region: no-drag;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #888;
+  border-radius: 1px;
+  color: #EBEBEB;
+  font-size: 14px;
+  height: 29px;
+  line-height: 27px;
+  margin: -5px 0;
+  padding: 0 8px;
+  -webkit-user-select: auto;
+  width: 120px;
+}
+
+#settings-list optgroup {
+  color: #000000;
+}
 
 #main-container {
   -webkit-box-align: stretch;
@@ -270,6 +288,18 @@ header {
   position: relative;
   text-align: center;
   -webkit-user-select: none;
+}
+
+header.dark {
+  background-color: #333;
+}
+
+header.dark #title-filename {
+  color: #F5F5F5;
+}
+
+header.dark .icon-button {
+  -webkit-filter: invert(100%);
 }
 
 header * {

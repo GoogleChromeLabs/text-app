@@ -126,6 +126,7 @@ Editor.prototype.initFromSettings_ = function() {
   this.showHideLineNumbers_(this.settings_.get('linenumbers'));
   this.showHideMargin_(this.settings_.get('margin'),
                        this.settings_.get('margincol'));
+  this.setTheme_(this.settings_.get('theme'));
 };
 
 /**
@@ -227,6 +228,8 @@ Editor.prototype.onSettingsChanged_ = function(e, key, value) {
       this.showHideMargin_(this.settings_.get('margin'),
                            this.settings_.get('margincol'));
       break;
+    case 'theme':
+      this.setTheme_(this.settings_.get('theme'));
   }
 }
 
@@ -262,6 +265,24 @@ Editor.prototype.setFontSize = function(fontSize) {
 Editor.prototype.showHideLineNumbers_ = function(show) {
   $('#' + this.elementId_).toggleClass('hide-line-numbers', !show);
   this.editor_.resize(true /* force */);
+};
+
+/**
+ * @param {string} theme
+ */
+Editor.prototype.setTheme_ = function(theme) {
+  var dark = false;
+  
+  var darkThemes = ['ambiance', 'chaos', 'clouds_midnight', 'cobalt', 'idle_fingers',
+                    'kr_theme', 'merbivore', 'merbivore_soft', 'mono_industrial', 
+                    'monokai', 'pastel_on_dark', 'solarized_dark', 'terminal', 
+                    'tomorrow_night', 'twilight', 'vibrant_ink'];
+  
+  if(darkThemes.indexOf(theme) >= 0)
+      dark = true;
+
+  this.editor_.setTheme('ace/theme/' + theme);
+  $('header').toggleClass('dark', dark);
 };
 
 /**
