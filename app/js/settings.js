@@ -26,15 +26,15 @@ Settings.AREA = 'sync';
  */
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
-  // 'fontsize' currently is not shown in Settings tab, only changed with
+  // 'fontsize' is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
   'tabsize': {'default': 2, 'type': 'integer', 'widget': 'number'},
-  'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
-  'theme': {'default': 'default', 'type': 'string', 'widget': 'select'}
+  'theme': {'default': 'default', 'type': 'string', 'widget': 'select'},
+  'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };
 
 /**
