@@ -30,7 +30,6 @@ img {
 }
 
 #sidebar {
-  background-color: #333;
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
   color: #EBEBEB;
@@ -80,15 +79,10 @@ body.sidebar-open #sidebar {
   white-space: nowrap;
 }
 
-#sidebar li:hover {
-  background-color: #3A3A3A;
-  color: #FFF;
-}
-
 #sidebar ::-webkit-scrollbar {
   width: 12px;
 }
- 
+
 #sidebar ::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: #888;
@@ -165,7 +159,6 @@ body.sidebar-open #sidebar {
 }
 
 #settings-menu {
-  background-color: #333;
   -webkit-box-orient: vertical;
   -webkit-box-pack: justify;
   display: -webkit-box;
@@ -210,7 +203,6 @@ label {
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #888;
   border-radius: 1px;
-  color: #EBEBEB;
   font-size: 14px;
   height: 29px;
   line-height: 27px;
@@ -254,14 +246,13 @@ label {
   background-color: rgba(0, 0, 0, 0);
   border: 1px solid #888;
   border-radius: 1px;
-  color: #EBEBEB;
   font-size: 14px;
   height: 29px;
   line-height: 27px;
   margin: -5px 0;
   padding: 0 8px;
   -webkit-user-select: auto;
-  width: 120px;
+  width: 96px;
 }
 
 #settings-list optgroup {
@@ -277,7 +268,6 @@ label {
 
 header {
   -webkit-app-region: drag;
-  background-color: #F5F5F5;
   border-bottom: 1px solid #888;
   -webkit-box-align: center;
   -webkit-box-orient: horizontal;
@@ -507,3 +497,9 @@ input[type=search]:focus {
   border: 1px solid rgba(0,0,0,0.32);
   color: #000;
 }
+
+.ace_editor {
+  font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", "Droid Sans Mono",
+      "Menlo", monospace !important;
+}
+

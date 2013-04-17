@@ -9,6 +9,7 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 function Editor(elementId, settings) {
   this.elementId_ = elementId;
   this.settings_ = settings;
+  this.themeCss_ = null;
   this.editor_ = ace.edit(this.elementId_);
   this.initTheme_();
   this.editor_.on('change', this.onChange.bind(this));
@@ -89,36 +90,42 @@ Editor.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 Editor.prototype.initTheme_ = function() {
-  var stylesheet = null;
+  var stylesheet;
+  var match;
+  var cssText;
+  var name;
+  var themeAceModule;
+
+  function initThemeModule(name, css, require, exports, module) {
+    console.log('initThemeModule');
+    exports.cssClass = 'ace-text-' + name;
+    exports.cssText = css;
+    var dom = require('../lib/dom');
+    dom.importCssString(exports.cssText, exports.cssClass);
+  }
 
   for (var i = 0; i < document.styleSheets.length; i++) {
-      if (document.styleSheets[i].href &&
-          document.styleSheets[i].href.indexOf("ace.css") ) {
-        stylesheet = document.styleSheets[i];
-        break;
-      }
+    if (!document.styleSheets[i].href)
+      continue;
+    console.log(document.styleSheets[i].href);
+    match = document.styleSheets[i].href.match(/theme-(\w+)\.css$/);
+    if (!match)
+      continue;
+    name = match[1];
+    stylesheet = document.styleSheets[i];
+
+    cssText = '';
+    for (var j = 0; j < stylesheet.cssRules.length; j++) {
+      cssText += '\n' + stylesheet.cssRules[j].cssText;
+    }
+
+    console.log(name);
+
+    ace.define(
+        'ace/theme/text_' + name,
+        ['require', 'exports', 'module', 'ace/lib/dom'],
+        initThemeModule.bind(null, name, cssText));
   }
-
-  if (!stylesheet) {
-    console.error('Didn\'t find stylesheet for Ace');
-  }
-
-  var cssText = '';
-  for (var i = 0; i < stylesheet.cssRules.length; i++) {
-    cssText += '\n' + stylesheet.cssRules[i].cssText;
-  }
-
-  ace.define(
-    'ace/theme/textdrive',
-    ['require', 'exports', 'module', 'ace/lib/dom'],
-    function(require, exports, module) {
-      exports.cssClass = 'ace-td';
-      exports.cssText = cssText;
-      var dom = require('../lib/dom');
-      dom.importCssString(exports.cssText, exports.cssClass);
-    });
-
-   this.editor_.setTheme('ace/theme/textdrive');
 };
 
 Editor.prototype.initFromSettings_ = function() {
@@ -126,7 +133,7 @@ Editor.prototype.initFromSettings_ = function() {
   this.showHideLineNumbers_(this.settings_.get('linenumbers'));
   this.showHideMargin_(this.settings_.get('margin'),
                        this.settings_.get('margincol'));
-  this.setTheme_(this.settings_.get('theme'));
+  this.setTheme_();
 };
 
 /**
@@ -228,8 +235,10 @@ Editor.prototype.onSettingsChanged_ = function(e, key, value) {
       this.showHideMargin_(this.settings_.get('margin'),
                            this.settings_.get('margincol'));
       break;
+
     case 'theme':
-      this.setTheme_(this.settings_.get('theme'));
+      this.setTheme_();
+      break;
   }
 }
 
@@ -270,19 +279,11 @@ Editor.prototype.showHideLineNumbers_ = function(show) {
 /**
  * @param {string} theme
  */
-Editor.prototype.setTheme_ = function(theme) {
-  var dark = false;
-  
-  var darkThemes = ['ambiance', 'chaos', 'clouds_midnight', 'cobalt', 'idle_fingers',
-                    'kr_theme', 'merbivore', 'merbivore_soft', 'mono_industrial', 
-                    'monokai', 'pastel_on_dark', 'solarized_dark', 'terminal', 
-                    'tomorrow_night', 'twilight', 'vibrant_ink'];
-  
-  if(darkThemes.indexOf(theme) >= 0)
-      dark = true;
-
-  this.editor_.setTheme('ace/theme/' + theme);
-  $('header').toggleClass('dark', dark);
+Editor.prototype.setTheme_ = function() {
+  var theme = this.settings_.get('theme');
+  console.log('setTheme_', theme);
+  this.editor_.setTheme('ace/theme/text_' + theme);
+  $('body').attr('theme', theme);
 };
 
 /**
