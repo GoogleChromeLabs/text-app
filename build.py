@@ -17,8 +17,10 @@ BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 FILES = [
   'index.html',
-  'css/ace.css',
   'css/app.css',
+  'css/theme-dark.css',
+  'css/theme-default.css',
+  'css/theme-light.css',
   'icon/16x16.png',
   'icon/96x96.png',
   'icon/128x128.png',
