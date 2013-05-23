@@ -10,6 +10,7 @@ import urllib.parse
 import urllib.request
 
 APP_NAME = 'Text'
+IS_APP = True
 
 BASE_DIR = os.path.dirname(sys.argv[0])
 SOURCE_DIR = os.path.join(BASE_DIR, 'app')
@@ -87,8 +88,14 @@ JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
 JS_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
-JQUERY_EXTERNS = ('http://closure-compiler.googlecode.com/'
-                  'svn/trunk/contrib/externs/jquery-1.8.js')
+EXTERNS_URLS = [
+  'https://closure-compiler.googlecode.com' +
+      '/svn/trunk/contrib/externs/jquery-1.8.js',
+  'https://closure-compiler.googlecode.com' +
+      '/git/contrib/externs/chrome_extensions.js',
+  'https://closure-compiler.googlecode.com' +
+      '/git/contrib/externs/google_analytics_api.js'
+]
 
 USE_LOCALIZED_NAME = False
 COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
@@ -131,10 +138,23 @@ def process_manifest(out_dir, version):
   else:
     manifest['name'] = APP_NAME
   manifest['version'] = version
-  background_js = manifest['app']['background']['scripts']
-  manifest['app']['background']['scripts'] = ['js/background.js']
+
+  if IS_APP:
+    background_js = manifest['app']['background']['scripts']
+  else:
+    background_js = manifest['background']['scripts']
+
+  background_libs = set(f for f in background_js if f.startswith('lib'))
+  background_js = set(background_js) - background_libs
+  background_libs.add('js/background.js')
+
+  if IS_APP:
+    manifest['app']['background']['scripts'] = list(background_libs)
+  else:
+    manifest['background']['scripts'] = list(background_libs)
+
   json.dump(manifest, open(os.path.join(out_dir, MANIFEST), 'w'), indent=2)
-  return background_js
+  return list(background_js)
 
 
 def process_index(out_dir):
@@ -177,14 +197,21 @@ def compile_js(out_path, js_files, level):
 
   params = [
       ('compilation_level', level),
-      ('formatting', 'pretty_print'),
+#      ('formatting', 'pretty_print'),
+      ('language', 'ECMASCRIPT5_STRICT'),
       ('output_format', 'json'),
       ('output_info', 'statistics'),
       ('output_info', 'warnings'),
       ('output_info', 'errors'),
-      ('output_info', 'compiled_code'),
-      ('js_externs', open(JS_EXTERNS).read())
+      ('output_info', 'compiled_code')
     ]
+
+  if JS_EXTERNS:
+    params.append(('js_externs', open(JS_EXTERNS).read()))
+
+  for url in EXTERNS_URLS:
+    params.append(('externs_url', url))
+
   for code in js_code:
     params.append(('js_code', code))
 
