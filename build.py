@@ -13,7 +13,7 @@ APP_NAME = 'Text'
 IS_APP = True
 
 BASE_DIR = os.path.dirname(sys.argv[0])
-SOURCE_DIR = os.path.join(BASE_DIR, 'app')
+SOURCE_DIR = BASE_DIR
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 FILES = [
