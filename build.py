@@ -55,7 +55,6 @@ FILES = [
   'lib/ace/src-min-noconflict/mode-latex.js',
   'lib/ace/src-min-noconflict/mode-less.js',
   'lib/ace/src-min-noconflict/mode-liquid.js',
-  'lib/ace/src-min-noconflict/mode-luahtml.js',
   'lib/ace/src-min-noconflict/mode-lua.js',
   'lib/ace/src-min-noconflict/mode-luapage.js',
   'lib/ace/src-min-noconflict/mode-markdown.js',
