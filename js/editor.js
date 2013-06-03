@@ -142,7 +142,7 @@ Editor.prototype.initFromSettings_ = function() {
  * Create an edit session for a new file. Each tab should have its own session.
  */
 Editor.prototype.newSession = function(opt_content) {
-  session = new EditSession(opt_content || '');
+  var session = new EditSession(opt_content || '');
 
   var mode = session.getMode();
   mode.getNextLineIndent = function(state, line, tab) {
