@@ -86,7 +86,8 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
-JS_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
+BACKGROUND_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
+JS_EXTERNS = None
 EXTERNS_URLS = [
   'https://closure-compiler.googlecode.com' +
       '/svn/trunk/contrib/externs/jquery-1.8.js',
@@ -96,9 +97,22 @@ EXTERNS_URLS = [
       '/git/contrib/externs/google_analytics_api.js'
 ]
 
+SKIP_JS_FILES = []
+
 USE_LOCALIZED_NAME = False
 COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
 BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
+
+debug_build = False
+
+
+def parse_command_line():
+  global debug_build
+  for option in sys.argv[1:]:
+    if option == '-d':
+      debug_build = True
+    else:
+      raise Exception('Unknown command line option: ' + option)
 
 
 def delete(*paths):
@@ -188,15 +202,11 @@ def print_errors(errors, js_files):
     print(error['line'])
 
 
-def compile_js(out_path, js_files, level):
+def compile_js(out_path, js_files, level, externs):
   print('Compiling JavaScript code.')
-  js_code = []
-  for js_file in js_files:
-    js_code.append(open(os.path.join(SOURCE_DIR, js_file)).read())
 
   params = [
       ('compilation_level', level),
-#      ('formatting', 'pretty_print'),
       ('language', 'ECMASCRIPT5_STRICT'),
       ('output_format', 'json'),
       ('output_info', 'statistics'),
@@ -205,8 +215,18 @@ def compile_js(out_path, js_files, level):
       ('output_info', 'compiled_code')
     ]
 
-  if JS_EXTERNS:
-    params.append(('js_externs', open(JS_EXTERNS).read()))
+  if debug_build:
+    params.append(('formatting', 'pretty_print'))
+    js_code = ['/** @define {boolean} */\nvar DEBUG = true;']
+  else:
+    js_code = ['/** @define {boolean} */\nvar DEBUG = false;']
+
+  for js_file in js_files:
+    if os.path.basename(js_file) not in SKIP_JS_FILES:
+      js_code.append(open(os.path.join(SOURCE_DIR, js_file)).read())
+
+  if externs:
+    params.append(('js_externs', open(externs).read()))
 
   for url in EXTERNS_URLS:
     params.append(('externs_url', url))
@@ -237,9 +257,15 @@ def compile_js(out_path, js_files, level):
 
 
 def main():
+  parse_command_line()
+  print(debug_build)
+
   version = get_version()
 
   dir_name = APP_NAME + '-' + version
+  if debug_build:
+    dir_name += '-dbg'
+  print(dir_name)
   out_dir = os.path.join(BUILD_DIR, dir_name)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
@@ -248,11 +274,13 @@ def main():
   background_js_files = process_manifest(out_dir, version)
   compile_js(os.path.join(out_dir, 'js', 'background.js'),
              background_js_files,
-             BACKGROUND_COMPILATION_LEVEL)
+             BACKGROUND_COMPILATION_LEVEL,
+             BACKGROUND_EXTERNS)
   js_files = process_index(out_dir)
   compile_js(os.path.join(out_dir, TARGET_JS),
              js_files,
-             COMPILATION_LEVEL)
+             COMPILATION_LEVEL,
+             JS_EXTERNS)
 
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip',
