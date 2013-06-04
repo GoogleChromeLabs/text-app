@@ -56,7 +56,9 @@ body.sidebar-open #sidebar {
   cursor: default;
   font-size: 21px;
   font-weight: normal;
-  padding: 6px 24px 7px;
+  margin-bottom: 4px;
+  margin-top: 11px;
+  padding: 0px 24px 0px 24px;
   -webkit-user-select: none;
 }
 
@@ -273,7 +275,7 @@ header {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: center;
   display: -webkit-box;
-  height: 60px;
+  height: 48px;
   padding-left: 10px;
   position: relative;
   text-align: center;
@@ -303,10 +305,10 @@ header * {
   border: 1px solid transparent;
   border-radius: 3px;
   cursor: pointer;
-  height: 40px;
+  height: 36px;
   margin: 0 10px;
   opacity: 0.65;
-  width: 40px;
+  width: 36px;
 }
 
 .icon-button:hover, .icon-button:active, .icon-button.selected {
@@ -353,7 +355,7 @@ header.search-active #search-button {
   opacity: 0;
   padding: 5px 8px;
   position: absolute;
-  top: 15px;
+  top: 9px;
   left: 70px;
   visibility: hidden;
   -webkit-transition: all 200ms ease-in-out;
@@ -370,9 +372,8 @@ header.search-active #search-input {
 #title-filename {
   -webkit-box-flex: 1;
   color: #777;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 26px;
+  font-size: 15px;
+/*  line-height: 26px; */
   max-width: 100%;
   overflow: hidden;
   text-align: center;
