@@ -33,10 +33,6 @@ body[theme="dark"] #settings-list select {
   color: #f1f1f1;
 }
 
-.ace-text-dark .ace_gutter-layer {
-  min-width: 40px;
-}
-
 .ace-text-dark .ace_print_margin {
   width: 1px;
   background: #e8e8e8;
@@ -77,14 +73,14 @@ body[theme="dark"] #settings-list select {
   border: 1px solid #49483E;
 }
 
-.ace-text-dark .ace_marker-layer .ace_active-line {
+.ace-text-dark .ace_marker-layer .ace_active_line {
   background: #49483E;
 }
 .ace-text-dark .ace_gutter_active_line {
   background-color: #191916;
 }
 
-.ace-text-dark .ace_marker-layer .ace_selected-word {
+.ace-text-dark .ace_marker-layer .ace_selected_word {
   border: 1px solid #49483E;
 }
 

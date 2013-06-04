@@ -33,11 +33,7 @@ body[theme="default"] #settings-list select {
   color: #999;
 }
 
-.ace-text-default .ace_gutter-layer {
-  min-width: 40px;
-}
-
-.ace-text-default .ace_print-margin {
+.ace-text-default .ace_print_margin {
   width: 1px;
   background: #CCC;
 }
@@ -45,10 +41,9 @@ body[theme="default"] #settings-list select {
 .ace-text-default .ace_gutter-cell {
   padding: 0;
   text-align: center;
-  width: 100%;
 }
 
-.ace-text-default .ace_gutter-active-line {
+.ace-text-default .ace_gutter_active_line {
   background-color: #E0E0E0;
 }
 
@@ -65,11 +60,11 @@ body[theme="default"] #settings-list select {
   background: #B5D5FF;
 }
 
-.ace-text-default .ace_marker-layer .ace_active-line {
+.ace-text-default .ace_marker-layer .ace_active_line {
   background: rgba(0, 0, 0, 0.07);
 }
 
-.ace-text-default .ace_marker-layer .ace_selected-word {
+.ace-text-default .ace_marker-layer .ace_selected_word {
   border: 1px solid #BDD5FC;
 }
 

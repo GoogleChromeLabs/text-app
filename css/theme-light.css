@@ -36,7 +36,7 @@ body[theme="default"] #settings-list select {
   color: #999;
 }
 
-.ace-text-light .ace_print-margin {
+.ace-text-light .ace_print_margin {
   width: 1px;
   background: #CCC;
 }
@@ -46,11 +46,7 @@ body[theme="default"] #settings-list select {
   text-align: center;
 }
 
-.ace-text-light .ace_gutter-layer {
-  min-width: 40px;
-}
-
-.ace-text-light .ace_gutter_active-line {
+.ace-text-light .ace_gutter_active_line {
   background-color: #E0E0E0;
 }
 
