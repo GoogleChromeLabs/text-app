@@ -1,7 +1,7 @@
 {
   "name": "Text Dev",
   "description": "A text editor for ChromeOS and Chrome.",
-  "version": "0.3",
+  "version": "0.4",
   "icons": {
     "16": "icon/16x16.png",
     "32": "icon/32x32.png",
