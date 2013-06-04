@@ -169,8 +169,8 @@ Editor.prototype.setSession = function(session) {
 
 Editor.prototype.find = function(string) {
   var selection = this.editor_.getSelectionRange();
-  options = {'wrap': true,
-             'start': selection.start};
+  var options = {'wrap': true,
+                 'start': selection.start};
   this.editor_.find(string, options, true);
 };
 
