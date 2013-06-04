@@ -16,6 +16,10 @@ function Editor(elementId, settings) {
   this.editor_.setShowPrintMargin(false);
   this.editor_.setShowFoldWidgets(false);
   this.editor_.commands.bindKey('ctrl-shift-l', null);
+  this.editor_.commands.bindKey(
+      'Ctrl-Up', function(editor) { editor.navigateFileStart(); })
+  this.editor_.commands.bindKey(
+      'Ctrl-Down', function(editor) { editor.navigateFileEnd(); })
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
