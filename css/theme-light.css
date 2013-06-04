@@ -17,14 +17,17 @@ body[theme="light"] #sidebar li:hover {
   color: #000;
 }
 
-body[theme="default"] #settings-list input[type="text"] {
+body[theme="light"] #settings-list input[type="text"] {
   color: #000;
 }
 
-body[theme="default"] #settings-list select {
+body[theme="light"] #settings-list select {
   color: #000;
 }
 
+body[theme="light"] #settings-list select option {
+  background-color: #E5E5E5;
+}
 
 
 .ace-text-light.hide-line-numbers .ace_gutter {

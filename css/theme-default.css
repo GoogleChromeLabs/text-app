@@ -23,6 +23,10 @@ body[theme="default"] #settings-list select {
   color: #EBEBEB;
 }
 
+body[theme="default"] #settings-list select option {
+  background-color: #333;
+}
+
 
 .ace-text-default.hide-line-numbers .ace_gutter {
   display: none;

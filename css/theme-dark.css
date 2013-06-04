@@ -23,6 +23,10 @@ body[theme="dark"] #settings-list select {
   color: #EBEBEB;
 }
 
+body[theme="dark"] #settings-list select option {
+  background-color: #272822;
+}
+
 
 .ace-text-dark .ace_editor.ace_focus {
   border: 2px solid #327fbd;
