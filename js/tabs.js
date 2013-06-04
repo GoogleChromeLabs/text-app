@@ -153,6 +153,12 @@ Tabs.prototype.getCurrentTab = function(id) {
   return this.currentTab_;
 };
 
+Tabs.prototype.newWindow = function() {
+  chrome.runtime.getBackgroundPage(function(bg) {
+    bg.background.newWindow();
+  }.bind(this));
+};
+
 Tabs.prototype.newTab = function(opt_content, opt_entry) {
   var id = 1;
   while (this.getTabById(id)) {

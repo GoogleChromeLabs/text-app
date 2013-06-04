@@ -26,11 +26,7 @@ Background.prototype.ifShowFrame_ = function() {
          os === 'mac' && version < 25;
 };
 
-/**
- * @param {Object.<string, Object>} launchData
- * Handle onLaunch event.
- */
-Background.prototype.launch = function(launchData) {
+Background.prototype.newWindow = function() {
   var options = {
     frame: (this.ifShowFrame_() ? 'chrome' : 'none'),
     minWidth: 400,
@@ -39,6 +35,18 @@ Background.prototype.launch = function(launchData) {
     height: 700
   };
 
+
+  chrome.app.window.create('index.html', options, function(win) {
+    console.log('Window opened:', win);
+    win.onClosed.addListener(this.onWindowClosed.bind(this, win));
+  }.bind(this));
+};
+
+/**
+ * @param {Object.<string, Object>} launchData
+ * Handle onLaunch event.
+ */
+Background.prototype.launch = function(launchData) {
   var entries = [];
   if (launchData && launchData['items']) {
     for (var i = 0; i < launchData['items'].length; i++) {
@@ -52,10 +60,7 @@ Background.prototype.launch = function(launchData) {
   } else {
     this.entriesToOpen_.push.apply(this.entriesToOpen_, entries);
     console.log('Files to open:', this.entriesToOpen_);
-    chrome.app.window.create('index.html', options, function(win) {
-      console.log('Window opened:', win);
-      win.onClosed.addListener(this.onWindowClosed.bind(this, win));
-    }.bind(this));
+    this.newWindow();
   }
 };
 
@@ -126,5 +131,6 @@ chrome.app.runtime.onLaunched.addListener(background.launch.bind(background));
 
 /* Exports */
 window['background'] = background;
-Background.prototype['onWindowReady'] = Background.prototype.onWindowReady;
 Background.prototype['copyFileEntry'] = Background.prototype.copyFileEntry;
+Background.prototype['onWindowReady'] = Background.prototype.onWindowReady;
+Background.prototype['newWindow'] = Background.prototype.newWindow;

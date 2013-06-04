@@ -35,7 +35,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case this.KEY.N:
-        this.tabs_.newTab();
+        if (e.shiftKey) {
+          this.tabs_.newWindow();
+        } else {
+          this.tabs_.newTab();
+        }
         return false;
 
       case this.KEY.O:
