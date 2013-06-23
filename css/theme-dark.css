@@ -42,6 +42,11 @@ body[theme="dark"] #settings-list select option {
   background: #e8e8e8;
 }
 
+.ace-text-dark .ace_gutter-cell {
+  padding: 0;
+  text-align: center;
+}
+
 .ace-text-dark .ace_scroller {
   background-color: #272822;
 }
@@ -78,10 +83,10 @@ body[theme="dark"] #settings-list select option {
 }
 
 .ace-text-dark .ace_marker-layer .ace_active_line {
-  background: #49483E;
+  background: #202020;
 }
 .ace-text-dark .ace_gutter_active_line {
-  background-color: #191916;
+  background-color: #272727;
 }
 
 .ace-text-dark .ace_marker-layer .ace_selected_word {
