@@ -57,6 +57,15 @@ body[theme="light"] #tabs-list li.active {
   border-left: 10px solid #9B9B9B !important;
 }
 
+body[theme="light"] #tabs-list li:hover .close {
+  background-image: url('../images/close.svg');
+  opacity: 0.3;
+}
+
+body[theme="light"] #tabs-list li .close:hover {
+  opacity: 1;
+}
+
 .ace-text-light.hide-line-numbers .ace_gutter {
   display: none;
 }
