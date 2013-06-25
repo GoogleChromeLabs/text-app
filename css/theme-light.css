@@ -15,20 +15,47 @@ body[theme="light"] #settings-menu {
 body[theme="light"] #sidebar li:hover {
   background-color: #E5E5E5;
   color: #000;
+  -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);
+  border-left: 10px solid #C9C9C9;
+  padding-left: 10px;
 }
 
 body[theme="light"] #settings-list input[type="text"] {
-  color: #000;
+  background-color: #ddd;
+}
+
+body[theme="light"] #settings-list input[type="text"]:focus {
+  border: 1px solid #242424;
+  outline: none;
+}
+
+body[theme="light"] #settings-list input[type="checkbox"] {
+  background-color: #ddd;
 }
 
 body[theme="light"] #settings-list select {
-  color: #000;
+  background: url('../images/menu.svg')no-repeat 75px center #ddd;
+  background-size: 18px 18px;
+  background-position-x: 70px;
+  -webkit-appearance: none;
+}
+
+body[theme="light"] #settings-list select:focus {
+  border: 1px solid #242424;
+  outline: none;
 }
 
 body[theme="light"] #settings-list select option {
-  background-color: #E5E5E5;
+  background: #ddd;
 }
 
+body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
+  content: url('../images/check_no_box.png');
+}
+
+body[theme="light"] #tabs-list li.active {
+  border-left: 10px solid #9B9B9B !important;
+}
 
 .ace-text-light.hide-line-numbers .ace_gutter {
   display: none;
@@ -45,8 +72,8 @@ body[theme="light"] #settings-list select option {
 }
 
 .ace-text-light .ace_gutter-cell {
-  padding: 0;
-  text-align: center;
+  padding: 0 5px 0 0;
+  text-align: right;
 }
 
 .ace-text-light .ace_gutter_active_line {
