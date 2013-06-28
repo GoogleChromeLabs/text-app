@@ -219,7 +219,7 @@ label {
   text-align: center;
   background: #555;
   -webkit-appearance: none;
-  cursor: pointer;
+  cursor: text;
 }
 
 #settings-list input[type="text"]:focus {
