@@ -45,9 +45,6 @@ body.sidebar-open #sidebar {
 }
 
 #sidebar h1 {
-  background-image: url('../icon/32x32.png');
-  background-size: 31px 31px;
-  background-position: 10px center;
   background-repeat: no-repeat;
   -webkit-app-region: drag;
   cursor: default;
@@ -55,7 +52,7 @@ body.sidebar-open #sidebar {
   font-weight: normal;
   margin-bottom: 4px;
   margin-top: 12px;
-  padding: 0px 24px 0px 45px;
+  padding: 0 20px;
   -webkit-user-select: none;
 }
 
