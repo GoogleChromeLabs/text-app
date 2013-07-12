@@ -101,7 +101,6 @@ Editor.prototype.initTheme_ = function() {
   var themeAceModule;
 
   function initThemeModule(name, css, require, exports, module) {
-    console.log('initThemeModule');
     exports.cssClass = 'ace-text-' + name;
     exports.cssText = css;
     var dom = require('../lib/dom');
@@ -111,7 +110,6 @@ Editor.prototype.initTheme_ = function() {
   for (var i = 0; i < document.styleSheets.length; i++) {
     if (!document.styleSheets[i].href)
       continue;
-    console.log(document.styleSheets[i].href);
     match = document.styleSheets[i].href.match(/theme-(\w+)\.css$/);
     if (!match)
       continue;
@@ -122,8 +120,6 @@ Editor.prototype.initTheme_ = function() {
     for (var j = 0; j < stylesheet.cssRules.length; j++) {
       cssText += '\n' + stylesheet.cssRules[j].cssText;
     }
-
-    console.log(name);
 
     ace.define(
         'ace/theme/text_' + name,
@@ -285,7 +281,6 @@ Editor.prototype.showHideLineNumbers_ = function(show) {
  */
 Editor.prototype.setTheme_ = function() {
   var theme = this.settings_.get('theme');
-  console.log('setTheme_', theme);
   this.editor_.setTheme('ace/theme/text_' + theme);
   $('body').attr('theme', theme);
 };
