@@ -3,6 +3,7 @@
  */
 function MenuController(tabs) {
   this.tabs_ = tabs;
+  this.dragItem_ = null;
   $('#file-menu-new').click(this.newTab_.bind(this));
   $('#file-menu-open').click(this.open_.bind(this));
   $('#file-menu-save').click(this.save_.bind(this));
@@ -18,12 +19,42 @@ function MenuController(tabs) {
 MenuController.prototype.onNewTab = function(e, tab) {
   var id = tab.getId();
   var name = tab.getName();
-  var listItem = $('<li id="tab' + id + '">' +
+  var listItem = $('<li id="tab' + id + '" draggable="true">' +
                    '<div class="filename">' + name + '</div>' +
                    '<div class="close"></div></li>');
+  listItem.bind('dragstart', this.onDragStart_.bind(this, listItem));
+  listItem.bind('dragover', this.onDragOver_.bind(this, listItem));
+  listItem.bind('dragend', this.onDragEnd_.bind(this, listItem));
+  listItem.bind('drop', this.onDrop_.bind(this, listItem));
   listItem.appendTo($('#tabs-list'));
   listItem.click(this.tabButtonClicked_.bind(this, id));
   listItem.find('.close').click(this.closeTabClicked_.bind(this, id));
+};
+
+MenuController.prototype.onDragStart_ = function(listItem, e) {
+  this.dragItem_ = listItem;
+};
+
+MenuController.prototype.onDragEnd_ = function(listItem, e) {
+  this.dragItem_ = null;
+  e.preventDefault();
+  e.stopPropagation();
+};
+
+MenuController.prototype.onDrop_ = function(listItem, e) {
+  e.stopPropagation();
+};
+
+MenuController.prototype.onDragOver_ = function(overItem, e) {
+  e.preventDefault();
+  if (!this.dragItem_ || overItem.attr('id') === this.dragItem_.attr('id'))
+    return;
+
+  if (this.dragItem_.index() < overItem.index()) {
+    overItem.after(this.dragItem_);
+  } else {
+    overItem.before(this.dragItem_);
+  }
 };
 
 MenuController.prototype.onTabRenamed = function(e, tab) {
