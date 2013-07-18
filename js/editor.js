@@ -295,3 +295,19 @@ Editor.prototype.showHideMargin_ = function(show, col) {
     this.editor_.setPrintMarginColumn(col);
   }
 };
+
+/**
+ * @param {EditSession} session
+ * @return {string}
+ */
+Editor.prototype.getContents = function(session) {
+  return session.getValue();
+};
+
+/**
+ * @param {EditSession} session
+ * @param {number} size
+ */
+Editor.prototype.setTabSize = function(session, size) {
+  session.setTabSize(size);
+};
