@@ -54,13 +54,19 @@ Background.prototype.launch = function(launchData) {
     }
   }
 
-  if (entries.length > 0 && this.windows_.length > 0) {
-    console.log('Opening files in existing window.');
-    this.windows_[0].openEntries(entries);
-  } else {
-    this.entriesToOpen_.push.apply(this.entriesToOpen_, entries);
-    console.log('Files to open:', this.entriesToOpen_);
+  if (this.windows_.length == 0)
     this.newWindow();
+
+  for (var i = 0; i < entries.length; i++) {
+    chrome.fileSystem.getWritableEntry(
+        entries[i],
+        function(entry) {
+          if (this.windows_.length > 0) {
+            this.windows_[0].openEntries([entry]);
+          } else {
+            this.entriesToOpen_.push(entry);
+          }
+        });
   }
 };
 
