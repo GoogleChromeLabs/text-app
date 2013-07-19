@@ -66,7 +66,7 @@ Background.prototype.launch = function(launchData) {
           } else {
             this.entriesToOpen_.push(entry);
           }
-        });
+        }.bind(this));
   }
 };
 
