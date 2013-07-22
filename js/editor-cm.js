@@ -2,16 +2,14 @@ var EditSession = CodeMirror.Doc;
 
 /**
  * @constructor
- * @param {string} elementId
+ * @param {DOM} elementId
  * @param {Settings} settings
  */
-function EditorCodeMirror(elementId, settings) {
-  this.elementId_ = elementId;
+function EditorCodeMirror(editorElement, settings) {
+  this.element_ = editorElement;
   this.settings_ = settings;
-  this.cm_ = CodeMirror(document.getElementById(elementId));
-
-  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
-
+  this.cm_ = CodeMirror(editorElement, {'autofocus': true, 'value': ''});
+  this.cm_.setSize(null, '100%');
   this.setTheme();
 }
 
@@ -21,12 +19,13 @@ function EditorCodeMirror(elementId, settings) {
  * Create an edit session for a new file. Each tab should have its own session.
  */
 EditorCodeMirror.prototype.newSession = function(opt_content) {
-  var session = new CodeMirror.Doc(opt_content | '');
+  var session = new CodeMirror.Doc('');
+//  session.setValue('');
   return session;
 };
 /**
  * @param {EditSession} session
- * Change the current session, e.g. to edit another tab.
+ * Change the current session, usually to switch to another tab.
  */
 EditorCodeMirror.prototype.setSession = function(session) {
   this.cm_.swapDoc(session);
@@ -93,28 +92,35 @@ EditorCodeMirror.prototype.getContents = function(session) {
  * @param {number} size
  */
 EditorCodeMirror.prototype.setTabSize = function(session, size) {
+  this.cm_.setOption('tabSize', size);
 };
-
 
 /**
  * @param {string} theme
  */
-EditorCodeMirror.prototype.setTheme = function() {
-  var theme = this.settings_.get('theme');
-  $('body').attr('theme', theme);
+EditorCodeMirror.prototype.setTheme = function(theme) {
 };
 
 /**
- * @param {Event} e
- * @param {string} key
- * @param {*} value
+ * @param {boolean} val
  */
-EditorCodeMirror.prototype.onSettingsChanged_ = function(e, key, value) {
-  switch (key) {
-    case 'theme':
-      this.setTheme();
-      break;
-  }
+EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
+  this.cm_.setOption('lineNumbers', val);
+};
+
+/**
+ * @param {boolean} val
+ */
+EditorCodeMirror.prototype.setWrapLines = function(val) {
+  this.cm_.setOption('lineWrapping', val);
+};
+
+/**
+ * @param {boolean} show
+ * @param {number} col
+ */
+EditorCodeMirror.prototype.showHideMargin = function(show, col) {
+
 };
 
 var Editor = EditorCodeMirror;

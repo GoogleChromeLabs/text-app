@@ -4,14 +4,13 @@ var UndoManager = ace.require('ace/undomanager').UndoManager;
 /**
  * @constructor
  * @param {string} elementId
- * @param {Settings} settings
  */
-function EditorAce(elementId, settings) {
-  this.elementId_ = elementId;
+function EditorAce(element, settings) {
+  this.element_ = element;
   this.settings_ = settings;
   this.themeCss_ = null;
-  this.editor_ = ace.edit(this.elementId_);
-  this.initTheme_();
+  this.editor_ = ace.edit(element.id());
+  this.initThemes_();
   this.editor_.on('change', this.onChange.bind(this));
   this.editor_.setShowPrintMargin(false);
   this.editor_.setShowFoldWidgets(false);
@@ -21,13 +20,7 @@ function EditorAce(elementId, settings) {
   this.editor_.commands.bindKey(
       'Ctrl-Down', function(editor) { editor.navigateFileEnd(); })
   $(document).bind('resize', this.editor_.resize.bind(this.editor_));
-  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
   $(document).bind('tabrenamed', this.onTabRenamed_.bind(this));
-  if (this.settings_.isReady()) {
-    this.editor_.initFromSettings_();  // In case the settings are already loaded.
-  } else {
-    $(document).bind('settingsready', this.initFromSettings_.bind(this));
-  }
 }
 
 EditorAce.EXTENSION_TO_MODE = {
@@ -93,7 +86,7 @@ EditorAce.EXTENSION_TO_MODE = {
     'xq': 'xquery',
     'yaml': 'yaml'};
 
-EditorAce.prototype.initTheme_ = function() {
+EditorAce.prototype.initThemes_ = function() {
   var stylesheet;
   var match;
   var cssText;
@@ -126,14 +119,6 @@ EditorAce.prototype.initTheme_ = function() {
         ['require', 'exports', 'module', 'ace/lib/dom'],
         initThemeModule.bind(null, name, cssText));
   }
-};
-
-EditorAce.prototype.initFromSettings_ = function() {
-  this.setFontSize(this.settings_.get('fontsize'));
-  this.showHideLineNumbers_(this.settings_.get('linenumbers'));
-  this.showHideMargin_(this.settings_.get('margin'),
-                       this.settings_.get('margincol'));
-  this.setTheme_();
 };
 
 /**
@@ -216,33 +201,6 @@ EditorAce.prototype.onTabRenamed_ = function(e, tab) {
 };
 
 /**
- * @param {Event} e
- * @param {string} key
- * @param {*} value
- */
-EditorAce.prototype.onSettingsChanged_ = function(e, key, value) {
-  switch (key) {
-    case 'fontsize':
-      this.setFontSize(value);
-      break;
-
-    case 'linenumbers':
-      this.showHideLineNumbers_(value);
-      break;
-
-    case 'margin':
-    case 'margincol':
-      this.showHideMargin_(this.settings_.get('margin'),
-                           this.settings_.get('margincol'));
-      break;
-
-    case 'theme':
-      this.setTheme_();
-      break;
-  }
-};
-
-/**
  * The actual changing of the font size will be triggered by settings change
  * event.
  */
@@ -280,20 +238,14 @@ EditorAce.prototype.showHideLineNumbers_ = function(show) {
  * @param {string} theme
  */
 EditorAce.prototype.setTheme_ = function() {
-  var theme = this.settings_.get('theme');
   this.editor_.setTheme('ace/theme/text_' + theme);
-  $('body').attr('theme', theme);
 };
 
 /**
  * @param {boolean} show
  * @param {number} col
  */
-EditorAce.prototype.showHideMargin_ = function(show, col) {
-  this.editor_.setShowPrintMargin(show);
-  if (show) {
-    this.editor_.setPrintMarginColumn(col);
-  }
+EditorAce.prototype.showHideMargin = function(show, col) {
 };
 
 /**

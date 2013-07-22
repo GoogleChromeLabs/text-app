@@ -1,3 +1,5 @@
+/* Text.app window style */
+
 body[theme="dark"] header {
   background-color: #DDD;
 }
@@ -29,6 +31,8 @@ body[theme="dark"] #settings-list select {
 body[theme="dark"] #settings-list select option {
   background-color: #272822;
 }
+
+/* Ace style */
 
 .ace-text-dark.hide-line-numbers .ace_gutter {
   display: none;

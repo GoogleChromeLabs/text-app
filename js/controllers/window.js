@@ -21,6 +21,13 @@ WindowController.prototype.windowControlsVisible = function(show) {
   }
 };
 
+/**
+ * @param {string} theme
+ */
+WindowController.prototype.setTheme = function(theme) {
+  $('body').attr('theme', theme);
+};
+
 WindowController.prototype.close_ = function() {
   window.close();
 };
@@ -61,3 +68,4 @@ WindowController.prototype.onTabChange_ = function(e, tab) {
     $('#title-filename').addClass('unsaved');
   }
 };
+

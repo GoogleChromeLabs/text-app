@@ -1,9 +1,10 @@
 /**
  * @constructor
  */
-function HotkeysController(tabs, editor) {
+function HotkeysController(tabs, editor, settings) {
   this.tabs_ = tabs;
   this.editor_ = editor;
+  this.settings_ = settings;
 
   this.KEY = {};
   // create key map A - Z
@@ -66,11 +67,13 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         break;
 
       case this.KEY.EQUALS:
-        this.editor_.increaseFontSize();
+        var fontSize = this.settings_.get('fontsize');
+        this.settings_.set('fontsize', fontSize * (9/8));
         return false;
 
       case this.KEY.MINUS:
-        this.editor_.decreseFontSize();
+        var fontSize = this.settings_.get('fontsize');
+        this.settings_.set('fontsize', fontSize * (8/9));
         return false;
     }
   } else if (e.altKey) {
