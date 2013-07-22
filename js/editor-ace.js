@@ -240,7 +240,7 @@ EditorAce.prototype.onSettingsChanged_ = function(e, key, value) {
       this.setTheme_();
       break;
   }
-}
+};
 
 /**
  * The actual changing of the font size will be triggered by settings change
