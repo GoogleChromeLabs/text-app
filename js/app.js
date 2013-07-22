@@ -1,7 +1,7 @@
 /**
  * @constructor
  */
-function TextDrive() {
+function TextApp() {
   this.editor_ = null;
   this.settings_ = null;
   this.tabs_ = null;
@@ -20,7 +20,7 @@ function TextDrive() {
  * Called when all the resources have loaded. All initializations should be done
  * here.
  */
-TextDrive.prototype.init = function() {
+TextApp.prototype.init = function() {
   this.dialogController_ = new DialogController($('#dialog-container'))
 
   this.settings_ = new Settings();
@@ -43,17 +43,17 @@ TextDrive.prototype.init = function() {
  *
  * Open one tab per file. Usually called from the background page.
  */
-TextDrive.prototype.openEntries = function(entries) {
+TextApp.prototype.openEntries = function(entries) {
   for (var i = 0; i < entries.length; i++) {
     this.tabs_.openFileEntry(entries[i]);
   }
 };
 
-TextDrive.prototype.openNew = function() {
+TextApp.prototype.openNew = function() {
   this.tabs_.newTab();
 };
 
-TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
+TextApp.prototype.setHasChromeFrame = function(hasFrame) {
   this.hasFrame_ = hasFrame;
   this.windowController_.windowControlsVisible(!hasFrame);
 };
@@ -62,7 +62,7 @@ TextDrive.prototype.setHasChromeFrame = function(hasFrame) {
  * @return {Array.<Object>} Each element:
  *     {entry: <FileEntry>, contents: <string>}.
  */
-TextDrive.prototype.getFilesToSave = function() {
+TextApp.prototype.getFilesToSave = function() {
   if (this.settings_.get('autosave')) {
     return this.tabs_.getFilesToSave();
   } else {
@@ -70,6 +70,6 @@ TextDrive.prototype.getFilesToSave = function() {
   }
 };
 
-var textDrive = new TextDrive();
+var textApp = new TextApp();
 
-$(document).ready(textDrive.init.bind(textDrive));
+$(document).ready(textApp.init.bind(textApp));
