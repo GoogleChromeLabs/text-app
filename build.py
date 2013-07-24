@@ -36,6 +36,7 @@ FILES = [
   'images/maximize.svg',
   'images/menu.svg',
   'images/search.svg',
+  'lib/CodeMirror/addon/search/searchcursor.js',
   'lib/CodeMirror/lib/codemirror.css',
   'lib/CodeMirror/lib/codemirror.js',
   'lib/jquery-1.8.3.min.js'
