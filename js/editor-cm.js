@@ -10,6 +10,7 @@ function EditorCodeMirror(editorElement, settings) {
   this.settings_ = settings;
   this.cm_ = CodeMirror(editorElement, {'autofocus': true, 'value': ''});
   this.cm_.setSize(null, 'auto');
+  this.cm_.on('change', this.onChange.bind(this));
   this.searchCursor_ = null;
   this.setTheme();
 }
@@ -49,7 +50,8 @@ EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;
 };
 
-EditorCodeMirror.prototype.onChange = function(e) {
+EditorCodeMirror.prototype.onChange = function() {
+  $.event.trigger('docchange', this.cm_.getDoc());
 };
 
 EditorCodeMirror.prototype.undo = function() {
@@ -95,6 +97,7 @@ EditorCodeMirror.prototype.setFontSize = function(fontSize) {
  * @return {string}
  */
 EditorCodeMirror.prototype.getContents = function(session) {
+  session.getValue();
 };
 
 /**
@@ -130,7 +133,6 @@ EditorCodeMirror.prototype.setWrapLines = function(val) {
  * @param {number} col
  */
 EditorCodeMirror.prototype.showHideMargin = function(show, col) {
-
 };
 
 var Editor = EditorCodeMirror;
