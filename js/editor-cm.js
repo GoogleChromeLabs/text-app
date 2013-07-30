@@ -21,7 +21,8 @@ function EditorCodeMirror(editorElement, settings) {
  * Create an edit session for a new file. Each tab should have its own session.
  */
 EditorCodeMirror.prototype.newSession = function(opt_content) {
-  var session = new CodeMirror.Doc('');
+  console.log(opt_content);
+  var session = new CodeMirror.Doc(opt_content || '');
   return session;
 };
 /**
