@@ -79,6 +79,8 @@ EditorCodeMirror.prototype.setMode = function(session, extension) {
  * Update font size from settings.
  */
 EditorCodeMirror.prototype.setFontSize = function(fontSize) {
+  $('.CodeMirror').css('font-size',fontSize + 'px');
+  this.cm_.refresh();
 };
 
 /**
