@@ -61,7 +61,7 @@ EditorCodeMirror.prototype.undo = function() {
 
 EditorCodeMirror.prototype.redo = function() {
   this.cm_.redo();
-};};
+};
 
 EditorCodeMirror.prototype.focus = function() {
   this.cm_.focus();
