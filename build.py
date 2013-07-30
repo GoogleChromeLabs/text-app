@@ -222,8 +222,6 @@ def compile_js(out_path, js_files, level, externs):
 
 def main():
   parse_command_line()
-  print(debug_build)
-
   version = get_version()
 
   dir_name = APP_NAME + '-' + version
