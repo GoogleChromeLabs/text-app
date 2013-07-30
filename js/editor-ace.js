@@ -201,24 +201,6 @@ EditorAce.prototype.onTabRenamed_ = function(e, tab) {
 };
 
 /**
- * The actual changing of the font size will be triggered by settings change
- * event.
- */
-EditorAce.prototype.increaseFontSize = function() {
-  var fontSize = this.settings_.get('fontsize');
-  this.settings_.set('fontsize', fontSize * (9/8));
-};
-
-/**
- * The actual changing of the font size will be triggered by settings change
- * event.
- */
-EditorAce.prototype.decreseFontSize = function() {
-  var fontSize = this.settings_.get('fontsize');
-  this.settings_.set('fontsize', fontSize / (9/8));
-};
-
-/**
  * @param {number} fontSize
  * Update font size from settings.
  */

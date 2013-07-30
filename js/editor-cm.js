@@ -56,10 +56,12 @@ EditorCodeMirror.prototype.onChange = function() {
 };
 
 EditorCodeMirror.prototype.undo = function() {
+  this.cm_.undo();
 };
 
 EditorCodeMirror.prototype.redo = function() {
-};
+  this.cm_.redo();
+};};
 
 EditorCodeMirror.prototype.focus = function() {
   this.cm_.focus();
@@ -70,20 +72,6 @@ EditorCodeMirror.prototype.focus = function() {
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
-};
-
-/**
- * The actual changing of the font size will be triggered by settings change
- * event.
- */
-EditorCodeMirror.prototype.increaseFontSize = function() {
-};
-
-/**
- * The actual changing of the font size will be triggered by settings change
- * event.
- */
-EditorCodeMirror.prototype.decreseFontSize = function() {
 };
 
 /**
