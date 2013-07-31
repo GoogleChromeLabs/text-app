@@ -522,3 +522,7 @@ input[type=search]:focus {
   left: 0;
   right: 0;
 }
+
+.CodeMirror-lines {
+  line-height: 1.2em;
+}
