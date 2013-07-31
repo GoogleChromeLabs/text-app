@@ -15,6 +15,56 @@ function EditorCodeMirror(editorElement, settings) {
   this.setTheme();
 }
 
+EditorCodeMirror.EXTENSION_TO_MODE = {
+    'bash': 'shell',
+    'coffee': 'coffeescript',
+    'c': 'clike',
+    'c++': 'clike',
+    'cc': 'clike',
+    'cs': 'clike',
+    'css': 'css',
+    'cpp': 'clike',
+    'cxx': 'clike',
+    'diff': 'diff',
+    'gemspec': 'ruby',
+    'go': 'go',
+    'h': 'clike',
+    'hh': 'clike',
+    'hpp': 'clike',
+    'htm': 'htmlmixed',
+    'html': 'htmlmixed',
+    'java': 'clike',
+    'js': 'javascript',
+    'json': 'yaml',
+    'latex': 'stex',
+    'less': 'less',
+    'ltx': 'stex',
+    'lua': 'lua',
+    'markdown': 'markdown',
+    'md': 'markdown',
+    'ml': 'ocaml',
+    'mli': 'ocaml',
+    'patch': 'diff',
+    'pgsql': 'sql',
+    'pl': 'perl',
+    'pm': 'perl',
+    'php': 'php',
+    'phtml': 'php',
+    'py': 'python',
+    'rb': 'ruby',
+    'rdf': 'xml',
+    'rs': 'rust',
+    'rss': 'xml',
+    'ru': 'ruby',
+    'sh': 'shell',
+    'sql': 'sql',
+    'svg': 'xml',
+    'tex': 'stex',
+    'xhtml': 'htmlmixed',
+    'xml': 'xml',
+    'xq': 'xquery',
+    'yaml': 'yaml'};
+
 /**
  * @param {string} opt_content
  * @return {EditSession}
@@ -71,6 +121,17 @@ EditorCodeMirror.prototype.focus = function() {
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
+  var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
+  if (mode) {
+    var currentSession = null;
+    if (session !== this.cm_.getDoc()) {
+      currentSession = this.cm_.swapDoc(session);
+    }
+    this.cm_.setOption('mode', mode);
+    if (currentSession !== null) {
+      this.cm_.swapDoc(currentSession);
+    }
+  }
 };
 
 /**

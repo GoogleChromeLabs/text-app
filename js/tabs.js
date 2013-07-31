@@ -158,12 +158,12 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
 
   var tab = new Tab(id, session, opt_entry || null);
   this.editor_.setTabSize(tab.getSession(), this.settings_.get('tabsize'));
-  var fileNameExtension = tab.getExtension();
-  if (fileNameExtension)
-    this.editor_.setMode(session, fileNameExtension);
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
   this.showTab(tab.getId());
+  var fileNameExtension = tab.getExtension();
+  if (fileNameExtension)
+    this.editor_.setMode(session, fileNameExtension);
 };
 
 Tabs.prototype.nextTab = function() {
