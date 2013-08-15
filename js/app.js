@@ -94,6 +94,7 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.showHideMargin(this.settings_.get('margin'),
                               this.settings_.get('margincol'));
   this.editor_.setSmartIndent(this.settings_.get('smartindent'));
+  this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
 };
 
@@ -120,6 +121,10 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
 
     case 'smartindent':
       this.editor_.setSmartIndent(value);
+      break;
+
+    case 'spacestab':
+      this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
       break;
 
     case 'theme':

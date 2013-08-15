@@ -14,6 +14,7 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_.on('change', this.onChange.bind(this));
   this.searchCursor_ = null;
   this.setTheme();
+  this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
 
 EditorCodeMirror.EXTENSION_TO_MODE = {
@@ -186,6 +187,24 @@ EditorCodeMirror.prototype.setWrapLines = function(val) {
  */
 EditorCodeMirror.prototype.setSmartIndent = function(val) {
   this.cm_.setOption('smartIndent', val);
+};
+
+/**
+ * @param {boolean} val
+ */
+EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
+  if (val) {
+    CodeMirror.commands.defaultTab = function(cm) {
+      if (cm.somethingSelected()) {
+        cm.indentSelection("add");
+      } else {
+        var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+        cm.replaceSelection(spaces, "end", "+input");
+      }
+    }
+  } else {
+    CodeMirror.commands.defaultTab = this.defaultTabHandler_;
+  }
 };
 
 /**
