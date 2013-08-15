@@ -118,7 +118,7 @@ Tabs.chooseEntry = function(params, callback) {
       params,
       function(entry) {
         chrome.runtime.getBackgroundPage(function(bg) {
-          bg.background.  copyFileEntry(entry, callback);
+          bg.background.copyFileEntry(entry, callback);
         });
       });
 };

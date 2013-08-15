@@ -181,6 +181,13 @@ EditorCodeMirror.prototype.setWrapLines = function(val) {
 };
 
 /**
+ * @param {boolean} val
+ */
+EditorCodeMirror.prototype.setSmartIndent = function(val) {
+  this.cm_.setOption('smartIndent', val);
+};
+
+/**
  * @param {boolean} show
  * @param {number} col
  */

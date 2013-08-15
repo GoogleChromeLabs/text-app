@@ -32,6 +32,7 @@ Settings.SETTINGS = {
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
+  'smartindent': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'tabsize': {'default': 2, 'type': 'integer', 'widget': 'number'},
   'theme': {'default': 'default', 'type': 'string', 'widget': 'select'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
