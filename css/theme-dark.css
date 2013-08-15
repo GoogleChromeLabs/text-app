@@ -215,3 +215,12 @@ body[theme="dark"] #settings-list select option {
   text-decoration: underline;
   color: white !important;
 }
+
+div.CodeMirror span.CodeMirror-matchingbracket {
+  color: inherit !important;
+  border-bottom: 1px solid #f8f8f2;
+}
+
+div.CodeMirror span.CodeMirror-nonmatchingbracket {
+  color: inherit !important;
+}
