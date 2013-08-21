@@ -14,7 +14,7 @@ You can download the whole source code [as one archive](https://github.com/Googl
 ## Running the development version
 
 * Check `Developer Mode` in `chrome://chrome/extensions/`
-* Click "Load unpacked extension..." in `chrome://chrome/extensions/` and open the `app/` directory.
+* Click "Load unpacked extension..." in `chrome://chrome/extensions/` and open the `text-app` directory.
 
 ## Building the package
 
