@@ -54,8 +54,6 @@ EXTERNS_URLS = [
   'https://closure-compiler.googlecode.com' +
       '/svn/trunk/contrib/externs/jquery-1.8.js',
   'https://closure-compiler.googlecode.com' +
-      '/git/contrib/externs/chrome_extensions.js',
-  'https://closure-compiler.googlecode.com' +
       '/git/contrib/externs/google_analytics_api.js'
 ]
 
@@ -151,8 +149,8 @@ def process_index(out_dir):
 
 def print_errors(errors, js_files):
   for error in errors:
-    if error['file'].find('Externs') >= 0:
-      filename = 'externs'
+    if error['file'].lower().find('externs') >= 0:
+      filename = error['file']
     else:
       fileno = int(error['file'][6:])
       filename = js_files[fileno]
