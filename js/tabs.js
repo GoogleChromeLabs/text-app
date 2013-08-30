@@ -120,16 +120,22 @@ function Tabs(editor, dialogController, settings) {
 /**
  * @type {Object} params
  * @type {function(FileEntry)} callback
+ * @type {function()} opt_oncancel
  * Open a file in the system file picker. The FileEntry is copied to be stored
  * in background page, so that it wasn't destroyed when the window is closed.
  */
-Tabs.chooseEntry = function(params, callback) {
+Tabs.chooseEntry = function(params, callback, opt_oncancel) {
   chrome.fileSystem.chooseEntry(
       params,
       function(entry) {
-        chrome.runtime.getBackgroundPage(function(bg) {
-          bg.background.copyFileEntry(entry, callback);
-        });
+        if (entry) {
+          chrome.runtime.getBackgroundPage(function(bg) {
+            bg.background.copyFileEntry(entry, callback);
+          });
+        } else {
+          if (opt_oncancel)
+            opt_oncancel();
+        }
       });
 };
 
