@@ -4,14 +4,26 @@
 function WindowController(editor) {
   this.editor_ = editor;
   this.currentTab_ = null;
+  this.sidebarWidth_ = 220;
+  this.sidebarOpen_ = false;
   $('#window-close').click(this.close_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
+  $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabchange', this.onTabChange_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
+  this.init_();
 }
+
+WindowController.prototype.init_ = function() {
+  if (this.sidebarOpen_) {
+    $('#sidebar').css('width', this.sidebarWidth_ + 'px');
+  } else {
+    $('#sidebar').css('width', '0');
+  }
+};
 
 WindowController.prototype.windowControlsVisible = function(show) {
   if (show) {
@@ -46,13 +58,16 @@ WindowController.prototype.maximize_ = function() {
 };
 
 WindowController.prototype.toggleSidebar_ = function() {
-  $('body').toggleClass('sidebar-open');
-  this.editor_.focus();
-  if ($('body').hasClass('sidebar-open')) {
-    $('#toggle-sidebar').attr('title', 'Close sidebar');
-  } else {
+  if (this.sidebarOpen_) {
+    this.sidebarOpen_ = false;
+    $('#sidebar').css('width', '0');
     $('#toggle-sidebar').attr('title', 'Open sidebar');
+  } else {
+    this.sidebarOpen_ = true;
+    $('#sidebar').css('width', this.sidebarWidth_ + 'px');
+    $('#toggle-sidebar').attr('title', 'Close sidebar');
   }
+  this.editor_.focus();
   setTimeout(function() {$.event.trigger('resize');}, 200);
 };
 
@@ -70,3 +85,27 @@ WindowController.prototype.onTabChange_ = function(e, tab) {
   }
 };
 
+WindowController.prototype.resizeStart_ = function(e) {
+  this.resizeMouseStartX_ = e.clientX;
+  this.resizeStartWidth_ = parseInt($('#sidebar').css('width'), 10);
+  $(document).on('mousemove.sidebar', this.resizeOnMouseMove_.bind(this));
+  $(document).on('mouseup.sidebar', this.resizeFinish_.bind(this));
+  $(document).css('cursor', 'e-resize !important');
+  $('#sidebar').css('-webkit-transition', 'none');
+};
+
+WindowController.prototype.resizeOnMouseMove_ = function(e) {
+  var change = e.clientX - this.resizeMouseStartX_;
+  this.sidebarWidth_ = this.resizeStartWidth_ + change;
+  if (this.sidebarWidth_ < 20)
+    this.sidebarWidth_ = 20;
+  $('#sidebar').css('width', this.sidebarWidth_ + 'px');
+};
+
+WindowController.prototype.resizeFinish_ = function(e) {
+  this.resizeOnMouseMove_(e);
+  $(document).off('mousemove.sidebar');
+  $(document).off('mouseup.sidebar');
+  $(document).css('cursor', 'default');
+  $('#sidebar').css('-webkit-transition', 'width 0.2s ease-in-out');
+};

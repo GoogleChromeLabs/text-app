@@ -28,20 +28,24 @@ img {
 #sidebar {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
+  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   color: #EBEBEB;
+  cursor: default;
   display: -webkit-box;
   overflow: hidden;
+  position: relative;
   -webkit-transition: width 0.2s ease-in-out;
   width: 0;
-  cursor: default;
 }
 
-#sidebar > div {
-  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
-}
-
-body.sidebar-open #sidebar {
-  width: 220px;
+#sidebar-resizer {
+  cursor: e-resize;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 3px;
+  z-index: 2;
 }
 
 #sidebar h1 {
@@ -69,12 +73,12 @@ body.sidebar-open #sidebar {
 }
 
 #sidebar li {
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
   margin: 0px;
   padding: 10px 0px 10px 20px;
   -webkit-user-select: none;
-  -webkit-box-sizing: border-box;
   white-space: nowrap;
-  cursor: pointer;
 }
 
 #sidebar ::-webkit-scrollbar {
@@ -104,14 +108,15 @@ body.sidebar-open #sidebar {
 
 #tabs-list {
   margin: 24px 0 24px 0;
-  width: 220px;
+  overflow-x: hidden;
   overflow-y: scroll;
+  width: 100%;
 }
 
 #tabs-list li {
-  -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
-  display: -webkit-box;
+  -webkit-box-pack: justify;
+  display: -webkit-flex;
   cursor: pointer;
 }
 
@@ -121,8 +126,9 @@ body.sidebar-open #sidebar {
 }
 
 #tabs-list li .filename {
-  -webkit-flex: 1.0;
-  width: 160px;
+  display: inline;
+  -webkit-flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -134,7 +140,8 @@ body.sidebar-open #sidebar {
 #tabs-list li .close {
   background-position: center center;
   background-repeat: no-repeat;
-  margin: 2px 0 0 0;
+  display: -webkit-box;
+  margin: 2px 10px 0 0;
   height: 20px;
   width: 20px;
 }
@@ -154,25 +161,26 @@ body.sidebar-open #sidebar {
   display: -webkit-box;
   min-height: 100%;
   overflow: hidden;
-  width: 220px;
-}
-
-.open-settings #settings-menu {
-  left: -220px;
-  -webkit-transition: left 0.2s ease-in-out;
-  width: 220px;
+  width: 100%;
 }
 
 #settings-menu {
   -webkit-box-orient: vertical;
   -webkit-box-pack: justify;
+  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   display: -webkit-box;
   min-height: 100%;
   overflow: hidden;
-  position: relative;
   -webkit-transition: width 0s linear 0.2s, left 0.2s ease-in-out;
   width: 0;
   z-index: 1;
+}
+
+.open-settings #settings-menu {
+  position: absolute;
+  left: 0;
+  -webkit-transition: left 0.2s ease-in-out;
+  width: 100%;
 }
 
 #settings-list {
@@ -184,19 +192,25 @@ body.sidebar-open #sidebar {
   -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
   -webkit-box-align: end;
-  display: -webkit-box;
+  display: -webkit-flex;
   padding-right: 20px;
   width: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 #settings-list li:hover {
   background-color: inherit;
 }
 
-label {
-  -webkit-box-flex: 1.0;
-  display: -webkit-box;
+#settings-list label {
+  -webkit-flex: 1 1 auto;
   cursor: pointer;
+  display: inline;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .settings-switch-ul {
@@ -390,7 +404,6 @@ header.search-active #search-input {
   text-align: center;
   text-overflow: ellipsis;
   -webkit-transition: all 200ms ease-in-out;
-  -webkit-user-select: auto;
   white-space: nowrap;
 }
 
