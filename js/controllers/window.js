@@ -59,6 +59,7 @@ WindowController.prototype.toggleSidebar_ = function() {
 WindowController.prototype.onChangeTab_ = function(e, tab) {
   this.currentTab_ = tab;
   $('#title-filename').text(tab.getName());
+  this.onTabChange_();
 };
 
 WindowController.prototype.onTabChange_ = function(e, tab) {
