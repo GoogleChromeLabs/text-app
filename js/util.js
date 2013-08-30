@@ -1,42 +1,41 @@
 var util = {};
 
-util.handleFSError = function(e) {
-  var msg = '';
-
+/**
+ * @param {Event} e
+ * @return {string} Human-readable error description.
+ */
+util.fsErrorStr = function(e) {
   switch (e.code) {
     case FileError.QUOTA_EXCEEDED_ERR:
-      msg = 'QUOTA_EXCEEDED_ERR';
-      break;
+      return 'Quota exceeded';
     case FileError.NOT_FOUND_ERR:
-      msg = 'NOT_FOUND_ERR';
-      break;
+      return 'File not found';
     case FileError.SECURITY_ERR:
-      msg = 'SECURITY_ERR';
-      break;
+      return 'Security error';
     case FileError.INVALID_MODIFICATION_ERR:
-      msg = 'INVALID_MODIFICATION_ERR';
-      break;
+      return 'Invalid modification';
     case FileError.INVALID_STATE_ERR:
-      msg = 'INVALID_STATE_ERR';
-      break;
+      return 'Invalid state';
     default:
-      msg = 'Unknown Error';
-      break;
+      return 'Unknown Error';
   }
+}
 
-  console.warn('FS Error:', e, msg);
+util.handleFSError = function(e) {
+  console.warn('FS Error:', util.fsErrorStr(e), e);
 };
 
 /**
  * @param {FileEntry} entry
  * @param {string} content
  * @param {Function} onsuccess
+ * @param {Function?} opt_onerror
  * Truncate the file and write the content.
  */
-util.writeFile = function(entry, content, onsuccess) {
+util.writeFile = function(entry, content, onsuccess, opt_onerror) {
   var blob = new Blob([content], {type: 'text/plain'});
   entry.createWriter(function(writer) {
-    writer.onerror = util.handleFSError;
+    writer.onerror = opt_onerror ? opt_onerror : util.handleFSError;
     writer.onwrite = util.writeToWriter_.bind(null, writer, blob, onsuccess);
     writer.truncate(blob.size);
   });

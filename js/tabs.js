@@ -4,12 +4,13 @@
  * @param {EditSession} session Edit session.
  * @param {FileEntry} entry
  */
-function Tab(id, session, entry) {
+function Tab(id, session, entry, dialogController) {
   this.id_ = id;
   this.session_ = session;
   this.entry_ = entry;
   this.saved_ = true;
   this.path_ = null;
+  this.dialogController_ = dialogController;
   if (this.entry_)
     this.updatePath_();
 };
@@ -79,7 +80,16 @@ Tab.prototype.save = function(opt_callbackDone) {
         $.event.trigger('tabsave', this);
         if (opt_callbackDone)
           opt_callbackDone();
-      }.bind(this));
+      }.bind(this),
+      this.reportWriteError_.bind(this));
+};
+
+Tab.prototype.reportWriteError_ = function(e) {
+  this.dialogController_.setText(
+      'Error saving file: ' + util.fsErrorStr(e));
+  this.dialogController_.resetButtons();
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.show();
 };
 
 Tab.prototype.isSaved = function() {
@@ -149,7 +159,7 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
 
   var session = this.editor_.newSession(opt_content);
 
-  var tab = new Tab(id, session, opt_entry || null);
+  var tab = new Tab(id, session, opt_entry || null, this.dialogController_);
   this.editor_.setTabSize(tab.getSession(), this.settings_.get('tabsize'));
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);

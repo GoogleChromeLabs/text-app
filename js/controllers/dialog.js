@@ -49,7 +49,8 @@ DialogController.prototype.onClick_ = function(id) {
   $(document).unbind('keydown.dialog');
   $('#editor textarea').attr('tabIndex', '0');
   this.container_.removeClass('open');
-  this.callback_(id);
+  if (this.callback_)
+    this.callback_(id);
 };
 
 DialogController.prototype.onKeydown_ = function(e) {
