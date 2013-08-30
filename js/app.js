@@ -32,7 +32,7 @@ TextApp.prototype.init = function() {
   this.menuController_ = new MenuController(this.tabs_);
   this.searchController_ = new SearchController(this.editor_);
   this.settingsController_ = new SettingsController(this.settings_);
-  this.windowController_ = new WindowController(this.editor_);
+  this.windowController_ = new WindowController(this.editor_, this.settings_);
 
   if (this.settings_.isReady()) {
     this.onSettingsReady_();
