@@ -190,6 +190,7 @@ EditorCodeMirror.prototype.getContents = function(session) {
  */
 EditorCodeMirror.prototype.setTabSize = function(size) {
   this.cm_.setOption('tabSize', size);
+  this.replaceTabWithSpaces(this.settings_.get('spacestab'));
 };
 
 /**
@@ -225,16 +226,18 @@ EditorCodeMirror.prototype.setSmartIndent = function(val) {
  */
 EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
   if (val) {
+    // Need to update this closure once the tabsize has changed. So, have to
+    // call this method when it happens.
+    var tabsize = this.settings_.get('tabsize');
     CodeMirror.commands.defaultTab = function(cm) {
       if (cm.somethingSelected()) {
         cm.indentSelection("add");
       } else {
-        var tabsize = this.settings_.get('tabsize');
-        var nspaces = tabsize - this.cm_.getCursor().ch % tabsize;
+        var nspaces = tabsize - cm.getCursor().ch % tabsize;
         var spaces = Array(nspaces + 1).join(" ");
         cm.replaceSelection(spaces, "end", "+input");
       }
-    }
+    };
   } else {
     CodeMirror.commands.defaultTab = this.defaultTabHandler_;
   }
