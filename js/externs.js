@@ -44,22 +44,22 @@ AppWindow.prototype.contentWindow = {};
 /**
  * @constructor
  */
-function TextDrive() {}
+function TextApp() {}
 /**
  * @param {boolean} v
  */
-TextDrive.prototype.setHasChromeFrame = function(v) {};
+TextApp.prototype.setHasChromeFrame = function(v) {};
 /**
  * @param {Array.<FileEntry>} entries
  */
-TextDrive.prototype.openEntries = function(entries) {};
-TextDrive.prototype.openNew = function() {};
+TextApp.prototype.openEntries = function(entries) {};
+TextApp.prototype.openNew = function() {};
 /**
  * @return {Array.<Object>}
  */
-TextDrive.prototype.getFilesToSave = function() {};
+TextApp.prototype.getFilesToSave = function() {};
 
 /**
- * @type {TextDrive}
+ * @type {TextApp}
  */
-window.textDrive = {};
+window.textApp = {};
