@@ -84,17 +84,48 @@ EditorCodeMirror.prototype.setSession = function(session) {
   this.cm_.swapDoc(session);
 };
 
-EditorCodeMirror.prototype.find = function(string) {
-  this.searchCursor_ = this.cm_.getSearchCursor(string, this.cm_.getCursor());
+/**
+ * @param {string} query
+ * Initialize search. This is called every time the search string is updated.
+ */
+EditorCodeMirror.prototype.find = function(query) {
+  this.searchQuery_ = query;
+
+  // If there is no selection, we start at cursor. If there is, we start at the
+  // beginning of it.
+  var currentPos = this.cm_.getCursor('start');
+
+  this.searchCursor_ = this.cm_.getSearchCursor(
+      query, currentPos, true /* case insensitive */);
+
+  // Actually go to the match.
   this.findNext();
 };
 
+/**
+ * Select the next match. Should be called when user presses Enter in search
+ * field.
+ */
 EditorCodeMirror.prototype.findNext = function() {
-  if (this.searchCursor_ && this.searchCursor_.findNext()) {
-    var from = this.searchCursor_.from();
-    var to = this.searchCursor_.to();
-    console.log(from, to);
-    this.cm_.setSelection(to, from);
+  if (!this.searchCursor_) {
+    throw 'Internal error: search cursor should be initialized.';
+  }
+
+  if (!this.searchCursor_.findNext()) {
+    // Go to the beginning of the document.
+    this.searchCursor_ = this.cm_.getSearchCursor(
+      this.searchQuery_, CodeMirror.Pos(0, 0), true);
+    this.searchCursor_.findNext();
+  }
+
+  var from = this.searchCursor_.from();
+  var to = this.searchCursor_.to();
+
+  if (from && to) {
+    this.cm_.setSelection(from, to);
+  } else {
+    // Clear selection.
+    this.cm_.setCursor(this.cm_.getCursor('anchor'));
   }
 };
 
