@@ -36,7 +36,7 @@ Settings.SETTINGS = {
   'sidebarwidth': {'default': 220, 'type': 'integer', 'widget': null},
   'smartindent': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'spacestab': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
-  'tabsize': {'default': 2, 'type': 'integer', 'widget': 'number'},
+  'tabsize': {'default': 4, 'type': 'integer', 'widget': 'number'},
   'theme': {'default': 'default', 'type': 'string', 'widget': 'select'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };
