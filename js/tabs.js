@@ -114,7 +114,6 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
-  $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
 }
 
 /**
@@ -166,7 +165,6 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   var session = this.editor_.newSession(opt_content);
 
   var tab = new Tab(id, session, opt_entry || null, this.dialogController_);
-  this.editor_.setTabSize(tab.getSession(), this.settings_.get('tabsize'));
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
   this.showTab(tab.getId());
@@ -366,25 +364,4 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
   }
 
   tab.changed();
-};
-
-/**
- * @param {Event} e
- * @param {string} key
- * @param {*} value
- */
-Tabs.prototype.onSettingsChanged_ = function(e, key, value) {
-  var i;
-
-  switch (key) {
-    case 'tabsize':
-      if (value === 0) {
-        this.settings_.set('tabsize', 8);
-        return;
-      }
-      for (i = 0; i < this.tabs_.length; i++) {
-        this.tabs_[i].setTabSize(value);
-      }
-      break;
-  }
 };

@@ -188,7 +188,7 @@ EditorCodeMirror.prototype.getContents = function(session) {
  * @param {EditSession} session
  * @param {number} size
  */
-EditorCodeMirror.prototype.setTabSize = function(session, size) {
+EditorCodeMirror.prototype.setTabSize = function(size) {
   this.cm_.setOption('tabSize', size);
 };
 
@@ -229,7 +229,9 @@ EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
       if (cm.somethingSelected()) {
         cm.indentSelection("add");
       } else {
-        var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+        var tabsize = this.settings_.get('tabsize');
+        var nspaces = tabsize - this.cm_.getCursor().ch % tabsize;
+        var spaces = Array(nspaces + 1).join(" ");
         cm.replaceSelection(spaces, "end", "+input");
       }
     }
