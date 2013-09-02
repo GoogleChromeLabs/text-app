@@ -110,7 +110,7 @@ WindowController.prototype.resizeOnMouseMove_ = function(e) {
 };
 
 WindowController.prototype.resizeFinish_ = function(e) {
-  sidebarWidth = this.resizeOnMouseMove_(e);
+  var sidebarWidth = this.resizeOnMouseMove_(e);
   this.settings_.set('sidebarwidth', sidebarWidth);
   $(document).off('mousemove.sidebar');
   $(document).off('mouseup.sidebar');
