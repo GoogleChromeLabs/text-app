@@ -320,6 +320,13 @@ Tabs.prototype.openFileEntry = function(entry) {
   }.bind(this));
 };
 
+Tabs.prototype.modeAutoSet = function(tab) {
+  var extension = tab.getExtension();
+  if (extension) {
+    this.editor_.setMode(tab.getSession(), extension);
+  }
+};
+
 Tabs.prototype.readFileToNewTab_ = function(entry, file) {
   var self = this;
   var reader = new FileReader();
