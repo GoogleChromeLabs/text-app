@@ -487,6 +487,7 @@ input[type=search]:focus {
   box-shadow: rgba(0,0,0,0.13) 0px 4px 30px;
   display: -webkit-box;
   max-width: 50%;
+  max-height: 50%;
   opacity: 1.0;
   padding: 24px;
 }
@@ -521,6 +522,54 @@ input[type=search]:focus {
 .dialog-button:hover {
   border: 1px solid rgba(0,0,0,0.32);
   color: #000;
+}
+
+/* Save File */
+.dialog-input-container {
+  margin-top: 20px;
+  display: none;
+}
+
+.dialog-input-container.open {
+  display: -webkit-box;
+}
+
+/* File chooser */
+.dialog-file-chooser {
+  -webkit-box-align: start;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: start;
+  -webkit-box-flex: 1;
+  display: none;
+  -webkit-padding-start: 0;
+  width: 100%;
+  overflow-y: auto;
+  background-color: #FFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 0px 3px 0px 3px;
+}
+
+.dialog-file-chooser.open {
+  display: -webkit-box;
+}
+
+.dialog-file-chooser-entry {
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  display: -webkit-flex;
+  cursor: pointer;
+  width: 100%;
+  padding: 5px 0px 5px 0px;
+  opacity: 0.8;
+}
+
+.dialog-file-chooser-entry:hover {
+  background-color: #9A9A9A;
+}
+
+.dialog-file-chooser-entry.active {
+  background-color: #3A3A3A;
+  color: #EBEBEB;
 }
 
 .ace_editor {

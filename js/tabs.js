@@ -67,7 +67,7 @@ Tab.prototype.getPath = function() {
 };
 
 Tab.prototype.updatePath_ = function() {
-  chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
+  Tabs.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
   }.bind(this));
 };
@@ -103,7 +103,6 @@ Tab.prototype.changed = function() {
   }
 };
 
-
 /**
  * @constructor
  */
@@ -114,6 +113,12 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
+  this.syncFileSystem_ = null;
+  chrome.syncFileSystem.requestFileSystem(function(fs) {
+    if (chrome.runtime.lastError)
+      console.error("Error: ", chrome.runtime.lastError.message);
+    this.syncFileSystem_ = fs;
+  }.bind(this));
 }
 
 /**
@@ -136,6 +141,14 @@ Tabs.chooseEntry = function(params, callback, opt_oncancel) {
             opt_oncancel();
         }
       });
+};
+
+Tabs.getDisplayPath = function(entry, callback) {
+  if (entry.cloud) {
+    callback(entry.name);
+  } else {
+    chrome.fileSystem.getDisplayPath(entry, callback);
+  }
 };
 
 Tabs.prototype.getTabById = function(id) {
@@ -286,6 +299,106 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
 };
 
+Tabs.prototype.showSigninMessage_ = function() {
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText(
+      'You must be signed into Chrome to use this feature.');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.show(function() {});
+};
+
+Tabs.prototype.openCloud = function() {
+  if (!this.syncFileSystem_) {
+    this.showSigninMessage_();
+    return;
+  }
+
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText('Fetching Cloud Files...');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  var reader = this.syncFileSystem_.root.createReader();
+  reader.readEntries(function(entries) {
+    this.dialogController_.setText('Open File');
+    for (var i = 0; i < entries.length; i++) {
+      entries[i].cloud = true;
+      this.dialogController_.addFileEntry(entries[i], entries[i].name);
+    }
+  }.bind(this));
+
+  this.dialogController_.show(function(answer, entry) {
+    if (answer == 'ok' && entry)
+      this.openFileEntry(entry);
+  }.bind(this));
+};
+
+Tabs.prototype.saveCloud = function(opt_tab, opt_close) {
+  if (!this.syncFileSystem_) {
+    this.showSigninMessage_();
+    return;
+  }
+
+  if (!opt_tab)
+    opt_tab = this.currentTab_;
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText('Save File');
+  this.dialogController_.setInput('filename', 'File name: ');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  var reader = this.syncFileSystem_.root.createReader();
+  reader.readEntries(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      entries[i].cloud = true;
+      this.dialogController_.addFileEntry(entries[i], entries[i].name);
+    }
+  }.bind(this));
+
+  this.dialogController_.show(function(answer, entry) {
+    // Attempt to save the file "exclusively" first, meaning that we won't
+    // overwrite an existing file.
+    if (answer === 'ok' && entry)
+      this.onSaveCloud_(opt_tab, opt_close || false, entry.name, true);
+  }.bind(this));
+};
+
+Tabs.prototype.onSaveCloud_ =
+    function(opt_tab, opt_close, filename, exclusive) {
+  this.syncFileSystem_.root.getFile(
+    filename, {create: true, exclusive: exclusive},
+    function(entry) {
+      entry.cloud = true;
+      this.onSaveAsFileOpen_(opt_tab, opt_close, entry);
+    }.bind(this),
+    function(e) {
+      if (exclusive && e.code == FileError.INVALID_MODIFICATION_ERR) {
+        this.confirmOverwrite_(opt_tab, opt_close, filename);
+      } else {
+        this.reportWriteError_(entry);
+      }
+    }.bind(this));
+};
+
+Tabs.prototype.confirmOverwrite_ = function(opt_tab, opt_close, filename) {
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText('Are you sure you want to overwrite "' +
+     filename + '"?');
+  this.dialogController_.addButton('yes', 'Yes');
+  this.dialogController_.addButton('no', 'No');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  this.dialogController_.show(function(answer) {
+    if (answer == 'yes') {
+      // Attempt to open the file again, allowing overwrite this time.
+      this.onSaveCloud_(opt_tab, opt_close, filename, false);
+    } else if (answer == 'no') {
+      // Go back to the save dialog.
+      this.saveCloud(opt_tab, opt_close);
+    }
+  }.bind(this));
+};
+
 /**
  * @return {Array.<Object>} Each element:
  *     {entry: <FileEntry>, contents: <string>}.
@@ -308,7 +421,7 @@ Tabs.prototype.openFileEntry = function(entry) {
     return;
   }
 
-  var thisPath = chrome.fileSystem.getDisplayPath(entry, function(path) {
+  Tabs.getDisplayPath(entry, function(path) {
     for (var i = 0; i < this.tabs_.length; i++) {
       if (this.tabs_[i].getPath() === path) {
         this.showTab(this.tabs_[i].getId());
