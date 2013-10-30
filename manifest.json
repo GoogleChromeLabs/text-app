@@ -26,6 +26,7 @@
     "clipboardRead",
     "clipboardWrite",
     "storage",
+    "syncFileSystem",
     "unlimitedStorage",
     {"fileSystem": ["write"]}
   ],

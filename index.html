@@ -45,6 +45,10 @@
               <input type="checkbox" id="setting-autosave">
             </li>
             <li>
+              <label for="setting-cloud">Save to Google Drive</label>
+              <input type="checkbox" id="setting-cloud">
+            </li>
+            <li>
               <label for="setting-spacestab">Tabs to spaces</label>
               <input type="checkbox" id="setting-spacestab">
             </li>
@@ -107,6 +111,13 @@
   <div id="dialog-container">
     <div class="dialog-window">
       <div class="dialog-text"></div>
+      <div class="dialog-input-container">
+        <span class="dialog-input-label">Label:</span>
+        <input class="dialog-input">
+      </div>
+      <ul class="dialog-file-chooser">
+        <li class="dialog-file-chooser-entry">File1</li>
+      </ul>
       <div class="dialog-buttons">
         <div class="dialog-button">Yes</div>
         <div class="dialog-button">No</div>

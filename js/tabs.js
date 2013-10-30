@@ -67,7 +67,7 @@ Tab.prototype.getPath = function() {
 };
 
 Tab.prototype.updatePath_ = function() {
-  chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
+  Tabs.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
   }.bind(this));
 };
@@ -87,7 +87,7 @@ Tab.prototype.save = function(opt_callbackDone) {
 Tab.prototype.reportWriteError_ = function(e) {
   this.dialogController_.setText(
       'Error saving file: ' + util.fsErrorStr(e));
-  this.dialogController_.resetButtons();
+  this.dialogController_.reset();
   this.dialogController_.addButton('ok', 'OK');
   this.dialogController_.show();
 };
@@ -103,7 +103,6 @@ Tab.prototype.changed = function() {
   }
 };
 
-
 /**
  * @constructor
  */
@@ -115,6 +114,24 @@ function Tabs(editor, dialogController, settings) {
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
 }
+
+/**
+ * @type {string}
+ */
+Tabs.FILE_PICKER_OPEN = 'openWritableFile';
+
+/**
+ * @type {string}
+ */
+Tabs.FILE_PICKER_SAVE = 'saveFile';
+
+/**
+ * @type {Object.<string, string>}
+ */
+Tabs.FILE_PICKER_TO_MESSAGE = {
+  'openWritableFile': 'Open File',
+  'saveFile': 'Save File',
+};
 
 /**
  * @type {Object} params
@@ -136,6 +153,14 @@ Tabs.chooseEntry = function(params, callback, opt_oncancel) {
             opt_oncancel();
         }
       });
+};
+
+Tabs.getDisplayPath = function(entry, callback) {
+  if (entry.cloud) {
+    callback(entry.name);
+  } else {
+    chrome.fileSystem.getDisplayPath(entry, callback);
+  }
 };
 
 Tabs.prototype.getTabById = function(id) {
@@ -213,7 +238,7 @@ Tabs.prototype.close = function(tabId) {
     } else {
       this.dialogController_.setText(
           'Do you want to save the file before closing?');
-      this.dialogController_.resetButtons();
+      this.dialogController_.reset();
       this.dialogController_.addButton('yes', 'Yes');
       this.dialogController_.addButton('no', 'No');
       this.dialogController_.addButton('cancel', 'Cancel');
@@ -262,7 +287,13 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFile = function() {
-  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  if (this.settings_.get('cloud')) {
+    this.chooseEntryCloud_(
+        {'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  } else {
+    Tabs.chooseEntry(
+        {'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  }
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -281,9 +312,95 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  Tabs.chooseEntry(
-      {'type': 'saveFile'},
-      this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+  if (this.settings_.get('cloud')) {
+    var overwrite = false;
+    this.chooseEntryCloud_(
+        {'type': 'saveFile'},
+        this.onSaveCloud_.bind(this, opt_tab, opt_close || false, overwrite));
+  } else {
+    Tabs.chooseEntry(
+        {'type': 'saveFile'},
+        this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+  }
+};
+
+Tabs.prototype.showSigninMessage_ = function() {
+  this.dialogController_.reset();
+  this.dialogController_.setText(
+      'You must be signed into Chrome to use this feature.');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.show(function() {});
+};
+
+Tabs.prototype.chooseEntryCloud_ = function(params, callback) {
+  this.dialogController_.reset();
+  this.dialogController_.setText('Fetching Cloud Files...');
+  if (params.type == Tabs.FILE_PICKER_SAVE)
+    this.dialogController_.setInput('filename', 'File name: ');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  this.dialogController_.show(function(answer, entry) {
+    if (answer == 'ok' && entry)
+      callback(entry);
+  });
+
+  // Populate the file chooser with all known files.
+  chrome.syncFileSystem.requestFileSystem(function(filesystem) {
+    if (chrome.runtime.lastError)
+      console.error("Error: ", chrome.runtime.lastError.message);
+    if (!filesystem) {
+      this.showSigninMessage_();
+      return;
+    }
+
+    var reader = filesystem.root.createReader();
+    reader.readEntries(function(entries) {
+      this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[params.type]);
+      for (var i = 0; i < entries.length; i++) {
+        entries[i].cloud = true;
+        this.dialogController_.addFileEntry(entries[i], entries[i].name);
+      }
+    }.bind(this));
+  }.bind(this));
+};
+
+Tabs.prototype.onSaveCloud_ = function(tab, close, overwrite, chosenEntry) {
+  var filename = chosenEntry.name;
+  chrome.syncFileSystem.requestFileSystem(function(filesystem) {
+    filesystem.root.getFile(
+      filename, {create: true, exclusive: !overwrite},
+      function(entry) {
+        entry.cloud = true;
+        this.onSaveAsFileOpen_(tab, close, entry);
+      }.bind(this),
+      function(e) {
+        if (!overwrite && e.code == FileError.INVALID_MODIFICATION_ERR) {
+          this.confirmOverwrite_(tab, close, filename);
+        } else {
+          tab.reportWriteError_(e);
+        }
+      }.bind(this));
+  }.bind(this));
+};
+
+Tabs.prototype.confirmOverwrite_ = function(tab, close, filename) {
+  this.dialogController_.reset();
+  this.dialogController_.setText('Are you sure you want to overwrite "' +
+     filename + '"?');
+  this.dialogController_.addButton('yes', 'Yes');
+  this.dialogController_.addButton('no', 'No');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  this.dialogController_.show(function(answer) {
+    if (answer == 'yes') {
+      // Attempt to open the file again, allowing overwrite this time.
+      this.onSaveCloud_(tab, close, true, {name: filename});
+    } else if (answer == 'no') {
+      // Go back to the save dialog.
+      this.saveAs(tab, close);
+    }
+  }.bind(this));
 };
 
 /**
@@ -308,7 +425,7 @@ Tabs.prototype.openFileEntry = function(entry) {
     return;
   }
 
-  var thisPath = chrome.fileSystem.getDisplayPath(entry, function(path) {
+  Tabs.getDisplayPath(entry, function(path) {
     for (var i = 0; i < this.tabs_.length; i++) {
       if (this.tabs_[i].getPath() === path) {
         this.showTab(this.tabs_[i].getId());
