@@ -37,7 +37,7 @@ DialogController.prototype.show = function(callback) {
   }
 };
 
-DialogController.prototype.resetButtons = function() {
+DialogController.prototype.reset = function() {
   this.container_.find('.dialog-button').remove();
   this.container_.find('.dialog-file-chooser-entry').remove();
   this.container_.find('.dialog-file-chooser').removeClass('open');

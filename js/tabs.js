@@ -87,7 +87,7 @@ Tab.prototype.save = function(opt_callbackDone) {
 Tab.prototype.reportWriteError_ = function(e) {
   this.dialogController_.setText(
       'Error saving file: ' + util.fsErrorStr(e));
-  this.dialogController_.resetButtons();
+  this.dialogController_.reset();
   this.dialogController_.addButton('ok', 'OK');
   this.dialogController_.show();
 };
@@ -238,7 +238,7 @@ Tabs.prototype.close = function(tabId) {
     } else {
       this.dialogController_.setText(
           'Do you want to save the file before closing?');
-      this.dialogController_.resetButtons();
+      this.dialogController_.reset();
       this.dialogController_.addButton('yes', 'Yes');
       this.dialogController_.addButton('no', 'No');
       this.dialogController_.addButton('cancel', 'Cancel');
@@ -325,7 +325,7 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
 };
 
 Tabs.prototype.showSigninMessage_ = function() {
-  this.dialogController_.resetButtons();
+  this.dialogController_.reset();
   this.dialogController_.setText(
       'You must be signed into Chrome to use this feature.');
   this.dialogController_.addButton('ok', 'OK');
@@ -333,7 +333,7 @@ Tabs.prototype.showSigninMessage_ = function() {
 };
 
 Tabs.prototype.chooseEntryCloud_ = function(params, callback) {
-  this.dialogController_.resetButtons();
+  this.dialogController_.reset();
   this.dialogController_.setText('Fetching Cloud Files...');
   if (params.type == Tabs.FILE_PICKER_SAVE)
     this.dialogController_.setInput('filename', 'File name: ');
@@ -385,7 +385,7 @@ Tabs.prototype.onSaveCloud_ = function(tab, close, overwrite, chosenEntry) {
 };
 
 Tabs.prototype.confirmOverwrite_ = function(tab, close, filename) {
-  this.dialogController_.resetButtons();
+  this.dialogController_.reset();
   this.dialogController_.setText('Are you sure you want to overwrite "' +
      filename + '"?');
   this.dialogController_.addButton('yes', 'Yes');
