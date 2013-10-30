@@ -274,9 +274,39 @@ Tabs.prototype.closeCurrent = function() {
   this.close(this.currentTab_.getId());
 };
 
+Tabs.FILE_PICKER_OPEN = 1;
+Tabs.FILE_PICKER_SAVE = 2;
+Tabs.FILE_PICKER_TO_MESSAGE = {
+  1: 'Open File',
+  2: 'Save File',
+};
+
+Tabs.prototype.chooseEntryCloud_ = function(type, callback) {
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText('Fetching Cloud Files...');
+  if (type == Tabs.FILE_PICKER_SAVE)
+    this.dialogController_.setInput('filename', 'File name: ');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  var reader = this.syncFileSystem_.root.createReader();
+  reader.readEntries(function(entries) {
+    this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[type]);
+    for (var i = 0; i < entries.length; i++) {
+      entries[i].cloud = true;
+      this.dialogController_.addFileEntry(entries[i], entries[i].name);
+    }
+  }.bind(this));
+
+  this.dialogController_.show(function(answer, entry) {
+    if (answer == 'ok' && entry)
+      callback(entry);
+  });
+};
+
 Tabs.prototype.openFile = function() {
   if (this.settings_.get('cloud')) {
-    this.openCloud();
+    this.chooseEntryCloud_(Tabs.FILE_PICKER_OPEN, this.openFileEntry.bind(this));
   } else {
     Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
   }
@@ -299,7 +329,11 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
   if (this.settings_.get('cloud')) {
-    this.saveCloud(opt_tab, opt_close);
+    this.chooseEntryCloud_(Tabs.FILE_PICKER_SAVE, function(entry) {
+      // Attempt to save the file "exclusively" first, meaning that we won't
+      // overwrite an existing file.
+      this.onSaveCloud_(opt_tab, opt_close || false, entry.name, true);
+    }.bind(this));
   } else {
     Tabs.chooseEntry(
         {'type': 'saveFile'},
@@ -313,62 +347,6 @@ Tabs.prototype.showSigninMessage_ = function() {
       'You must be signed into Chrome to use this feature.');
   this.dialogController_.addButton('ok', 'OK');
   this.dialogController_.show(function() {});
-};
-
-Tabs.prototype.openCloud = function() {
-  if (!this.syncFileSystem_) {
-    this.showSigninMessage_();
-    return;
-  }
-
-  this.dialogController_.resetButtons();
-  this.dialogController_.setText('Fetching Cloud Files...');
-  this.dialogController_.addButton('ok', 'OK');
-  this.dialogController_.addButton('cancel', 'Cancel');
-
-  var reader = this.syncFileSystem_.root.createReader();
-  reader.readEntries(function(entries) {
-    this.dialogController_.setText('Open File');
-    for (var i = 0; i < entries.length; i++) {
-      entries[i].cloud = true;
-      this.dialogController_.addFileEntry(entries[i], entries[i].name);
-    }
-  }.bind(this));
-
-  this.dialogController_.show(function(answer, entry) {
-    if (answer == 'ok' && entry)
-      this.openFileEntry(entry);
-  }.bind(this));
-};
-
-Tabs.prototype.saveCloud = function(opt_tab, opt_close) {
-  if (!this.syncFileSystem_) {
-    this.showSigninMessage_();
-    return;
-  }
-
-  if (!opt_tab)
-    opt_tab = this.currentTab_;
-  this.dialogController_.resetButtons();
-  this.dialogController_.setText('Save File');
-  this.dialogController_.setInput('filename', 'File name: ');
-  this.dialogController_.addButton('ok', 'OK');
-  this.dialogController_.addButton('cancel', 'Cancel');
-
-  var reader = this.syncFileSystem_.root.createReader();
-  reader.readEntries(function(entries) {
-    for (var i = 0; i < entries.length; i++) {
-      entries[i].cloud = true;
-      this.dialogController_.addFileEntry(entries[i], entries[i].name);
-    }
-  }.bind(this));
-
-  this.dialogController_.show(function(answer, entry) {
-    // Attempt to save the file "exclusively" first, meaning that we won't
-    // overwrite an existing file.
-    if (answer === 'ok' && entry)
-      this.onSaveCloud_(opt_tab, opt_close || false, entry.name, true);
-  }.bind(this));
 };
 
 Tabs.prototype.onSaveCloud_ =
@@ -402,7 +380,7 @@ Tabs.prototype.confirmOverwrite_ = function(opt_tab, opt_close, filename) {
       this.onSaveCloud_(opt_tab, opt_close, filename, false);
     } else if (answer == 'no') {
       // Go back to the save dialog.
-      this.saveCloud(opt_tab, opt_close);
+      this.saveAs(opt_tab, opt_close);
     }
   }.bind(this));
 };

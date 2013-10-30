@@ -8,8 +8,6 @@ function MenuController(tabs) {
   $('#file-menu-open').click(this.open_.bind(this));
   $('#file-menu-save').click(this.save_.bind(this));
   $('#file-menu-saveas').click(this.saveas_.bind(this));
-  $('#file-menu-open-cloud').click(this.openCloud_.bind(this));
-  $('#file-menu-save-cloud').click(this.saveCloud_.bind(this));
   $(document).bind('newtab', this.onNewTab.bind(this));
   $(document).bind('tabchange', this.onTabChange.bind(this));
   $(document).bind('tabclosed', this.onTabClosed.bind(this));
@@ -98,16 +96,6 @@ MenuController.prototype.save_ = function() {
 
 MenuController.prototype.saveas_ = function() {
   this.tabs_.saveAs();
-  return false;
-};
-
-MenuController.prototype.openCloud_ = function() {
-  this.tabs_.openCloud();
-  return false;
-};
-
-MenuController.prototype.saveCloud_ = function() {
-  this.tabs_.saveCloud();
   return false;
 };
 
