@@ -282,6 +282,11 @@ Tabs.FILE_PICKER_TO_MESSAGE = {
 };
 
 Tabs.prototype.chooseEntryCloud_ = function(type, callback) {
+  if (!this.syncFileSystem_) {
+    this.showSigninMessage_();
+    return;
+  }
+
   this.dialogController_.resetButtons();
   this.dialogController_.setText('Fetching Cloud Files...');
   if (type == Tabs.FILE_PICKER_SAVE)
@@ -329,11 +334,10 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
   if (this.settings_.get('cloud')) {
-    this.chooseEntryCloud_(Tabs.FILE_PICKER_SAVE, function(entry) {
-      // Attempt to save the file "exclusively" first, meaning that we won't
-      // overwrite an existing file.
-      this.onSaveCloud_(opt_tab, opt_close || false, entry.name, true);
-    }.bind(this));
+    var overwrite = false;
+    this.chooseEntryCloud_(
+        Tabs.FILE_PICKER_SAVE,
+        this.onSaveCloud_.bind(this, opt_tab, opt_close || false, overwrite));
   } else {
     Tabs.chooseEntry(
         {'type': 'saveFile'},
@@ -349,24 +353,24 @@ Tabs.prototype.showSigninMessage_ = function() {
   this.dialogController_.show(function() {});
 };
 
-Tabs.prototype.onSaveCloud_ =
-    function(opt_tab, opt_close, filename, exclusive) {
+Tabs.prototype.onSaveCloud_ = function(tab, close, overwrite, chosenEntry) {
+  var filename = chosenEntry.name;
   this.syncFileSystem_.root.getFile(
-    filename, {create: true, exclusive: exclusive},
+    filename, {create: true, exclusive: !overwrite},
     function(entry) {
       entry.cloud = true;
-      this.onSaveAsFileOpen_(opt_tab, opt_close, entry);
+      this.onSaveAsFileOpen_(tab, close, entry);
     }.bind(this),
     function(e) {
-      if (exclusive && e.code == FileError.INVALID_MODIFICATION_ERR) {
-        this.confirmOverwrite_(opt_tab, opt_close, filename);
+      if (!overwrite && e.code == FileError.INVALID_MODIFICATION_ERR) {
+        this.confirmOverwrite_(tab, close, filename);
       } else {
-        this.reportWriteError_(entry);
+        tab.reportWriteError_(e);
       }
     }.bind(this));
 };
 
-Tabs.prototype.confirmOverwrite_ = function(opt_tab, opt_close, filename) {
+Tabs.prototype.confirmOverwrite_ = function(tab, close, filename) {
   this.dialogController_.resetButtons();
   this.dialogController_.setText('Are you sure you want to overwrite "' +
      filename + '"?');
@@ -377,10 +381,10 @@ Tabs.prototype.confirmOverwrite_ = function(opt_tab, opt_close, filename) {
   this.dialogController_.show(function(answer) {
     if (answer == 'yes') {
       // Attempt to open the file again, allowing overwrite this time.
-      this.onSaveCloud_(opt_tab, opt_close, filename, false);
+      this.onSaveCloud_(tab, close, true, {name: filename});
     } else if (answer == 'no') {
       // Go back to the save dialog.
-      this.saveAs(opt_tab, opt_close);
+      this.saveAs(tab, close);
     }
   }.bind(this));
 };
