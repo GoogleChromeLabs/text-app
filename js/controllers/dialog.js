@@ -40,6 +40,8 @@ DialogController.prototype.show = function(callback) {
 DialogController.prototype.resetButtons = function() {
   this.container_.find('.dialog-button').remove();
   this.container_.find('.dialog-file-chooser-entry').remove();
+  this.container_.find('.dialog-file-chooser').removeClass('open');
+  this.container_.find('.dialog-input-container').removeClass('open');
 };
 
 DialogController.prototype.addButton = function(id, text) {

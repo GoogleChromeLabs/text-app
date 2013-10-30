@@ -113,13 +113,25 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
-  this.syncFileSystem_ = null;
-  chrome.syncFileSystem.requestFileSystem(function(fs) {
-    if (chrome.runtime.lastError)
-      console.error("Error: ", chrome.runtime.lastError.message);
-    this.syncFileSystem_ = fs;
-  }.bind(this));
 }
+
+/**
+ * @type {string}
+ */
+Tabs.FILE_PICKER_OPEN = 'openWritableFile';
+
+/**
+ * @type {string}
+ */
+Tabs.FILE_PICKER_SAVE = 'saveFile';
+
+/**
+ * @type {Object.<string, string>}
+ */
+Tabs.FILE_PICKER_TO_MESSAGE = {
+  'openWritableFile': 'Open File',
+  'saveFile': 'Save File',
+};
 
 /**
  * @type {Object} params
@@ -274,17 +286,10 @@ Tabs.prototype.closeCurrent = function() {
   this.close(this.currentTab_.getId());
 };
 
-Tabs.FILE_PICKER_OPEN = 1;
-Tabs.FILE_PICKER_SAVE = 2;
-Tabs.FILE_PICKER_TO_MESSAGE = {
-  1: 'Open File',
-  2: 'Save File',
-};
-
 Tabs.prototype.openFile = function() {
   if (this.settings_.get('cloud')) {
     this.chooseEntryCloud_(
-        Tabs.FILE_PICKER_OPEN, this.openFileEntry.bind(this));
+        {'type': 'openWritableFile'}, this.openFileEntry.bind(this));
   } else {
     Tabs.chooseEntry(
         {'type': 'openWritableFile'}, this.openFileEntry.bind(this));
@@ -310,7 +315,7 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (this.settings_.get('cloud')) {
     var overwrite = false;
     this.chooseEntryCloud_(
-        Tabs.FILE_PICKER_SAVE,
+        {'type': 'saveFile'},
         this.onSaveCloud_.bind(this, opt_tab, opt_close || false, overwrite));
   } else {
     Tabs.chooseEntry(
@@ -327,50 +332,56 @@ Tabs.prototype.showSigninMessage_ = function() {
   this.dialogController_.show(function() {});
 };
 
-Tabs.prototype.chooseEntryCloud_ = function(type, callback) {
-  if (!this.syncFileSystem_) {
-    this.showSigninMessage_();
-    return;
-  }
-
+Tabs.prototype.chooseEntryCloud_ = function(params, callback) {
   this.dialogController_.resetButtons();
   this.dialogController_.setText('Fetching Cloud Files...');
-  if (type == Tabs.FILE_PICKER_SAVE)
+  if (params.type == Tabs.FILE_PICKER_SAVE)
     this.dialogController_.setInput('filename', 'File name: ');
   this.dialogController_.addButton('ok', 'OK');
   this.dialogController_.addButton('cancel', 'Cancel');
-
-  var reader = this.syncFileSystem_.root.createReader();
-  reader.readEntries(function(entries) {
-    this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[type]);
-    for (var i = 0; i < entries.length; i++) {
-      entries[i].cloud = true;
-      this.dialogController_.addFileEntry(entries[i], entries[i].name);
-    }
-  }.bind(this));
 
   this.dialogController_.show(function(answer, entry) {
     if (answer == 'ok' && entry)
       callback(entry);
   });
-};
 
+  // Populate the file chooser with all known files.
+  chrome.syncFileSystem.requestFileSystem(function(filesystem) {
+    if (chrome.runtime.lastError)
+      console.error("Error: ", chrome.runtime.lastError.message);
+    if (!filesystem) {
+      this.showSigninMessage_();
+      return;
+    }
+
+    var reader = filesystem.root.createReader();
+    reader.readEntries(function(entries) {
+      this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[params.type]);
+      for (var i = 0; i < entries.length; i++) {
+        entries[i].cloud = true;
+        this.dialogController_.addFileEntry(entries[i], entries[i].name);
+      }
+    }.bind(this));
+  }.bind(this));
+};
 
 Tabs.prototype.onSaveCloud_ = function(tab, close, overwrite, chosenEntry) {
   var filename = chosenEntry.name;
-  this.syncFileSystem_.root.getFile(
-    filename, {create: true, exclusive: !overwrite},
-    function(entry) {
-      entry.cloud = true;
-      this.onSaveAsFileOpen_(tab, close, entry);
-    }.bind(this),
-    function(e) {
-      if (!overwrite && e.code == FileError.INVALID_MODIFICATION_ERR) {
-        this.confirmOverwrite_(tab, close, filename);
-      } else {
-        tab.reportWriteError_(e);
-      }
-    }.bind(this));
+  chrome.syncFileSystem.requestFileSystem(function(filesystem) {
+    filesystem.root.getFile(
+      filename, {create: true, exclusive: !overwrite},
+      function(entry) {
+        entry.cloud = true;
+        this.onSaveAsFileOpen_(tab, close, entry);
+      }.bind(this),
+      function(e) {
+        if (!overwrite && e.code == FileError.INVALID_MODIFICATION_ERR) {
+          this.confirmOverwrite_(tab, close, filename);
+        } else {
+          tab.reportWriteError_(e);
+        }
+      }.bind(this));
+  }.bind(this));
 };
 
 Tabs.prototype.confirmOverwrite_ = function(tab, close, filename) {
