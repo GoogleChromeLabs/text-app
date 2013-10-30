@@ -275,7 +275,11 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFile = function() {
-  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  if (this.settings_.get('cloud')) {
+    this.openCloud();
+  } else {
+    Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  }
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -294,9 +298,13 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  Tabs.chooseEntry(
-      {'type': 'saveFile'},
-      this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+  if (this.settings_.get('cloud')) {
+    this.saveCloud(opt_tab, opt_close);
+  } else {
+    Tabs.chooseEntry(
+        {'type': 'saveFile'},
+        this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+  }
 };
 
 Tabs.prototype.showSigninMessage_ = function() {

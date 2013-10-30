@@ -26,6 +26,7 @@ Settings.AREA = 'sync';
  */
 Settings.SETTINGS = {
   'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'cloud': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   // 'fontsize' is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
@@ -33,7 +34,7 @@ Settings.SETTINGS = {
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
   'sidebaropen': {'default': false, 'type': 'boolean', 'widget': null},
-  'sidebarwidth': {'default': 220, 'type': 'integer', 'widget': null},
+  'sidebarwidth': {'default': 250, 'type': 'integer', 'widget': null},
   'smartindent': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'spacestab': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'tabsize': {'default': 4, 'type': 'integer', 'widget': 'number'},
