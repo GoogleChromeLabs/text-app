@@ -281,39 +281,13 @@ Tabs.FILE_PICKER_TO_MESSAGE = {
   2: 'Save File',
 };
 
-Tabs.prototype.chooseEntryCloud_ = function(type, callback) {
-  if (!this.syncFileSystem_) {
-    this.showSigninMessage_();
-    return;
-  }
-
-  this.dialogController_.resetButtons();
-  this.dialogController_.setText('Fetching Cloud Files...');
-  if (type == Tabs.FILE_PICKER_SAVE)
-    this.dialogController_.setInput('filename', 'File name: ');
-  this.dialogController_.addButton('ok', 'OK');
-  this.dialogController_.addButton('cancel', 'Cancel');
-
-  var reader = this.syncFileSystem_.root.createReader();
-  reader.readEntries(function(entries) {
-    this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[type]);
-    for (var i = 0; i < entries.length; i++) {
-      entries[i].cloud = true;
-      this.dialogController_.addFileEntry(entries[i], entries[i].name);
-    }
-  }.bind(this));
-
-  this.dialogController_.show(function(answer, entry) {
-    if (answer == 'ok' && entry)
-      callback(entry);
-  });
-};
-
 Tabs.prototype.openFile = function() {
   if (this.settings_.get('cloud')) {
-    this.chooseEntryCloud_(Tabs.FILE_PICKER_OPEN, this.openFileEntry.bind(this));
+    this.chooseEntryCloud_(
+        Tabs.FILE_PICKER_OPEN, this.openFileEntry.bind(this));
   } else {
-    Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+    Tabs.chooseEntry(
+        {'type': 'openWritableFile'}, this.openFileEntry.bind(this));
   }
 };
 
@@ -352,6 +326,35 @@ Tabs.prototype.showSigninMessage_ = function() {
   this.dialogController_.addButton('ok', 'OK');
   this.dialogController_.show(function() {});
 };
+
+Tabs.prototype.chooseEntryCloud_ = function(type, callback) {
+  if (!this.syncFileSystem_) {
+    this.showSigninMessage_();
+    return;
+  }
+
+  this.dialogController_.resetButtons();
+  this.dialogController_.setText('Fetching Cloud Files...');
+  if (type == Tabs.FILE_PICKER_SAVE)
+    this.dialogController_.setInput('filename', 'File name: ');
+  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('cancel', 'Cancel');
+
+  var reader = this.syncFileSystem_.root.createReader();
+  reader.readEntries(function(entries) {
+    this.dialogController_.setText(Tabs.FILE_PICKER_TO_MESSAGE[type]);
+    for (var i = 0; i < entries.length; i++) {
+      entries[i].cloud = true;
+      this.dialogController_.addFileEntry(entries[i], entries[i].name);
+    }
+  }.bind(this));
+
+  this.dialogController_.show(function(answer, entry) {
+    if (answer == 'ok' && entry)
+      callback(entry);
+  });
+};
+
 
 Tabs.prototype.onSaveCloud_ = function(tab, close, overwrite, chosenEntry) {
   var filename = chosenEntry.name;
