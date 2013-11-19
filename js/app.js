@@ -55,6 +55,7 @@ TextApp.prototype.openEntries = function(entries) {
   for (var i = 0; i < entries.length; i++) {
     this.tabs_.openFileEntry(entries[i]);
   }
+  this.windowController_.focus_();
 };
 
 TextApp.prototype.openNew = function() {

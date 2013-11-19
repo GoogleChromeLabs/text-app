@@ -50,6 +50,10 @@ WindowController.prototype.close_ = function() {
   window.close();
 };
 
+WindowController.prototype.focus_ = function() {
+  window.chrome.app.window.current().focus();
+};
+
 WindowController.prototype.maximize_ = function() {
   var maximized = window.outerHeight == window.screen.availHeight &&
                   window.outerWidth == window.screen.availWidth;
