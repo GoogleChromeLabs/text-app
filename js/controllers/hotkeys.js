@@ -44,7 +44,7 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case this.KEY.O:
-        this.tabs_.openFile();
+        this.tabs_.openFiles();
         return false;
 
       case this.KEY.S:

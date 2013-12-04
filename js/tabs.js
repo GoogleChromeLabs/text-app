@@ -120,8 +120,9 @@ function Tabs(editor, dialogController, settings) {
  * @type {Object} params
  * @type {function(FileEntry)} callback
  * @type {function()} opt_oncancel
- * Open a file in the system file picker. The FileEntry is copied to be stored
- * in background page, so that it wasn't destroyed when the window is closed.
+ * Open one or multiple files in the system file picker. FileEntry are copied
+ * to be stored in background page, so that reference isn't destroyed when the
+ * App Window is closed.
  */
 Tabs.chooseEntry = function(params, callback, opt_oncancel) {
   chrome.fileSystem.chooseEntry(
@@ -129,7 +130,16 @@ Tabs.chooseEntry = function(params, callback, opt_oncancel) {
       function(entry) {
         if (entry) {
           chrome.runtime.getBackgroundPage(function(bg) {
-            bg.background.copyFileEntry(entry, callback);
+            var entries = Array.isArray(entry) ? entry : [entry];
+            (function copyFileEntry(i) {
+              if (i < entries.length) {
+                bg.background.copyFileEntry(entries[i], function() {
+                  copyFileEntry(++i);
+                });
+              } else {
+                callback(entry);
+              }
+            })(0);
           });
         } else {
           if (opt_oncancel)
@@ -261,8 +271,10 @@ Tabs.prototype.closeCurrent = function() {
   this.close(this.currentTab_.getId());
 };
 
-Tabs.prototype.openFile = function() {
-  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+Tabs.prototype.openFiles = function() {
+  Tabs.chooseEntry(
+      {'type': 'openWritableFile', 'acceptsMultiple': true},
+      this.openFileEntries.bind(this));
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -303,20 +315,18 @@ Tabs.prototype.getFilesToSave = function() {
   return toSave;
 };
 
-Tabs.prototype.openFileEntry = function(entry) {
-  if (!entry) {
-    return;
-  }
-
-  var thisPath = chrome.fileSystem.getDisplayPath(entry, function(path) {
-    for (var i = 0; i < this.tabs_.length; i++) {
-      if (this.tabs_[i].getPath() === path) {
-        this.showTab(this.tabs_[i].getId());
-        return;
+Tabs.prototype.openFileEntries = function(entries) {
+  entries.forEach(function(entry) {
+    chrome.fileSystem.getDisplayPath(entry, function(path) {
+      for (var i = 0; i < this.tabs_.length; i++) {
+        if (this.tabs_[i].getPath() === path) {
+          this.showTab(this.tabs_[i].getId());
+          return;
+        }
       }
-    }
 
-    entry.file(this.readFileToNewTab_.bind(this, entry));
+      entry.file(this.readFileToNewTab_.bind(this, entry));
+    }.bind(this));
   }.bind(this));
 };
 
