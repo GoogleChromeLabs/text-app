@@ -262,7 +262,14 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFile = function() {
-  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+  var manifestFileHandlers = chrome.runtime.getManifest().file_handlers.text;
+  var accepts = [{
+    'mimeTypes': manifestFileHandlers.types,
+    'extensions': manifestFileHandlers.extensions,
+  }];
+  Tabs.chooseEntry(
+      {'type': 'openWritableFile', 'accepts': accepts},
+      this.openFileEntry.bind(this));
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
