@@ -282,7 +282,7 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
   var suggestedName = opt_tab.entry && opt_tab.entry.name ||
-                      util.sanitizeFileName(opt_tab.session_.getValue());
+                      util.sanitizeFileName(opt_tab.session_.getLine(0));
   Tabs.chooseEntry(
       {'type': 'saveFile', 'suggestedName': suggestedName},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
