@@ -120,9 +120,8 @@ function Tabs(editor, dialogController, settings) {
  * @type {Object} params
  * @type {function(FileEntry)} callback
  * @type {function()} opt_oncancel
- * Open one or multiple files in the system file picker. FileEntry are copied
- * to be stored in background page, so that reference isn't destroyed when the
- * App Window is closed.
+ * Open a file in the system file picker. The FileEntry is copied to be stored
+ * in background page, so that it wasn't destroyed when the window is closed.
  */
 Tabs.chooseEntry = function(params, callback, opt_oncancel) {
   chrome.fileSystem.chooseEntry(
@@ -130,16 +129,35 @@ Tabs.chooseEntry = function(params, callback, opt_oncancel) {
       function(entry) {
         if (entry) {
           chrome.runtime.getBackgroundPage(function(bg) {
-            var entries = Array.isArray(entry) ? entry : [entry];
-            (function copyFileEntry(i) {
-              if (i < entries.length) {
-                bg.background.copyFileEntry(entries[i], function() {
-                  copyFileEntry(++i);
-                });
-              } else {
-                callback(entry);
-              }
-            })(0);
+            bg.background.copyFileEntry(entry, callback);
+          });
+        } else {
+          if (opt_oncancel)
+            opt_oncancel();
+        }
+      });
+};
+
+/**
+ * @type {Object} params
+ * @type {function(FileEntry)} callback
+ * @type {function()} opt_oncancel
+ * Open one or multiple files in the system file picker. FileEntry are copied
+ * to be stored in background page, so that reference isn't destroyed when the
+ * App Window is closed.
+ */
+Tabs.chooseEntries = function(params, callback, opt_oncancel) {
+  chrome.fileSystem.chooseEntry(
+      params,
+      function(entries) {
+        if (entries) {
+          chrome.runtime.getBackgroundPage(function(bg) {
+            var numFileEntriesHandled = 0;
+            for (var i = 0; i < entries.length; i++)
+              bg.background.copyFileEntry(entries[i], function() {
+                if (++numFileEntriesHandled === entries.length)
+                  callback(entries);
+              });
           });
         } else {
           if (opt_oncancel)
@@ -272,7 +290,7 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFiles = function() {
-  Tabs.chooseEntry(
+  Tabs.chooseEntries(
       {'type': 'openWritableFile', 'acceptsMultiple': true},
       this.openFileEntries.bind(this));
 };
