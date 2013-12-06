@@ -124,7 +124,11 @@ function Tabs(editor, dialogController, settings) {
  * in background page, so it isn't destroyed when the window is closed.
  */
 Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
-  // TODO: Add `params.acceptsMultiple = false` when crbug.com/326523 is fixed.
+  // TODO: Remove this when crbug.com/326523 is fixed.
+  if (params.acceptsMultiple) {
+    console.error('acceptsMultiple is not supported when saving a file');
+    return;
+  }
   chrome.fileSystem.chooseEntry(
       params,
       function(entry) {
@@ -144,8 +148,8 @@ Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
  * @type {function(Array.<FileEntry>)} callback
  * @type {function()} opt_oncancel
  * Open one or multiple files in the system file picker. File Entries are
- * copied to be stored in background page, so it isn't destroyed when the
- * window is closed.
+ * copied to be stored in background page, so they aren't destroyed when the
+ * window is closed. Callback is called once for each File Entry.
  */
 Tabs.prototype.chooseEntries = function(params, callback, opt_oncancel) {
   params.acceptsMultiple = true;
