@@ -10,7 +10,7 @@
  *
  *   * i18n-options which generates <option> elements for a <select>.
  *
- *     <select i18n-options="value1:firstValue;value2;secondValue"></select>
+ *     <select i18n-options="value1:firstValue;value2:secondValue"></select>
  *
  *   * i18n-values is a list of attribute-value or property-value pairs.
  *     Properties are prefixed with a '.' and can contain nested properties.
@@ -73,7 +73,7 @@ var i18nTemplate = (function() {
 
         var attributeAndKeyPair = part.match(/^([^:]+):(.+)$/);
         if (!attributeAndKeyPair)
-          throw new Error('malformed i18n-values: ' + attributeAndKeys);
+          console.error('malformed i18n-values: ' + attributeAndKeys);
 
         var propName = attributeAndKeyPair[1];
         var propExpr = attributeAndKeyPair[2];

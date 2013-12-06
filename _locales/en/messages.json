@@ -1,8 +1,4 @@
 {
-  "appName": {
-    "message": "Text Dev",
-    "description": "The title of the application, displayed in the web store."
-  },
   "appDesc": {
     "message": "A text editor for ChromeOS and Chrome.",
     "description":"The description of the application, displayed in the web store."
