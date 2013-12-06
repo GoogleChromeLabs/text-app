@@ -41,6 +41,8 @@ FILES = [
  ]
 
 MANIFEST = 'manifest.json'
+LOCALES_DIRNAME = '_locales'
+MESSAGES = 'messages.json'
 INDEX_HTML = 'index.html'
 TARGET_JS = 'js/all.js'
 TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
@@ -59,7 +61,6 @@ EXTERNS_URLS = [
 
 SKIP_JS_FILES = []
 
-USE_LOCALIZED_NAME = False
 COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
 BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
 
@@ -104,14 +105,21 @@ def get_version():
   return version
 
 
+def process_locales(out_dir):
+  for locale_code in os.listdir(os.path.join(SOURCE_DIR, LOCALES_DIRNAME)):
+    locale_code_dir = os.path.join(SOURCE_DIR, LOCALES_DIRNAME, locale_code)
+    print('Processing', locale_code_dir)
+    messages = json.load(open(os.path.join(locale_code_dir, MESSAGES)))
+    messages['appName']['message'] = APP_NAME
+    out_locale_code_dir = os.path.join(out_dir, LOCALES_DIRNAME, locale_code)
+    os.makedirs(out_locale_code_dir, exist_ok=True)
+    json.dump(messages,
+              open(os.path.join(out_locale_code_dir, MESSAGES), 'w'),
+              indent=2)
+
+
 def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
-  if USE_LOCALIZED_NAME:
-    manifest['name'] = '__MSG_extName__'
-    manifest['file_handlers']['text']['title'] = '__MSG_extName__'
-  else:
-    manifest['name'] = APP_NAME
-    manifest['file_handlers']['text']['title'] = APP_NAME
   manifest['version'] = version
 
   if IS_APP:
@@ -241,6 +249,7 @@ def main():
              js_files,
              COMPILATION_LEVEL,
              JS_EXTERNS)
+  messages_json_files = process_locales(out_dir)
 
   print('Archiving', archive_path)
   shutil.make_archive(out_dir, 'zip',

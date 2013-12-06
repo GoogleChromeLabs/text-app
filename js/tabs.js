@@ -88,7 +88,8 @@ Tab.prototype.reportWriteError_ = function(e) {
   this.dialogController_.setText(
       'Error saving file: ' + util.fsErrorStr(e));
   this.dialogController_.resetButtons();
-  this.dialogController_.addButton('ok', 'OK');
+  this.dialogController_.addButton('ok',
+      chrome.i18n.getMessage('okDialogButton'));
   this.dialogController_.show();
 };
 
@@ -212,11 +213,14 @@ Tabs.prototype.close = function(tabId) {
       this.save(tab, true /* close */);
     } else {
       this.dialogController_.setText(
-          'Do you want to save the file before closing?');
+          chrome.i18n.getMessage('saveFilePrompt'));
       this.dialogController_.resetButtons();
-      this.dialogController_.addButton('yes', 'Yes');
-      this.dialogController_.addButton('no', 'No');
-      this.dialogController_.addButton('cancel', 'Cancel');
+      this.dialogController_.addButton('yes',
+          chrome.i18n.getMessage('yesDialogButton'));
+      this.dialogController_.addButton('no',
+          chrome.i18n.getMessage('noDialogButton'));
+      this.dialogController_.addButton('cancel',
+          chrome.i18n.getMessage('cancelDialogButton'));
       this.dialogController_.show(function(answer) {
         if (answer === 'yes') {
           this.save(tab, true /* close */);

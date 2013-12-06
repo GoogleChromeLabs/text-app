@@ -24,10 +24,10 @@ function WindowController(editor, settings) {
 WindowController.prototype.initSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
-    $('#toggle-sidebar').attr('title', 'Close sidebar');
+    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   } else {
     $('#sidebar').css('width', '0');
-    $('#toggle-sidebar').attr('title', 'Open sidebar');
+    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
   }
 };
 
@@ -56,10 +56,10 @@ WindowController.prototype.maximize_ = function() {
 
   if (maximized) {
     window.chrome.app.window.current().restore();
-    $('#window-maximize').attr('title', 'Maximize');
+    $('#window-maximize').attr('title', chrome.i18n.getMessage('maximizeButton'));
   } else {
     window.chrome.app.window.current().maximize();
-    $('#window-maximize').attr('title', 'Restore');
+    $('#window-maximize').attr('title', chrome.i18n.getMessage('restoreButton'));
   }
 };
 
@@ -67,11 +67,11 @@ WindowController.prototype.toggleSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     this.settings_.set('sidebaropen', false);
     $('#sidebar').css('width', '0');
-    $('#toggle-sidebar').attr('title', 'Open sidebar');
+    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
   } else {
     this.settings_.set('sidebaropen', true);
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
-    $('#toggle-sidebar').attr('title', 'Close sidebar');
+    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   }
   this.editor_.focus();
   setTimeout(function() {$.event.trigger('resize');}, 200);

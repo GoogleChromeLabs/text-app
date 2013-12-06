@@ -1,0 +1,126 @@
+{
+  "appName": {
+    "message": "Text Dev",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "A text editor for ChromeOS and Chrome.",
+    "description":"The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "New",
+    "description":"The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Open",
+    "description":"The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Save",
+    "description":"The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Save as",
+    "description":"The text of the File Menu 'Save as'."
+  },
+  "menuOpenSettings": {
+    "message": "Settings",
+    "description":"The text of the Menu to open settings'."
+  },
+  "menuSettings": {
+    "message": "Settings",
+    "description":"The text of the Menu 'Settings'."
+  },
+  "autosaveSetting": {
+    "message": "Autosave",
+    "description":"The text of the settings 'Autosave'."
+  },
+  "spacestabSetting": {
+    "message": "Tabs to spaces",
+    "description":"The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Tab size",
+    "description":"The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Wrap lines",
+    "description":"The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Line numbers",
+    "description":"The text of the settings 'Line numbers'."
+  },
+  "smartindentSetting": {
+    "message": "Smart indent",
+    "description":"The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Theme",
+    "description":"The text of the settings 'Theme'."
+  },
+  "defaultThemeOption": {
+    "message": "Default",
+    "description":"The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Light",
+    "description":"The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Dark",
+    "description":"The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Back",
+    "description":"The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Open sidebar",
+    "description":"The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Close sidebar",
+    "description":"The button text to close the sidebar."
+  },
+  "searchButton": {
+    "message": "Search",
+    "description":"The button text to search."
+  },
+  "errorTitle": {
+    "message": "Error",
+    "description":"The error text displayed in the filename title bar."
+  },
+  "maximizeButton": {
+    "message": "Maximize",
+    "description":"The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Restore",
+    "description":"The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Quit",
+    "description":"The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "yes",
+    "description":"the button text which says 'yes'."
+  },
+  "noDialogButton": {
+    "message": "No",
+    "description":"The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Cancel",
+    "description":"The button text which says 'Cancel'."
+  },
+  "saveFilePrompt": {
+    "message": "Do you want to save the file before closing?",
+    "description":"The text which prompts user if he wants to save file before closing it."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description":"The button text which says 'OK'."
+  }
+}
