@@ -124,8 +124,7 @@ function Tabs(editor, dialogController, settings) {
  * in background page, so it isn't destroyed when the window is closed.
  */
 Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
-  // Add the line below when crbug.com/326523 is fixed
-  //params.acceptsMultiple = false;
+  // FIXME Add `params.acceptsMultiple = false` when crbug.com/326523 is fixed.
   chrome.fileSystem.chooseEntry(
       params,
       function(entry) {
