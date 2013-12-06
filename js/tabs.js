@@ -121,15 +121,45 @@ function Tabs(editor, dialogController, settings) {
  * @type {function(FileEntry)} callback
  * @type {function()} opt_oncancel
  * Open a file in the system file picker. The FileEntry is copied to be stored
- * in background page, so that it wasn't destroyed when the window is closed.
+ * in background page, so it isn't destroyed when the window is closed.
  */
-Tabs.chooseEntry = function(params, callback, opt_oncancel) {
+Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
+  // TODO: Remove this when crbug.com/326523 is fixed.
+  if (params.acceptsMultiple) {
+    console.error('acceptsMultiple is not supported when saving a file');
+    return;
+  }
   chrome.fileSystem.chooseEntry(
       params,
       function(entry) {
         if (entry) {
           chrome.runtime.getBackgroundPage(function(bg) {
             bg.background.copyFileEntry(entry, callback);
+          });
+        } else {
+          if (opt_oncancel)
+            opt_oncancel();
+        }
+      });
+};
+
+/**
+ * @type {Object} params
+ * @type {function(FileEntry)} callback
+ * @type {function()} opt_oncancel
+ * Open one or multiple files in the system file picker. File Entries are
+ * copied to be stored in background page, so they aren't destroyed when the
+ * window is closed. Callback is called once for each File Entry.
+ */
+Tabs.prototype.chooseEntries = function(params, callback, opt_oncancel) {
+  params.acceptsMultiple = true;
+  chrome.fileSystem.chooseEntry(
+      params,
+      function(entries) {
+        if (entries) {
+          chrome.runtime.getBackgroundPage(function(bg) {
+            for (var i = 0; i < entries.length; i++)
+              bg.background.copyFileEntry(entries[i], callback);
           });
         } else {
           if (opt_oncancel)
@@ -261,8 +291,10 @@ Tabs.prototype.closeCurrent = function() {
   this.close(this.currentTab_.getId());
 };
 
-Tabs.prototype.openFile = function() {
-  Tabs.chooseEntry({'type': 'openWritableFile'}, this.openFileEntry.bind(this));
+Tabs.prototype.openFiles = function() {
+  this.chooseEntries(
+      {'type': 'openWritableFile'},
+      this.openFileEntry.bind(this));
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -281,7 +313,7 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  Tabs.chooseEntry(
+  this.chooseEntry(
       {'type': 'saveFile'},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
 };
@@ -304,11 +336,7 @@ Tabs.prototype.getFilesToSave = function() {
 };
 
 Tabs.prototype.openFileEntry = function(entry) {
-  if (!entry) {
-    return;
-  }
-
-  var thisPath = chrome.fileSystem.getDisplayPath(entry, function(path) {
+  chrome.fileSystem.getDisplayPath(entry, function(path) {
     for (var i = 0; i < this.tabs_.length; i++) {
       if (this.tabs_[i].getPath() === path) {
         this.showTab(this.tabs_[i].getId());
