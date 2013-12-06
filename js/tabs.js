@@ -145,7 +145,7 @@ Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
 
 /**
  * @type {Object} params
- * @type {function(Array.<FileEntry>)} callback
+ * @type {function(FileEntry)} callback
  * @type {function()} opt_oncancel
  * Open one or multiple files in the system file picker. File Entries are
  * copied to be stored in background page, so they aren't destroyed when the
