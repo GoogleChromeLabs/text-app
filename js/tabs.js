@@ -121,9 +121,11 @@ function Tabs(editor, dialogController, settings) {
  * @type {function(FileEntry)} callback
  * @type {function()} opt_oncancel
  * Open a file in the system file picker. The FileEntry is copied to be stored
- * in background page, so that it wasn't destroyed when the window is closed.
+ * in background page, so it isn't destroyed when the window is closed.
  */
-Tabs.chooseEntry = function(params, callback, opt_oncancel) {
+Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
+  // Add the line below when crbug.com/326523 is fixed
+  //params.acceptsMultiple = false;
   chrome.fileSystem.chooseEntry(
       params,
       function(entry) {
@@ -140,24 +142,21 @@ Tabs.chooseEntry = function(params, callback, opt_oncancel) {
 
 /**
  * @type {Object} params
- * @type {function(FileEntry)} callback
+ * @type {function(Array.<FileEntry>)} callback
  * @type {function()} opt_oncancel
- * Open one or multiple files in the system file picker. FileEntry are copied
- * to be stored in background page, so that reference isn't destroyed when the
- * App Window is closed.
+ * Open one or multiple files in the system file picker. File Entries are
+ * copied to be stored in background page, so it isn't destroyed when the
+ * window is closed.
  */
-Tabs.chooseEntries = function(params, callback, opt_oncancel) {
+Tabs.prototype.chooseEntries = function(params, callback, opt_oncancel) {
+  params.acceptsMultiple = true;
   chrome.fileSystem.chooseEntry(
       params,
       function(entries) {
         if (entries) {
           chrome.runtime.getBackgroundPage(function(bg) {
-            var numFileEntriesHandled = 0;
             for (var i = 0; i < entries.length; i++)
-              bg.background.copyFileEntry(entries[i], function() {
-                if (++numFileEntriesHandled === entries.length)
-                  callback(entries);
-              });
+              bg.background.copyFileEntry(entries[i], callback);
           });
         } else {
           if (opt_oncancel)
@@ -290,9 +289,9 @@ Tabs.prototype.closeCurrent = function() {
 };
 
 Tabs.prototype.openFiles = function() {
-  Tabs.chooseEntries(
-      {'type': 'openWritableFile', 'acceptsMultiple': true},
-      this.openFileEntries.bind(this));
+  this.chooseEntries(
+      {'type': 'openWritableFile'},
+      this.openFileEntry.bind(this));
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
@@ -311,7 +310,7 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  Tabs.chooseEntry(
+  this.chooseEntry(
       {'type': 'saveFile'},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
 };
@@ -333,18 +332,16 @@ Tabs.prototype.getFilesToSave = function() {
   return toSave;
 };
 
-Tabs.prototype.openFileEntries = function(entries) {
-  entries.forEach(function(entry) {
-    chrome.fileSystem.getDisplayPath(entry, function(path) {
-      for (var i = 0; i < this.tabs_.length; i++) {
-        if (this.tabs_[i].getPath() === path) {
-          this.showTab(this.tabs_[i].getId());
-          return;
-        }
+Tabs.prototype.openFileEntry = function(entry) {
+  chrome.fileSystem.getDisplayPath(entry, function(path) {
+    for (var i = 0; i < this.tabs_.length; i++) {
+      if (this.tabs_[i].getPath() === path) {
+        this.showTab(this.tabs_[i].getId());
+        return;
       }
+    }
 
-      entry.file(this.readFileToNewTab_.bind(this, entry));
-    }.bind(this));
+    entry.file(this.readFileToNewTab_.bind(this, entry));
   }.bind(this));
 };
 

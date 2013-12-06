@@ -52,7 +52,9 @@ TextApp.prototype.init = function() {
  * Open one tab per file. Usually called from the background page.
  */
 TextApp.prototype.openEntries = function(entries) {
-  this.tabs_.openFileEntries(entries);
+ for (var i = 0; i < entries.length; i++) {
+    this.tabs_.openFileEntry(entries[i]);
+ }
 };
 
 TextApp.prototype.openNew = function() {
