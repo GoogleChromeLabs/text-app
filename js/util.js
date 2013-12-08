@@ -50,3 +50,12 @@ util.writeToWriter_ = function(writer, blob, onsuccess) {
   writer.onwrite = onsuccess;
   writer.write(blob);
 };
+
+/**
+ * @param {string} File name.
+ * @return {string} Sanitized File name.
+ * Returns a sanitized version of a File Name.
+ */
+util.sanitizeFileName = function(fileName) {
+  return fileName.replace(/[^a-z0-9\-]/gi, ' ').substr(0, 50).trim();
+}
