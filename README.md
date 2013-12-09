@@ -1,20 +1,17 @@
 # Text.app
 
-Just a text editor for ChromeOS. Can also be used on any other system with Chrome. To install visit the [Text.app page in Chrome WebStore](https://chrome.google.com/webstore/detail/text-drive/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
+Just a text editor for ChromeOS and Chrome. To install visit the [Text.app page in Chrome WebStore](https://chrome.google.com/webstore/detail/text-drive/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
 
 ## Getting the code
 
 You can download the whole source code [as one archive](https://github.com/GoogleChrome/text-app/archive/master.zip), or get it from the repository using git:
 
-    git clone git://github.com/GoogleChrome/text-app.git
-    cd text-app
-    git submodule init
-    git submodule update
+    git clone --recursive git://github.com/GoogleChrome/text-app.git
 
 ## Running the development version
 
-* Check `Developer Mode` in `chrome://chrome/extensions/`
-* Click "Load unpacked extension..." in `chrome://chrome/extensions/` and open the `text-app` directory.
+* Check `Developer Mode` in `chrome://extensions`
+* Click "Load unpacked extension..." in `chrome://extensions` and select the `text-app` directory.
 
 ## Building the package
 
