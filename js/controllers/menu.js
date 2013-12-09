@@ -85,7 +85,7 @@ MenuController.prototype.newTab_ = function() {
 };
 
 MenuController.prototype.open_ = function() {
-  this.tabs_.openFile();
+  this.tabs_.openFiles();
   return false;
 };
 
