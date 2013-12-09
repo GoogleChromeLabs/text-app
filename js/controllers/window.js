@@ -10,8 +10,9 @@ function WindowController(editor, settings) {
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
-  $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabchange', this.onTabChange_.bind(this));
+  $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
+  $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 
   if (this.settings_.isReady()) {
@@ -85,6 +86,10 @@ WindowController.prototype.onChangeTab_ = function(e, tab) {
   this.currentTab_ = tab;
   $('#title-filename').text(tab.getName());
   this.onTabChange_();
+};
+
+WindowController.prototype.onTabPathChange = function(e, tab) {
+  $('#title-filename').attr('title', tab.getPath());
 };
 
 WindowController.prototype.onTabChange_ = function(e, tab) {
