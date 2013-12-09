@@ -1,6 +1,7 @@
 {
   "name": "Text Dev",
-  "description": "A text editor for ChromeOS and Chrome.",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "version": "0.4",
   "icons": {
     "16": "icon/16x16.png",

@@ -18,6 +18,7 @@ BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 FILES = [
   'index.html',
+  '_locales/en/messages.json',
   'css/app.css',
   'css/theme-dark.css',
   'css/theme-default.css',
