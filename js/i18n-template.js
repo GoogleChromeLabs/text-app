@@ -2,15 +2,11 @@
  * @fileoverview This is a simple template engine inspired by JsTemplates
  * optimized for i18n.
  *
- * It currently supports three handlers:
+ * It currently supports two handlers:
  *
  *   * i18n-content which sets the textContent of the element.
  *
  *     <span i18n-content="myContent"></span>
- *
- *   * i18n-options which generates <option> elements for a <select>.
- *
- *     <select i18n-options="value1:firstValue;value2:secondValue"></select>
  *
  *   * i18n-values is a list of attribute-value or property-value pairs.
  *     Properties are prefixed with a '.' and can contain nested properties.
@@ -39,23 +35,6 @@ var i18nTemplate = (function() {
     },
 
     /**
-     * This handler adds options to a <select> element.
-     * @param {HTMLElement} select The node to modify.
-     * @param {string} valueAndTexts The value and text to be processed by
-     * chrome.i18n for each option to add to the select node.
-     * Multiple value/text pairs are separated by semicolons.
-     */
-    'i18n-options': function(select, valueAndTexts) {
-      var parts = valueAndTexts.replace(/\s/g, '').split(/;/);
-      parts.forEach(function(part) {
-        var optionData = part.split(/:/);
-        var optionText = chrome.i18n.getMessage(optionData[1]);
-        var option = new Option(optionText, optionData[0]);
-        select.appendChild(option);
-      });
-    },
-
-    /**
      * This is used to set HTML attributes and DOM properties. The syntax is:
      *   attributename:key;
      *   .domProperty:key;
@@ -72,8 +51,10 @@ var i18nTemplate = (function() {
           return;
 
         var attributeAndKeyPair = part.match(/^([^:]+):(.+)$/);
-        if (!attributeAndKeyPair)
+        if (!attributeAndKeyPair) {
           console.error('malformed i18n-values: ' + attributeAndKeys);
+          return;
+        }
 
         var propName = attributeAndKeyPair[1];
         var propExpr = attributeAndKeyPair[2];
