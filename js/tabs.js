@@ -318,7 +318,7 @@ Tabs.prototype.save = function(opt_tab, opt_close) {
 Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
-  var suggestedName = opt_tab.entry && opt_tab.entry.name ||
+  var suggestedName = opt_tab.entry_ && opt_tab.entry_.name ||
                       util.sanitizeFileName(opt_tab.session_.getLine(0)) ||
                       opt_tab.getName();
   this.chooseEntry(
