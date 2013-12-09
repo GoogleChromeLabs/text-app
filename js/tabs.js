@@ -69,6 +69,7 @@ Tab.prototype.getPath = function() {
 Tab.prototype.updatePath_ = function() {
   chrome.fileSystem.getDisplayPath(this.entry_, function(path) {
     this.path_ = path;
+    $.event.trigger('tabpathchange', this);
   }.bind(this));
 };
 
