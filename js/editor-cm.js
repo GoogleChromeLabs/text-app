@@ -103,7 +103,7 @@ EditorCodeMirror.prototype.find = function(query) {
 };
 
 /**
- * Select the next match. Should be called when user presses Enter in search
+ * Select the next match. Should be called when user presses Enter, down, right in search
  * field.
  */
 EditorCodeMirror.prototype.findNext = function() {
@@ -128,6 +128,34 @@ EditorCodeMirror.prototype.findNext = function() {
     this.cm_.setCursor(this.cm_.getCursor('anchor'));
   }
 };
+
+/**
+ * Select the previous match. Should be called when user presses up, left in search
+ * field.
+ */
+EditorCodeMirror.prototype.findPrevious = function() {
+  if (!this.searchCursor_) {
+    throw 'Internal error: search cursor should be initialized.';
+  }
+
+  if (!this.searchCursor_.findPrevious()) {
+    // Go to the beginning of the document.
+    this.searchCursor_ = this.cm_.getSearchCursor(
+      this.searchQuery_, CodeMirror.Pos(0, 0), true);
+    this.searchCursor_.findPrevious();
+  }
+
+  var from = this.searchCursor_.from();
+  var to = this.searchCursor_.to();
+
+  if (from && to) {
+    this.cm_.setSelection(from, to);
+  } else {
+    // Clear selection.
+    this.cm_.setCursor(this.cm_.getCursor('anchor'));
+  }
+};
+
 
 EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;

@@ -35,7 +35,24 @@ SearchController.prototype.onChange_ = function() {
 
 SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
-    case 13:
+    case 13: // 13 Enter findNext
+      e.stopPropagation();
+      this.editor_.findNext(this.currentSearch_);
+      break;
+
+    case 37: // 37 left findPrevious
+      e.stopPropagation();
+      this.editor_.findPrevious(this.currentSearch_);
+      break;
+    case 38: // 38 up findPrevious
+      e.stopPropagation();
+      this.editor_.findPrevious(this.currentSearch_);
+      break;
+    case 39: // 38 right findNext
+      e.stopPropagation();
+      this.editor_.findNext(this.currentSearch_);
+      break;
+    case 40: // 40 down findNext
       e.stopPropagation();
       this.editor_.findNext(this.currentSearch_);
       break;
