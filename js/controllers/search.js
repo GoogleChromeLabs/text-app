@@ -35,7 +35,7 @@ SearchController.prototype.onChange_ = function() {
 
 SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
-    case 13:
+    case 13: // 13 Enter findNext
       e.stopPropagation();
       this.editor_.findNext(this.currentSearch_);
       break;
@@ -45,5 +45,11 @@ SearchController.prototype.onKeydown_ = function(e) {
       $('#search-input').val('');
       this.editor_.focus();
       break;
-  }
+  };
+  
+  if (e.keyCode == 13 && e.shiftKey) { // Shift+Enter findPrevious
+      e.stopPropagation();
+      this.editor_.findPrevious(this.currentSearch_);
+  };
+
 };
