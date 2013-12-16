@@ -79,6 +79,13 @@ TextApp.prototype.getFilesToSave = function() {
   }
 };
 
+/**
+ * @return {Array.<FileEntry>}
+ */
+TextApp.prototype.getFilesToRetain = function() {
+  return this.tabs_.getFilesToRetain();
+};
+
 TextApp.prototype.setTheme = function() {
   var theme = this.settings_.get('theme');
   this.windowController_.setTheme(theme);

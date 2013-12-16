@@ -49,6 +49,16 @@ Background.prototype.newWindow = function() {
  */
 Background.prototype.launch = function(launchData) {
   var entries = [];
+  var self = this;
+  chrome.storage.local.get('retainedEntryIds', function(data) {
+    var retainedEntryIds = data.retainedEntryIds || [];
+    for (var i = 0; i < retainedEntryIds.length; i++) {
+      chrome.fileSystem.restoreEntry(retainedEntryIds[i], function(entry) {
+        self.entriesToOpen_.push(entry);
+      });
+    }
+  });
+
   if (launchData && launchData['items']) {
     for (var i = 0; i < launchData['items'].length; i++) {
       entries.push(launchData['items'][i]['entry']);
@@ -96,6 +106,15 @@ Background.prototype.onWindowClosed = function(win) {
     var contents = toSave[i].contents;
     this.saveFile_(entry, contents);
   }
+
+  var toRetain = td.getFilesToRetain();
+  console.log('Got ' + toRetain.length + ' files to retain:', toRetain);
+  var toRetainEntryIds = [];
+  for (var i = 0; i < toRetain.length; i++) {
+    var entryId = chrome.fileSystem.retainEntry(toRetain[i]);
+    toRetainEntryIds.push(entryId);
+  }
+  this.retainFiles_(toRetainEntryIds);
 };
 
 /**
@@ -105,6 +124,13 @@ Background.prototype.onWindowClosed = function(win) {
 Background.prototype.saveFile_ = function(entry, contents) {
   util.writeFile(
       entry, contents, function() {console.log('Saved', entry.name);});
+};
+
+/**
+ * @param {Array.<FileEntry>} entryIds
+ */
+Background.prototype.retainFiles_ = function(entryIds) {
+  chrome.storage.local.set({'retainedEntryIds': entryIds});
 };
 
 /**
