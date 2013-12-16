@@ -343,6 +343,21 @@ Tabs.prototype.getFilesToSave = function() {
   return toSave;
 };
 
+/**
+ * @return {Array.<FileEntry>}
+ */
+Tabs.prototype.getFilesToRetain = function() {
+  var toRetain = [];
+
+  for (i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i].getEntry()) {
+      toRetain.push(this.tabs_[i].getEntry());
+    }
+  }
+
+  return toRetain;
+};
+
 Tabs.prototype.openFileEntry = function(entry) {
   chrome.fileSystem.getDisplayPath(entry, function(path) {
     for (var i = 0; i < this.tabs_.length; i++) {
