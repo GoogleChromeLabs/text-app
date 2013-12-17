@@ -22,9 +22,27 @@ chrome.fileSystem = {};
 chrome.fileSystem.getWritableEntry = function(entry, callback) {};
 /**
  * @param {FileEntry} entry
- * @return {string}
  */
-chrome.fileSystem.getEntryId = function(entry) {};
+chrome.fileSystem.retainEntry = function(entry) {};
+/**
+ * @param {string} id
+ * @param {function(FileEntry)} callback
+ */
+chrome.fileSystem.restoreEntry = function(id, callback) {};
+
+
+chrome.storage = {};
+chrome.storage.local = {};
+/**
+ * @param {Object} items
+ * @param {function} callback
+ */
+chrome.storage.local.set = function(items, callback) {};
+/**
+ * @param {Object} keys
+ * @param {function(<Object>} callback
+ */
+chrome.storage.local.get = function(keys, callback) {};
 
 /**
  * @constructor
@@ -58,6 +76,10 @@ TextApp.prototype.openNew = function() {};
  * @return {Array.<Object>}
  */
 TextApp.prototype.getFilesToSave = function() {};
+/**
+ * @return {Array.<FileEntry>}
+ */
+TextApp.prototype.getFilesToRetain = function() {};
 
 /**
  * @type {TextApp}
