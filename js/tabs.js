@@ -116,6 +116,7 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
+  $(document).bind('showtab', this.onShowTab.bind(this));
 }
 
 /**
@@ -206,29 +207,15 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
 };
 
 Tabs.prototype.previousTab = function() {
-  for (var i = 0; i < this.tabs_.length; i++) {
-    if (this.tabs_[i] === this.currentTab_) {
-      var previous = i - 1;
-      if (previous < 0)
-        previous = this.tabs_.length - 1;
-      if (previous !== i)
-        this.showTab(this.tabs_[previous].getId());
-      return;
-    }
-  }
+  $.event.trigger('getprevioustab', this.currentTab_);
 };
 
 Tabs.prototype.nextTab = function() {
-  for (var i = 0; i < this.tabs_.length; i++) {
-    if (this.tabs_[i] === this.currentTab_) {
-      var next = i + 1;
-      if (next === this.tabs_.length)
-        next = 0;
-      if (next !== i)
-        this.showTab(this.tabs_[next].getId());
-      return;
-    }
-  }
+  $.event.trigger('getnexttab', this.currentTab_);
+};
+
+Tabs.prototype.onShowTab = function(e, tabId) {
+  this.showTab(tabId);
 };
 
 Tabs.prototype.showTab = function(tabId) {
