@@ -27,8 +27,9 @@ Background.prototype.ifShowFrame_ = function() {
 };
 
 Background.prototype.newWindow = function() {
+  var appWindowId = 'appWindow' + this.windows_.length;
   var options = {
-    id: 'mainWindow',
+    id: appWindowId,
     frame: (this.ifShowFrame_() ? 'chrome' : 'none'),
     minWidth: 400,
     minHeight: 400,
