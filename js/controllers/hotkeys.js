@@ -28,7 +28,10 @@ HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
     switch (e.keyCode) {
       case this.KEY.TAB:  // Tab
-        this.tabs_.nextTab();
+        if (e.shiftKey)
+          this.tabs_.previousTab();
+        else
+          this.tabs_.nextTab();
         return false;
 
       case this.KEY.F:

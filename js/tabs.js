@@ -205,6 +205,19 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     this.editor_.setMode(session, fileNameExtension);
 };
 
+Tabs.prototype.previousTab = function() {
+  for (var i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i] === this.currentTab_) {
+      var previous = i - 1;
+      if (previous < 0)
+        previous = this.tabs_.length - 1;
+      if (previous !== i)
+        this.showTab(this.tabs_[previous].getId());
+      return;
+    }
+  }
+};
+
 Tabs.prototype.nextTab = function() {
   for (var i = 0; i < this.tabs_.length; i++) {
     if (this.tabs_[i] === this.currentTab_) {
