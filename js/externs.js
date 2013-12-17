@@ -40,7 +40,7 @@ chrome.storage.local = {};
 chrome.storage.local.set = function(items, callback) {};
 /**
  * @param {Object} keys
- * @param {function(<Object>} callback
+ * @param {function(<Object>)} callback
  */
 chrome.storage.local.get = function(keys, callback) {};
 
