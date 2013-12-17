@@ -50,6 +50,15 @@ Background.prototype.newWindow = function() {
  */
 Background.prototype.launch = function(launchData) {
   var entries = [];
+  chrome.storage.local.get('retainedEntryIds', function(data) {
+    var retainedEntryIds = data['retainedEntryIds'] || [];
+    for (var i = 0; i < retainedEntryIds.length; i++) {
+      chrome.fileSystem.restoreEntry(retainedEntryIds[i], function(entry) {
+        this.entriesToOpen_.push(entry);
+      }.bind(this));
+    }
+  }.bind(this));
+
   if (launchData && launchData['items']) {
     for (var i = 0; i < launchData['items'].length; i++) {
       entries.push(launchData['items'][i]['entry']);
@@ -83,20 +92,23 @@ Background.prototype.onWindowClosed = function(win) {
                  win.contentWindow, win.contentWindow.textApp);
     return;
   }
-  var td = win.contentWindow.textApp;
+  var textApp = win.contentWindow.textApp;
   for (var i = 0; i < this.windows_.length; i++) {
-    if (td === this.windows_[i]) {
+    if (textApp === this.windows_[i]) {
       this.windows_.splice(i, 1);
     }
   }
 
-  var toSave = td.getFilesToSave();
+  var toSave = textApp.getFilesToSave();
   console.log('Got ' + toSave.length + ' files to save:', toSave);
   for (var i = 0; i < toSave.length; i++) {
     var entry = toSave[i].entry;
     var contents = toSave[i].contents;
     this.saveFile_(entry, contents);
   }
+
+  var toRetain = textApp.getFilesToRetain();
+  this.retainFiles_(toRetain);
 };
 
 /**
@@ -109,18 +121,31 @@ Background.prototype.saveFile_ = function(entry, contents) {
 };
 
 /**
- * @param {TextApp} td
+ * @param {Array.<FileEntry>} toRetain
+ */
+Background.prototype.retainFiles_ = function(toRetain) {
+  console.log('Got ' + toRetain.length + ' files to retain:', toRetain);
+  var toRetainEntryIds = [];
+  for (var i = 0; i < toRetain.length; i++) {
+    var entryId = chrome.fileSystem.retainEntry(toRetain[i]);
+    toRetainEntryIds.push(entryId);
+  }
+  chrome.storage.local.set({'retainedEntryIds': toRetainEntryIds});
+};
+
+/**
+ * @param {TextApp} textApp
  * Called by the TextApp object in the window when the window is ready.
  */
-Background.prototype.onWindowReady = function(td) {
-  this.windows_.push(td);
-  td.setHasChromeFrame(this.ifShowFrame_());
+Background.prototype.onWindowReady = function(textApp) {
+  this.windows_.push(textApp);
+  textApp.setHasChromeFrame(this.ifShowFrame_());
 
   if (this.entriesToOpen_.length > 0) {
-    td.openEntries(this.entriesToOpen_);
+    textApp.openEntries(this.entriesToOpen_);
     this.entriesToOpen_ = [];
   } else {
-    td.openNew();
+    textApp.openNew();
   }
 };
 
