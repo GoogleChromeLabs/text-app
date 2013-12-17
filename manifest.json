@@ -24,10 +24,7 @@
     }
   },
   "permissions": [
-    "clipboardRead",
-    "clipboardWrite",
     "storage",
-    "unlimitedStorage",
     {"fileSystem": ["write"]}
   ],
   "file_handlers": {
