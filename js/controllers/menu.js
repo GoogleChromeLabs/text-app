@@ -83,7 +83,7 @@ MenuController.prototype.onTabSave = function(e, tab) {
 
 MenuController.prototype.onSwapTabs = function(e, tab1, tab2) {
   this.dragItem_ = $('#tab' + tab1.getId());
-  this.onDragOver_($('#tab' + tab1.getId()), e);
+  this.onDragOver_($('#tab' + tab2.getId()), e);
 };
 
 MenuController.prototype.onSwitchTab = function(e, tab) {
