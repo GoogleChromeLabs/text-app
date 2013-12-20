@@ -10,7 +10,6 @@ function MenuController(tabs) {
   $('#file-menu-saveas').click(this.saveas_.bind(this));
   $(document).bind('newtab', this.onNewTab.bind(this));
   $(document).bind('switchtab', this.onSwitchTab.bind(this));
-  $(document).bind('swaptabs', this.onSwapTabs.bind(this));
   $(document).bind('tabchange', this.onTabChange.bind(this));
   $(document).bind('tabclosed', this.onTabClosed.bind(this));
   $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
@@ -57,7 +56,7 @@ MenuController.prototype.onDragOver_ = function(overItem, e) {
   } else {
     overItem.before(this.dragItem_);
   }
-  this.tabs_.move(this.dragItem_.index(), overItem.index());
+  this.tabs_.reorder(this.dragItem_.index(), overItem.index());
 };
 
 MenuController.prototype.onTabRenamed = function(e, tab) {
@@ -79,11 +78,6 @@ MenuController.prototype.onTabClosed = function(e, tab) {
 
 MenuController.prototype.onTabSave = function(e, tab) {
   $('#tab' + tab.getId()).removeClass('unsaved');
-};
-
-MenuController.prototype.onSwapTabs = function(e, tab1, tab2) {
-  this.dragItem_ = $('#tab' + tab1.getId());
-  this.onDragOver_($('#tab' + tab2.getId()), e);
 };
 
 MenuController.prototype.onSwitchTab = function(e, tab) {

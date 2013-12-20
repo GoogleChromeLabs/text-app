@@ -205,7 +205,7 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     this.editor_.setMode(session, fileNameExtension);
 };
 
-Tabs.prototype.move = function (oldIndex, newIndex) {
+Tabs.prototype.reorder = function (oldIndex, newIndex) {
   if (newIndex >= this.tabs_.length) {
     var i = newIndex - this.tabs_.length;
     while ((i--) + 1) {
@@ -217,7 +217,7 @@ Tabs.prototype.move = function (oldIndex, newIndex) {
 
 Tabs.prototype.getTabIndex = function(tab) {
   for (var i = 0; i < this.tabs_.length; i++) {
-    if (this.tabs_[i] == tab)
+    if (this.tabs_[i] === tab)
       return i;
   }
   return -1;
@@ -227,16 +227,16 @@ Tabs.prototype.previousTab = function() {
   var currentTabIndex = this.getTabIndex(this.currentTab_);
   var previousTabIndex = currentTabIndex - 1;
   if (previousTabIndex < 0)
-    previousTabIndex = this.tabs_.length;
-  $.event.trigger('swaptabs', [ this.currentTab_, this.tabs_[previousTabIndex] ]);
+    previousTabIndex = this.tabs_.length - 1;
+  this.showTab(this.tabs_[previousTabIndex].getId());
 };
 
 Tabs.prototype.nextTab = function() {
   var currentTabIndex = this.getTabIndex(this.currentTab_);
   var nextTabIndex = currentTabIndex + 1;
-  if (nextTabIndex > this.tabs_.length)
-    nextTabIndex = this.tabs_.length;
-  $.event.trigger('swaptabs', [ this.currentTab_, this.tabs_[nextTabIndex] ]);
+  if (nextTabIndex >= this.tabs_.length)
+    nextTabIndex = 0;
+  this.showTab(this.tabs_[nextTabIndex].getId());
 };
 
 Tabs.prototype.showTab = function(tabId) {
