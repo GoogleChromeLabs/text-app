@@ -116,7 +116,6 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
-  $(document).bind('showtab', this.onShowTab.bind(this));
 }
 
 /**
@@ -206,16 +205,38 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     this.editor_.setMode(session, fileNameExtension);
 };
 
+Tabs.prototype.move = function (oldIndex, newIndex) {
+  if (newIndex >= this.tabs_.length) {
+    var i = newIndex - this.tabs_.length;
+    while ((i--) + 1) {
+      this.tabs_.push(undefined);
+    }
+  }
+  this.tabs_.splice(newIndex, 0, this.tabs_.splice(oldIndex, 1)[0]);
+};
+
+Tabs.prototype.getTabIndex = function(tab) {
+  for (var i = 0; i < this.tabs_.length; i++) {
+    if (this.tabs_[i] == tab)
+      return i;
+  }
+  return -1;
+}
+
 Tabs.prototype.previousTab = function() {
-  $.event.trigger('getprevioustab', this.currentTab_);
+  var currentTabIndex = this.getTabIndex(this.currentTab_);
+  var previousTabIndex = currentTabIndex - 1;
+  if (previousTabIndex < 0)
+    previousTabIndex = this.tabs_.length;
+  $.event.trigger('swaptabs', [ this.currentTab_, this.tabs_[previousTabIndex] ]);
 };
 
 Tabs.prototype.nextTab = function() {
-  $.event.trigger('getnexttab', this.currentTab_);
-};
-
-Tabs.prototype.onShowTab = function(e, tabId) {
-  this.showTab(tabId);
+  var currentTabIndex = this.getTabIndex(this.currentTab_);
+  var nextTabIndex = currentTabIndex + 1;
+  if (nextTabIndex > this.tabs_.length)
+    nextTabIndex = this.tabs_.length;
+  $.event.trigger('swaptabs', [ this.currentTab_, this.tabs_[nextTabIndex] ]);
 };
 
 Tabs.prototype.showTab = function(tabId) {

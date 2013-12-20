@@ -9,9 +9,9 @@ function MenuController(tabs) {
   $('#file-menu-save').click(this.save_.bind(this));
   $('#file-menu-saveas').click(this.saveas_.bind(this));
   $(document).bind('newtab', this.onNewTab.bind(this));
-  $(document).bind('getnexttab', this.onGetNextTab.bind(this));
-  $(document).bind('getprevioustab', this.onGetPreviousTab.bind(this));
   $(document).bind('switchtab', this.onSwitchTab.bind(this));
+  $(document).bind('switchtab', this.onSwitchTab.bind(this));
+  $(document).bind('swaptabs', this.onSwapTabs.bind(this));
   $(document).bind('tabchange', this.onTabChange.bind(this));
   $(document).bind('tabclosed', this.onTabClosed.bind(this));
   $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
@@ -58,6 +58,7 @@ MenuController.prototype.onDragOver_ = function(overItem, e) {
   } else {
     overItem.before(this.dragItem_);
   }
+  this.tabs_.move(this.dragItem_.index(), overItem.index());
 };
 
 MenuController.prototype.onTabRenamed = function(e, tab) {
@@ -81,22 +82,9 @@ MenuController.prototype.onTabSave = function(e, tab) {
   $('#tab' + tab.getId()).removeClass('unsaved');
 };
 
-MenuController.prototype.onGetNextTab = function(e, tab) {
-  var nextTab = $('#tab' + tab.getId()).next();
-  if (nextTab.length === 0) {
-    nextTab = $('#tabs-list li:first-child');
-  }
-  var nextTabId = this.getTabId(nextTab);
-  $.event.trigger('showtab', nextTabId);
-};
-
-MenuController.prototype.onGetPreviousTab = function(e, tab) {
-  var previousTab = $('#tab' + tab.getId()).prev();
-  if (previousTab.length === 0) {
-    previousTab = $('#tabs-list li:last-child');
-  }
-  var previousTabId = this.getTabId(previousTab);
-  $.event.trigger('showtab', previousTabId);
+MenuController.prototype.onSwapTabs = function(e, firstTab, secondTab) {
+  this.dragItem_ = $('#tab' + firstTab.getId());
+  this.onDragOver_($('#tab' + secondTab.getId()), e);
 };
 
 MenuController.prototype.onSwitchTab = function(e, tab) {
@@ -131,8 +119,4 @@ MenuController.prototype.tabButtonClicked_ = function(id) {
 
 MenuController.prototype.closeTabClicked_ = function(id) {
   this.tabs_.close(id);
-};
-
-MenuController.prototype.getTabId = function(tab) {
-  return parseInt(tab.attr('id').substr('tab'.length));
 };
