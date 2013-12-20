@@ -21,7 +21,7 @@ function HotkeysController(tabs, editor, settings) {
 };
 
 /**
- * Some hotkeys are handled by Ace directly. Among them:
+ * Some hotkeys are handled by CodeMirror directly. Among them:
  * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A
  */
 HotkeysController.prototype.onKeydown_ = function(e) {
