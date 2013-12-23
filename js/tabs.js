@@ -205,14 +205,16 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     this.editor_.setMode(session, fileNameExtension);
 };
 
+/**
+ * @param {number} oldIndex
+ * @param {number} newIndex
+ * Move a {Tab} from oldIndex to newIndex
+ */
 Tabs.prototype.reorder = function (oldIndex, newIndex) {
-  if (newIndex >= this.tabs_.length) {
-    var i = newIndex - this.tabs_.length;
-    while ((i--) + 1) {
-      this.tabs_.push(undefined);
-    }
-  }
-  this.tabs_.splice(newIndex, 0, this.tabs_.splice(oldIndex, 1)[0]);
+  this.tabs_.splice(
+      newIndex, // specifies at what position to add items
+      0, // no items will be removed
+      this.tabs_.splice(oldIndex, 1)[0]); // item to be added
 };
 
 Tabs.prototype.getTabIndex = function(tab) {
