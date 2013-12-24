@@ -205,17 +205,40 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     this.editor_.setMode(session, fileNameExtension);
 };
 
-Tabs.prototype.nextTab = function() {
+/**
+ * @param {number} oldIndex
+ * @param {number} newIndex
+ * Move a {Tab} from oldIndex to newIndex
+ */
+Tabs.prototype.reorder = function (oldIndex, newIndex) {
+  this.tabs_.splice(
+      newIndex, // specifies at what position to add items
+      0, // no items will be removed
+      this.tabs_.splice(oldIndex, 1)[0]); // item to be added
+};
+
+Tabs.prototype.getTabIndex = function(tab) {
   for (var i = 0; i < this.tabs_.length; i++) {
-    if (this.tabs_[i] === this.currentTab_) {
-      var next = i + 1;
-      if (next === this.tabs_.length)
-        next = 0;
-      if (next !== i)
-        this.showTab(this.tabs_[next].getId());
-      return;
-    }
+    if (this.tabs_[i] === tab)
+      return i;
   }
+  return -1;
+}
+
+Tabs.prototype.previousTab = function() {
+  var currentTabIndex = this.getTabIndex(this.currentTab_);
+  var previousTabIndex = currentTabIndex - 1;
+  if (previousTabIndex < 0)
+    previousTabIndex = this.tabs_.length - 1;
+  this.showTab(this.tabs_[previousTabIndex].getId());
+};
+
+Tabs.prototype.nextTab = function() {
+  var currentTabIndex = this.getTabIndex(this.currentTab_);
+  var nextTabIndex = currentTabIndex + 1;
+  if (nextTabIndex >= this.tabs_.length)
+    nextTabIndex = 0;
+  this.showTab(this.tabs_[nextTabIndex].getId());
 };
 
 Tabs.prototype.showTab = function(tabId) {
