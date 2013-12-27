@@ -21,14 +21,18 @@ function HotkeysController(tabs, editor, settings) {
 };
 
 /**
- * Some hotkeys are handled by Ace directly. Among them:
+ * Some hotkeys are handled by CodeMirror directly. Among them:
  * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A
  */
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
     switch (e.keyCode) {
       case this.KEY.TAB:  // Tab
-        this.tabs_.nextTab();
+        if (e.shiftKey) {
+          this.tabs_.previousTab();
+        } else {
+          this.tabs_.nextTab();
+        }
         return false;
 
       case this.KEY.F:

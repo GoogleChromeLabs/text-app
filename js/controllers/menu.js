@@ -56,6 +56,7 @@ MenuController.prototype.onDragOver_ = function(overItem, e) {
   } else {
     overItem.before(this.dragItem_);
   }
+  this.tabs_.reorder(this.dragItem_.index(), overItem.index());
 };
 
 MenuController.prototype.onTabRenamed = function(e, tab) {
