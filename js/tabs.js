@@ -402,6 +402,7 @@ Tabs.prototype.modeAutoSet = function(tab) {
 };
 
 Tabs.prototype.readFileToNewTab_ = function(entry, file) {
+  $.event.trigger('loadingfile');
   var self = this;
   var reader = new FileReader();
   reader.onerror = util.handleFSError;

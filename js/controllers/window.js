@@ -9,6 +9,8 @@ function WindowController(editor, settings) {
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
+  $(document).bind('filesystemerror', this.onFileSystemError.bind(this));
+  $(document).bind('loadingfile', this.onLoadingFile.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
   $(document).bind('tabchange', this.onTabChange_.bind(this));
   $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
@@ -80,6 +82,14 @@ WindowController.prototype.toggleSidebar_ = function() {
   }
   this.editor_.focus();
   setTimeout(function() {$.event.trigger('resize');}, 200);
+};
+
+WindowController.prototype.onLoadingFile = function(e) {
+  $('#title-filename').text(chrome.i18n.getMessage('loadingTitle'));
+};
+
+WindowController.prototype.onFileSystemError = function(e) {
+  $('#title-filename').text(chrome.i18n.getMessage('errorTitle'));
 };
 
 WindowController.prototype.onChangeTab_ = function(e, tab) {
