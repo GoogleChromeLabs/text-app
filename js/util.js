@@ -22,6 +22,7 @@ util.fsErrorStr = function(e) {
 }
 
 util.handleFSError = function(e) {
+  $.event.trigger('filesystemerror');
   console.warn('FS Error:', util.fsErrorStr(e), e);
 };
 

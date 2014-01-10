@@ -87,6 +87,10 @@
     "message": "Error",
     "description":"The error text displayed in the filename title bar."
   },
+  "loadingTitle": {
+    "message": "Loading...",
+    "description":"The text displayed in the filename title bar when file loads."
+  },
   "maximizeButton": {
     "message": "Maximize",
     "description":"The button text to maximize the app window."
