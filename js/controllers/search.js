@@ -4,23 +4,34 @@
 function SearchController(editor) {
   this.editor_ = editor;
   this.currentSearch_ = '';
+  this.timeoutID = null;
 
   $('#search-button').click(this.onSearchButton_.bind(this));
   $('#search-input').focusout(this.onFocusOut_.bind(this));
   $('#search-input').bind('input', this.onChange_.bind(this));
   $('#search-input').keydown(this.onKeydown_.bind(this));
+  $('#search-next-button').click(this.onFindNext_.bind(this));
+  $('#search-previous-button').click(this.onFindPrevious_.bind(this));
+
+  $(document).bind('docfocus', this.onFocusOut_.bind(this));
+}
+
+SearchController.prototype.clearSearch_ = function() {
+  $('#search-input').val('');
+  $('header').removeClass('search-active');
+  this.editor_.clearSearch();
+  this.currentSearch_ = '';
 }
 
 SearchController.prototype.onSearchButton_ = function() {
   $('header').addClass('search-active');
-  setTimeout(function() {$('#search-input').focus();}, 100);
+  setTimeout(function() {$('#search-input').focus().select();}, 100);
 
   return false;
 };
 
 SearchController.prototype.onFocusOut_ = function() {
-  $('#search-input').val('');
-  $('header').removeClass('search-active');
+  this.timeoutID = setTimeout(this.clearSearch_.bind(this), 100);
 };
 
 SearchController.prototype.onChange_ = function() {
@@ -37,7 +48,10 @@ SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
     case 13:
       e.stopPropagation();
-      this.editor_.findNext(this.currentSearch_);
+      if (e.shiftKey)
+        this.editor_.findNext({reverse: true});
+      else
+        this.editor_.findNext();
       break;
 
     case 27:
@@ -46,4 +60,16 @@ SearchController.prototype.onKeydown_ = function(e) {
       this.editor_.focus();
       break;
   }
+};
+
+SearchController.prototype.onFindNext_ = function() {
+  clearTimeout(this.timeoutID);
+  if (this.currentSearch_)
+    this.editor_.findNext();
+};
+
+SearchController.prototype.onFindPrevious_ = function() {
+  clearTimeout(this.timeoutID);
+  if (this.currentSearch_)
+    this.editor_.findNext({ reverse: true });
 };

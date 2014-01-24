@@ -4,6 +4,15 @@ body[theme="dark"] header {
   background-color: #DDD;
 }
 
+body[theme="dark"] #search-input {
+  border-color: #888;
+}
+
+body[theme="dark"] .search-navigation-button {
+  background-color: #DDD;
+  border-color: #888;
+}
+
 body[theme="dark"] #sidebar {
   background-color: #272822;
   -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);

@@ -12,6 +12,7 @@ function EditorCodeMirror(editorElement, settings) {
       editorElement, {'autofocus': true, 'matchBrackets': true, 'value': ''});
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
+  this.cm_.on('focus', this.onFocus.bind(this));
   this.searchCursor_ = null;
   this.setTheme();
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
@@ -106,20 +107,21 @@ EditorCodeMirror.prototype.find = function(query) {
  * Select the next match. Should be called when user presses Enter in search
  * field.
  */
-EditorCodeMirror.prototype.findNext = function() {
+EditorCodeMirror.prototype.findNext = function(options) {
   if (!this.searchCursor_) {
     throw 'Internal error: search cursor should be initialized.';
   }
 
-  if (!this.searchCursor_.findNext()) {
-    // Go to the beginning of the document.
-    this.searchCursor_ = this.cm_.getSearchCursor(
-      this.searchQuery_, CodeMirror.Pos(0, 0), true);
-    this.searchCursor_.findNext();
+  var reverse = options && options.reverse || false;
+  if (!this.searchCursor_.find(reverse)) {
+    this.searchCursor_ = this.cm_.getSearchCursor(this.searchQuery_,
+        reverse ? CodeMirror.Pos(this.cm_.lastLine()) : CodeMirror.Pos(this.cm_.firstLine(), 0));
+    this.searchCursor_.find(reverse)
   }
 
   var from = this.searchCursor_.from();
   var to = this.searchCursor_.to();
+
 
   if (from && to) {
     this.cm_.setSelection(from, to);
@@ -135,6 +137,10 @@ EditorCodeMirror.prototype.clearSearch = function() {
 
 EditorCodeMirror.prototype.onChange = function() {
   $.event.trigger('docchange', this.cm_.getDoc());
+};
+
+EditorCodeMirror.prototype.onFocus = function() {
+  $.event.trigger('docfocus');
 };
 
 EditorCodeMirror.prototype.undo = function() {

@@ -2,6 +2,10 @@ body[theme="default"] header {
   background-color: #F5F5F5;
 }
 
+body[theme="default"] .search-navigation-button {
+  background-color: #F5F5F5;
+}
+
 body[theme="default"] #sidebar {
   background-color: #333;
   -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);

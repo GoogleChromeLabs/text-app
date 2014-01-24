@@ -83,6 +83,14 @@
     "message": "Search",
     "description":"The button text to search."
   },
+  "searchNextButton": {
+    "message": "Next",
+    "description":"The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Previous",
+    "description":"The button text to search the previous result."
+  },
   "errorTitle": {
     "message": "Error",
     "description":"The error text displayed in the filename title bar."
