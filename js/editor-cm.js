@@ -122,7 +122,6 @@ EditorCodeMirror.prototype.findNext = function(options) {
   var from = this.searchCursor_.from();
   var to = this.searchCursor_.to();
 
-
   if (from && to) {
     this.cm_.setSelection(from, to);
   } else {
