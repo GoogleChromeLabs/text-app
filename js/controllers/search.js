@@ -49,7 +49,7 @@ SearchController.prototype.onKeydown_ = function(e) {
     case 13:
       e.stopPropagation();
       if (e.shiftKey)
-        this.editor_.findNext({reverse: true});
+        this.editor_.findNext(true /* reverse */);
       else
         this.editor_.findNext();
       break;
@@ -71,5 +71,5 @@ SearchController.prototype.onFindNext_ = function() {
 SearchController.prototype.onFindPrevious_ = function() {
   clearTimeout(this.timeoutID_);
   if (this.currentSearch_)
-    this.editor_.findNext({ reverse: true });
+    this.editor_.findNext(true /* reverse */);
 };

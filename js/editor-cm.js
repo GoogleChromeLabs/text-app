@@ -112,14 +112,15 @@ EditorCodeMirror.prototype.find = function(query) {
 };
 
 /**
+ * @param {boolean} opt_reverse
  * Select the next match. Should be called when user presses Enter in search
  * field.
  */
-EditorCodeMirror.prototype.findNext = function(options) {
+EditorCodeMirror.prototype.findNext = function(opt_reverse) {
   if (!this.searchCursor_) {
     throw 'Internal error: search cursor should be initialized.';
   }
-  var reverse = options && options.reverse || false;
+  var reverse = opt_reverse || false;
 
   if (!this.searchCursor_.find(reverse)) {
     var lastLine = CodeMirror.Pos(this.cm_.lastLine());
