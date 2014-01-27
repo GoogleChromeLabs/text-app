@@ -87,6 +87,17 @@ EditorCodeMirror.prototype.setSession = function(session) {
 
 /**
  * @param {string} query
+ * @param {CodeMirror.Pos} pos
+ * @param {boolean} caseFold
+ * Get a search cursor that is always case insensitive.
+ */
+EditorCodeMirror.prototype.getSearchCursor = function(query, pos) {
+  var caseFold = true; /* case insensitive */
+  return this.cm_.getSearchCursor(query, pos, caseFold);
+};
+
+/**
+ * @param {string} query
  * Initialize search. This is called every time the search string is updated.
  */
 EditorCodeMirror.prototype.find = function(query) {
@@ -96,8 +107,7 @@ EditorCodeMirror.prototype.find = function(query) {
   // beginning of it.
   var currentPos = this.cm_.getCursor('start');
 
-  this.searchCursor_ = this.cm_.getSearchCursor(
-      query, currentPos, true /* case insensitive */);
+  this.searchCursor_ = this.getSearchCursor(query, currentPos);
 
   // Actually go to the match.
   this.findNext();
@@ -111,12 +121,14 @@ EditorCodeMirror.prototype.findNext = function(options) {
   if (!this.searchCursor_) {
     throw 'Internal error: search cursor should be initialized.';
   }
-
   var reverse = options && options.reverse || false;
+
   if (!this.searchCursor_.find(reverse)) {
-    this.searchCursor_ = this.cm_.getSearchCursor(this.searchQuery_,
-        reverse ? CodeMirror.Pos(this.cm_.lastLine()) : CodeMirror.Pos(this.cm_.firstLine(), 0));
-    this.searchCursor_.find(reverse)
+    var lastLine = CodeMirror.Pos(this.cm_.lastLine());
+    var firstLine = CodeMirror.Pos(this.cm_.firstLine(), 0);
+    this.searchCursor_ = this.getSearchCursor(this.searchQuery_,
+        reverse ? lastLine : firstLine);
+    this.searchCursor_.find(reverse);
   }
 
   var from = this.searchCursor_.from();
@@ -125,13 +137,17 @@ EditorCodeMirror.prototype.findNext = function(options) {
   if (from && to) {
     this.cm_.setSelection(from, to);
   } else {
-    // Clear selection.
-    this.cm_.setCursor(this.cm_.getCursor('anchor'));
+    this.clearSelection();
   }
+};
+
+EditorCodeMirror.prototype.clearSelection = function() {
+  this.cm_.setCursor(this.cm_.getCursor('anchor'));
 };
 
 EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;
+  this.clearSelection();
 };
 
 EditorCodeMirror.prototype.onChange = function() {
