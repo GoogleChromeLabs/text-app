@@ -5,6 +5,9 @@ body[theme="default"] header {
 body[theme="default"] .search-navigation-button {
   background-color: #F5F5F5;
 }
+body[theme="default"] .search-navigation-button:focus {
+  background-color: #FFF;
+}
 
 body[theme="default"] #sidebar {
   background-color: #333;

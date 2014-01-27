@@ -7,7 +7,6 @@ function SearchController(editor) {
   this.timeoutID_ = null;
 
   $('#search-button').click(this.onSearchButton_.bind(this));
-  $('#search-input').focusout(this.onFocusOut_.bind(this));
   $('#search-input').bind('input', this.onChange_.bind(this));
   $('#search-input').keydown(this.onKeydown_.bind(this));
   $('#search-next-button').click(this.onFindNext_.bind(this));
@@ -15,13 +14,6 @@ function SearchController(editor) {
 
   $(document).bind('docfocus', this.onFocusOut_.bind(this));
 }
-
-SearchController.prototype.clearSearch_ = function() {
-  $('#search-input').val('');
-  $('header').removeClass('search-active');
-  this.editor_.clearSearch();
-  this.currentSearch_ = '';
-};
 
 SearchController.prototype.onSearchButton_ = function() {
   $('header').addClass('search-active');
@@ -31,7 +23,10 @@ SearchController.prototype.onSearchButton_ = function() {
 };
 
 SearchController.prototype.onFocusOut_ = function() {
-  this.timeoutID_ = setTimeout(this.clearSearch_.bind(this), 100);
+  $('#search-input').val('');
+  $('header').removeClass('search-active');
+  this.editor_.clearSearch();
+  this.currentSearch_ = '';
 };
 
 SearchController.prototype.onChange_ = function() {
@@ -63,13 +58,11 @@ SearchController.prototype.onKeydown_ = function(e) {
 };
 
 SearchController.prototype.onFindNext_ = function() {
-  clearTimeout(this.timeoutID_);
   if (this.currentSearch_)
     this.editor_.findNext();
 };
 
 SearchController.prototype.onFindPrevious_ = function() {
-  clearTimeout(this.timeoutID_);
   if (this.currentSearch_)
     this.editor_.findNext(true /* reverse */);
 };
