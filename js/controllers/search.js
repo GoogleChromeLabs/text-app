@@ -4,7 +4,7 @@
 function SearchController(editor) {
   this.editor_ = editor;
   this.currentSearch_ = '';
-  this.timeoutID = null;
+  this.timeoutID_ = null;
 
   $('#search-button').click(this.onSearchButton_.bind(this));
   $('#search-input').focusout(this.onFocusOut_.bind(this));
@@ -21,7 +21,7 @@ SearchController.prototype.clearSearch_ = function() {
   $('header').removeClass('search-active');
   this.editor_.clearSearch();
   this.currentSearch_ = '';
-}
+};
 
 SearchController.prototype.onSearchButton_ = function() {
   $('header').addClass('search-active');
@@ -31,7 +31,7 @@ SearchController.prototype.onSearchButton_ = function() {
 };
 
 SearchController.prototype.onFocusOut_ = function() {
-  this.timeoutID = setTimeout(this.clearSearch_.bind(this), 100);
+  this.timeoutID_ = setTimeout(this.clearSearch_.bind(this), 100);
 };
 
 SearchController.prototype.onChange_ = function() {
@@ -63,13 +63,13 @@ SearchController.prototype.onKeydown_ = function(e) {
 };
 
 SearchController.prototype.onFindNext_ = function() {
-  clearTimeout(this.timeoutID);
+  clearTimeout(this.timeoutID_);
   if (this.currentSearch_)
     this.editor_.findNext();
 };
 
 SearchController.prototype.onFindPrevious_ = function() {
-  clearTimeout(this.timeoutID);
+  clearTimeout(this.timeoutID_);
   if (this.currentSearch_)
     this.editor_.findNext({ reverse: true });
 };

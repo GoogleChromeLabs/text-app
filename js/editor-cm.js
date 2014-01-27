@@ -88,12 +88,10 @@ EditorCodeMirror.prototype.setSession = function(session) {
 /**
  * @param {string} query
  * @param {CodeMirror.Pos} pos
- * @param {boolean} caseFold
  * Get a search cursor that is always case insensitive.
  */
 EditorCodeMirror.prototype.getSearchCursor = function(query, pos) {
-  var caseFold = true; /* case insensitive */
-  return this.cm_.getSearchCursor(query, pos, caseFold);
+  return this.cm_.getSearchCursor(query, pos, true /* case insensitive */);
 };
 
 /**
