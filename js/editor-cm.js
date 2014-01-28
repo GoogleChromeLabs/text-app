@@ -12,7 +12,6 @@ function EditorCodeMirror(editorElement, settings) {
       editorElement, {'autofocus': true, 'matchBrackets': true, 'value': ''});
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
-  this.cm_.on('focus', this.onFocus.bind(this));
   this.searchCursor_ = null;
   this.setTheme();
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
