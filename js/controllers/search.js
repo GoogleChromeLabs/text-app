@@ -11,18 +11,22 @@ function SearchController(editor) {
   $('#search-input').keydown(this.onKeydown_.bind(this));
   $('#search-next-button').click(this.onFindNext_.bind(this));
   $('#search-previous-button').click(this.onFindPrevious_.bind(this));
-
-  $(document).bind('docfocus', this.onFocusOut_.bind(this));
+  $('body').focusin(this.onChangeFocus_.bind(this));
 }
 
 SearchController.prototype.onSearchButton_ = function() {
+  var timeout = 200; // keep in sync with the CSS transition.
+  setTimeout(function() {$('#search-input').select();}, timeout);
   $('header').addClass('search-active');
-  setTimeout(function() {$('#search-input').focus().select();}, 100);
 
   return false;
 };
 
-SearchController.prototype.onFocusOut_ = function() {
+SearchController.prototype.onChangeFocus_ = function() {
+  if (document.activeElement === document.body ||
+      $(document.activeElement).parents('.search-container').length) {
+    return;
+  }
   $('#search-input').val('');
   $('header').removeClass('search-active');
   this.editor_.clearSearch();

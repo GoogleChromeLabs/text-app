@@ -153,10 +153,6 @@ EditorCodeMirror.prototype.onChange = function() {
   $.event.trigger('docchange', this.cm_.getDoc());
 };
 
-EditorCodeMirror.prototype.onFocus = function() {
-  $.event.trigger('docfocus');
-};
-
 EditorCodeMirror.prototype.undo = function() {
   this.cm_.undo();
 };
