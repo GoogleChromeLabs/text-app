@@ -64,8 +64,7 @@ util.sanitizeFileName = function(fileName) {
 /**
  * @param {string} File name.
  * @return {string} Extension.
- * Returns the extension of a File Name (including the period ".") or null if
- * there's none.
+ * Returns the extension of a File Name or null if there's none.
  */
 util.getExtension = function(fileName) {
   var match = /\.([^.\\\/]+)$/.exec(fileName);
