@@ -112,8 +112,8 @@ EditorCodeMirror.prototype.find = function(query) {
 
 /**
  * @param {boolean} opt_reverse
- * Select the next match. Should be called when user presses Enter in search
- * field.
+ * Select the next match when user presses Enter in search field or clicks on
+ * "Next" and "Previous" search navigation buttons.
  */
 EditorCodeMirror.prototype.findNext = function(opt_reverse) {
   if (!this.searchCursor_) {

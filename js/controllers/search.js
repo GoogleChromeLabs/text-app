@@ -4,7 +4,6 @@
 function SearchController(editor) {
   this.editor_ = editor;
   this.currentSearch_ = '';
-  this.timeoutID_ = null;
 
   $('#search-button').click(this.onSearchButton_.bind(this));
   $('#search-input').bind('input', this.onChange_.bind(this));
@@ -47,10 +46,7 @@ SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
     case 13:
       e.stopPropagation();
-      if (e.shiftKey)
-        this.editor_.findNext(true /* reverse */);
-      else
-        this.editor_.findNext();
+      this.editor_.findNext(e.shiftKey /* reverse */);
       break;
 
     case 27:
