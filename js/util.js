@@ -74,4 +74,4 @@ util.getExtension = function(fileName) {
   } else {
     return null;
   }
-}
+};
