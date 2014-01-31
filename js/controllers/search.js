@@ -39,6 +39,8 @@ SearchController.prototype.onChange_ = function() {
   this.currentSearch_ = searchString;
   if (searchString) {
     this.editor_.find(searchString);
+  } else {
+    this.editor_.clearSearch();
   }
 };
 
@@ -46,7 +48,8 @@ SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
     case 13:
       e.stopPropagation();
-      this.editor_.findNext(e.shiftKey /* reverse */);
+      if (this.currentSearch_)
+        this.editor_.findNext(e.shiftKey /* reverse */);
       break;
 
     case 27:

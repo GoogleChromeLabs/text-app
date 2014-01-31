@@ -13,6 +13,7 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
   this.searchCursor_ = null;
+  this.searchOverlay_ = null;
   this.setTheme();
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
@@ -111,6 +112,22 @@ EditorCodeMirror.prototype.find = function(query) {
 };
 
 /**
+ * Return an Overlay which highlights search query.
+ */
+EditorCodeMirror.prototype.getSearchOverlay_ = function(query) {
+  var search = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+  return {token: function(stream) {
+    if (stream.match(search))
+      return "searching";
+    while (!stream.eol()) {
+      stream.next();
+      if (stream.match(search, false))
+        break;
+    }
+  }};
+};
+
+/**
  * @param {boolean} opt_reverse
  * Select the next match when user presses Enter in search field or clicks on
  * "Next" and "Previous" search navigation buttons.
@@ -129,6 +146,10 @@ EditorCodeMirror.prototype.findNext = function(opt_reverse) {
     this.searchCursor_.find(reverse);
   }
 
+  this.cm_.removeOverlay(this.searchOverlay_);
+  this.searchOverlay_ = this.getSearchOverlay_(this.searchQuery_);
+  this.cm_.addOverlay(this.searchOverlay_);
+
   var from = this.searchCursor_.from();
   var to = this.searchCursor_.to();
 
@@ -146,6 +167,7 @@ EditorCodeMirror.prototype.clearSelection = function() {
 EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;
   this.clearSelection();
+  this.cm_.removeOverlay(this.searchOverlay_);
 };
 
 EditorCodeMirror.prototype.onChange = function() {
