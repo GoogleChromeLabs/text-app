@@ -34,13 +34,7 @@ Tab.prototype.getExtension = function() {
   if (!this.entry_)
     return null;
 
-  var match = /\.([^.\\\/]+)$/.exec(this.getName());
-
-  if (match) {
-    return match[1];
-  } else {
-    return null;
-  }
+  return util.getExtension(this.getName());
 };
 
 Tab.prototype.getSession = function() {
@@ -344,6 +338,9 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   var suggestedName = opt_tab.getEntry() && opt_tab.getEntry().name ||
                       util.sanitizeFileName(opt_tab.session_.getLine(0)) ||
                       opt_tab.getName();
+  if (!util.getExtension(suggestedName)) {
+      suggestedName += '.txt';
+  }
   this.chooseEntry(
       {'type': 'saveFile', 'suggestedName': suggestedName},
       this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));

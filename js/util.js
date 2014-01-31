@@ -60,3 +60,18 @@ util.writeToWriter_ = function(writer, blob, onsuccess) {
 util.sanitizeFileName = function(fileName) {
   return fileName.replace(/[^a-z0-9\-]/gi, ' ').substr(0, 50).trim();
 }
+
+/**
+ * @param {string} File name.
+ * @return {string} Extension.
+ * Returns the extension of a File Name or null if there's none.
+ */
+util.getExtension = function(fileName) {
+  var match = /\.([^.\\\/]+)$/.exec(fileName);
+
+  if (match) {
+    return match[1];
+  } else {
+    return null;
+  }
+};
