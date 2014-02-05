@@ -14,6 +14,7 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_.on('change', this.onChange.bind(this));
   this.searchCursor_ = null;
   this.searchOverlay_ = null;
+  this.searchCount = 0;
   this.setTheme();
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
@@ -106,9 +107,22 @@ EditorCodeMirror.prototype.find = function(query) {
   var currentPos = this.cm_.getCursor('start');
 
   this.searchCursor_ = this.getSearchCursor(query, currentPos);
+  this.searchIndex_ = 0;
+
+  this.searchCount = this.getSearchCount_(query);
 
   // Actually go to the match.
   this.findNext();
+};
+
+/**
+ * @return {integer}
+ * Compute search count of the current query search.
+ */
+EditorCodeMirror.prototype.getSearchCount_ = function(query) {
+  var search = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'ig');
+  var results = this.cm_.getValue().match(search);
+  return (results && results.length) || 0;
 };
 
 /**
