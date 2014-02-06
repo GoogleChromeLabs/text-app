@@ -103,7 +103,7 @@ Search.prototype.getResultsCount = function() {
 
 /**
  * @param {string} query
- * Initialize query search.
+ * Initialize search. This is called every time the search string is updated.
  */
 Search.prototype.find = function(query) {
   this.query_ = query;
@@ -122,7 +122,8 @@ Search.prototype.find = function(query) {
 
 /**
  * @param {boolean} opt_reverse
- * Select the next or previous match and add an overlay on search results.
+ * Select the next match when user presses Enter in search field or clicks on
+ * "Next" and "Previous" search navigation buttons.
  */
 Search.prototype.findNext = function(opt_reverse) {
   if (!this.cursor_) {

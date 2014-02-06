@@ -85,43 +85,11 @@ EditorCodeMirror.prototype.setSession = function(session) {
 };
 
 /**
- * @param {string} query
- * Initialize search. This is called every time the search string is updated.
+ * @return {Search}
+ * Return search object.
  */
-EditorCodeMirror.prototype.find = function(query) {
-  this.search_.find(query);
-};
-
-/**
- * @param {boolean} opt_reverse
- * Select the next match when user presses Enter in search field or clicks on
- * "Next" and "Previous" search navigation buttons.
- */
-EditorCodeMirror.prototype.findNext = function(opt_reverse) {
-  this.search_.findNext(opt_reverse);
-};
-
-/**
- * Clear search.
- */
-EditorCodeMirror.prototype.clearSearch = function() {
-  this.search_.clear();
-};
-
-/**
- * @return {integer}
- * Return total search results from the current search.
- */
-EditorCodeMirror.prototype.getSearchCount = function() {
-  return this.search_.getResultsCount();
-};
-
-/**
- * @return {integer}
- * Return search result index from the selection.
- */
-EditorCodeMirror.prototype.getSearchIndex = function() {
-  return this.search_.getCurrentIndex();
+EditorCodeMirror.prototype.getSearch = function() {
+  return this.search_;
 };
 
 EditorCodeMirror.prototype.onChange = function() {

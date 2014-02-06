@@ -3,6 +3,7 @@
  */
 function SearchController(editor) {
   this.editor_ = editor;
+  this.search_ = editor.getSearch();
   this.currentSearch_ = '';
 
   $('#search-button').click(this.onSearchButton_.bind(this));
@@ -14,15 +15,15 @@ function SearchController(editor) {
 }
 
 SearchController.prototype.setSearchCounting_ = function(opt_reverse) {
-  var searchCount = this.editor_.getSearchCount();
-  var searchIndex = this.editor_.getSearchIndex();
+  var searchCount = this.search_.getResultsCount();
+  var searchIndex = this.search_.getCurrentIndex();
   $('#search-counting').text(chrome.i18n.getMessage('searchCounting',
       [searchIndex, searchCount]));
 };
 
 SearchController.prototype.findNext_ = function(opt_reverse) {
   if (this.currentSearch_) {
-    this.editor_.findNext(opt_reverse);
+    this.search_.findNext(opt_reverse);
     this.setSearchCounting_(opt_reverse);
   }
 };
@@ -43,7 +44,7 @@ SearchController.prototype.onChangeFocus_ = function() {
   $('#search-input').val('');
   $('#search-counting').text('');
   $('header').removeClass('search-active');
-  this.editor_.clearSearch();
+  this.search_.clear();
   this.currentSearch_ = '';
 };
 
@@ -53,9 +54,9 @@ SearchController.prototype.onChange_ = function() {
     return;
   this.currentSearch_ = searchString;
   if (searchString) {
-    this.editor_.find(searchString);
+    this.search_.find(searchString);
   } else {
-    this.editor_.clearSearch();
+    this.search_.clear();
   }
   this.setSearchCounting_();
 };
