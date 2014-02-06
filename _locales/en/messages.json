@@ -83,6 +83,20 @@
     "message": "Search",
     "description":"The button text to search."
   },
+  "searchCounting": {
+    "message": "$searchIndex$ of $searchCount$",
+    "description":"The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
   "searchNextButton": {
     "message": "Next",
     "description":"The button text to search the next result."

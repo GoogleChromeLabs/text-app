@@ -13,6 +13,8 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
   this.searchCursor_ = null;
+  this.searchOverlay_ = null;
+  this.searchCount = 0;
   this.setTheme();
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
@@ -95,6 +97,56 @@ EditorCodeMirror.prototype.getSearchCursor = function(query, pos) {
 
 /**
  * @param {string} query
+ * @return {string}
+ * Escape search query.
+ */
+EditorCodeMirror.prototype.escapeSearchQuery = function(query) {
+  return query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+};
+
+/**
+ * @param {string} query
+ * @return {integer}
+ * Get search count of a query search.
+ */
+EditorCodeMirror.prototype.getSearchCount_ = function(query) {
+  var search = new RegExp(this.escapeSearchQuery(query), 'ig');
+  var results = this.cm_.getValue().match(search);
+  return (results && results.length) || 0;
+};
+
+/**
+ * @param {string} query
+ * Get an Overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.getSearchOverlay_ = function(query) {
+  var search = new RegExp(this.escapeSearchQuery(query), 'i');
+  return { token: function(stream) {
+      if (stream.match(search))
+        return "searching";
+      stream.next();
+  }};
+};
+
+/**
+ * Remove the overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.removeSearchOverlay_ = function() {
+  if (this.searchOverlay_)
+    this.cm_.removeOverlay(this.searchOverlay_);
+};
+
+/**
+ * Add the overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.addSearchOverlay_ = function() {
+  this.removeSearchOverlay_();
+  this.searchOverlay_ = this.getSearchOverlay_(this.searchQuery_);
+  this.cm_.addOverlay(this.searchOverlay_);
+};
+
+/**
+ * @param {string} query
  * Initialize search. This is called every time the search string is updated.
  */
 EditorCodeMirror.prototype.find = function(query) {
@@ -105,6 +157,8 @@ EditorCodeMirror.prototype.find = function(query) {
   var currentPos = this.cm_.getCursor('start');
 
   this.searchCursor_ = this.getSearchCursor(query, currentPos);
+  this.searchIndex_ = 0;
+  this.searchCount = this.getSearchCount_(query);
 
   // Actually go to the match.
   this.findNext();
@@ -128,6 +182,7 @@ EditorCodeMirror.prototype.findNext = function(opt_reverse) {
         reverse ? lastLine : firstLine);
     this.searchCursor_.find(reverse);
   }
+  this.addSearchOverlay_();
 
   var from = this.searchCursor_.from();
   var to = this.searchCursor_.to();
@@ -146,6 +201,7 @@ EditorCodeMirror.prototype.clearSelection = function() {
 EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;
   this.clearSelection();
+  this.removeSearchOverlay_();
 };
 
 EditorCodeMirror.prototype.onChange = function() {
