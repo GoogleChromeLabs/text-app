@@ -121,14 +121,10 @@ EditorCodeMirror.prototype.getSearchCount_ = function(query) {
  */
 EditorCodeMirror.prototype.getSearchOverlay_ = function(query) {
   var search = new RegExp(this.escapeSearchQuery(query), 'i');
-  return {token: function(stream) {
-    if (stream.match(search))
-      return "searching";
-    while (!stream.eol()) {
+  return { token: function(stream) {
+      if (stream.match(search))
+        return "searching";
       stream.next();
-      if (stream.match(search, false))
-        break;
-    }
   }};
 };
 
@@ -162,7 +158,6 @@ EditorCodeMirror.prototype.find = function(query) {
 
   this.searchCursor_ = this.getSearchCursor(query, currentPos);
   this.searchIndex_ = 0;
-
   this.searchCount = this.getSearchCount_(query);
 
   // Actually go to the match.
@@ -187,7 +182,6 @@ EditorCodeMirror.prototype.findNext = function(opt_reverse) {
         reverse ? lastLine : firstLine);
     this.searchCursor_.find(reverse);
   }
-
   this.addSearchOverlay_();
 
   var from = this.searchCursor_.from();
