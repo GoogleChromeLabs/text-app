@@ -14,19 +14,25 @@ function SearchController(editor) {
   $('body').focusin(this.onChangeFocus_.bind(this));
 }
 
-SearchController.prototype.setSearchCounting = function(opt_reverse) {
+SearchController.prototype.setSearchCounting_ = function(opt_reverse) {
   if (this.editor_.searchCount === 0) {
     $('#search-counting').text(chrome.i18n.getMessage('searchCounting', [0, 0]));
     return;
   }
-  var reverse = opt_reverse || false;
-  this.searchIndex_ += reverse ? -1 : 1;
+  this.searchIndex_ += opt_reverse ? -1 : 1;
   if (this.searchIndex_ === 0)
-    this.searchIndex_ = searchCount;
-  else if (this.searchIndex_ > searchCount)
+    this.searchIndex_ = this.editor_.searchCount;
+  else if (this.searchIndex_ > this.editor_.searchCount)
     this.searchIndex_ = 1;
   $('#search-counting').text(chrome.i18n.getMessage('searchCounting',
       [this.searchIndex_, this.editor_.searchCount]));
+};
+
+SearchController.prototype.findNext_ = function(opt_reverse) {
+  if (this.currentSearch_) {
+    this.editor_.findNext(opt_reverse);
+    this.setSearchCounting_(opt_reverse);
+  }
 };
 
 SearchController.prototype.onSearchButton_ = function() {
@@ -47,7 +53,6 @@ SearchController.prototype.onChangeFocus_ = function() {
   $('header').removeClass('search-active');
   this.editor_.clearSearch();
   this.currentSearch_ = '';
-  this.searchIndex_ = 0;
 };
 
 SearchController.prototype.onChange_ = function() {
@@ -61,37 +66,27 @@ SearchController.prototype.onChange_ = function() {
   } else {
     this.editor_.clearSearch();
   }
-  this.setSearchCounting();
+  this.setSearchCounting_();
 };
 
 SearchController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
     case 13:
       e.stopPropagation();
-      if (this.currentSearch_) {
-        this.editor_.findNext(e.shiftKey /* reverse */);
-        this.setSearchCounting(e.shiftKey /* reverse */);
-      }
+      this.findNext_(e.shiftKey /* reverse */);
       break;
 
     case 27:
       e.stopPropagation();
-      $('#search-input').val('');
       this.editor_.focus();
       break;
   }
 };
 
 SearchController.prototype.onFindNext_ = function() {
-  if (this.currentSearch_) {
-    this.editor_.findNext();
-    this.setSearchCounting();
-  }
+  this.findNext_();
 };
 
 SearchController.prototype.onFindPrevious_ = function() {
-  if (this.currentSearch_) {
-    this.editor_.findNext(true /* reverse */);
-    this.setSearchCounting(true /* reverse */);
-  }
+  this.findNext_(true /* reverse */);
 };

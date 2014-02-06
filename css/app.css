@@ -397,7 +397,7 @@ header.search-active #search-button {
 }
 
 #search-counting {
-  color: #777;
+  color: #ccc;
   min-width: 70px;
   margin: 0 4px 0 -16px;
   text-align: right;

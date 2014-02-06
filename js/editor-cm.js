@@ -97,6 +97,60 @@ EditorCodeMirror.prototype.getSearchCursor = function(query, pos) {
 
 /**
  * @param {string} query
+ * @return {string}
+ * Escape search query.
+ */
+EditorCodeMirror.prototype.escapeSearchQuery = function(query) {
+  return query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+};
+
+/**
+ * @param {string} query
+ * @return {integer}
+ * Get search count of a query search.
+ */
+EditorCodeMirror.prototype.getSearchCount_ = function(query) {
+  var search = new RegExp(this.escapeSearchQuery(query), 'ig');
+  var results = this.cm_.getValue().match(search);
+  return (results && results.length) || 0;
+};
+
+/**
+ * @param {string} query
+ * Get an Overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.getSearchOverlay_ = function(query) {
+  var search = new RegExp(this.escapeSearchQuery(query), 'i');
+  return {token: function(stream) {
+    if (stream.match(search))
+      return "searching";
+    while (!stream.eol()) {
+      stream.next();
+      if (stream.match(search, false))
+        break;
+    }
+  }};
+};
+
+/**
+ * Remove the overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.removeSearchOverlay_ = function() {
+  if (this.searchOverlay_)
+    this.cm_.removeOverlay(this.searchOverlay_);
+};
+
+/**
+ * Add the overlay which highlights search results.
+ */
+EditorCodeMirror.prototype.addSearchOverlay_ = function() {
+  this.removeSearchOverlay_();
+  this.searchOverlay_ = this.getSearchOverlay_(this.searchQuery_);
+  this.cm_.addOverlay(this.searchOverlay_);
+};
+
+/**
+ * @param {string} query
  * Initialize search. This is called every time the search string is updated.
  */
 EditorCodeMirror.prototype.find = function(query) {
@@ -113,32 +167,6 @@ EditorCodeMirror.prototype.find = function(query) {
 
   // Actually go to the match.
   this.findNext();
-};
-
-/**
- * @return {integer}
- * Compute search count of the current query search.
- */
-EditorCodeMirror.prototype.getSearchCount_ = function(query) {
-  var search = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'ig');
-  var results = this.cm_.getValue().match(search);
-  return (results && results.length) || 0;
-};
-
-/**
- * Return an Overlay which highlights search query.
- */
-EditorCodeMirror.prototype.getSearchOverlay_ = function(query) {
-  var search = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
-  return {token: function(stream) {
-    if (stream.match(search))
-      return "searching";
-    while (!stream.eol()) {
-      stream.next();
-      if (stream.match(search, false))
-        break;
-    }
-  }};
 };
 
 /**
@@ -160,9 +188,7 @@ EditorCodeMirror.prototype.findNext = function(opt_reverse) {
     this.searchCursor_.find(reverse);
   }
 
-  this.cm_.removeOverlay(this.searchOverlay_);
-  this.searchOverlay_ = this.getSearchOverlay_(this.searchQuery_);
-  this.cm_.addOverlay(this.searchOverlay_);
+  this.addSearchOverlay_();
 
   var from = this.searchCursor_.from();
   var to = this.searchCursor_.to();
@@ -181,7 +207,7 @@ EditorCodeMirror.prototype.clearSelection = function() {
 EditorCodeMirror.prototype.clearSearch = function() {
   this.searchCursor_ = null;
   this.clearSelection();
-  this.cm_.removeOverlay(this.searchOverlay_);
+  this.removeSearchOverlay_();
 };
 
 EditorCodeMirror.prototype.onChange = function() {
