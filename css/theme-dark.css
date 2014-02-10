@@ -4,13 +4,13 @@ body[theme="dark"] header {
   background-color: #DDD;
 }
 
-body[theme="dark"] #search-input {
-  border-color: #888;
+body[theme="dark"] .search-container {
+  border-color: #C1C1C1;
 }
 
 body[theme="dark"] .search-navigation-button {
   background-color: #DDD;
-  border-color: #888;
+  border-color: #C1C1C1;
 }
 
 body[theme="dark"] .search-navigation-button:focus {

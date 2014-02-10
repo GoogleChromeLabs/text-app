@@ -4,11 +4,10 @@
  */
 function Search(cm) {
   this.cm_ = cm;
-  this.cursor_ = null;
+  this.cursor_ = null; /* SearchCursor object from CodeMirror */
   this.query_ = null;
   this.index_ = 0;
   this.resultsCount_ = 0;
-  this.overlay_ = null;
 };
 
 /**
@@ -16,18 +15,10 @@ function Search(cm) {
  * @param {CodeMirror.Pos} pos
  * Get a search cursor that is always case insensitive.
  */
-Search.prototype.getCursor_ = function(query, pos) {
+Search.prototype.updateCursor_ = function(query, pos) {
   return this.cm_.getSearchCursor(query, pos, true /* case insensitive */);
 };
 
-/**
- * @param {string} query
- * @return {string}
- * Escape search query.
- */
-Search.prototype.escapeSearchQuery_ = function(query) {
-  return query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-};
 
 /**
  * @param {string} query
@@ -35,38 +26,21 @@ Search.prototype.escapeSearchQuery_ = function(query) {
  * Get results count for a query search.
  */
 Search.prototype.computeResultsCount_ = function(query) {
-  var search = new RegExp(this.escapeSearchQuery_(query), 'ig');
-  var results = this.cm_.getValue().match(search);
-  return (results && results.length) || 0;
-};
-
-/**
- * @param {string} query
- * Get an overlay which highlights search results.
- */
-Search.prototype.getOverlay_ = function(query) {
-  var search = new RegExp(this.escapeSearchQuery_(query), 'i');
-  return { token: function(stream) {
-      if (stream.match(search))
-        return "searching";
-      stream.next();
-  }};
-};
-
-/**
- * Remove the overlay which highlights search results.
- */
-Search.prototype.removeOverlay_ = function() {
-  this.cm_.removeOverlay(this.overlay_);
-};
-
-/**
- * Add the overlay which highlights search results.
- */
-Search.prototype.addOverlay_ = function() {
-  this.removeOverlay_();
-  this.overlay_ = this.getOverlay_(this.query_);
-  this.cm_.addOverlay(this.overlay_);
+  var content = this.cm_.getValue().toLowerCase();
+  var query = query.toLowerCase();
+  var resultsCount = 0;
+  var pos=0;
+  var step = query.length;
+  while (true) {
+    pos = content.indexOf(query, pos);
+    if (pos >= 0) {
+      resultsCount++;
+      pos += step;
+    } else {
+      break;
+    }
+  }
+  return resultsCount;
 };
 
 /**
@@ -77,11 +51,11 @@ Search.prototype.resetSelection_ = function() {
 };
 
 /**
- * Remove overlay and reset selection.
+ * Clear search.
  */
 Search.prototype.clear = function() {
+  this.query_ = null;
   this.cursor_ = null;
-  this.removeOverlay_();
   this.resetSelection_();
 };
 
@@ -112,7 +86,7 @@ Search.prototype.find = function(query) {
   // beginning of it.
   var currentPos = this.cm_.getCursor('start');
 
-  this.cursor_ = this.getCursor_(query, currentPos);
+  this.cursor_ = this.updateCursor_(query, currentPos);
   this.index_ = 0;
   this.resultsCount_ = this.computeResultsCount_(query);
 
@@ -134,17 +108,9 @@ Search.prototype.findNext = function(opt_reverse) {
   if (!this.cursor_.find(reverse)) {
     var lastLine = CodeMirror.Pos(this.cm_.lastLine());
     var firstLine = CodeMirror.Pos(this.cm_.firstLine(), 0);
-    this.cursor_ = this.getCursor_(this.query_,
+    this.cursor_ = this.updateCursor_(this.query_,
         reverse ? lastLine : firstLine);
     this.cursor_.find(reverse);
-  }
-  this.addOverlay_();
-
-  this.index_ += reverse ? -1 : 1;
-  if (this.index_ === 0) {
-    this.index_ = this.resultsCount_;
-  } else if (this.index_ > this.resultsCount_) {
-    this.index_ = 1;
   }
 
   var from = this.cursor_.from();
@@ -152,7 +118,27 @@ Search.prototype.findNext = function(opt_reverse) {
 
   if (from && to) {
     this.cm_.setSelection(from, to);
+    this.index_ += reverse ? -1 : 1;
+    if (this.index_ === 0) {
+      this.index_ = this.resultsCount_;
+    } else if (this.index_ > this.resultsCount_) {
+      this.index_ = 1;
+    }
   } else {
     this.resetSelection_();
   }
+};
+
+/**
+ * Unfocus search focus the editor.
+ */
+Search.prototype.getQuery = function() {
+  return this.query_;
+};
+
+/**
+ * Unfocus search focus the editor.
+ */
+Search.prototype.unfocus = function() {
+  this.cm_.focus();
 };

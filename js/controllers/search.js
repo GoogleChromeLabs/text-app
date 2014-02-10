@@ -1,10 +1,8 @@
 /**
  * @constructor
  */
-function SearchController(editor) {
-  this.editor_ = editor;
-  this.search_ = editor.getSearch();
-  this.currentSearch_ = '';
+function SearchController(search) {
+  this.search_ = search;
 
   $('#search-button').click(this.onSearchButton_.bind(this));
   $('#search-input').bind('input', this.onChange_.bind(this));
@@ -14,7 +12,7 @@ function SearchController(editor) {
   $('body').focusin(this.onChangeFocus_.bind(this));
 }
 
-SearchController.prototype.setSearchCounting_ = function(opt_reverse) {
+SearchController.prototype.showSearchCount_ = function(opt_reverse) {
   var searchCount = this.search_.getResultsCount();
   var searchIndex = this.search_.getCurrentIndex();
   $('#search-counting').text(chrome.i18n.getMessage('searchCounting',
@@ -22,13 +20,14 @@ SearchController.prototype.setSearchCounting_ = function(opt_reverse) {
 };
 
 SearchController.prototype.findNext_ = function(opt_reverse) {
-  if (this.currentSearch_) {
+  if (this.search_.getQuery()) {
     this.search_.findNext(opt_reverse);
-    this.setSearchCounting_(opt_reverse);
+    this.showSearchCount_(opt_reverse);
   }
 };
 
 SearchController.prototype.onSearchButton_ = function() {
+  this.search_.clear();
   var timeout = 200; // keep in sync with the CSS transition.
   setTimeout(function() {$('#search-input').select();}, timeout);
   $('header').addClass('search-active');
@@ -45,20 +44,18 @@ SearchController.prototype.onChangeFocus_ = function() {
   $('#search-counting').text('');
   $('header').removeClass('search-active');
   this.search_.clear();
-  this.currentSearch_ = '';
 };
 
 SearchController.prototype.onChange_ = function() {
   var searchString = $('#search-input').val();
-  if (searchString === this.currentSearch_)
+  if (searchString === this.search_.getQuery())
     return;
-  this.currentSearch_ = searchString;
   if (searchString) {
     this.search_.find(searchString);
   } else {
     this.search_.clear();
   }
-  this.setSearchCounting_();
+  this.showSearchCount_();
 };
 
 SearchController.prototype.onKeydown_ = function(e) {
@@ -70,7 +67,7 @@ SearchController.prototype.onKeydown_ = function(e) {
 
     case 27:
       e.stopPropagation();
-      this.editor_.focus();
+      this.search_.unfocus();
       break;
   }
 };

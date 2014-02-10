@@ -380,7 +380,7 @@ header.search-active #search-button {
   visibility: hidden;
   display: flex;
   border: 1px solid #DDD;
-  border-radius: 2px;
+  border-radius: 3px;
   background: white;
   line-height: 30px;
 }
@@ -418,10 +418,6 @@ header.search-active #search-button {
 
 .search-navigation-button:focus {
   outline: none;
-}
-
-.search-navigation-button:last-child {
-  border-radius: 0 2px 2px 0;
 }
 
 #search-next-button {

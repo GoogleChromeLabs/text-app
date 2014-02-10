@@ -30,7 +30,7 @@ TextApp.prototype.init = function() {
   this.hotkeysController_ = new HotkeysController(
       this.tabs_, this.editor_, this.settings_);
   this.menuController_ = new MenuController(this.tabs_);
-  this.searchController_ = new SearchController(this.editor_);
+  this.searchController_ = new SearchController(this.editor_.getSearch());
   this.settingsController_ = new SettingsController(this.settings_);
   this.windowController_ = new WindowController(this.editor_, this.settings_);
 

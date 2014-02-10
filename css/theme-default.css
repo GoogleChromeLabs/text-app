@@ -47,3 +47,7 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
 }
+
+header.search-active~#editor div.CodeMirror .cm-matchhighlight {
+  background-color: rgba(253, 207, 76, .5);
+}
