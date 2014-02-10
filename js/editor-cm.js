@@ -11,7 +11,11 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_ = CodeMirror(editorElement, {
       'autofocus': true,
       'matchBrackets': true,
-      'highlightSelectionMatches': { minChars: 1, delay: 0 },
+      'highlightSelectionMatches': {
+        minChars: 1,
+        delay: 0,
+        caseInsensitive: true
+      },
       'value': ''
   });
   this.cm_.setSize(null, 'auto');
