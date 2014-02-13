@@ -26,21 +26,30 @@ Search.prototype.updateCursor_ = function(query, pos) {
  * Get results count for a query search.
  */
 Search.prototype.computeResultsCount_ = function(query) {
-  var content = this.cm_.getValue().toLowerCase();
-  var query = query.toLowerCase();
-  var resultsCount = 0;
-  var pos=0;
+  query = query.toLowerCase();
+  this.index_ = 0;
+  this.resultsCount_ = 0;
+  var cursorLine = this.cursor_.pos.from.line;
+  var cursorCh = this.cursor_.pos.from.ch;
   var step = query.length;
-  while (true) {
-    pos = content.indexOf(query, pos);
-    if (pos >= 0) {
-      resultsCount++;
-      pos += step;
-    } else {
-      break;
+
+  this.cm_.eachLine(function(line) {
+    var content = line.text.toLowerCase();
+    var lineNo = line.lineNo();
+    var pos = 0;
+    while (true) {
+      pos = content.indexOf(query, pos);
+      if (pos >= 0) {
+        this.resultsCount_++;
+        if ((lineNo < cursorLine) || (lineNo == cursorLine && pos < cursorCh)) {
+          this.index_++;
+        }
+        pos += step;
+      } else {
+        break;
+      }
     }
-  }
-  return resultsCount;
+  }.bind(this));
 };
 
 /**
@@ -87,8 +96,7 @@ Search.prototype.find = function(query) {
   var currentPos = this.cm_.getCursor('start');
 
   this.cursor_ = this.updateCursor_(query, currentPos);
-  this.index_ = 0;
-  this.resultsCount_ = this.computeResultsCount_(query);
+  this.computeResultsCount_(query);
 
   // Actually go to the match.
   this.findNext();
@@ -104,25 +112,21 @@ Search.prototype.findNext = function(opt_reverse) {
     throw 'Internal error: cursor should be initialized.';
   }
   var reverse = opt_reverse || false;
-
-  if (!this.cursor_.find(reverse)) {
+  var isFound = this.cursor_.find(reverse);
+  if (!isFound) {
     var lastLine = CodeMirror.Pos(this.cm_.lastLine());
     var firstLine = CodeMirror.Pos(this.cm_.firstLine(), 0);
     this.cursor_ = this.updateCursor_(this.query_,
         reverse ? lastLine : firstLine);
-    this.cursor_.find(reverse);
+    isFound = this.cursor_.find(reverse);
   }
 
-  var from = this.cursor_.from();
-  var to = this.cursor_.to();
-
-  if (from && to) {
-    this.cm_.setSelection(from, to);
+  if (isFound) {
+    this.cm_.setSelection(this.cursor_.from(), this.cursor_.to());
     this.index_ += reverse ? -1 : 1;
-    if (this.index_ === 0) {
+    this.index_ = this.index_ % this.resultsCount_;
+    if (this.index_ == 0) {
       this.index_ = this.resultsCount_;
-    } else if (this.index_ > this.resultsCount_) {
-      this.index_ = 1;
     }
   } else {
     this.resetSelection_();
@@ -130,7 +134,7 @@ Search.prototype.findNext = function(opt_reverse) {
 };
 
 /**
- * Unfocus search focus the editor.
+ * Get current search query.
  */
 Search.prototype.getQuery = function() {
   return this.query_;

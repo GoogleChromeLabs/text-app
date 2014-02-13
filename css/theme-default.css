@@ -39,15 +39,11 @@ body[theme="default"] #settings-list select option {
 }
 
 
-div.CodeMirror span.CodeMirror-matchingbracket {
+body[theme="default"] div.CodeMirror span.CodeMirror-matchingbracket {
   color: inherit !important;
   border-bottom: 1px solid black;
 }
 
-div.CodeMirror span.CodeMirror-nonmatchingbracket {
+body[theme="default"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
-}
-
-header.search-active~#editor div.CodeMirror .cm-matchhighlight {
-  background-color: rgba(253, 207, 76, .5);
 }

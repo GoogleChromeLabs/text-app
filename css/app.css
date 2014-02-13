@@ -386,7 +386,7 @@ header.search-active #search-button {
 }
 
 #search-input {
-  border: 0;
+  border: none;
   font-size: 14px;
   height: 30px;
   padding: 5px 8px;
@@ -573,4 +573,8 @@ input[type=search]:focus {
 
 .CodeMirror-lines {
   line-height: 1.2em;
+}
+
+header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
+  background-color: rgba(253, 207, 76, .5);
 }

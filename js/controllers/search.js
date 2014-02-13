@@ -12,7 +12,7 @@ function SearchController(search) {
   $('body').focusin(this.onChangeFocus_.bind(this));
 }
 
-SearchController.prototype.showSearchCount_ = function(opt_reverse) {
+SearchController.prototype.showSearchCount_ = function() {
   var searchCount = this.search_.getResultsCount();
   var searchIndex = this.search_.getCurrentIndex();
   $('#search-counting').text(chrome.i18n.getMessage('searchCounting',

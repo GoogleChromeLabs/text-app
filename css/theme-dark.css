@@ -77,11 +77,11 @@ body[theme="dark"] #settings-list select option {
   color: white !important;
 }
 
-div.CodeMirror span.CodeMirror-matchingbracket {
+body[theme="dark"] div.CodeMirror span.CodeMirror-matchingbracket {
   color: inherit !important;
   border-bottom: 1px solid #f8f8f2;
 }
 
-div.CodeMirror span.CodeMirror-nonmatchingbracket {
+body[theme="dark"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
 }

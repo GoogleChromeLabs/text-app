@@ -8,16 +8,18 @@ var EditSession = CodeMirror.Doc;
 function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
-  this.cm_ = CodeMirror(editorElement, {
-      'autofocus': true,
-      'matchBrackets': true,
-      'highlightSelectionMatches': {
-        minChars: 1,
-        delay: 0,
-        caseInsensitive: true
-      },
-      'value': ''
-  });
+  this.cm_ = CodeMirror(
+      editorElement,
+      {
+        'value': '',
+        'autofocus': true,
+        'matchBrackets': true,
+        'highlightSelectionMatches': {
+          minChars: 1,
+          delay: 0,
+          caseInsensitive: true
+        }
+      });
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
   this.setTheme();
