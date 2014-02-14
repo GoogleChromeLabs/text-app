@@ -9,11 +9,21 @@ function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.cm_ = CodeMirror(
-      editorElement, {'autofocus': true, 'matchBrackets': true, 'value': ''});
+      editorElement,
+      {
+        'value': '',
+        'autofocus': true,
+        'matchBrackets': true,
+        'highlightSelectionMatches': {
+          minChars: 1,
+          delay: 0,
+          caseInsensitive: true
+        }
+      });
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
-  this.searchCursor_ = null;
   this.setTheme();
+  this.search_ = new Search(this.cm_);
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
 
@@ -85,67 +95,11 @@ EditorCodeMirror.prototype.setSession = function(session) {
 };
 
 /**
- * @param {string} query
- * @param {CodeMirror.Pos} pos
- * Get a search cursor that is always case insensitive.
+ * @return {Search}
+ * Return search object.
  */
-EditorCodeMirror.prototype.getSearchCursor = function(query, pos) {
-  return this.cm_.getSearchCursor(query, pos, true /* case insensitive */);
-};
-
-/**
- * @param {string} query
- * Initialize search. This is called every time the search string is updated.
- */
-EditorCodeMirror.prototype.find = function(query) {
-  this.searchQuery_ = query;
-
-  // If there is no selection, we start at cursor. If there is, we start at the
-  // beginning of it.
-  var currentPos = this.cm_.getCursor('start');
-
-  this.searchCursor_ = this.getSearchCursor(query, currentPos);
-
-  // Actually go to the match.
-  this.findNext();
-};
-
-/**
- * @param {boolean} opt_reverse
- * Select the next match when user presses Enter in search field or clicks on
- * "Next" and "Previous" search navigation buttons.
- */
-EditorCodeMirror.prototype.findNext = function(opt_reverse) {
-  if (!this.searchCursor_) {
-    throw 'Internal error: search cursor should be initialized.';
-  }
-  var reverse = opt_reverse || false;
-
-  if (!this.searchCursor_.find(reverse)) {
-    var lastLine = CodeMirror.Pos(this.cm_.lastLine());
-    var firstLine = CodeMirror.Pos(this.cm_.firstLine(), 0);
-    this.searchCursor_ = this.getSearchCursor(this.searchQuery_,
-        reverse ? lastLine : firstLine);
-    this.searchCursor_.find(reverse);
-  }
-
-  var from = this.searchCursor_.from();
-  var to = this.searchCursor_.to();
-
-  if (from && to) {
-    this.cm_.setSelection(from, to);
-  } else {
-    this.clearSelection();
-  }
-};
-
-EditorCodeMirror.prototype.clearSelection = function() {
-  this.cm_.setCursor(this.cm_.getCursor('anchor'));
-};
-
-EditorCodeMirror.prototype.clearSearch = function() {
-  this.searchCursor_ = null;
-  this.clearSelection();
+EditorCodeMirror.prototype.getSearch = function() {
+  return this.search_;
 };
 
 EditorCodeMirror.prototype.onChange = function() {

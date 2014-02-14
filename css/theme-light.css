@@ -100,11 +100,11 @@ body[theme="light"] #tabs-list li .close:hover {
 .cm-s-light .cm-hr {color: #999;}
 .cm-s-light .cm-link {color: #00c;}
 
-div.CodeMirror span.CodeMirror-matchingbracket {
+body[theme="light"] div.CodeMirror span.CodeMirror-matchingbracket {
   color: inherit !important;
   border-bottom: 1px solid black;
 }
 
-div.CodeMirror span.CodeMirror-nonmatchingbracket {
+body[theme="light"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
 }

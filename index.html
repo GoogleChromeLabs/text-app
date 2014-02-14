@@ -96,6 +96,7 @@
         <div class="icon-button" id="search-button" i18n-values="title:searchButton"></div>
         <div class="search-container">
           <input type="search" id="search-input">
+          <span id="search-counting"></span>
           <button class="search-navigation-button" id="search-previous-button" i18n-values="title:searchPreviousButton"></button>
           <button class="search-navigation-button" id="search-next-button" i18n-values="title:searchNextButton"></button>
         </div>
@@ -141,7 +142,7 @@
   <script src="lib/CodeMirror/mode/livescript/livescript.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/lua/lua.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/markdown/markdown.js" type="text/javascript"></script>
-  <script src="lib/CodeMirror/mode/ocaml/ocaml.js" type="text/javascript"></script>
+  <script src="lib/CodeMirror/mode/mllike/mllike.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/pascal/pascal.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/perl/perl.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/php/php.js" type="text/javascript"></script>
@@ -159,9 +160,11 @@
   <script src="lib/CodeMirror/mode/xml/xml.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/xquery/xquery.js" type="text/javascript"></script>
   <script src="lib/CodeMirror/mode/yaml/yaml.js" type="text/javascript"></script>
+  <script src="lib/codemirror-match-highlighter.js" type="text/javascript"></script>
   <script src="js/app.js" type="text/javascript"></script>
   <script src="js/editor-cm.js" type="text/javascript"></script>
   <script src="js/i18n-template.js" type="text/javascript"></script>
+  <script src="js/search.js" type="text/javascript"></script>
   <script src="js/settings.js" type="text/javascript"></script>
   <script src="js/tabs.js" type="text/javascript"></script>
   <script src="js/util.js" type="text/javascript"></script>
