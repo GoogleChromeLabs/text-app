@@ -126,8 +126,8 @@
     "description":"The button text to close the app window."
   },
   "yesDialogButton": {
-    "message": "yes",
-    "description":"the button text which says 'yes'."
+    "message": "Yes",
+    "description": "The button text which says 'Yes'."
   },
   "noDialogButton": {
     "message": "No",
