@@ -545,6 +545,7 @@ input[type=search]:focus {
 }
 
 .dialog-button {
+  background-color: inherit;
   border: 1px solid rgba(0,0,0,0.16);
   border-radius: 3px;
   -webkit-box-align: center;

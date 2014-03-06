@@ -46,7 +46,7 @@ DialogController.prototype.reenableEverything_ = function() {
         this.disabledElements_[i]['index'];
   }
   this.editor_.cm_.setOption('readOnly', false);
-  this.editor_.cm_.focus();;
+  this.editor_.cm_.focus();
 };
 
 DialogController.prototype.resetButtons = function() {
@@ -54,8 +54,7 @@ DialogController.prototype.resetButtons = function() {
 };
 
 DialogController.prototype.addButton = function(id, text) {
-  var button = $('<div class="dialog-button"></div>');
-  button.attr('tabindex', '0');
+  var button = $('<button class="dialog-button"></div>');
   button.attr('id', id);
   button.text(text);
   button.click(this.onClick_.bind(this, id));
@@ -91,23 +90,19 @@ DialogController.prototype.next_ = function(delta) {
 
 DialogController.prototype.onKeydown_ = function(e) {
   switch (e.keyCode) {
-    case 13:  // Enter
-    case 32:  // Space
-      this.onClick_(document.activeElement.id);
-      break;
+     case 27:  // Escape
+       this.onClick_('cancel');
+       return false;
 
-    case 27:  // Escape
-      this.onClick_('cancel');
-      break;
+     case 37:  // <-
+       this.next_(-1);
+       return false;
+       break;
 
-    case 37:  // <-
-      this.next_(-1);
-      break;
-
-    case 9:   // Tab
-    case 39:  // ->
-      this.next_(1);
-      break;
+     case 39:  // ->
+       this.next_(1);
+       return false;
+       break;
   }
-  return false;
+  return true;
 };
