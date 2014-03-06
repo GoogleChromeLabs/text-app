@@ -257,30 +257,26 @@ Tabs.prototype.close = function(tabId) {
   var tab = this.tabs_[i];
 
   if (!tab.isSaved()) {
-    if (this.settings_.get('autosave') && tab.getEntry()) {
-      this.save(tab, true /* close */);
-    } else {
-      this.dialogController_.setText(
-          chrome.i18n.getMessage('saveFilePrompt'));
-      this.dialogController_.resetButtons();
-      this.dialogController_.addButton('yes',
-          chrome.i18n.getMessage('yesDialogButton'));
-      this.dialogController_.addButton('no',
-          chrome.i18n.getMessage('noDialogButton'));
-      this.dialogController_.addButton('cancel',
-          chrome.i18n.getMessage('cancelDialogButton'));
-      this.dialogController_.show(function(answer) {
-        if (answer === 'yes') {
-          this.save(tab, true /* close */);
-          return;
-        }
+    this.dialogController_.setText(
+        chrome.i18n.getMessage('saveFilePrompt'));
+    this.dialogController_.resetButtons();
+    this.dialogController_.addButton('yes',
+        chrome.i18n.getMessage('yesDialogButton'));
+    this.dialogController_.addButton('no',
+        chrome.i18n.getMessage('noDialogButton'));
+    this.dialogController_.addButton('cancel',
+        chrome.i18n.getMessage('cancelDialogButton'));
+    this.dialogController_.show(function(answer) {
+      if (answer === 'yes') {
+        this.save(tab, true /* close */);
+        return;
+      }
 
-        if (answer === 'no') {
-          this.closeTab_(tab);
-          return;
-        }
-      }.bind(this));
-    }
+      if (answer === 'no') {
+        this.closeTab_(tab);
+        return;
+      }
+    }.bind(this));
   } else {
     this.closeTab_(tab);
   }
@@ -354,7 +350,7 @@ Tabs.prototype.getFilesToSave = function() {
   var toSave = [];
 
   for (i = 0; i < this.tabs_.length; i++) {
-    if (!this.tabs_[i].isSaved() && this.tabs_[i].getEntry()) {
+    if (!this.tabs_[i].isSaved()) {
       toSave.push({'entry': this.tabs_[i].getEntry(),
                    'contents': editor.getContents(this.tabs_[i].getSession())});
     }
