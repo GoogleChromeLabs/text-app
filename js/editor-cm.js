@@ -219,5 +219,17 @@ EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
 EditorCodeMirror.prototype.showHideMargin = function(show, col) {
 };
 
+/**
+ * Make the textarea unfocusable and hide cursor.
+ */
+EditorCodeMirror.prototype.disable = function() {
+  this.cm_.setOption('readOnly', 'nocursor');
+};
+
+EditorCodeMirror.prototype.enable = function() {
+  this.cm_.setOption('readOnly', false);
+  this.cm_.focus();
+};
+
 var Editor = EditorCodeMirror;
 

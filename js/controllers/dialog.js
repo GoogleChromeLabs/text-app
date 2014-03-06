@@ -1,5 +1,7 @@
 /**
  * @constructor
+ * @param {HTMLElement} container
+ * @param {Editor} editor
  */
 function DialogController(container, editor) {
   this.container_ = container;
@@ -21,9 +23,6 @@ DialogController.prototype.show = function(callback) {
   this.callback_ = callback;
   this.container_.addClass('open');
 
-  // In case any new focusable elements appear, they either should be added here
-  // and in onClick_, or some general code should be written to disable/enable
-  // them.
   this.disableEverything_();
 
   $(document).bind('keydown.dialog', this.onKeydown_.bind(this));
@@ -31,7 +30,7 @@ DialogController.prototype.show = function(callback) {
 };
 
 DialogController.prototype.disableEverything_ = function() {
-  this.editor_.cm_.setOption('readOnly', 'nocursor');
+  this.editor_.disable();
   var inputs = $('input, select, textarea');
   for (var i = 0; i < inputs.length; i++) {
     this.disabledElements_.push({'element': inputs[i],
@@ -45,8 +44,7 @@ DialogController.prototype.reenableEverything_ = function() {
     this.disabledElements_[i]['element'].tabIndex =
         this.disabledElements_[i]['index'];
   }
-  this.editor_.cm_.setOption('readOnly', false);
-  this.editor_.cm_.focus();
+  this.editor_.enable();
 };
 
 DialogController.prototype.resetButtons = function() {
