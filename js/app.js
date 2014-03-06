@@ -72,11 +72,7 @@ TextApp.prototype.setHasChromeFrame = function(hasFrame) {
  *     {entry: <FileEntry>, contents: <string>}.
  */
 TextApp.prototype.getFilesToSave = function() {
-  if (this.settings_.get('autosave')) {
-    return this.tabs_.getFilesToSave();
-  } else {
-    return [];
-  }
+  return [];
 };
 
 /**

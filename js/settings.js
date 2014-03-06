@@ -25,7 +25,6 @@ Settings.AREA = 'sync';
  * @type {Object.<string, Object>}
  */
 Settings.SETTINGS = {
-  'autosave': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   // 'fontsize' is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
