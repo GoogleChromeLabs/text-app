@@ -52,7 +52,7 @@ DialogController.prototype.resetButtons = function() {
 };
 
 DialogController.prototype.addButton = function(id, text) {
-  var button = $('<button class="dialog-button"></div>');
+  var button = $('<button class="dialog-button"></button>');
   button.attr('id', id);
   button.text(text);
   button.click(this.onClick_.bind(this, id));
@@ -87,6 +87,7 @@ DialogController.prototype.next_ = function(delta) {
 };
 
 DialogController.prototype.onKeydown_ = function(e) {
+  e.stopPropagation();
   switch (e.keyCode) {
      case 27:  // Escape
        this.onClick_('cancel');
@@ -102,5 +103,4 @@ DialogController.prototype.onKeydown_ = function(e) {
        return false;
        break;
   }
-  return true;
 };
