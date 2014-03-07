@@ -21,10 +21,10 @@ function TextApp() {
  * here.
  */
 TextApp.prototype.init = function() {
-  this.dialogController_ = new DialogController($('#dialog-container'))
-
   this.settings_ = new Settings();
   this.editor_ = new Editor($('#editor')[0], this.settings_);
+  this.dialogController_ = new DialogController($('#dialog-container'),
+                                                this.editor_);
   this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
 
   this.hotkeysController_ = new HotkeysController(

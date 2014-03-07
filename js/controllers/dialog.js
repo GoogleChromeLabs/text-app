@@ -1,8 +1,12 @@
 /**
  * @constructor
+ * @param {HTMLElement} container
+ * @param {Editor} editor
  */
-function DialogController(container) {
+function DialogController(container, editor) {
   this.container_ = container;
+  this.editor_ = editor;
+  this.disabledElements_ = [];
 };
 
 /**
@@ -19,13 +23,28 @@ DialogController.prototype.show = function(callback) {
   this.callback_ = callback;
   this.container_.addClass('open');
 
-  // In case any new focusable elements appear, they either should be added here
-  // and in onClick_, or some general code should be written to disable/enable
-  // them.
-  $('#editor textarea').attr('tabIndex', '-1');
+  this.disableEverything_();
 
   $(document).bind('keydown.dialog', this.onKeydown_.bind(this));
   this.container_.find('.dialog-button').first().focus();
+};
+
+DialogController.prototype.disableEverything_ = function() {
+  this.editor_.disable();
+  var inputs = $('input, select, textarea');
+  for (var i = 0; i < inputs.length; i++) {
+    this.disabledElements_.push({'element': inputs[i],
+                               'index': inputs[i].tabIndex});
+    inputs[i].tabIndex = -1;
+  }
+};
+
+DialogController.prototype.reenableEverything_ = function() {
+  for (var i = 0; i < this.disabledElements_.length; i++) {
+    this.disabledElements_[i]['element'].tabIndex =
+        this.disabledElements_[i]['index'];
+  }
+  this.editor_.enable();
 };
 
 DialogController.prototype.resetButtons = function() {
@@ -33,8 +52,8 @@ DialogController.prototype.resetButtons = function() {
 };
 
 DialogController.prototype.addButton = function(id, text) {
-  var button = $('<div class="dialog-button"></div>');
-  button.attr('tabindex', '0');
+  var button = $('<button class="dialog-button"></button>');
+  button.attr('id', id);
   button.text(text);
   button.click(this.onClick_.bind(this, id));
   button.keydown(this.onKeydown_.bind(this));
@@ -47,16 +66,41 @@ DialogController.prototype.setText = function(text) {
 
 DialogController.prototype.onClick_ = function(id) {
   $(document).unbind('keydown.dialog');
-  $('#editor textarea').attr('tabIndex', '0');
   this.container_.removeClass('open');
+  this.reenableEverything_();
   if (this.callback_)
     this.callback_(id);
 };
 
+/**
+ * Focus the next of previous button.
+ * @param {number} delta +1 for next, -1 for previous.
+ */
+DialogController.prototype.next_ = function(delta) {
+  var buttons = $('.dialog-button');
+  var newIndex = $.inArray(document.activeElement, buttons) + delta;
+  if (newIndex < 0)
+    newIndex += buttons.length;
+  if (newIndex >= buttons.length)
+    newIndex -= buttons.length;
+  $(buttons[newIndex]).focus();
+};
+
 DialogController.prototype.onKeydown_ = function(e) {
   e.stopPropagation();
-  if (e.keyCode === 27)
-    this.onClick_('cancel');
+  switch (e.keyCode) {
+     case 27:  // Escape
+       this.onClick_('cancel');
+       return false;
 
-  return false;
+     case 37:  // <-
+       this.next_(-1);
+       return false;
+       break;
+
+     case 39:  // ->
+       this.next_(1);
+       return false;
+       break;
+  }
 };
