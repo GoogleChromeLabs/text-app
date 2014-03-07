@@ -27,10 +27,6 @@
     "message": "Settings",
     "description":"The text of the Menu 'Settings'."
   },
-  "autosaveSetting": {
-    "message": "Autosave",
-    "description":"The text of the settings 'Autosave'."
-  },
   "spacestabSetting": {
     "message": "Tabs to spaces",
     "description":"The text of the settings 'Tabs to spaces'."
