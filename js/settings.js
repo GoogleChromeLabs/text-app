@@ -12,6 +12,7 @@ function Settings() {
   // Can be changed to chrome.storage.local.
   this.storage_ = chrome.storage[Settings.AREA];
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
+  chrome.runtime.onInstalled.addListener(this.removeOldSettings_.bind(this));
   this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
 }
 
@@ -38,6 +39,12 @@ Settings.SETTINGS = {
   'tabsize': {'default': 4, 'type': 'integer', 'widget': 'number'},
   'theme': {'default': 'default', 'type': 'string', 'widget': 'select'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
+};
+
+Settings.prototype.removeOldSettings_ = function() {
+  if ('autosave' in this.settings_)
+    delete this.settings_['autosave'];
+  this.storage_.remove('autosave');
 };
 
 /**
