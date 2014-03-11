@@ -49,7 +49,11 @@
   },
   "themeSetting": {
     "message": "Theme",
-    "description":"The text of the settings 'Theme'."
+    "description": "The text of the settings 'Theme'."
+  },
+  "analyticsSetting": {
+    "message": "Send usage statistics",
+    "description": "The label for 'send statistics' checkbox in settings tab"
   },
   "defaultThemeOption": {
     "message": "Default",
