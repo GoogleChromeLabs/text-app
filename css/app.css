@@ -404,6 +404,10 @@ header.search-active #search-button {
   height: 30px;
 }
 
+#search-counting.nomatches {
+  color: #B00;
+}
+
 .search-navigation-button {
   border: 0;
   border-left: 1px solid #DDD;
