@@ -103,7 +103,7 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.setTabSize(this.settings_.get('tabsize'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
   if (this.settings_.get('analytics')) {
-    this.analytics_.start();
+    this.analytics_.start(this.settings_);
   }
 };
 
