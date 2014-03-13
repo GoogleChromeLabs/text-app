@@ -24,8 +24,9 @@
     }
   },
   "permissions": [
+    {"fileSystem": ["write", "retainEntries"]},
     "storage",
-    {"fileSystem": ["write", "retainEntries"]}
+    "https://www.google-analytics.com/"
   ],
   "file_handlers": {
     "text": {

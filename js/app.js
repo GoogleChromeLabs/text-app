@@ -103,7 +103,7 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.setTabSize(this.settings_.get('tabsize'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
   if (this.settings_.get('analytics')) {
-    this.analytics_.enable();
+    this.analytics_.start();
   }
 };
 
@@ -115,9 +115,7 @@ TextApp.prototype.onSettingsReady_ = function() {
 TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
     case 'analytics':
-      if (value) {
-        this.analytics_.enable();
-      } else {
+      if (!value) {
         this.analytics_.disable();
       }
       break;
