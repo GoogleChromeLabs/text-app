@@ -22,6 +22,7 @@ function TextApp() {
  */
 TextApp.prototype.init = function() {
   this.settings_ = new Settings();
+  this.analytics_ = new Analytics();
   this.editor_ = new Editor($('#editor')[0], this.settings_);
   this.dialogController_ = new DialogController($('#dialog-container'),
                                                 this.editor_);
@@ -101,6 +102,9 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
   this.editor_.setTabSize(this.settings_.get('tabsize'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
+  if (this.settings_.get('analytics')) {
+    this.analytics_.start(this.settings_);
+  }
 };
 
 /**

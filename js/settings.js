@@ -28,6 +28,7 @@ Settings.AREA = 'sync';
 Settings.SETTINGS = {
   // 'fontsize' is not shown in Settings tab, only changed with
   // Ctrl-+ / Ctrl--
+  'analytics': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
