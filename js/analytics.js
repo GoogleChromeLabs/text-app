@@ -11,9 +11,9 @@ Analytics.prototype.start = function(settings) {
   }
 
   this.service_ = analytics.getService('text_app');
-  var propertyId = 'UA-48886257-1';
-  if (chrome.runtime.getManifest()['name'].indexOf('Dev') >= 0) {
-    propertyId = 'UA-48886257-2';
+  var propertyId = 'UA-48886257-2';
+  if (chrome.runtime.id === 'mmfbcljfglbokpmkimbfghdkjmjhdgbg') {
+    propertyId = 'UA-48886257-1';
   }
   this.tracker_ = this.service_.getTracker(propertyId);
 
