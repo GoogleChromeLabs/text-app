@@ -12,11 +12,20 @@ function SearchController(search) {
   $('body').focusin(this.onChangeFocus_.bind(this));
 }
 
-SearchController.prototype.showSearchCount_ = function() {
+SearchController.prototype.updateSearchCount_ = function() {
+  if ($('#search-input').val().length === 0) {
+    $('#search-counting').text('');
+    return;
+  }
   var searchCount = this.search_.getResultsCount();
   var searchIndex = this.search_.getCurrentIndex();
   $('#search-counting').text(chrome.i18n.getMessage('searchCounting',
       [searchIndex, searchCount]));
+  if (searchCount === 0) {
+    $('#search-counting').addClass('nomatches');
+  } else {
+    $('#search-counting').removeClass('nomatches');
+  }
 };
 
 SearchController.prototype.findNext_ = function(opt_reverse) {
