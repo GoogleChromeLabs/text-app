@@ -53,7 +53,7 @@
   },
   "analyticsSetting": {
     "message": "Send usage statistics",
-    "description": "The label for 'send statistics' checkbox in settings tab"
+    "description": "The label for the checkbox in settings tab that turns on Analytics"
   },
   "defaultThemeOption": {
     "message": "Default",

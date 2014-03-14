@@ -114,12 +114,6 @@ TextApp.prototype.onSettingsReady_ = function() {
  */
 TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
-    case 'analytics':
-      if (!value) {
-        this.analytics_.disable();
-      }
-      break;
-
     case 'fontsize':
       this.editor_.setFontSize(value);
       break;

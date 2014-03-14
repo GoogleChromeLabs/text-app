@@ -2,26 +2,24 @@
  * @constructor
  */
 function Analytics() {
-  this.enabled_ = false;
   this.service_ = null;
 }
 
 Analytics.prototype.start = function(settings) {
-  if (this.enabled_ || this.service_) {
+  if (this.service_) {
     throw 'Analytics should be started only once per session.';
   }
 
-  this.enabled_ = true;
   this.service_ = analytics.getService('text_app');
-  this.tracker_ = this.service_.getTracker('UA-48886257-1');
+  var propertyId = 'UA-48886257-1';
+  if (chrome.runtime.getManifest()['name'].indexOf('Dev') >= 0) {
+    propertyId = 'UA-48886257-2';
+  }
+  this.tracker_ = this.service_.getTracker(propertyId);
 
   this.reportSettings_(settings);
 
   this.tracker_.sendAppView('main');
-};
-
-Analytics.prototype.disable = function() {
-  this.enabled_ = false;
 };
 
 Analytics.prototype.reportSettings_ = function(settings) {
