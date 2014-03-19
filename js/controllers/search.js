@@ -31,7 +31,7 @@ SearchController.prototype.updateSearchCount_ = function() {
 SearchController.prototype.findNext_ = function(opt_reverse) {
   if (this.search_.getQuery()) {
     this.search_.findNext(opt_reverse);
-    this.showSearchCount_(opt_reverse);
+    this.updateSearchCount_(opt_reverse);
   }
 };
 
@@ -64,7 +64,7 @@ SearchController.prototype.onChange_ = function() {
   } else {
     this.search_.clear();
   }
-  this.showSearchCount_();
+  this.updateSearchCount_();
 };
 
 SearchController.prototype.onKeydown_ = function(e) {
