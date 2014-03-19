@@ -1,4 +1,3 @@
-var chrome = {};
 chrome.app = {};
 chrome.app.runtime = {};
 chrome.app.runtime.onLaunched = {};
