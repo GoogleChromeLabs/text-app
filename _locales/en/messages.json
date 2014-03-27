@@ -52,8 +52,12 @@
     "description": "The text of the settings 'Theme'."
   },
   "analyticsSetting": {
-    "message": "Send usage statistics",
+    "message": "Send statistics",
     "description": "The label for the checkbox in settings tab that turns on Analytics"
+  },
+  "analyticsTooltip": {
+    "message": "Automatically send usage statistics",
+    "description": "The tooltip for send statistics checkbox"
   },
   "defaultThemeOption": {
     "message": "Default",
