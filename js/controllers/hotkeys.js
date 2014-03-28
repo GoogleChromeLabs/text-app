@@ -1,7 +1,8 @@
 /**
  * @constructor
  */
-function HotkeysController(tabs, editor, settings) {
+function HotkeysController(windowController, tabs, editor, settings) {
+  this.windowController_ = windowController;
   this.tabs_ = tabs;
   this.editor_ = editor;
   this.settings_ = settings;
@@ -60,7 +61,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case this.KEY.W:
-        this.tabs_.closeCurrent();
+        if (e.shiftKey) {
+          this.windowController_.close();
+        } else {
+          this.tabs_.closeCurrent();
+        }
         return false;
 
       case this.KEY.Z:

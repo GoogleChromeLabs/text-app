@@ -28,12 +28,12 @@ TextApp.prototype.init = function() {
                                                 this.editor_);
   this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
 
-  this.hotkeysController_ = new HotkeysController(
-      this.tabs_, this.editor_, this.settings_);
   this.menuController_ = new MenuController(this.tabs_);
   this.searchController_ = new SearchController(this.editor_.getSearch());
   this.settingsController_ = new SettingsController(this.settings_);
   this.windowController_ = new WindowController(this.editor_, this.settings_);
+  this.hotkeysController_ = new HotkeysController(
+      this.windowController_, this.tabs_, this.editor_, this.settings_);
 
   if (this.settings_.isReady()) {
     this.onSettingsReady_();
