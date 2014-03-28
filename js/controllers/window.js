@@ -1,14 +1,16 @@
 /**
  * @constructor
  */
-function WindowController(editor, settings) {
+function WindowController(editor, settings, analytics) {
   this.editor_ = editor;
   this.settings_ = settings;
+  this.analytics_ = analytics;
   this.currentTab_ = null;
   $('#window-close').click(this.close_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
+  $(window).bind('error', this.onError_.bind(this));
   $(document).bind('filesystemerror', this.onFileSystemError.bind(this));
   $(document).bind('loadingfile', this.onLoadingFile.bind(this));
   $(document).bind('switchtab', this.onChangeTab_.bind(this));
@@ -136,3 +138,11 @@ WindowController.prototype.resizeFinish_ = function(e) {
   $(document).css('cursor', 'default');
   $('#sidebar').css('-webkit-transition', 'width 0.2s ease-in-out');
 };
+
+WindowController.prototype.onError_ = function(event) {
+  var message = event.originalEvent.message;
+  var errorStack = event.originalEvent.error.stack;
+  if (this.settings_.get('analytics'))
+    this.analytics_.reportError(message, errorStack);
+};
+
