@@ -1,9 +1,11 @@
 /**
  * @constructor
  * @param {Settings} settings Settings service.
+ * @param {Analytics} analytics Analytics service.
  */
-function SettingsController(settings) {
+function SettingsController(settings, analytics) {
   this.settings_ = settings;
+  this.analytics_ = analytics;
 
   if (this.settings_.isReady()) {
     this.showAll_();
@@ -44,6 +46,7 @@ SettingsController.prototype.showAll_ = function() {
   for (var key in settings) {
     this.show_(key, settings[key]);
   }
+  this.analytics_.setEnabled(settings['analytics']);
 };
 
 SettingsController.prototype.show_ = function(key, value) {
@@ -60,6 +63,8 @@ SettingsController.prototype.show_ = function(key, value) {
 
 SettingsController.prototype.onSettingChange_ = function(e, key, value) {
   this.show_(key, value);
+  if (key === 'analytics')
+    this.analytics_.setEnabled(value);
 };
 
 SettingsController.prototype.onWidgetChange_ = function(key) {
