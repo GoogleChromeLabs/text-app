@@ -46,7 +46,6 @@ SettingsController.prototype.showAll_ = function() {
   for (var key in settings) {
     this.show_(key, settings[key]);
   }
-  this.analytics_.setEnabled(settings['analytics']);
 };
 
 SettingsController.prototype.show_ = function(key, value) {
