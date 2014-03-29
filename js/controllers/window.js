@@ -142,11 +142,6 @@ WindowController.prototype.resizeFinish_ = function(e) {
 WindowController.prototype.onError_ = function(event) {
   var message = event.originalEvent.message;
   var errorStack = event.originalEvent.error.stack;
-<<<<<<< Updated upstream
-  if (this.settings_.get('analytics'))
-    this.analytics_.reportError(message, errorStack);
-=======
   this.analytics_.reportError(message, errorStack);
->>>>>>> Stashed changes
 };
 
