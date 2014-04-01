@@ -31,7 +31,8 @@ TextApp.prototype.init = function() {
   this.menuController_ = new MenuController(this.tabs_);
   this.searchController_ = new SearchController(this.editor_.getSearch());
   this.settingsController_ = new SettingsController(this.settings_);
-  this.windowController_ = new WindowController(this.editor_, this.settings_);
+  this.windowController_ = new WindowController(
+      this.editor_, this.settings_, this.analytics_);
   this.hotkeysController_ = new HotkeysController(
       this.windowController_, this.tabs_, this.editor_, this.settings_);
 
@@ -102,9 +103,8 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
   this.editor_.setTabSize(this.settings_.get('tabsize'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
-  if (this.settings_.get('analytics')) {
-    this.analytics_.start(this.settings_);
-  }
+  this.analytics_.setEnabled(this.settings_.get('analytics'));
+  this.analytics_.reportSettings(this.settings_);
 };
 
 /**
