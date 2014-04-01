@@ -1,5 +1,6 @@
 /**
  * @constructor
+ * @param {boolean} enabled
  */
 function Analytics(enabled) {
   this.hasReportedSettings_ = false;
@@ -11,6 +12,8 @@ function Analytics(enabled) {
     propertyId = 'UA-48886257-1';
   }
   this.tracker_ = service.getTracker(propertyId);
+
+  $(document).bind('settingschange', this.onSettingsChange_.bind(this));
 };
 
 Analytics.prototype.reportSettings = function(settings) {
@@ -36,4 +39,9 @@ Analytics.prototype.reportError = function(message, error) {
 
 Analytics.prototype.setEnabled = function(enabled) {
   this.enabled_ = enabled;
+};
+
+Analytics.prototype.onSettingsChange_ = function(e, key, value) {
+  if (key === 'analytics')
+    this.setEnabled(value);
 };
