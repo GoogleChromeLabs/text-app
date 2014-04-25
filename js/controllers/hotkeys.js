@@ -13,14 +13,14 @@ function HotkeysController(windowController, tabs, editor, settings) {
     this.KEY[String.fromCharCode(i).toUpperCase()] = i;
   }
 
-  this.KEY.MINUS = 189;
-  this.KEY.NUMPAD_MINUS = 109;
-  this.KEY.NUMPAD_PLUS = 107;
-  this.KEY.NUMPAD_ZERO = 96;
-  this.KEY.PLUS = 187;
-  this.KEY.SPACE = 32;
   this.KEY.TAB = 9;
+  this.KEY.SPACE = 32;
   this.KEY.ZERO = 48;
+  this.KEY.NUMPAD_ZERO = 96;
+  this.KEY.NUMPAD_PLUS = 107;
+  this.KEY.NUMPAD_MINUS = 109;
+  this.KEY.PLUS = 187;
+  this.KEY.MINUS = 189;
 
   $(document).keydown(this.onKeydown_.bind(this));
 };
