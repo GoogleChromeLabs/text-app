@@ -27,6 +27,14 @@
     "message": "Settings",
     "description":"The text of the Menu 'Settings'."
   },
+  "fontsizeSetting": {
+    "message": "Font size",
+    "description":"The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Set with Ctrl- and Ctrl+",
+    "description": "The tooltip of the setting 'Font size'."
+  },
   "spacestabSetting": {
     "message": "Tabs to spaces",
     "description":"The text of the settings 'Tabs to spaces'."

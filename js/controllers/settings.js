@@ -52,6 +52,8 @@ SettingsController.prototype.show_ = function(key, value) {
       $('#setting-' + key).prop('checked', value);
       break;
     case 'number':
+      $('#setting-' +key).val(parseInt(value));
+      break;
     case 'select':
       $('#setting-' +key).val(value);
       break;
