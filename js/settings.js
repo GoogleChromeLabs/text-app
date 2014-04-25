@@ -27,7 +27,7 @@ Settings.AREA = 'sync';
  */
 Settings.SETTINGS = {
   // 'fontsize' is not shown in Settings tab, only changed with
-  // Ctrl-+ / Ctrl--
+  // Ctrl-+ / Ctrl-- / Ctrl-0
   'analytics': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': null},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
@@ -66,6 +66,11 @@ Settings.prototype.set = function(key, value) {
   this.storage_.set(item);
   // this.settings_ will be updated in onChanged_ to keep them in sync with
   // storage.
+};
+
+Settings.prototype.reset = function(key) {
+  var defaultValue = Settings.SETTINGS[key]['default'];
+  this.set(key, defaultValue);
 };
 
 Settings.prototype.isReady = function() {

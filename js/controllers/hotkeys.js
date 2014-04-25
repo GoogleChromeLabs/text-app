@@ -13,10 +13,14 @@ function HotkeysController(windowController, tabs, editor, settings) {
     this.KEY[String.fromCharCode(i).toUpperCase()] = i;
   }
 
-  this.KEY.TAB = 9;
-  this.KEY.SPACE = 32;
-  this.KEY.EQUALS = 187;
   this.KEY.MINUS = 189;
+  this.KEY.NUMPAD_MINUS = 109;
+  this.KEY.NUMPAD_PLUS = 107;
+  this.KEY.NUMPAD_ZERO = 96;
+  this.KEY.PLUS = 187;
+  this.KEY.SPACE = 32;
+  this.KEY.TAB = 9;
+  this.KEY.ZERO = 48;
 
   $(document).keydown(this.onKeydown_.bind(this));
 };
@@ -75,12 +79,19 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         break;
 
-      case this.KEY.EQUALS:
+      case this.KEY.ZERO:
+      case this.KEY.NUMPAD_ZERO:
+        this.settings_.reset('fontsize');
+        return false;
+
+      case this.KEY.PLUS:
+      case this.KEY.NUMPAD_PLUS:
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * (9/8));
         return false;
 
       case this.KEY.MINUS:
+      case this.KEY.NUMPAD_MINUS:
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * (8/9));
         return false;
