@@ -58,7 +58,7 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case this.KEY.P:
-        this.analytics_.reportEvent('hotkey', 'print');
+        this.analytics_.reportEvent('action', 'print');
         window.print();
         return false;
 
