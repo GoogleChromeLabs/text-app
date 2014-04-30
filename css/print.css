@@ -1,0 +1,32 @@
+/* Show only the text editor in print mode */
+
+header,
+#sidebar,
+.CodeMirror-vscrollbar,
+.CodeMirror-hscrollbar,
+.CodeMirror-scrollbar-filler,
+.CodeMirror-gutter-filler,
+.CodeMirror-gutters,
+.CodeMirror-linenumber {
+    display:none !important;
+}
+
+.CodeMirror-sizer {
+    margin-left: 0px !important;
+}
+
+.CodeMirror-gutter-wrapper {
+    left: 0px !important;
+}
+
+#window-container,
+#main-container {
+    display: initial !important;
+}
+
+#editor,
+#editor .CodeMirror {
+    position: initial !important;
+}
+
+

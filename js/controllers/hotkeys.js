@@ -1,11 +1,12 @@
 /**
  * @constructor
  */
-function HotkeysController(windowController, tabs, editor, settings) {
+function HotkeysController(windowController, tabs, editor, settings, analytics) {
   this.windowController_ = windowController;
   this.tabs_ = tabs;
   this.editor_ = editor;
   this.settings_ = settings;
+  this.analytics_ = analytics;
 
   this.KEY = {};
   // create key map A - Z
@@ -54,6 +55,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
 
       case this.KEY.O:
         this.tabs_.openFiles();
+        return false;
+
+      case this.KEY.P:
+        this.analytics_.reportEvent('action', 'print');
+        window.print();
         return false;
 
       case this.KEY.S:
