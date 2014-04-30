@@ -33,8 +33,8 @@ TextApp.prototype.init = function() {
   this.settingsController_ = new SettingsController(this.settings_);
   this.windowController_ = new WindowController(
       this.editor_, this.settings_, this.analytics_);
-  this.hotkeysController_ = new HotkeysController(
-      this.windowController_, this.tabs_, this.editor_, this.settings_);
+  this.hotkeysController_ = new HotkeysController( this.windowController_,
+      this.tabs_, this.editor_, this.settings_, this.analytics_);
 
   if (this.settings_.isReady()) {
     this.onSettingsReady_();

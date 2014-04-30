@@ -37,6 +37,11 @@ Analytics.prototype.reportError = function(message, error) {
     this.tracker_.sendEvent('error', message, error);
 };
 
+Analytics.prototype.reportEvent = function(type, message) {
+  if (this.enabled_)
+    this.tracker_.sendEvent(type, message);
+};
+
 Analytics.prototype.setEnabled = function(enabled) {
   this.enabled_ = enabled;
 };
