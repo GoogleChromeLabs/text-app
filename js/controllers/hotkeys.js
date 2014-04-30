@@ -56,6 +56,10 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         this.tabs_.openFiles();
         return false;
 
+      case this.KEY.P:
+        window.print();
+        return false;
+
       case this.KEY.S:
         if (e.shiftKey) {
           this.tabs_.saveAs();
