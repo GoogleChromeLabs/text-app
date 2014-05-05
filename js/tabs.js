@@ -343,23 +343,6 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
 };
 
 /**
- * @return {Array.<Object>} Each element:
- *     {entry: <FileEntry>, contents: <string>}.
- */
-Tabs.prototype.getFilesToSave = function() {
-  var toSave = [];
-
-  for (i = 0; i < this.tabs_.length; i++) {
-    if (!this.tabs_[i].isSaved()) {
-      toSave.push({'entry': this.tabs_[i].getEntry(),
-                   'contents': editor.getContents(this.tabs_[i].getSession())});
-    }
-  }
-
-  return toSave;
-};
-
-/**
  * @return {Array.<FileEntry>}
  */
 Tabs.prototype.getFilesToRetain = function() {
