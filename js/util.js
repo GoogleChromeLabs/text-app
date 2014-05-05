@@ -75,3 +75,31 @@ util.getExtension = function(fileName) {
     return null;
   }
 };
+
+
+/*
+ * @param {string} File raw content.
+ * @return {string} Line endings.
+ * Returns sniffed line endings or null.
+*/
+util.sniffLineEndings = function(text) {
+  var subset = text.substr(0, 1000);
+  var hasCRLF = /\r\n/.test(subset);
+  var hasLF = /[^\r]\n/.test(subset);
+  
+  if ((hasCRLF && hasLF) || (!hasCRLF && !hasLF)) {
+      return null;
+  } else {
+      return hasCRLF ? '\r\n' : '\n';
+  }
+};
+
+/*
+  TODO
+ */
+util.getPlatformLineEndings = function() {
+  chrome.runtime.getPlatformInfo(function(platformInfo) {
+    return platformInfo.os === 'win' ? '\r\n' : '\n';
+  });
+};
+
