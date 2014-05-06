@@ -70,14 +70,6 @@ TextApp.prototype.setHasChromeFrame = function(hasFrame) {
 };
 
 /**
- * @return {Array.<Object>} Each element:
- *     {entry: <FileEntry>, contents: <string>}.
- */
-TextApp.prototype.getFilesToSave = function() {
-  return [];
-};
-
-/**
  * @return {Array.<FileEntry>}
  */
 TextApp.prototype.getFilesToRetain = function() {

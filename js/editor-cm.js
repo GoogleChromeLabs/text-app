@@ -146,15 +146,6 @@ EditorCodeMirror.prototype.setFontSize = function(fontSize) {
 };
 
 /**
- * @param {EditSession} session
- * @return {string}
- */
-EditorCodeMirror.prototype.getContents = function(session) {
-  session.getValue();
-};
-
-/**
- * @param {EditSession} session
  * @param {number} size
  */
 EditorCodeMirror.prototype.setTabSize = function(size) {

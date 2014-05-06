@@ -72,10 +72,6 @@ TextApp.prototype.setHasChromeFrame = function(v) {};
 TextApp.prototype.openEntries = function(entries) {};
 TextApp.prototype.openNew = function() {};
 /**
- * @return {Array.<Object>}
- */
-TextApp.prototype.getFilesToSave = function() {};
-/**
  * @return {Array.<FileEntry>}
  */
 TextApp.prototype.getFilesToRetain = function() {};

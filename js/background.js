@@ -99,25 +99,8 @@ Background.prototype.onWindowClosed = function(win) {
     }
   }
 
-  var toSave = textApp.getFilesToSave();
-  console.log('Got ' + toSave.length + ' files to save:', toSave);
-  for (var i = 0; i < toSave.length; i++) {
-    var entry = toSave[i].entry;
-    var contents = toSave[i].contents;
-    this.saveFile_(entry, contents);
-  }
-
   var toRetain = textApp.getFilesToRetain();
   this.retainFiles_(toRetain);
-};
-
-/**
- * @param {FileEntry} entry
- * @param {string} contents
- */
-Background.prototype.saveFile_ = function(entry, contents) {
-  util.writeFile(
-      entry, contents, function() {console.log('Saved', entry.name);});
 };
 
 /**
