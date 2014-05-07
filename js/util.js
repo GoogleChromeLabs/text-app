@@ -83,7 +83,6 @@ util.getExtension = function(fileName) {
 */
 util.guessLineEndings = function(opt_text) {
   var indexOfLF = opt_text.indexOf('\n');
-  var hasLF = (indexOfLF !== -1);
   var hasCRLF = (indexOfLF > 0) && (opt_text[indexOfLF - 1] === '\r');
 
   return (hasCRLF ? '\r\n' : '\n');
