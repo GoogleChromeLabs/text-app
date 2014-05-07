@@ -7,7 +7,7 @@
 function Tab(id, session, lineEndings, entry, dialogController) {
   this.id_ = id;
   this.session_ = session;
-  this.lineEndings = lineEndings;
+  this.lineEndings_ = lineEndings;
   this.entry_ = entry;
   this.saved_ = true;
   this.path_ = null;
@@ -69,7 +69,7 @@ Tab.prototype.updatePath_ = function() {
 };
 
 Tab.prototype.getContent_ = function() {
-  return this.session_.getValue();
+  return this.session_.getValue(this.lineEndings_);
 };
 
 Tab.prototype.save = function(opt_callbackDone) {
@@ -194,18 +194,16 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   }
 
   var session = this.editor_.newSession(opt_content);
-  var lineEndings = util.sniffLineEndings(opt_content);
-  if (!lineEndings)
-    lineEndings = util.getPlatformLineEndings();
-
-  var tab = new Tab(id, session, lineEndings, opt_entry || null,
-                    this.dialogController_);
-  this.tabs_.push(tab);
-  $.event.trigger('newtab', tab);
-  this.showTab(tab.getId());
-  var fileNameExtension = tab.getExtension();
-  if (fileNameExtension)
-    this.editor_.setMode(session, fileNameExtension);
+  util.sniffLineEndings(opt_content, function(lineEndings) {
+    var tab = new Tab(id, session, lineEndings, opt_entry || null,
+                      this.dialogController_);
+    this.tabs_.push(tab);
+    $.event.trigger('newtab', tab);
+    this.showTab(tab.getId());
+    var fileNameExtension = tab.getExtension();
+    if (fileNameExtension)
+      this.editor_.setMode(session, fileNameExtension);
+  }.bind(this));
 };
 
 /**
