@@ -77,12 +77,15 @@ util.getExtension = function(fileName) {
 };
 
 /*
- * @param {string} Optional raw text.
+ * @param {?string} [text] Text content.
  * @return {string} Line endings.
  * Returns guessed line endings or LF if not successful.
 */
-util.guessLineEndings = function(opt_text) {
-  var indexOfLF = opt_text.indexOf('\n');
+util.guessLineEndings = function(text) {
+  if (!text) {
+    return '\n';
+  }
+  var indexOfLF = text.indexOf('\n');
   var hasCRLF = (indexOfLF > 0) && (opt_text[indexOfLF - 1] === '\r');
 
   return (hasCRLF ? '\r\n' : '\n');
