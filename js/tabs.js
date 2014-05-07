@@ -194,16 +194,16 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   }
 
   var session = this.editor_.newSession(opt_content);
-  util.sniffLineEndings(opt_content, function(lineEndings) {
-    var tab = new Tab(id, session, lineEndings, opt_entry || null,
-                      this.dialogController_);
-    this.tabs_.push(tab);
-    $.event.trigger('newtab', tab);
-    this.showTab(tab.getId());
-    var fileNameExtension = tab.getExtension();
-    if (fileNameExtension)
-      this.editor_.setMode(session, fileNameExtension);
-  }.bind(this));
+  var lineEndings = util.guessLineEndings(opt_content);
+
+  var tab = new Tab(id, session, lineEndings, opt_entry || null,
+                    this.dialogController_);
+  this.tabs_.push(tab);
+  $.event.trigger('newtab', tab);
+  this.showTab(tab.getId());
+  var fileNameExtension = tab.getExtension();
+  if (fileNameExtension)
+    this.editor_.setMode(session, fileNameExtension);
 };
 
 /**

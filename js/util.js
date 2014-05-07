@@ -78,19 +78,13 @@ util.getExtension = function(fileName) {
 
 /*
  * @param {string} Optional raw text.
- * @param {Function} Callback.
- * Returns sniffed line endings or platform ones if not successful.
+ * @return {string} Line endings.
+ * Returns guessed line endings or LF if not successful.
 */
-util.sniffLineEndings = function(opt_text, callback) {
-  var subset = opt_text.substr(0, 1000); // 1000 is arbitrary there.
-  var hasCRLF = /\r\n/.test(subset);
-  var hasLF = /[^\r]\n/.test(subset);
+util.guessLineEndings = function(opt_text) {
+  var indexOfLF = opt_text.indexOf('\n');
+  var hasLF = (indexOfLF !== -1);
+  var hasCRLF = (indexOfLF > 0) && (opt_text[indexOfLF - 1] === '\r');
 
-  if ((hasCRLF && hasLF) || (!hasCRLF && !hasLF)) {
-    chrome.runtime.getPlatformInfo(function(platformInfo) {
-      callback(platformInfo.os === 'win' ? '\r\n' : '\n');
-    });
-  } else {
-    callback(hasCRLF ? '\r\n' : '\n');
-  }
+  return (hasCRLF ? '\r\n' : '\n');
 };
