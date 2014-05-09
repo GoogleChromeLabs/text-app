@@ -4,9 +4,10 @@
  * @param {EditSession} session Edit session.
  * @param {FileEntry} entry
  */
-function Tab(id, session, entry, dialogController) {
+function Tab(id, session, lineEndings, entry, dialogController) {
   this.id_ = id;
   this.session_ = session;
+  this.lineEndings_ = lineEndings;
   this.entry_ = entry;
   this.saved_ = true;
   this.path_ = null;
@@ -67,9 +68,13 @@ Tab.prototype.updatePath_ = function() {
   }.bind(this));
 };
 
+Tab.prototype.getContent_ = function() {
+  return this.session_.getValue(this.lineEndings_);
+};
+
 Tab.prototype.save = function(opt_callbackDone) {
   util.writeFile(
-      this.entry_, this.session_.getValue(),
+      this.entry_, this.getContent_(),
       function() {
         this.saved_ = true;
         $.event.trigger('tabsave', this);
@@ -189,8 +194,10 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   }
 
   var session = this.editor_.newSession(opt_content);
+  var lineEndings = util.guessLineEndings(opt_content);
 
-  var tab = new Tab(id, session, opt_entry || null, this.dialogController_);
+  var tab = new Tab(id, session, lineEndings, opt_entry || null,
+                    this.dialogController_);
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
   this.showTab(tab.getId());
