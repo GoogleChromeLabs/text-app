@@ -86,7 +86,7 @@ util.guessLineEndings = function(text) {
     return '\n';
   }
   var indexOfLF = text.indexOf('\n');
-  var hasCRLF = (indexOfLF > 0) && (opt_text[indexOfLF - 1] === '\r');
+  var hasCRLF = (indexOfLF > 0) && (text[indexOfLF - 1] === '\r');
 
   return (hasCRLF ? '\r\n' : '\n');
 };
