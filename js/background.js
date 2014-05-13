@@ -88,7 +88,7 @@ Background.prototype.launch = function(launchData) {
 Background.prototype.onWindowClosed = function(win) {
   console.log('Window closed:', win);
   if (!win.contentWindow || !win.contentWindow.textApp) {
-    console.warn('No Text.app object in the window being closed:',
+    console.warn('No TextApp object in the window being closed:',
                  win.contentWindow, win.contentWindow.textApp);
     return;
   }
