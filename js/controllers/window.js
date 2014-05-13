@@ -7,6 +7,7 @@ function WindowController(editor, settings, analytics) {
   this.analytics_ = analytics;
   this.currentTab_ = null;
   $('#window-close').click(this.close_.bind(this));
+  $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
   $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
@@ -59,9 +60,12 @@ WindowController.prototype.focus_ = function() {
   window.chrome.app.window.current().focus();
 };
 
+WindowController.prototype.minimize_ = function() {
+  window.chrome.app.window.current().minimize();
+};
+
 WindowController.prototype.maximize_ = function() {
-  var maximized = window.outerHeight == window.screen.availHeight &&
-                  window.outerWidth == window.screen.availWidth;
+  var maximized = window.chrome.app.window.current().isMaximized();
 
   if (maximized) {
     window.chrome.app.window.current().restore();

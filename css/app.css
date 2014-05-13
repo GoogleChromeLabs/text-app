@@ -467,6 +467,14 @@ header.search-active #title-filename {
   margin-left: 190px;
 }
 
+header.hide-controls #window-minimize {
+  visibility: hidden;
+}
+
+#window-minimize {
+  background-image: url('../images/minimize.svg');
+}
+
 header.hide-controls #window-maximize {
   visibility: hidden;
 }

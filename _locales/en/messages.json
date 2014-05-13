@@ -125,6 +125,10 @@
     "message": "Loading...",
     "description":"The text displayed in the filename title bar when file loads."
   },
+  "minimizeButton": {
+    "message": "Minimize",
+    "description":"The button text to minimize the app window."
+  },
   "maximizeButton": {
     "message": "Maximize",
     "description":"The button text to maximize the app window."
