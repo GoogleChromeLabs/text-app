@@ -1,6 +1,6 @@
-# Text.app
+# Text Chrome App
 
-Just a text editor for ChromeOS and Chrome. To install visit the [Text.app page in Chrome WebStore](https://chrome.google.com/webstore/detail/text-drive/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
+Just a text editor for ChromeOS and Chrome. To install visit the [Chrome Web Store page](https://chrome.google.com/webstore/detail/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
 
 ## Getting the code
 
