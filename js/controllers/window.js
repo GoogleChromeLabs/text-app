@@ -76,6 +76,10 @@ WindowController.prototype.maximize_ = function() {
   }
 };
 
+WindowController.prototype.setAlwaysOnTop = function(isAlwaysOnTop) {
+  window.chrome.app.window.current().setAlwaysOnTop(isAlwaysOnTop);
+};
+
 WindowController.prototype.toggleSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     this.settings_.set('sidebaropen', false);

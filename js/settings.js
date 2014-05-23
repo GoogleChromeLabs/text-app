@@ -27,6 +27,7 @@ Settings.AREA = 'sync';
  */
 Settings.SETTINGS = {
   'analytics': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},

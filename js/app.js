@@ -97,6 +97,7 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
   this.analytics_.setEnabled(this.settings_.get('analytics'));
   this.analytics_.reportSettings(this.settings_);
+  this.windowController_.setAlwaysOnTop(this.settings_.get('alwaysontop'));
 };
 
 /**
@@ -106,6 +107,10 @@ TextApp.prototype.onSettingsReady_ = function() {
  */
 TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
+    case 'alwaysontop':
+      this.windowController_.setAlwaysOnTop(value);
+      break;
+
     case 'fontsize':
       this.editor_.setFontSize(value);
       break;
