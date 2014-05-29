@@ -67,6 +67,10 @@
     "message": "Automatically send usage statistics",
     "description": "The tooltip for send statistics checkbox."
   },
+  "alwaysOnTopSetting": {
+    "message": "Always on top",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
   "defaultThemeOption": {
     "message": "Default",
     "description":"The text of the default Option Theme."

@@ -26,6 +26,7 @@ Analytics.prototype.reportSettings = function(settings) {
                     Math.round(settings.get('fontsize')).toString());
   this.tracker_.set('dimension4', settings.get('sidebaropen').toString());
   this.tracker_.set('dimension5', settings.get('theme'));
+  this.tracker_.set('dimension6', settings.get('alwaysontop'));
 
   this.tracker_.sendAppView('main', function() {
     this.hasReportedSettings_ = true;
