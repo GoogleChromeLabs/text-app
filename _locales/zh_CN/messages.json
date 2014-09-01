@@ -117,7 +117,7 @@
    },
    "searchCounting": {
       "description": "The text showing search counting.",
-      "message": "$searchIndex$ of $searchCount$",
+      "message": "第$searchIndex$个 匹配到$searchCount$个",
       "placeholders": {
          "searchCount": {
             "content": "$2",
