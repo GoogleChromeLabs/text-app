@@ -29,7 +29,7 @@
    },
    "darkThemeOption": {
       "description": "The text of the dark Option Theme.",
-      "message": "Dark"
+      "message": "黑暗"
    },
    "defaultThemeOption": {
       "description": "The text of the default Option Theme.",
@@ -61,15 +61,15 @@
    },
    "fontsizeTooltip": {
       "description": "The tooltip of the setting 'Font size'.",
-      "message": "Set with Ctrl- and Ctrl+"
+      "message": "使用 Ctrl- 和 Ctrl+ 调整字体大小"
    },
    "lightThemeOption": {
       "description": "The text of the light Option Theme.",
-      "message": "Light"
+      "message": "明亮"
    },
    "linenumbersSetting": {
       "description": "The text of the settings 'Line numbers'.",
-      "message": "Line numbers"
+      "message": "行号"
    },
    "loadingTitle": {
       "description": "The text displayed in the filename title bar when file loads.",
