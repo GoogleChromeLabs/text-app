@@ -1,0 +1,168 @@
+{
+  "appDesc": {
+    "message": "Um editor de texto para ChromeOS e Chrome.",
+    "description":"A descrição do aplicativo, exibida na web store."
+  },
+  "fileMenuNew": {
+    "message": "Novo",
+    "description":"O texto do Menu de Arquivo 'Novo'."
+  },
+  "fileMenuOpen": {
+    "message": "Abrir",
+    "description":"O texto do Menu de Arquivo 'Abrir'."
+  },
+  "fileMenuSave": {
+    "message": "Salvar",
+    "description":"O texto do Menu de Arquivo 'Salvar'."
+  },
+  "fileMenuSaveas": {
+    "message": "Salvar como",
+    "description":"O texto do Menu de Arquivo 'Salvar como'."
+  },
+  "menuOpenSettings": {
+    "message": "Configurações",
+    "description":"O texto do Menu para abrir as configurações'."
+  },
+  "menuSettings": {
+    "message": "Configurações",
+    "description":"O texto do Menu 'Configurações'."
+  },
+  "fontsizeSetting": {
+    "message": "Tamanho da fonte",
+    "description":"O texto das configurações 'Tamanho da fonte'."
+  },
+  "fontsizeTooltip": {
+    "message": "Defina com Ctrl- e Ctrl+",
+    "description": "A dica nas configurações 'Tamanho da fonte'."
+  },
+  "spacestabSetting": {
+    "message": "Tabs por espaços",
+    "description":"O texto das configurações 'Tabs por espaços'."
+  },
+  "tabsizeSetting": {
+    "message": "Tamanho do tab",
+    "description":"O texto das configurações 'Tamanho do tab'."
+  },
+  "wraplinesSetting": {
+    "message": "Quebrar linhas",
+    "description":"O texto das configurações 'Quebrar linhas'."
+  },
+  "linenumbersSetting": {
+    "message": "Número de linhas",
+    "description":"O texto das configurações 'Número de linhas'."
+  },
+  "smartindentSetting": {
+    "message": "Indentação inteligente",
+    "description":"O texto das configurações 'Indentação inteligente'."
+  },
+  "themeSetting": {
+    "message": "Tema",
+    "description": "O texto das configurações 'Tema'."
+  },
+  "analyticsSetting": {
+    "message": "Enviar estatísticas",
+    "description": "O texto do checkbox nas configurações que ativa as estatísticas."
+  },
+  "analyticsTooltip": {
+    "message": "Envia automaticamente as estatísticas de uso",
+    "description": "A dica no checkbox para enviar as estatísticas."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Sempre em cima",
+    "description": "O texto do checkbox nas configurações que define a janela sempre em cima."
+  },
+  "defaultThemeOption": {
+    "message": "Padrão",
+    "description":"O texto da Opção de Tema padrão."
+  },
+  "lightThemeOption": {
+    "message": "Claro",
+    "description":"O texto da Opção de Tema claro."
+  },
+  "darkThemeOption": {
+    "message": "Escuro",
+    "description":"O texto da Opção de Tema escura."
+  },
+  "closeSettings": {
+    "message": "Voltar",
+    "description":"O texto para fechar o Menu de configurações."
+  },
+  "openSidebarButton": {
+    "message": "Abrir a barra lateral",
+    "description":"O texto do botão para abrir a barra lateral."
+  },
+  "closeSidebarButton": {
+    "message": "Fechar a barra lateral",
+    "description":"O texto do botão para fechar a barra lateral."
+  },
+  "searchButton": {
+    "message": "Buscar",
+    "description":"O texto do botão de buscar."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ de $searchCount$",
+    "description":"O texto mostrado na contagem da busca.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Índice da busca"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Contagem da busca"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Próximo",
+    "description":"O texto do botão para buscar o próximo resultado."
+  },
+  "searchPreviousButton": {
+    "message": "Anterior",
+    "description":"O texto do botão para buscar o resultado anterior."
+  },
+  "errorTitle": {
+    "message": "Erro",
+    "description":"O texto de erro mostrado na barra de título."
+  },
+  "loadingTitle": {
+    "message": "Carregando...",
+    "description":"O texto mostrado na barra de título quando carrega um arquivo."
+  },
+  "minimizeButton": {
+    "message": "Minimizar",
+    "description":"O texto do botão para minimizar a janela do aplicativo."
+  },
+  "maximizeButton": {
+    "message": "Maximizar",
+    "description":"O texto do botão para maximizar a janela do aplicativo."
+  },
+  "restoreButton": {
+    "message": "restaurar",
+    "description":"O texto do botão para restaurar a janela do aplicativo."
+  },
+  "closeButton": {
+    "message": "Sair",
+    "description":"O texto do botão para fechar a janela do aplicativo."
+  },
+  "yesDialogButton": {
+    "message": "Sim",
+    "description": "O texto do botão que diz 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Não",
+    "description":"O texto do botão que diz 'Não'."
+  },
+  "cancelDialogButton": {
+    "message": "Cancelar",
+    "description":"O texto do botão que diz 'Cancelar'."
+  },
+  "saveFilePrompt": {
+    "message": "Você deseja salvar o arquivo antes de fechar?",
+    "description":"O texto que é mostrado ao usuário, se ele quer salvar o arquivo antes de fechá-lo."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description":"O texto do botão que diz 'OK'."
+  }
+}
