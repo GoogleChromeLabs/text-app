@@ -20,6 +20,7 @@ FILES = [
   'index.html',
   '_locales/en/messages.json',
   'css/app.css',
+  'css/print.css',
   'css/theme-dark.css',
   'css/theme-default.css',
   'css/theme-light.css',
