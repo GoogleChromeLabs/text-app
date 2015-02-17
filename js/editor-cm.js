@@ -150,6 +150,7 @@ EditorCodeMirror.prototype.setFontSize = function(fontSize) {
  */
 EditorCodeMirror.prototype.setTabSize = function(size) {
   this.cm_.setOption('tabSize', size);
+  this.cm_.setOption('indentUnit', size);
   this.replaceTabWithSpaces(this.settings_.get('spacestab'));
 };
 
