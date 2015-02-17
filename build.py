@@ -114,10 +114,8 @@ def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
   if USE_LOCALIZED_NAME:
     manifest['name'] = '__MSG_extName__'
-    manifest['file_handlers']['text']['title'] = '__MSG_extName__'
   else:
     manifest['name'] = APP_NAME
-    manifest['file_handlers']['text']['title'] = APP_NAME
   manifest['version'] = version
 
   if IS_APP:
