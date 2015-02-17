@@ -1,0 +1,164 @@
+{
+   "analyticsSetting": {
+      "description": "The label for the checkbox in settings tab that turns on Analytics.",
+      "message": "发送统计数据"
+   },
+   "analyticsTooltip": {
+      "description": "The tooltip for send statistics checkbox.",
+      "message": "自动发送统计数据"
+   },
+   "appDesc": {
+      "description": "The description of the application, displayed in the web store.",
+      "message": "一个适用于Chrome OS和Chrome浏览器的文本编辑器。"
+   },
+   "cancelDialogButton": {
+      "description": "The button text which says 'Cancel'.",
+      "message": "取消"
+   },
+   "closeButton": {
+      "description": "The button text to close the app window.",
+      "message": "退出"
+   },
+   "closeSettings": {
+      "description": "The text to close the settings Menu.",
+      "message": "返回"
+   },
+   "closeSidebarButton": {
+      "description": "The button text to close the sidebar.",
+      "message": "关闭侧边栏"
+   },
+   "darkThemeOption": {
+      "description": "The text of the dark Option Theme.",
+      "message": "黑暗"
+   },
+   "defaultThemeOption": {
+      "description": "The text of the default Option Theme.",
+      "message": "默认"
+   },
+   "errorTitle": {
+      "description": "The error text displayed in the filename title bar.",
+      "message": "错误"
+   },
+   "fileMenuNew": {
+      "description": "The text of the File Menu 'New'.",
+      "message": "新建"
+   },
+   "fileMenuOpen": {
+      "description": "The text of the File Menu 'Open'.",
+      "message": "打开"
+   },
+   "fileMenuSave": {
+      "description": "The text of the File Menu 'Save'.",
+      "message": "保存"
+   },
+   "fileMenuSaveas": {
+      "description": "The text of the File Menu 'Save as'.",
+      "message": "另存"
+   },
+   "fontsizeSetting": {
+      "description": "The text of the settings 'Font size'.",
+      "message": "字体大小"
+   },
+   "fontsizeTooltip": {
+      "description": "The tooltip of the setting 'Font size'.",
+      "message": "使用 Ctrl- 和 Ctrl+ 调整字体大小"
+   },
+   "lightThemeOption": {
+      "description": "The text of the light Option Theme.",
+      "message": "明亮"
+   },
+   "linenumbersSetting": {
+      "description": "The text of the settings 'Line numbers'.",
+      "message": "行号"
+   },
+   "loadingTitle": {
+      "description": "The text displayed in the filename title bar when file loads.",
+      "message": "载入中..."
+   },
+   "maximizeButton": {
+      "description": "The button text to maximize the app window.",
+      "message": "最大化"
+   },
+   "menuOpenSettings": {
+      "description": "The text of the Menu to open settings'.",
+      "message": "设置"
+   },
+   "menuSettings": {
+      "description": "The text of the Menu 'Settings'.",
+      "message": "设置"
+   },
+   "minimizeButton": {
+      "description": "The button text to minimize the app window.",
+      "message": "最小化"
+   },
+   "noDialogButton": {
+      "description": "The button text which says 'No'.",
+      "message": "否"
+   },
+   "okDialogButton": {
+      "description": "The button text which says 'OK'.",
+      "message": "好"
+   },
+   "openSidebarButton": {
+      "description": "The button text to open the sidebar.",
+      "message": "打开侧边栏"
+   },
+   "restoreButton": {
+      "description": "The button text to restore the app window.",
+      "message": "还原"
+   },
+   "saveFilePrompt": {
+      "description": "The text which prompts user if he wants to save file before closing it.",
+      "message": "保存后退出?"
+   },
+   "searchButton": {
+      "description": "The button text to search.",
+      "message": "搜索"
+   },
+   "searchCounting": {
+      "description": "The text showing search counting.",
+      "message": "第$searchIndex$个 匹配到$searchCount$个",
+      "placeholders": {
+         "searchCount": {
+            "content": "$2",
+            "example": "Search count"
+         },
+         "searchIndex": {
+            "content": "$1",
+            "example": "Search index"
+         }
+      }
+   },
+   "searchNextButton": {
+      "description": "The button text to search the next result.",
+      "message": "下一个"
+   },
+   "searchPreviousButton": {
+      "description": "The button text to search the previous result.",
+      "message": "上一个"
+   },
+   "smartindentSetting": {
+      "description": "The text of the settings 'Smart indent'.",
+      "message": "智能缩进"
+   },
+   "spacestabSetting": {
+      "description": "The text of the settings 'Tabs to spaces'.",
+      "message": "Tab代替空格"
+   },
+   "tabsizeSetting": {
+      "description": "The text of the settings 'Tab size'.",
+      "message": "Tab 尺寸"
+   },
+   "themeSetting": {
+      "description": "The text of the settings 'Theme'.",
+      "message": "主题"
+   },
+   "wraplinesSetting": {
+      "description": "The text of the settings 'Wrap lines'.",
+      "message": "换行"
+   },
+   "yesDialogButton": {
+      "description": "The button text which says 'Yes'.",
+      "message": "是"
+   }
+}
