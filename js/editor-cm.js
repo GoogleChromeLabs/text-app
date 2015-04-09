@@ -24,7 +24,8 @@ function EditorCodeMirror(editorElement, settings) {
   this.cm_.on('change', this.onChange.bind(this));
   this.setTheme();
   this.search_ = new Search(this.cm_);
-  this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
+  // Mimic Sublime behaviour there.
+  this.defaultTabHandler_ = function(cm) { cm.execCommand('insertTab'); };
 }
 
 EditorCodeMirror.EXTENSION_TO_MODE = {
