@@ -189,7 +189,7 @@ def compile_js(out_path, js_files, level, externs):
 
   for js_file in js_files:
     if os.path.basename(js_file) not in SKIP_JS_FILES:
-      js_code.append(open(os.path.join(SOURCE_DIR, js_file)).read())
+      js_code.append(open(os.path.join(SOURCE_DIR, js_file), encoding='utf-8').read())
 
   if externs:
     params.append(('js_externs', open(externs).read()))
