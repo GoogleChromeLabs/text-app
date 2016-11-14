@@ -423,7 +423,7 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
     }
 
     if (tab === this.currentTab_) {
-      console.error('Unkown tab changed.');
+      console.error('Unknown tab changed.');
       return;
     }
   }
