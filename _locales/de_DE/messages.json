@@ -1,0 +1,168 @@
+{
+  "appDesc": {
+    "message": "Ein Texteditor für ChromeOS und Chrome.",
+    "description":"Die Beschreibung des Programms, die im Web Store erscheint."
+  },
+  "fileMenuNew": {
+    "message": "Neu",
+    "description":"Der Text vom Datei Menü 'Neu'."
+  },
+  "fileMenuOpen": {
+    "message": "Öffnen",
+    "description":"Der Text vom Datei Menü 'Öffnen'."
+  },
+  "fileMenuSave": {
+    "message": "Speichern",
+    "description":"Der Text vom Datei Menü 'Speichern'."
+  },
+  "fileMenuSaveas": {
+    "message": "Speichern als",
+    "description":"Der Text vom Datei Menü 'Speichern als'."
+  },
+  "menuOpenSettings": {
+    "message": "Einstellungen",
+    "description":"Der Text des Menüs um die Einstellungen zu öffnen.'."
+  },
+  "menuSettings": {
+    "message": "Einstellungen",
+    "description":"Der Text vom Datei Menü 'Einstellungen'."
+  },
+  "fontsizeSetting": {
+    "message": "Schriftgröße",
+    "description":"Der Text in den Einstellungen 'Schriftgröße'."
+  },
+  "fontsizeTooltip": {
+    "message": "Einstellen mit Ctrl- und Ctrl+",
+    "description": "Der Tooltip zu den Einstellungen 'Schriftgröße'."
+  },
+  "spacestabSetting": {
+    "message": "Tabulatoren zu Leerzeichen",
+    "description":"Der Text in den Einstellungen 'Tabulatoren zu Leerzeichen'."
+  },
+  "tabsizeSetting": {
+    "message": "Tabulatoren Größe",
+    "description":"Der Text in den Einstellungen 'Tabulatoren Größe'."
+  },
+  "wraplinesSetting": {
+    "message": "Zeilenumbruch",
+    "description":"Der Text in den Einstellungen 'Zeilenumbruch'."
+  },
+  "linenumbersSetting": {
+    "message": "Zeilennummer",
+    "description":"Der Text in den Einstellungen 'Zeilennummer'."
+  },
+  "smartindentSetting": {
+    "message": "Automatisches Einrücken",
+    "description":"Der Text in den Einstellungen 'Automatisches Einrücken'."
+  },
+  "themeSetting": {
+    "message": "Theme",
+    "description": "Der Text in den Einstellungen 'Theme'."
+  },
+  "analyticsSetting": {
+    "message": "Statistiken senden",
+    "description": "Die Beschriftung der Checkbox im Einstellungstab, dass das Senden von Statistiken einschaltet."
+  },
+  "analyticsTooltip": {
+    "message": " Automatisch Benutzer Statistiken senden",
+    "description": "Die Kurzinfo der Ckeckbox zum Senden von Statistiken."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Immer im Vordergrund",
+    "description": "Die Beschriftung der Checkbox im Einstellungstab, dass das Fenster immer in den Vordergrund schaltet."
+  },
+  "defaultThemeOption": {
+    "message": "Standard",
+    "description":"Der Titel der Standard Option Theme"
+  },
+  "lightThemeOption": {
+    "message": "Hell",
+    "description":"Der Titel der Hellen Option Theme"
+  },
+  "darkThemeOption": {
+    "message": "Dunkel",
+    "description":"Der Titel der Dunkeln Option Theme"
+  },
+  "closeSettings": {
+    "message": "Zurück",
+    "description":"Der Text um das Einstellungsmenü zu schließen."
+  },
+  "openSidebarButton": {
+    "message": "Seitenleiste öffnen",
+    "description":"Die Beschriftung des Buttons mit Seitenleiste öffnen."
+  },
+  "closeSidebarButton": {
+    "message": "Seitenleiste schließen",
+    "description":"Die Beschriftung des Buttons mit Seitenleiste schließen."
+  },
+  "searchButton": {
+    "message": "Suchen",
+    "description":"Die Beschriftung des Buttons mit Suchen."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ von $searchCount$",
+    "description":"Der Text der die Suchergebnisse zeigt.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Aktuell"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Insgesammt gefunden"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Weiter",
+    "description":"Der Button Text um das folgende Suchergebnis anzuzeigen"
+  },
+  "searchPreviousButton": {
+    "message": "Zurück",
+    "description":"Der Button Text um das vorherige Suchergebnis anzuzeigen"
+  },
+  "errorTitle": {
+    "message": "Fehler",
+    "description":"Der Fehlertext der erscheint in der Titelleiste der Datei."
+  },
+  "loadingTitle": {
+    "message": "Laden...",
+    "description":"Der Text der in der Titelleiste der Datei erscheint, wenn sie geladen wird."
+  },
+  "minimizeButton": {
+    "message": "Minimieren",
+    "description":"Der Button um das App Fenster zu minimieren."
+  },
+  "maximizeButton": {
+    "message": "Maximieren",
+    "description":"Der Button um das App Fenster zu maximieren."
+  },
+  "restoreButton": {
+    "message": "Wiederherstellen",
+    "description":"Der Button um das App Fenster wiederherzustellen."
+  },
+  "closeButton": {
+    "message": "Beenden",
+    "description":"Der Button um das App Fenster zu schließen."
+  },
+  "yesDialogButton": {
+    "message": "Ja",
+    "description": "Die Beschriftung des Buttons mit 'Ja'."
+  },
+  "noDialogButton": {
+    "message": "Nein",
+    "description":"Die Beschriftung des Buttons mit 'Nein'."
+  },
+  "cancelDialogButton": {
+    "message": "Abbrechen",
+    "description":"Die Beschriftung des Buttons mit 'Abbrechen'"
+  },
+  "saveFilePrompt": {
+    "message": "Möchten Sie die Datei speichern vor dem Schließen?",
+    "description":"Der Text der erscheint, wenn der Benutzer die Date ischließen möchte."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description":"Die Beschriftung des Buttons mit 'OK'"
+  }
+}
