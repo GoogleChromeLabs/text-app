@@ -158,7 +158,7 @@ def print_errors(errors, js_files):
     if error['file'].lower().find('externs') >= 0:
       filename = error['file']
     else:
-      fileno = int(error['file'][6:])
+      fileno = int(error['file'][6:]) - 1 # Debug flag is file 0
       filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
