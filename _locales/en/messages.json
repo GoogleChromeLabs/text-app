@@ -1,6 +1,6 @@
 {
   "appDesc": {
-    "message": "A text editor for ChromeOS and Chrome.",
+    "message": "A text editor for Chrome OS and Chrome.",
     "description":"The description of the application, displayed in the web store."
   },
   "fileMenuNew": {
