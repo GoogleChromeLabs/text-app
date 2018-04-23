@@ -108,7 +108,7 @@
       "message": "還原"
    },
    "saveFilePrompt": {
-      "description": "The text which prompts user if he wants to save file before closing it.",
+      "description": "The text which prompts user if they want to save file before closing it.",
       "message": "保存後退出?"
    },
    "searchButton": {

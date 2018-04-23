@@ -159,7 +159,7 @@
   },
   "saveFilePrompt": {
     "message": "Do you want to save the file before closing?",
-    "description":"The text which prompts user if he wants to save file before closing it."
+    "description":"The text which prompts user if they want to save file before closing it."
   },
   "okDialogButton": {
     "message": "OK",
