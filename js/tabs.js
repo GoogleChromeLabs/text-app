@@ -262,10 +262,14 @@ Tabs.prototype.close = function(tabId) {
   }
 
   var tab = this.tabs_[i];
+  var filename = tab.getName();
+  if (filename.length > 25) {
+    filename = filename.slice(0, 22).concat('...');
+  }
 
   if (!tab.isSaved()) {
     this.dialogController_.setText(
-        chrome.i18n.getMessage('saveFilePrompt'));
+        chrome.i18n.getMessage('saveFilePrompt', filename));
     this.dialogController_.resetButtons();
     this.dialogController_.addButton('yes',
         chrome.i18n.getMessage('yesDialogButton'));

@@ -158,8 +158,14 @@
     "description":"O texto do botão que diz 'Cancelar'."
   },
   "saveFilePrompt": {
-    "message": "Você deseja salvar o arquivo antes de fechar?",
-    "description":"O texto que é mostrado ao usuário, se ele quer salvar o arquivo antes de fechá-lo."
+    "message": "O arquivo $filename$ foi modificado. Quer salvá-lo antes de fechar?",
+    "description":"O texto que é mostrado ao usuário, se ele quer salvar o arquivo antes de fechá-lo.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "index.html"
+      }
+    }
   },
   "okDialogButton": {
     "message": "OK",
