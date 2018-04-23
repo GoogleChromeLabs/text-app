@@ -53,7 +53,7 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
                      '</script>')
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
-CLOSURE_URL = 'http://closure-compiler.appspot.com/compile'
+CLOSURE_URL = 'https://closure-compiler.appspot.com/compile'
 BACKGROUND_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
 JS_EXTERNS = None
 EXTERNS_URLS = [
@@ -158,7 +158,7 @@ def print_errors(errors, js_files):
     if error['file'].lower().find('externs') >= 0:
       filename = error['file']
     else:
-      fileno = int(error['file'][6:])
+      fileno = int(error['file'][6:]) - 1
       filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
