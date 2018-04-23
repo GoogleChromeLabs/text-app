@@ -4,9 +4,9 @@ Just a text editor for ChromeOS and Chrome. To install visit the [Chrome Web Sto
 
 ## Getting the code
 
-You can download the whole source code [as one archive](https://github.com/GoogleChrome/text-app/archive/master.zip), or get it from the repository using git:
+You can download the whole source code [as one archive](https://github.com/GoogleChromeLabs/text-app/archive/master.zip), or get it from the repository using git:
 
-    git clone --recursive git://github.com/GoogleChrome/text-app.git
+    git clone --recursive git://github.com/GoogleChromeLabs/text-app.git
 
 ## Running the development version
 
