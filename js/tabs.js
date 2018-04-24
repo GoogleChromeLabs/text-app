@@ -263,6 +263,9 @@ Tabs.prototype.close = function(tabId) {
 
   var tab = this.tabs_[i];
   var filename = tab.getEntry().name;
+  if (filename.length > 25) {
+    filename = filename.slice(0, 22).concat('...');
+  }
 
   if (!tab.isSaved()) {
     this.dialogController_.setText(
