@@ -547,6 +547,7 @@ input[type=search]:focus {
 .dialog-text {
   display: -webkit-box;
   font-size: 15px;
+  text-align: center;
 }
 
 .dialog-buttons {
