@@ -262,7 +262,7 @@ Tabs.prototype.close = function(tabId) {
   }
 
   var tab = this.tabs_[i];
-  var filename = tab.getEntry().name;
+  var filename = tab.getName();
   if (filename.length > 25) {
     filename = filename.slice(0, 22).concat('...');
   }
