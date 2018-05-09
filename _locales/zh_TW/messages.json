@@ -109,7 +109,13 @@
    },
    "saveFilePrompt": {
       "description": "The text which prompts user if they want to save file before closing it.",
-      "message": "保存後退出?"
+      "message": "$filename$ 已經過修改，你要先儲存變更再關閉檔案嗎？",
+      "placeholders": {
+         "filename": {
+            "content": "$1",
+            "example": "index.html"
+         }
+      }
    },
    "searchButton": {
       "description": "The button text to search.",
