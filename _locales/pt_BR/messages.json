@@ -81,7 +81,7 @@
   },
   "darkThemeOption": {
     "message": "Escuro",
-    "description":"O texto da Opção de Tema escura."
+    "description":"O texto da Opção de Tema escuro."
   },
   "closeSettings": {
     "message": "Voltar",
@@ -101,7 +101,7 @@
   },
   "searchCounting": {
     "message": "$searchIndex$ de $searchCount$",
-    "description":"O texto mostrado na contagem da busca.",
+    "description":"O texto mostrando a contagem da busca.",
     "placeholders": {
       "searchIndex": {
         "content": "$1",
@@ -147,7 +147,7 @@
   },
   "yesDialogButton": {
     "message": "Sim",
-    "description": "O texto do botão que diz 'Yes'."
+    "description": "O texto do botão que diz 'Sim'."
   },
   "noDialogButton": {
     "message": "Não",
@@ -159,7 +159,7 @@
   },
   "saveFilePrompt": {
     "message": "O arquivo $filename$ foi modificado. Quer salvá-lo antes de fechar?",
-    "description":"O texto que é mostrado ao usuário, se ele quer salvar o arquivo antes de fechá-lo.",
+    "description":"O texto que é mostrado ao usuário perguntando se quer salvar o arquivo antes de fechá-lo.",
     "placeholders": {
       "filename": {
         "content": "$1",
