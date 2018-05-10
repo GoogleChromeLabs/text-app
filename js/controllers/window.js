@@ -1,11 +1,11 @@
 /**
  * @constructor
  */
-function WindowController(editor, settings, analytics) {
+function WindowController(editor, settings, analytics, tabs) {
   this.editor_ = editor;
   this.settings_ = settings;
   this.analytics_ = analytics;
-  this.currentTab_ = null;
+  this.tabs_ = tabs;
   $('#window-close').click(this.close_.bind(this));
   $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
@@ -53,7 +53,7 @@ WindowController.prototype.setTheme = function(theme) {
 };
 
 WindowController.prototype.close_ = function() {
-  window.close();
+  this.tabs_.promptAllUnsaved(window.close);
 };
 
 WindowController.prototype.focus_ = function() {
@@ -103,7 +103,6 @@ WindowController.prototype.onFileSystemError = function(e) {
 };
 
 WindowController.prototype.onChangeTab_ = function(e, tab) {
-  this.currentTab_ = tab;
   $('#title-filename').text(tab.getName());
   this.onTabChange_();
 };
@@ -113,7 +112,7 @@ WindowController.prototype.onTabPathChange = function(e, tab) {
 };
 
 WindowController.prototype.onTabChange_ = function(e, tab) {
-  if (this.currentTab_.isSaved()) {
+  if (this.tabs_.getCurrentTab().isSaved()) {
     $('#title-filename').removeClass('unsaved');
   } else {
     $('#title-filename').addClass('unsaved');
