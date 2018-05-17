@@ -534,19 +534,16 @@ input[type=search]:focus {
 .dialog-window {
   background-color: #F5F5F5;
   border: 1px solid rgba(0,0,0,0.15);
-  -webkit-box-align: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: center;
   box-shadow: rgba(0,0,0,0.13) 0px 4px 30px;
-  display: -webkit-box;
   max-width: 50%;
   opacity: 1.0;
   padding: 24px;
 }
 
 .dialog-text {
-  display: -webkit-box;
   font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dialog-buttons {
