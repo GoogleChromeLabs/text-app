@@ -265,7 +265,7 @@ Tabs.prototype.close = function(tabId) {
 
   if (!tab.isSaved()) {
     this.dialogController_.setText(
-        chrome.i18n.getMessage('saveFilePrompt'));
+        chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
     this.dialogController_.resetButtons();
     this.dialogController_.addButton('yes',
         chrome.i18n.getMessage('yesDialogButton'));
