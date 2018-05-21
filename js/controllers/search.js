@@ -9,7 +9,7 @@ function SearchController(search) {
   $('#search-input').keydown(this.onKeydown_.bind(this));
   $('#search-next-button').click(this.onFindNext_.bind(this));
   $('#search-previous-button').click(this.onFindPrevious_.bind(this));
-  $('body').focusin(this.onChangeFocus_.bind(this));
+  $('.search-container').focusout(this.deactivateSearch_.bind(this));
 }
 
 SearchController.prototype.updateSearchCount_ = function() {
@@ -44,15 +44,13 @@ SearchController.prototype.onSearchButton_ = function() {
   return false;
 };
 
-SearchController.prototype.onChangeFocus_ = function() {
-  if (document.activeElement === document.body ||
-      $(document.activeElement).parents('.search-container').length) {
-    return;
+SearchController.prototype.deactivateSearch_ = function(e) {
+  if (!e.relatedTarget.closest('.search-container')) {
+    $('#search-input').val('');
+    $('#search-counting').text('');
+    $('header').removeClass('search-active');
+    this.search_.clear();
   }
-  $('#search-input').val('');
-  $('#search-counting').text('');
-  $('header').removeClass('search-active');
-  this.search_.clear();
 };
 
 SearchController.prototype.onChange_ = function() {
