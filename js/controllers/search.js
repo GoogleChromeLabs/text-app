@@ -9,7 +9,7 @@ function SearchController(search) {
   $('#search-input').keydown(this.onKeydown_.bind(this));
   $('#search-next-button').click(this.onFindNext_.bind(this));
   $('#search-previous-button').click(this.onFindPrevious_.bind(this));
-  $('.search-container').focusout(this.onFocusoutSearch_.bind(this));
+  $('.search-container').focusout(this.deactivateSearch_.bind(this));
 }
 
 SearchController.prototype.updateSearchCount_ = function() {
@@ -44,7 +44,7 @@ SearchController.prototype.onSearchButton_ = function() {
   return false;
 };
 
-SearchController.prototype.onFocusoutSearch_ = function(e) {
+SearchController.prototype.deactivateSearch_ = function(e) {
   if (!e.relatedTarget.closest('.search-container')) {
     $('#search-input').val('');
     $('#search-counting').text('');
