@@ -113,7 +113,7 @@
       "placeholders": {
          "filename": {
             "content": "$1",
-            "example": "index.html"
+            "example": "file.txt"
          }
       }
    },
