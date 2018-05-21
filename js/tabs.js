@@ -318,35 +318,29 @@ Tabs.prototype.promptAllUnsaved = function(callback) {
 }
 
 Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
-  if (this.tabs_.length > i) {
-    var tab = this.tabs_[i];
-    if (tab.isSaved()) {
-      this.promptAllUnsavedFromIndex_(i + 1, callback);
-    } else {
-      this.showTab(this.tabs_[i].getId());
-      this.promptSave_(tab, function(answer) {
-        if (answer === 'yes') {
-          this.save(tab, false /* close */);
-        } else if (answer === 'cancel') {
-          return;
-        }
-        this.promptAllUnsavedFromIndex_(i + 1, callback);
-      }.bind(this));
-    }
-  }
-  else {
+  if (i >= this.tabs_.length) {
     callback();
+    return;
+  }
+  var tab = this.tabs_[i];
+  if (tab.isSaved()) {
+    this.promptAllUnsavedFromIndex_(i + 1, callback);
+  } else {
+    this.showTab(this.tabs_[i].getId());
+    this.promptSave_(tab, function(answer) {
+      if (answer === 'yes') {
+        this.save(tab, false /* close */);
+      } else if (answer === 'cancel') {
+        return;
+      }
+      this.promptAllUnsavedFromIndex_(i + 1, callback);
+    }.bind(this));
   }
 }
 
 Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
-  var filename = tab.getName();
-  if (filename.length > 25) {
-    filename = filename.slice(0, 22).concat('...');
-  }
-
   this.dialogController_.setText(
-      chrome.i18n.getMessage('saveFilePrompt', filename));
+      chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
   this.dialogController_.resetButtons();
   this.dialogController_.addButton('yes',
       chrome.i18n.getMessage('yesDialogButton'));
