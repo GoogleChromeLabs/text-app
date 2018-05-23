@@ -315,13 +315,14 @@ Tabs.prototype.openFiles = function() {
  */
 Tabs.prototype.promptAllUnsaved = function(callback) {
   this.promptAllUnsavedFromIndex_(0, callback);
-}
+};
 
 Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
   if (i >= this.tabs_.length) {
     callback();
     return;
   }
+
   var tab = this.tabs_[i];
   if (tab.isSaved()) {
     this.promptAllUnsavedFromIndex_(i + 1, callback);
@@ -336,7 +337,7 @@ Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
       this.promptAllUnsavedFromIndex_(i + 1, callback);
     }.bind(this));
   }
-}
+};
 
 Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.setText(
