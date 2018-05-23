@@ -1,15 +1,15 @@
 {
    "analyticsSetting": {
       "description": "The label for the checkbox in settings tab that turns on Analytics.",
-      "message": "發送統計數據"
+      "message": "傳送統計資料"
    },
    "analyticsTooltip": {
       "description": "The tooltip for send statistics checkbox.",
-      "message": "自動發送統計數據"
+      "message": "自動傳送統計資料"
    },
    "appDesc": {
       "description": "The description of the application, displayed in the web store.",
-      "message": "一個適用於Chrome OS和Chrome瀏覽器的文本編輯器。"
+      "message": "適用於 Chrome OS 和 Chrome 瀏覽器的純文字編輯器。"
    },
    "cancelDialogButton": {
       "description": "The button text which says 'Cancel'.",
@@ -17,7 +17,7 @@
    },
    "closeButton": {
       "description": "The button text to close the app window.",
-      "message": "退出"
+      "message": "關閉"
    },
    "closeSettings": {
       "description": "The text to close the settings Menu.",
@@ -25,15 +25,15 @@
    },
    "closeSidebarButton": {
       "description": "The button text to close the sidebar.",
-      "message": "關閉側邊欄"
+      "message": "關閉側欄"
    },
    "darkThemeOption": {
       "description": "The text of the dark Option Theme.",
-      "message": "黑暗"
+      "message": "深色"
    },
    "defaultThemeOption": {
       "description": "The text of the default Option Theme.",
-      "message": "默認"
+      "message": "預設"
    },
    "errorTitle": {
       "description": "The error text displayed in the filename title bar.",
@@ -41,19 +41,19 @@
    },
    "fileMenuNew": {
       "description": "The text of the File Menu 'New'.",
-      "message": "新建"
+      "message": "新增"
    },
    "fileMenuOpen": {
       "description": "The text of the File Menu 'Open'.",
-      "message": "打開"
+      "message": "開啟"
    },
    "fileMenuSave": {
       "description": "The text of the File Menu 'Save'.",
-      "message": "保存"
+      "message": "儲存"
    },
    "fileMenuSaveas": {
       "description": "The text of the File Menu 'Save as'.",
-      "message": "另存"
+      "message": "另存新檔"
    },
    "fontsizeSetting": {
       "description": "The text of the settings 'Font size'.",
@@ -65,7 +65,7 @@
    },
    "lightThemeOption": {
       "description": "The text of the light Option Theme.",
-      "message": "明亮"
+      "message": "淺色"
    },
    "linenumbersSetting": {
       "description": "The text of the settings 'Line numbers'.",
@@ -81,11 +81,11 @@
    },
    "menuOpenSettings": {
       "description": "The text of the Menu to open settings'.",
-      "message": "設置"
+      "message": "設定"
    },
    "menuSettings": {
       "description": "The text of the Menu 'Settings'.",
-      "message": "設置"
+      "message": "設定"
    },
    "minimizeButton": {
       "description": "The button text to minimize the app window.",
@@ -97,11 +97,11 @@
    },
    "okDialogButton": {
       "description": "The button text which says 'OK'.",
-      "message": "好"
+      "message": "確定"
    },
    "openSidebarButton": {
       "description": "The button text to open the sidebar.",
-      "message": "打開側邊欄"
+      "message": "開啟側欄"
    },
    "restoreButton": {
       "description": "The button text to restore the app window.",
@@ -119,11 +119,11 @@
    },
    "searchButton": {
       "description": "The button text to search.",
-      "message": "搜索"
+      "message": "搜尋"
    },
    "searchCounting": {
       "description": "The text showing search counting.",
-      "message": "第$searchIndex$個 匹配到$searchCount$個",
+      "message": "第 $searchIndex$ 個，共 $searchCount$ 個",
       "placeholders": {
          "searchCount": {
             "content": "$2",
@@ -145,15 +145,15 @@
    },
    "smartindentSetting": {
       "description": "The text of the settings 'Smart indent'.",
-      "message": "智能縮進"
+      "message": "智慧型縮排"
    },
    "spacestabSetting": {
       "description": "The text of the settings 'Tabs to spaces'.",
-      "message": "Tab代替空格"
+      "message": "Tab 代替空格"
    },
    "tabsizeSetting": {
       "description": "The text of the settings 'Tab size'.",
-      "message": "Tab 尺寸"
+      "message": "Tab 大小"
    },
    "themeSetting": {
       "description": "The text of the settings 'Theme'.",
