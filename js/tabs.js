@@ -177,7 +177,7 @@ Tabs.prototype.getTabById = function(id) {
   return null;
 };
 
-Tabs.prototype.getCurrentTab = function(id) {
+Tabs.prototype.getCurrentTab = function() {
   return this.currentTab_;
 };
 
@@ -264,24 +264,11 @@ Tabs.prototype.close = function(tabId) {
   var tab = this.tabs_[i];
 
   if (!tab.isSaved()) {
-    this.dialogController_.setText(
-        chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
-    this.dialogController_.resetButtons();
-    this.dialogController_.addButton('yes',
-        chrome.i18n.getMessage('yesDialogButton'));
-    this.dialogController_.addButton('no',
-        chrome.i18n.getMessage('noDialogButton'));
-    this.dialogController_.addButton('cancel',
-        chrome.i18n.getMessage('cancelDialogButton'));
-    this.dialogController_.show(function(answer) {
+    this.promptSave_(tab, function(answer) {
       if (answer === 'yes') {
         this.save(tab, true /* close */);
-        return;
-      }
-
-      if (answer === 'no') {
+      } else if (answer === 'no') {
         this.closeTab_(tab);
-        return;
       }
     }.bind(this));
   } else {
@@ -320,6 +307,49 @@ Tabs.prototype.openFiles = function() {
   this.chooseEntries(
       {'type': 'openWritableFile'},
       this.openFileEntry.bind(this));
+};
+
+/**
+ * @param {function()} callback
+ * Invoke the save dialog for all tabs with unsaved progress. Does not close any tabs.
+ */
+Tabs.prototype.promptAllUnsaved = function(callback) {
+  this.promptAllUnsavedFromIndex_(0, callback);
+};
+
+Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
+  if (i >= this.tabs_.length) {
+    callback();
+    return;
+  }
+
+  var tab = this.tabs_[i];
+  if (tab.isSaved()) {
+    this.promptAllUnsavedFromIndex_(i + 1, callback);
+  } else {
+    this.showTab(this.tabs_[i].getId());
+    this.promptSave_(tab, function(answer) {
+      if (answer === 'yes') {
+        this.save(tab, false /* close */);
+      } else if (answer === 'cancel') {
+        return;
+      }
+      this.promptAllUnsavedFromIndex_(i + 1, callback);
+    }.bind(this));
+  }
+};
+
+Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
+  this.dialogController_.setText(
+      chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
+  this.dialogController_.resetButtons();
+  this.dialogController_.addButton('yes',
+      chrome.i18n.getMessage('yesDialogButton'));
+  this.dialogController_.addButton('no',
+      chrome.i18n.getMessage('noDialogButton'));
+  this.dialogController_.addButton('cancel',
+      chrome.i18n.getMessage('cancelDialogButton'));
+  this.dialogController_.show(callbackShowDialog);
 };
 
 Tabs.prototype.save = function(opt_tab, opt_close) {
