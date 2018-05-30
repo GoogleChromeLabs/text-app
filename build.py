@@ -60,7 +60,9 @@ EXTERNS_URLS = [
   'https://raw.githubusercontent.com' +
       '/google/closure-compiler/master/contrib/externs/jquery-1.8.js',
   'https://raw.githubusercontent.com' +
-      '/google/closure-compiler/master/contrib/externs/google_analytics_api.js'
+      '/google/closure-compiler/master/contrib/externs/google_analytics_api.js',
+  'https://raw.githubusercontent.com' +
+      '/google/closure-compiler/master/contrib/externs/chrome_extensions.js',
 ]
 
 SKIP_JS_FILES = []
