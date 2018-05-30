@@ -57,12 +57,12 @@ CLOSURE_URL = 'https://closure-compiler.appspot.com/compile'
 BACKGROUND_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
 JS_EXTERNS = None
 EXTERNS_URLS = [
-  'https://raw.githubusercontent.com' +
-      '/google/closure-compiler/master/contrib/externs/jquery-1.8.js',
-  'https://raw.githubusercontent.com' +
-      '/google/closure-compiler/master/contrib/externs/google_analytics_api.js',
-  'https://raw.githubusercontent.com' +
-      '/google/closure-compiler/master/contrib/externs/chrome_extensions.js',
+  'https://raw.githubusercontent.com/google/closure-compiler/master/' +
+      'contrib/externs/jquery-1.8.js',
+  'https://raw.githubusercontent.com/google/closure-compiler/master/' +
+      'contrib/externs/google_analytics_api.js',
+  'https://raw.githubusercontent.com/google/closure-compiler/master/' +
+      'contrib/externs/chrome_extensions.js',
 ]
 
 SKIP_JS_FILES = []
