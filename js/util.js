@@ -44,7 +44,7 @@ util.writeFile = function(entry, content, onsuccess, opt_onerror) {
 
 /**
  * @param {FileWriter} writer
- * @param {Blob} blob
+ * @param {!Blob} blob
  * @param {Function} onsuccess
  */
 util.writeToWriter_ = function(writer, blob, onsuccess) {
@@ -53,7 +53,7 @@ util.writeToWriter_ = function(writer, blob, onsuccess) {
 };
 
 /**
- * @param {string} File name.
+ * @param {string} fileName
  * @return {string} Sanitized File name.
  * Returns a sanitized version of a File Name.
  */
@@ -62,8 +62,8 @@ util.sanitizeFileName = function(fileName) {
 }
 
 /**
- * @param {string} File name.
- * @return {string} Extension.
+ * @param {string} fileName
+ * @return {?string} Extension.
  * Returns the extension of a File Name or null if there's none.
  */
 util.getExtension = function(fileName) {
