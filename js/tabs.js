@@ -348,6 +348,11 @@ Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.show(callbackShowDialog);
 };
 
+/**
+ * Save opt_tab, or the current tab if no opt_tab is passed.
+ * @param {Tab=} opt_tab
+ * @param {function()=} opt_callback
+ */
 Tabs.prototype.save = function(opt_tab, opt_callback) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
@@ -358,6 +363,11 @@ Tabs.prototype.save = function(opt_tab, opt_callback) {
   }
 };
 
+/**
+ * Save opt_tab as a new file, or the current tab if no opt_tab is passed.
+ * @param {Tab=} opt_tab
+ * @param {function()=} opt_callback
+ */
 Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
@@ -428,6 +438,11 @@ Tabs.prototype.readFileToNewTab_ = function(entry, file) {
   reader.readAsText(file);
 }
 
+/**
+ * @param {Tab} tab
+ * @param {FileEntry} entry
+ * @param {function()=} opt_callback
+ */
 Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
   if (!entry) {
     return;
