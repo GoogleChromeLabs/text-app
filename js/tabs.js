@@ -120,11 +120,10 @@ function Tabs(editor, dialogController, settings) {
 /**
  * @type {Object} params
  * @type {function(FileEntry)} callback
- * @type {function()} opt_oncancel
  * Open a file in the system file picker. The FileEntry is copied to be stored
  * in background page, so it isn't destroyed when the window is closed.
  */
-Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
+Tabs.prototype.chooseEntry = function(params, callback) {
   // TODO: Remove this when crbug.com/326523 is fixed.
   if (params.acceptsMultiple) {
     console.error('acceptsMultiple is not supported when saving a file');
@@ -137,9 +136,6 @@ Tabs.prototype.chooseEntry = function(params, callback, opt_oncancel) {
           chrome.runtime.getBackgroundPage(function(bg) {
             bg.background.copyFileEntry(entry, callback);
           });
-        } else {
-          if (opt_oncancel)
-            opt_oncancel();
         }
       });
 };
@@ -266,7 +262,7 @@ Tabs.prototype.close = function(tabId) {
   if (!tab.isSaved()) {
     this.promptSave_(tab, function(answer) {
       if (answer === 'yes') {
-        this.save(tab, true /* close */);
+        this.save(tab, this.closeTab_.bind(this, tab));
       } else if (answer === 'no') {
         this.closeTab_(tab);
       }
@@ -330,11 +326,11 @@ Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
     this.showTab(this.tabs_[i].getId());
     this.promptSave_(tab, function(answer) {
       if (answer === 'yes') {
-        this.save(tab, false /* close */);
-      } else if (answer === 'cancel') {
-        return;
+        this.save(
+          tab, this.promptAllUnsavedFromIndex_.bind(this, i + 1, callback));
+      } else if (answer === 'no') {
+        this.promptAllUnsavedFromIndex_(i + 1, callback);
       }
-      this.promptAllUnsavedFromIndex_(i + 1, callback);
     }.bind(this));
   }
 };
@@ -352,20 +348,17 @@ Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.show(callbackShowDialog);
 };
 
-Tabs.prototype.save = function(opt_tab, opt_close) {
+Tabs.prototype.save = function(opt_tab, opt_callback) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
   if (opt_tab.getEntry()) {
-    var callback = null;
-    if (opt_close)
-      callback = this.closeTab_.bind(this, opt_tab);
-    opt_tab.save(callback);
+    opt_tab.save(opt_callback);
   } else {
-    this.saveAs(opt_tab, opt_close);
+    this.saveAs(opt_tab, opt_callback);
   }
 };
 
-Tabs.prototype.saveAs = function(opt_tab, opt_close) {
+Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
   if (!opt_tab)
     opt_tab = this.currentTab_;
   var suggestedName = opt_tab.getEntry() && opt_tab.getEntry().name ||
@@ -376,7 +369,12 @@ Tabs.prototype.saveAs = function(opt_tab, opt_close) {
   }
   this.chooseEntry(
       {'type': 'saveFile', 'suggestedName': suggestedName},
-      this.onSaveAsFileOpen_.bind(this, opt_tab, opt_close || false));
+      function(entry) {
+        this.saveEntry_(opt_tab, entry, opt_callback);
+        if (opt_callback) {
+          opt_callback();
+        }
+      }.bind(this));
 };
 
 /**
@@ -430,13 +428,13 @@ Tabs.prototype.readFileToNewTab_ = function(entry, file) {
   reader.readAsText(file);
 }
 
-Tabs.prototype.onSaveAsFileOpen_ = function(tab, close, entry) {
+Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
   if (!entry) {
     return;
   }
 
   tab.setEntry(entry);
-  this.save(tab, close);
+  this.save(tab, opt_callback);
 };
 
 Tabs.prototype.onDocChanged_ = function(e, session) {
