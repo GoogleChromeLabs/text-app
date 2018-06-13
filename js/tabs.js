@@ -350,37 +350,35 @@ Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
 
 /**
  * Save opt_tab, or the current tab if no opt_tab is passed.
- * @param {Tab=} opt_tab
+ * @param {?Tab=} opt_tab
  * @param {function()=} opt_callback
  */
 Tabs.prototype.save = function(opt_tab, opt_callback) {
-  if (!opt_tab)
-    opt_tab = this.currentTab_;
-  if (opt_tab.getEntry()) {
-    opt_tab.save(opt_callback);
+  var tab = opt_tab || this.currentTab_;
+  if (tab.getEntry()) {
+    tab.save(opt_callback);
   } else {
-    this.saveAs(opt_tab, opt_callback);
+    this.saveAs(tab, opt_callback);
   }
 };
 
 /**
  * Save opt_tab as a new file, or the current tab if no opt_tab is passed.
- * @param {Tab=} opt_tab
+ * @param {?Tab=} opt_tab
  * @param {function()=} opt_callback
  */
 Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
-  if (!opt_tab)
-    opt_tab = this.currentTab_;
-  var suggestedName = opt_tab.getEntry() && opt_tab.getEntry().name ||
-                      util.sanitizeFileName(opt_tab.session_.getLine(0)) ||
-                      opt_tab.getName();
+  var tab = opt_tab || this.currentTab_;
+  var suggestedName = tab.getEntry() && tab.getEntry().name ||
+                      util.sanitizeFileName(tab.session_.getLine(0)) ||
+                      tab.getName();
   if (!util.getExtension(suggestedName)) {
       suggestedName += '.txt';
   }
   this.chooseEntry(
       {'type': 'saveFile', 'suggestedName': suggestedName},
       function(entry) {
-        this.saveEntry_(opt_tab, entry, opt_callback);
+        this.saveEntry_(tab, entry, opt_callback);
         if (opt_callback) {
           opt_callback();
         }
@@ -439,7 +437,7 @@ Tabs.prototype.readFileToNewTab_ = function(entry, file) {
 }
 
 /**
- * @param {Tab} tab
+ * @param {!Tab} tab
  * @param {FileEntry} entry
  * @param {function()=} opt_callback
  */
