@@ -337,7 +337,9 @@ Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
 
 Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.setText(
-      chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
+      chrome.i18n.getMessage('saveFilePromptLine1', tab.getName()),
+      chrome.i18n.getMessage('saveFilePromptLine2')
+  );
   this.dialogController_.resetButtons();
   this.dialogController_.addButton('yes',
       chrome.i18n.getMessage('yesDialogButton'));

@@ -61,7 +61,13 @@ DialogController.prototype.addButton = function(id, text) {
 };
 
 DialogController.prototype.setText = function(text) {
-  this.container_.find('.dialog-text').text(text);
+  var dialogText = this.container_[0].querySelector('.dialog-text');
+  dialogText.innerHTML = null;
+  dialogText.appendChild(document.createTextNode(text || ''));
+  for (var line of Array.from(arguments).slice(1)) {
+    dialogText.appendChild(document.createElement('br'));
+    dialogText.appendChild(document.createTextNode(line));
+  }
 };
 
 DialogController.prototype.onClick_ = function(id) {
