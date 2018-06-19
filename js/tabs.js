@@ -86,6 +86,7 @@ Tab.prototype.save = function(opt_callbackDone) {
 
 Tab.prototype.reportWriteError_ = function(e) {
   this.dialogController_.setText(
+      // TODO: Replace this with i18n message
       'Error saving file: ' + util.fsErrorStr(e));
   this.dialogController_.resetButtons();
   this.dialogController_.addButton('ok',

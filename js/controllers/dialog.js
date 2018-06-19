@@ -64,9 +64,9 @@ DialogController.prototype.setText = function(text) {
   var dialogText = this.container_[0].querySelector('.dialog-text');
   dialogText.innerHTML = null;
   dialogText.appendChild(document.createTextNode(text || ''));
-  for (var line of Array.from(arguments).slice(1)) {
+  for (var i = 1; i < arguments.length; i++) {
     dialogText.appendChild(document.createElement('br'));
-    dialogText.appendChild(document.createTextNode(line));
+    dialogText.appendChild(document.createTextNode(arguments[i]));
   }
 };
 

@@ -159,7 +159,7 @@
   },
   "saveFilePromptLine1": {
     "message": "$filename$ has been modified.",
-    "description":"First line of the text which prompts user if they want to save file before closing it.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
     "placeholders": {
       "filename": {
         "content": "$1",
@@ -169,7 +169,7 @@
   },
   "saveFilePromptLine2": {
     "message": "Do you want to save it before closing?",
-    "description":"Second line of the text which prompts user if they want to save file before closing it."
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
   },
   "okDialogButton": {
     "message": "OK",
