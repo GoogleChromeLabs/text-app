@@ -1,6 +1,3 @@
-[submodule "lib/CodeMirror"]
-	path = lib/CodeMirror
-	url = https://github.com/codemirror/CodeMirror
 [submodule "lib/analytics"]
 	path = lib/analytics
 	url = https://github.com/googlearchive/chrome-platform-analytics
