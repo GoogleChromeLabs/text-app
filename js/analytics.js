@@ -54,6 +54,6 @@ Analytics.prototype.onSettingsChange_ = function(e, key, value) {
     if (value)
       this.reportEvent('action', 'Always on top: on');
     else
-      this.reportEvent('action', 'Always on top: off')
+      this.reportEvent('action', 'Always on top: off');
   }
 };
