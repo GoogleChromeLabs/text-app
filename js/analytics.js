@@ -48,9 +48,9 @@ Analytics.prototype.setEnabled = function(enabled) {
 };
 
 Analytics.prototype.onSettingsChange_ = function(e, key, value) {
-  if (key === 'analytics')
+  if (key === 'analytics') {
     this.setEnabled(value);
-  else if (key === 'alwaysontop') {
+  } else if (key === 'alwaysontop') {
     if (value)
       this.reportEvent('action', 'Always on top: on');
     else
