@@ -45,7 +45,8 @@ SearchController.prototype.onSearchButton_ = function() {
 };
 
 SearchController.prototype.deactivateSearch_ = function(e) {
-  if (!e.relatedTarget.closest('.search-container')) {
+  // relatedTarget is null if the element clicked on can't receive focus
+  if (!e.relatedTarget || !e.relatedTarget.closest('.search-container')) {
     $('#search-input').val('');
     $('#search-counting').text('');
     $('header').removeClass('search-active');
