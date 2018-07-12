@@ -50,7 +50,7 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'js': 'javascript',
     'json': 'yaml',
     'latex': 'stex',
-    'less': 'less',
+    'less': 'text/x-less',
     'ltx': 'stex',
     'lua': 'lua',
     'markdown': 'markdown',
