@@ -336,6 +336,13 @@ Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
   }
 };
 
+/**
+ * Prompts the user if they want to save a file.
+ * @param {!Tab} tab The tab corresponding to the file to be saved.
+ * @param {function(string)} callbackShowDialog Called when the save dialog box
+ *     is resolved. Takes as an argument string corresponding to the dialog
+ *     button selected by the user.
+ */
 Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.setText(
       chrome.i18n.getMessage('saveFilePromptLine1', tab.getName()),

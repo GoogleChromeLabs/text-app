@@ -60,10 +60,15 @@ DialogController.prototype.addButton = function(id, text) {
   this.container_.find('.dialog-buttons').append(button);
 };
 
-DialogController.prototype.setText = function(text) {
+/**
+ * Adds text to the dialog box, with each string passed displayed on a separate
+ * line.
+ * @param {...string} var_args The strings to add to the dialog box.
+ */
+DialogController.prototype.setText = function(var_args) {
   var dialogText = this.container_[0].querySelector('.dialog-text');
   dialogText.innerHTML = null;
-  dialogText.appendChild(document.createTextNode(text || ''));
+  dialogText.appendChild(document.createTextNode(arguments[0] || ''));
   for (var i = 1; i < arguments.length; i++) {
     dialogText.appendChild(document.createElement('br'));
     dialogText.appendChild(document.createTextNode(arguments[i]));
