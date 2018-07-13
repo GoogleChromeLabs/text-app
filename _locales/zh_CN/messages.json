@@ -107,15 +107,19 @@
       "description": "The button text to restore the app window.",
       "message": "还原"
    },
-   "saveFilePrompt": {
-      "description": "The text which prompts user if they want to save file before closing it.",
-      "message": "文件“$filename$”已被修改。是否要在保存后再将其关闭？",
+   "saveFilePromptLine1": {
+      "message": "文件“$filename$”已被修改。",
+      "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
       "placeholders": {
          "filename": {
             "content": "$1",
             "example": "file.txt"
          }
       }
+   },
+   "saveFilePromptLine2": {
+      "message": "要在关闭前保存它吗？",
+      "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
    },
    "searchButton": {
       "description": "The button text to search.",

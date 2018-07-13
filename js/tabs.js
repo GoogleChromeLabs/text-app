@@ -86,6 +86,7 @@ Tab.prototype.save = function(opt_callbackDone) {
 
 Tab.prototype.reportWriteError_ = function(e) {
   this.dialogController_.setText(
+      // TODO: Replace this with i18n message
       'Error saving file: ' + util.fsErrorStr(e));
   this.dialogController_.resetButtons();
   this.dialogController_.addButton('ok',
@@ -335,9 +336,18 @@ Tabs.prototype.promptAllUnsavedFromIndex_ = function(i, callback) {
   }
 };
 
+/**
+ * Prompts the user if they want to save a file.
+ * @param {!Tab} tab The tab corresponding to the file to be saved.
+ * @param {function(string)} callbackShowDialog Called when the save dialog box
+ *     is resolved. Takes as an argument string corresponding to the dialog
+ *     button selected by the user.
+ */
 Tabs.prototype.promptSave_ = function(tab, callbackShowDialog) {
   this.dialogController_.setText(
-      chrome.i18n.getMessage('saveFilePrompt', tab.getName()));
+      chrome.i18n.getMessage('saveFilePromptLine1', tab.getName()),
+      chrome.i18n.getMessage('saveFilePromptLine2')
+  );
   this.dialogController_.resetButtons();
   this.dialogController_.addButton('yes',
       chrome.i18n.getMessage('yesDialogButton'));
