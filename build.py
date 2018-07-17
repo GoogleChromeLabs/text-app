@@ -43,7 +43,7 @@ FILES = [
   'images/minimize.svg',
   'lib/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
-  'lib/jquery-1.8.3.min.js'
+  'third_party/jquery/jquery-1.8.3.min.js'
  ]
 
 MANIFEST = 'manifest.json'
