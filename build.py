@@ -41,7 +41,7 @@ FILES = [
   'images/menu.svg',
   'images/search.svg',
   'images/minimize.svg',
-  'lib/analytics/google-analytics-bundle.js',
+  'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
   'third_party/jquery/jquery-1.8.3.min.js'
  ]
