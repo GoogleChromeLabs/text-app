@@ -175,7 +175,7 @@ def compile_js(out_path, js_files, level, externs):
 
   params = [
       ('compilation_level', level),
-      ('language', 'ECMASCRIPT5'),
+      ('language', 'ECMASCRIPT6'),
       ('output_format', 'json'),
       ('output_info', 'statistics'),
       ('output_info', 'warnings'),
