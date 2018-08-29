@@ -313,6 +313,16 @@ header {
   -webkit-user-select: none;
 }
 
+.mdc-icon-button {
+  -webkit-app-region: no-drag;
+  margin: 0 5px;
+  opacity: 0.54;
+}
+
+.mdc-icon-button:focus {
+  opacity: 0.87;
+}
+
 .icon-button {
   -webkit-app-region: no-drag;
   background-position: center center;
@@ -330,10 +340,6 @@ header {
   border: 1px solid rgba(0,0,0,0.16);
   color: #333;
   opacity: 0.8;
-}
-
-#toggle-sidebar {
-  background-image: url('../images/menu.svg');
 }
 
 .sidebar-open #toggle-sidebar {

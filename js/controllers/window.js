@@ -19,12 +19,19 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
+  this.initAnimations_();
 
   if (this.settings_.isReady()) {
     this.initSidebar_();
   } else {
     $(document).bind('settingsready', this.initSidebar_.bind(this));
   }
+}
+
+/** Initializes UI interaction animatins. */
+WindowController.prototype.initAnimations_ = function() {
+  mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-icon-button'))
+      .unbounded = true;
 }
 
 WindowController.prototype.initSidebar_ = function() {
