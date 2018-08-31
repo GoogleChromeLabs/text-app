@@ -157,17 +157,24 @@ def process_index(out_dir):
 
 def print_errors(errors, js_files):
   for error in errors:
-    if error['file'].lower().find('externs') >= 0:
-      filename = error['file']
-    else:
-      fileno = int(error['file'][6:]) - 1
+    filename = error.get('file', '')
+    if not filename:
+      filename = missing_key_string('file')
+    elif filename.lower().find('externs') < 0:
+      fileno = int(filename[6:]) - 1
       filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
-    else:
+    elif 'warning' in error:
       text = error['warning']
-    print(filename + ':' + str(error['lineno']) + ' ' + text)
-    print(error['line'])
+    else:
+      text = missing_key_string('error/warning')
+    print(filename + ':' + str(error.get('lineno', missing_key_string('lineno'))) + ' ' + text)
+    print (error.get('line', missing_key_string('line')))
+
+
+def missing_key_string(key):
+  return '[\'' + key + '\' key missing]'
 
 
 def compile_js(out_path, js_files, level, externs):
@@ -225,7 +232,10 @@ def compile_js(out_path, js_files, level, externs):
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
-  open(out_path, 'w').write(result['compiledCode'])
+  if result.get('compiledCode'):
+    open(out_path, 'w').write(result.get('compiledCode'))
+  else:
+    print(missing_key_string('compiledCode'))
 
 
 def main():
