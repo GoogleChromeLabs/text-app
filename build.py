@@ -159,7 +159,7 @@ def print_errors(errors, js_files):
   for error in errors:
     filename = error.get('file', '')
     if not filename:
-      filename = missing_key_string('file')
+      filename = get_missing_key_msg('file')
     elif filename.lower().find('externs') < 0:
       fileno = int(filename[6:]) - 1
       filename = js_files[fileno]
@@ -168,12 +168,12 @@ def print_errors(errors, js_files):
     elif 'warning' in error:
       text = error['warning']
     else:
-      text = missing_key_string('error/warning')
-    print(filename + ':' + str(error.get('lineno', missing_key_string('lineno'))) + ' ' + text)
-    print (error.get('line', missing_key_string('line')))
+      text = get_missing_key_msg('error/warning')
+    print(filename + ':' + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' ' + text)
+    print (error.get('line', get_missing_key_msg('line')))
 
 
-def missing_key_string(key):
+def get_missing_key_msg(key):
   return '[\'' + key + '\' key missing]'
 
 
@@ -235,7 +235,9 @@ def compile_js(out_path, js_files, level, externs):
   if result.get('compiledCode'):
     open(out_path, 'w').write(result.get('compiledCode'))
   else:
-    print(missing_key_string('compiledCode'))
+    print(
+      'Fatal build error: '
+      'compiledCode key missing from Closure response object')
 
 
 def main():
