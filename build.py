@@ -166,7 +166,7 @@ def print_errors(errors, js_files):
       text = error['error']
     else:
       text = error['warning']
-    print(filename + ':' + str(error['lineno']) + ' ' + text)
+    print('\n' + filename + ':' + str(error['lineno']) + ' ' + text)
     print(error['line'])
 
 
@@ -212,14 +212,14 @@ def compile_js(out_path, js_files, level, externs):
   if 'errors' in result:
     num_errors = len(result['errors'])
     if num_errors:
-      print(str(num_errors) + ' errors:')
+      print('\n' + str(num_errors) + ' errors:')
       print_errors(result['errors'], js_files)
       print()
 
   if 'warnings' in result:
     num_warnings = len(result['warnings'])
     if num_warnings:
-      print(str(num_warnings) + ' warnings:')
+      print('\n' + str(num_warnings) + ' warnings:')
       print_errors(result['warnings'], js_files)
       print()
 
