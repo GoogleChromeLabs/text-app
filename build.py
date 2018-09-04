@@ -155,7 +155,12 @@ def process_index(out_dir):
   return js_files
 
 
-def print_errors(errors, js_files):
+def print_server_errors(errors):
+  for error in errors:
+    print('Error code ' + str(error.get('code')) + ': ' + error.get('error'))
+
+
+def print_compilation_errors(errors, js_files):
   for error in errors:
     if error['file'].lower().find('externs') >= 0:
       filename = error['file']
@@ -209,18 +214,23 @@ def compile_js(out_path, js_files, level, externs):
   out = urllib.request.urlopen(CLOSURE_URL, data=params)
   result = json.loads(out.read().decode('utf8'))
 
+  if 'serverErrors' in result:
+    print(str(len(result['serverErrors'])) + ' Closure server errors:')
+    print_server_errors(result['serverErrors'])
+    print()
+
   if 'errors' in result:
     num_errors = len(result['errors'])
     if num_errors:
       print(str(num_errors) + ' errors:')
-      print_errors(result['errors'], js_files)
+      print_compilation_errors(result['errors'], js_files)
       print()
 
   if 'warnings' in result:
     num_warnings = len(result['warnings'])
     if num_warnings:
       print(str(num_warnings) + ' warnings:')
-      print_errors(result['warnings'], js_files)
+      print_compilation_errors(result['warnings'], js_files)
       print()
 
   print('Writing', out_path)
