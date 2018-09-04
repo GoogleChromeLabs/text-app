@@ -220,18 +220,14 @@ def compile_js(out_path, js_files, level, externs):
     print()
 
   if 'errors' in result:
-    num_errors = len(result['errors'])
-    if num_errors:
-      print(str(num_errors) + ' errors:')
-      print_compilation_errors(result['errors'], js_files)
-      print()
+    print(str(len(result['errors'])) + ' errors:')
+    print_compilation_errors(result['errors'], js_files)
+    print()
 
   if 'warnings' in result:
-    num_warnings = len(result['warnings'])
-    if num_warnings:
-      print(str(num_warnings) + ' warnings:')
-      print_compilation_errors(result['warnings'], js_files)
-      print()
+    print(str(len(result['warnings'])) + ' warnings:')
+    print_compilation_errors(result['warnings'], js_files)
+    print()
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
