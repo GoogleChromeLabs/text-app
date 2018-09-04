@@ -16,7 +16,8 @@ BASE_DIR = os.path.dirname(sys.argv[0])
 SOURCE_DIR = BASE_DIR
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
-FILES = [
+# These files will be copied into the newly built directory as is.
+FILES_TO_COPY = [
   'index.html',
   '_locales/en/messages.json',
   'css/app.css',
@@ -155,19 +156,33 @@ def process_index(out_dir):
   return js_files
 
 
-def print_errors(errors, js_files):
+def print_server_errors(errors):
   for error in errors:
-    if error['file'].lower().find('externs') >= 0:
-      filename = error['file']
-    else:
-      fileno = int(error['file'][6:]) - 1
+    print(
+        '\nError code ' + str(error.get('code', get_missing_key_msg('code')))
+        + ': ' + error.get('error', get_missing_key_msg('error')))
+
+
+def print_compilation_errors(errors, js_files):
+  for error in errors:
+    filename = error.get('file', '')
+    if not filename:
+      filename = get_missing_key_msg('file')
+    elif filename.lower().find('externs') < 0:
+      fileno = int(filename[6:]) - 1
       filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
-    else:
+    elif 'warning' in error:
       text = error['warning']
-    print(filename + ':' + str(error['lineno']) + ' ' + text)
-    print(error['line'])
+    else:
+      text = get_missing_key_msg('error/warning')
+    print('\n' + filename + ':' + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' ' + text)
+    print (error.get('line', get_missing_key_msg('line')))
+
+
+def get_missing_key_msg(key):
+  return '[\'' + key + '\' key missing]'
 
 
 def compile_js(out_path, js_files, level, externs):
@@ -175,7 +190,7 @@ def compile_js(out_path, js_files, level, externs):
 
   params = [
       ('compilation_level', level),
-      ('language', 'ECMASCRIPT5'),
+      ('language', 'ECMASCRIPT6'),
       ('output_format', 'json'),
       ('output_info', 'statistics'),
       ('output_info', 'warnings'),
@@ -209,23 +224,29 @@ def compile_js(out_path, js_files, level, externs):
   out = urllib.request.urlopen(CLOSURE_URL, data=params)
   result = json.loads(out.read().decode('utf8'))
 
+  if 'serverErrors' in result:
+    print('\n' + str(len(result['serverErrors'])) + ' Closure server errors:')
+    print_server_errors(result['serverErrors'])
+    print()
+
   if 'errors' in result:
-    num_errors = len(result['errors'])
-    if num_errors:
-      print(str(num_errors) + ' errors:')
-      print_errors(result['errors'], js_files)
-      print()
+    print('\n' + str(len(result['errors'])) + ' errors:')
+    print_compilation_errors(result['errors'], js_files)
+    print()
 
   if 'warnings' in result:
-    num_warnings = len(result['warnings'])
-    if num_warnings:
-      print(str(num_warnings) + ' warnings:')
-      print_errors(result['warnings'], js_files)
-      print()
+    print('\n' + str(len(result['warnings'])) + ' warnings:')
+    print_compilation_errors(result['warnings'], js_files)
+    print()
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
-  open(out_path, 'w').write(result['compiledCode'])
+  if result.get('compiledCode'):
+    open(out_path, 'w').write(result.get('compiledCode'))
+  else:
+    print(
+      'Fatal build error: '
+      'compiledCode key missing from Closure response object')
 
 
 def main():
@@ -239,7 +260,7 @@ def main():
   out_dir = os.path.join(BUILD_DIR, dir_name)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
-  copy_files(SOURCE_DIR, out_dir, FILES)
+  copy_files(SOURCE_DIR, out_dir, FILES_TO_COPY)
 
   background_js_files = process_manifest(out_dir, version)
   compile_js(os.path.join(out_dir, 'js', 'background.js'),
