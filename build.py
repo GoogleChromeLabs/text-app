@@ -159,22 +159,30 @@ def process_index(out_dir):
 def print_server_errors(errors):
   for error in errors:
     print(
-        '\nError code ' + str(error.get('code')) + ': ' + error.get('error'))
+        '\nError code ' + str(error.get('code', get_missing_key_msg('code')))
+        + ': ' + error.get('error', get_missing_key_msg('error')))
 
 
 def print_compilation_errors(errors, js_files):
   for error in errors:
-    if error['file'].lower().find('externs') >= 0:
-      filename = error['file']
-    else:
-      fileno = int(error['file'][6:]) - 1
+    filename = error.get('file', '')
+    if not filename:
+      filename = get_missing_key_msg('file')
+    elif filename.lower().find('externs') < 0:
+      fileno = int(filename[6:]) - 1
       filename = js_files[fileno]
     if 'error' in error:
       text = error['error']
-    else:
+    elif 'warning' in error:
       text = error['warning']
-    print('\n' + filename + ':' + str(error['lineno']) + ' ' + text)
-    print(error['line'])
+    else:
+      text = get_missing_key_msg('error/warning')
+    print('\n' + filename + ':' + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' ' + text)
+    print (error.get('line', get_missing_key_msg('line')))
+
+
+def get_missing_key_msg(key):
+  return '[\'' + key + '\' key missing]'
 
 
 def compile_js(out_path, js_files, level, externs):
@@ -233,7 +241,12 @@ def compile_js(out_path, js_files, level, externs):
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
-  open(out_path, 'w').write(result['compiledCode'])
+  if result.get('compiledCode'):
+    open(out_path, 'w').write(result.get('compiledCode'))
+  else:
+    print(
+      'Fatal build error: '
+      'compiledCode key missing from Closure response object')
 
 
 def main():
