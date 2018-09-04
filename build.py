@@ -16,7 +16,8 @@ BASE_DIR = os.path.dirname(sys.argv[0])
 SOURCE_DIR = BASE_DIR
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
-FILES = [
+# These files will be copied into the newly built directory as is.
+FILES_TO_COPY = [
   'index.html',
   '_locales/en/messages.json',
   'css/app.css',
@@ -239,7 +240,7 @@ def main():
   out_dir = os.path.join(BUILD_DIR, dir_name)
   archive_path = out_dir + '.zip'
   delete(out_dir, archive_path)
-  copy_files(SOURCE_DIR, out_dir, FILES)
+  copy_files(SOURCE_DIR, out_dir, FILES_TO_COPY)
 
   background_js_files = process_manifest(out_dir, version)
   compile_js(os.path.join(out_dir, 'js', 'background.js'),
