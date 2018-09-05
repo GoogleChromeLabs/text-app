@@ -19,6 +19,7 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabpathchange', this.onTabPathChange.bind(this));
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
+  this.initUI_();
 
   // Initialize Material UI components
   mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-icon-button'))
@@ -29,6 +30,9 @@ function WindowController(editor, settings, analytics, tabs) {
   } else {
     $(document).bind('settingsready', this.initSidebar_.bind(this));
   }
+}
+
+WindowController.prototype.initUI_ = function() {
 }
 
 WindowController.prototype.initSidebar_ = function() {
