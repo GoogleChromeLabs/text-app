@@ -342,12 +342,6 @@ header {
   opacity: 0.8;
 }
 
-.sidebar-open #toggle-sidebar {
-  border: 1px solid rgba(0,0,0,0.16);
-  color: #333;
-  opacity: 0.8;
-}
-
 #search-button {
   background-image: url('../images/search.svg');
   background-size: 22px;
