@@ -33,7 +33,7 @@ function WindowController(editor, settings, analytics, tabs) {
 }
 
 WindowController.prototype.initUI_ = function() {
-  const fileMenu = new mdc.menu.MDCMenu(document.querySelector('#file-menu2'));
+  const fileMenu = new mdc.menu.MDCMenu(document.querySelector('#file-menu'));
   fileMenu.show();
 }
 
