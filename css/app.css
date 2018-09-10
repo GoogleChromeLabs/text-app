@@ -73,11 +73,15 @@ img {
 }
 
 #sidebar li {
-  cursor: pointer;
-  -webkit-box-sizing: border-box;
+  /*cursor: pointer;*/
+/*  -webkit-box-sizing: border-box;
   margin: 0px;
-  padding: 10px 0px 10px 20px;
+  padding: 10px 0px 10px 20px;*/
+}
+
+#sidebar .mdc-list-item {
   -webkit-user-select: none;
+  cursor: pointer;
   white-space: nowrap;
 }
 
