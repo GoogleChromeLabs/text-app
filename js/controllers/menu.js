@@ -20,7 +20,7 @@ function MenuController(tabs) {
 MenuController.prototype.onNewTab = function(e, tab) {
   var id = tab.getId();
   var name = tab.getName();
-  var listItem = $('<li id="tab' + id + '" draggable="true">' +
+  var listItem = $('<li class="mdc-list-item" id="tab' + id + '" draggable="true" role="menuitem" tabindex="0">' +
                    '<div class="filename">' + name + '</div>' +
                    '<div class="close"></div></li>');
   listItem.bind('dragstart', this.onDragStart_.bind(this, listItem));
