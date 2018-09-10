@@ -125,19 +125,19 @@ img {
 }
 
 #tabs-list li.active {
-  border-left: 10px solid #D1D1D1 !important;
-  padding-left: 10px;
+/*  border-left: 10px solid #D1D1D1 !important;
+  padding-left: 10px;*/
 }
 
-#tabs-list li .filename {
-  display: inline;
+#tabs-list-container li .filename {
+/*  display: inline;
   -webkit-flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
+  overflow: hidden;*/
   text-overflow: ellipsis;
 }
 
-#tabs-list li.unsaved .filename:after {
+#tabs-list-container li.unsaved .filename:after {
   content: " *";
 }
 
