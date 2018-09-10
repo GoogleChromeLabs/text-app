@@ -15,35 +15,31 @@
   <div id="window-container">
     <div id="sidebar">
       <div id="sidebar-resizer"></div>
-      <div id="file-tabs-menu">
-        <h1>Text</h1>
-
-        <hr>
-
-        <div class="mdc-menu mdc-menu--open" tabindex="-1" id="file-menu">
-          <ul class="mdc-menu__items mdc-list" role="menu">
-            <li class="mdc-list-item" id="file-menu-new" role="menuitem" tabindex="0">
-              <div i18n-content="fileMenuNew"></div>
+      <div class="mdc-menu mdc-menu--open" id="file-tabs-menu" tabindex="-1">
+        <ul class="mdc-menu__items mdc-list" role="menu">
+          <h1>Text</h1>
+          <li class="mdc-list-divider" role="separator"></li>
+          <li class="mdc-list-item" id="file-menu-new" role="menuitem" tabindex="0">
+            <div i18n-content="fileMenuNew"></div>
+          </li>
+          <li class="mdc-list-item" id="file-menu-open" role="menuitem" tabindex="0">
+            <div i18n-content="fileMenuOpen"></div>
+          </li>
+          <li class="mdc-list-item" id="file-menu-save" role="menuitem" tabindex="0">
+            <div i18n-content="fileMenuSave"></div>
+          </li>
+          <li class="mdc-list-item" id="file-menu-saveas" role="menuitem" tabindex="0">
+            <div i18n-content="fileMenuSaveas"></div>
+          </li>
+          <li class="mdc-list-divider" role="separator"></li>
+          <div id="tabs-list-container"></div>
+          <li class="mdc-list-divider" role="separator"></li>
+          <div class="settings-switch-ul">
+            <li class="mdc-list-item" id="open-settings" role="menuitem" tabindex="0">
+              <div i18n-content="menuOpenSettings"></div>
             </li>
-            <li class="mdc-list-item" id="file-menu-open" role="menuitem" tabindex="0">
-              <div i18n-content="fileMenuOpen"></div>
-            </li>
-            <li class="mdc-list-item" id="file-menu-save" role="menuitem" tabindex="0">
-              <div i18n-content="fileMenuSave"></div>
-            </li>
-            <li class="mdc-list-item" id="file-menu-saveas" role="menuitem" tabindex="0">
-              <div i18n-content="fileMenuSaveas"></div>
-            </li>
-            <li class="mdc-list-divider" role="separator"></li>
-            <div id="tabs-list-container"></div>
-            <li class="mdc-list-divider" role="separator"></li>
-            <div class="settings-switch-ul">
-              <li class="mdc-list-item" id="open-settings" role="menuitem" tabindex="0">
-                <div i18n-content="menuOpenSettings"></div>
-              </li>
-            </div>
-          </ul>
-        </div>
+          </div>
+        </ul>
       </div>
       <div id="settings-menu">
         <h1 i18n-content="menuSettings"></h1>
