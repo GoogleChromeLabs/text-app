@@ -27,7 +27,7 @@ MenuController.prototype.onNewTab = function(e, tab) {
   listItem.bind('dragover', this.onDragOver_.bind(this, listItem));
   listItem.bind('dragend', this.onDragEnd_.bind(this, listItem));
   listItem.bind('drop', this.onDrop_.bind(this, listItem));
-  listItem.appendTo($('#tabs-list'));
+  listItem.appendTo($('#tabs-list-container'));
   listItem.click(this.tabButtonClicked_.bind(this, id));
   listItem.find('.close').click(this.closeTabClicked_.bind(this, id));
 };
@@ -81,7 +81,7 @@ MenuController.prototype.onTabSave = function(e, tab) {
 };
 
 MenuController.prototype.onSwitchTab = function(e, tab) {
-  $('#tabs-list li.active').removeClass('active');
+  $('#tabs-list-container li.active').removeClass('active');
   $('#tab' + tab.getId()).addClass('active');
 };
 
