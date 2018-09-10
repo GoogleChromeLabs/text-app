@@ -8,6 +8,8 @@
   <link href="css/theme-dark.css" rel="stylesheet">
   <link href="css/theme-light.css" rel="stylesheet">
   <link href="third_party/CodeMirror/lib/codemirror.css" rel="stylesheet">
+  <link href="third_party/material-components-web/material-components-web.min.css" rel="stylesheet">
+  <link href="third_party/material-design-icons/iconfont/material-icons.css" rel="stylesheet">
 </head>
 <body>
   <div id="window-container">
@@ -105,7 +107,7 @@
     </div>
     <div id="main-container">
       <header>
-        <div class="icon-button" id="toggle-sidebar" i18n-values="title:openSidebarButton"></div>
+        <button class="mdc-icon-button material-icons" id="toggle-sidebar" i18n-values="title:openSidebarButton">menu</button>
         <div class="icon-button" id="search-button" i18n-values="title:searchButton"></div>
         <div class="search-container">
           <input type="search" id="search-input">
@@ -132,6 +134,7 @@
 
   <script src="third_party/analytics/google-analytics-bundle.js" type="text/javascript"></script>
   <script src="third_party/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+  <script src="third_party/material-components-web/material-components-web.min.js" type="text/javascript"></script>
   <!-- JS -->
   <!-- Everything in this JS block will be replaced with a single .js file include at compilation -->
   <script src="third_party/CodeMirror/lib/codemirror.js" type="text/javascript"></script>

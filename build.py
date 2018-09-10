@@ -44,7 +44,11 @@ FILES_TO_COPY = [
   'images/minimize.svg',
   'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
-  'third_party/jquery/jquery-1.8.3.min.js'
+  'third_party/jquery/jquery-1.8.3.min.js',
+  'third_party/material-components-web/material-components-web.min.css',
+  'third_party/material-components-web/material-components-web.min.js',
+  'third_party/material-design-icons/iconfont/material-icons.css',
+  'third_party/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
  ]
 
 MANIFEST = 'manifest.json'

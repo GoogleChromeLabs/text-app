@@ -20,6 +20,10 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 
+  // Initialize Material UI components
+  mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-icon-button'))
+      .unbounded = true;
+
   if (this.settings_.isReady()) {
     this.initSidebar_();
   } else {
