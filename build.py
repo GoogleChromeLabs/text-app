@@ -17,6 +17,9 @@ SOURCE_DIR = BASE_DIR
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 # These files will be copied into the newly built directory as is.
+# Should include all files not included in the Closure compilation unit (i.e.
+# all non javascript files as well as all javascript files declared outside of
+# the <!-- JS --> block in index.html).
 FILES_TO_COPY = [
   'index.html',
   '_locales/en/messages.json',
@@ -59,7 +62,7 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 CLOSURE_URL = 'https://closure-compiler.appspot.com/compile'
-BACKGROUND_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
+BACKGROUND_EXTERNS = 'js/background_externs.js'
 JS_EXTERNS = None
 EXTERNS_URLS = [
   'https://raw.githubusercontent.com/google/closure-compiler/master/' +
@@ -73,6 +76,7 @@ EXTERNS_URLS = [
 SKIP_JS_FILES = []
 
 USE_LOCALIZED_NAME = False
+PRINT_THIRD_PARTY_WARNINGS = False
 COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
 BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
 
@@ -167,22 +171,29 @@ def print_server_errors(errors):
         + ': ' + error.get('error', get_missing_key_msg('error')))
 
 
-def print_compilation_errors(errors, js_files):
+def print_compilation_errors(errors, type, js_files, externs_file):
+  # Preprocessing
   for error in errors:
-    filename = error.get('file', '')
-    if not filename:
-      filename = get_missing_key_msg('file')
-    elif filename.lower().find('externs') < 0:
-      fileno = int(filename[6:]) - 1
+    filename = error.get('file', get_missing_key_msg('file'))
+    if filename.lower().find('input') >=0:
+      fileno = int(filename[len('Input_'):]) - 1  # file index starts at 1
       filename = js_files[fileno]
-    if 'error' in error:
-      text = error['error']
-    elif 'warning' in error:
-      text = error['warning']
-    else:
-      text = get_missing_key_msg('error/warning')
-    print('\n' + filename + ':' + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' ' + text)
+    elif filename.lower().find('externs') >= 0:
+      filename = externs_file
+    error['file'] = filename
+  if type is 'warning' and not PRINT_THIRD_PARTY_WARNINGS:
+    errors = [error for error in errors if 'third_party' not in error['file']]
+    if not errors:
+      return
+
+  print('\n' + str(len(errors)) + ' ' + type + 's:')
+  for error in errors:
+    print(
+        '\n' + error['file'] + ':'
+        + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' '
+        + error.get(type, get_missing_key_msg(type)))
     print (error.get('line', get_missing_key_msg('line')))
+  print()
 
 
 def get_missing_key_msg(key):
@@ -213,7 +224,7 @@ def compile_js(out_path, js_files, level, externs):
       js_code.append(open(os.path.join(SOURCE_DIR, js_file), encoding='utf-8').read())
 
   if externs:
-    params.append(('js_externs', open(externs).read()))
+    params.append(('js_externs', open(os.path.join(SOURCE_DIR, externs)).read()))
 
   for url in EXTERNS_URLS:
     params.append(('externs_url', url))
@@ -234,14 +245,10 @@ def compile_js(out_path, js_files, level, externs):
     print()
 
   if 'errors' in result:
-    print('\n' + str(len(result['errors'])) + ' errors:')
-    print_compilation_errors(result['errors'], js_files)
-    print()
+    print_compilation_errors(result['errors'], 'error', js_files, externs)
 
   if 'warnings' in result:
-    print('\n' + str(len(result['warnings'])) + ' warnings:')
-    print_compilation_errors(result['warnings'], js_files)
-    print()
+    print_compilation_errors(result['warnings'], 'warning', js_files, externs)
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
