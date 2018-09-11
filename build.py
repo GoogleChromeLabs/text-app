@@ -76,6 +76,7 @@ EXTERNS_URLS = [
 SKIP_JS_FILES = []
 
 USE_LOCALIZED_NAME = False
+PRINT_THIRD_PARTY_WARNINGS = False
 COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
 BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
 
@@ -170,24 +171,29 @@ def print_server_errors(errors):
         + ': ' + error.get('error', get_missing_key_msg('error')))
 
 
-def print_compilation_errors(errors, js_files, externs_file):
+def print_compilation_errors(errors, type, js_files, externs_file):
+  # Preprocessing
   for error in errors:
-    filename = error.get('file', '')
-    if not filename:
-      filename = get_missing_key_msg('file')
-    elif filename.lower().find('input') >=0:
-      fileno = int(filename[len('Input_'):]) - 1 # file index starts at 1
+    filename = error.get('file', get_missing_key_msg('file'))
+    if filename.lower().find('input') >=0:
+      fileno = int(filename[len('Input_'):]) - 1  # file index starts at 1
       filename = js_files[fileno]
     elif filename.lower().find('externs') >= 0:
       filename = externs_file
-    if 'error' in error:
-      text = error['error']
-    elif 'warning' in error:
-      text = error['warning']
-    else:
-      text = get_missing_key_msg('error/warning')
-    print('\n' + filename + ':' + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' ' + text)
+    error['file'] = filename
+  if type is 'warning' and not PRINT_THIRD_PARTY_WARNINGS:
+    errors = [error for error in errors if 'third_party' not in error['file']]
+    if not errors:
+      return
+
+  print('\n' + str(len(errors)) + ' ' + type + 's:')
+  for error in errors:
+    print(
+        '\n' + error['file'] + ':'
+        + str(error.get('lineno', get_missing_key_msg('lineno'))) + ' '
+        + error.get(type, get_missing_key_msg(type)))
     print (error.get('line', get_missing_key_msg('line')))
+  print()
 
 
 def get_missing_key_msg(key):
@@ -239,14 +245,10 @@ def compile_js(out_path, js_files, level, externs):
     print()
 
   if 'errors' in result:
-    print('\n' + str(len(result['errors'])) + ' errors:')
-    print_compilation_errors(result['errors'], js_files, externs)
-    print()
+    print_compilation_errors(result['errors'], 'error', js_files, externs)
 
   if 'warnings' in result:
-    print('\n' + str(len(result['warnings'])) + ' warnings:')
-    print_compilation_errors(result['warnings'], js_files, externs)
-    print()
+    print_compilation_errors(result['warnings'], 'warning', js_files, externs)
 
   print('Writing', out_path)
   os.makedirs(os.path.dirname(out_path), exist_ok=True)
