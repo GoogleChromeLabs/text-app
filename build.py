@@ -62,7 +62,7 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 CLOSURE_URL = 'https://closure-compiler.appspot.com/compile'
-BACKGROUND_EXTERNS = os.path.join(SOURCE_DIR, 'js/externs.js')
+BACKGROUND_EXTERNS = 'js/externs.js'
 JS_EXTERNS = None
 EXTERNS_URLS = [
   'https://raw.githubusercontent.com/google/closure-compiler/master/' +
@@ -170,14 +170,16 @@ def print_server_errors(errors):
         + ': ' + error.get('error', get_missing_key_msg('error')))
 
 
-def print_compilation_errors(errors, js_files):
+def print_compilation_errors(errors, js_files, externs_file):
   for error in errors:
     filename = error.get('file', '')
     if not filename:
       filename = get_missing_key_msg('file')
-    elif filename.lower().find('externs') < 0:
-      fileno = int(filename[6:]) - 1
+    elif filename.lower().find('input') >=0:
+      fileno = int(filename[len('Input_'):]) - 1 # file index starts at 1
       filename = js_files[fileno]
+    elif filename.lower().find('externs') >= 0:
+      filename = externs_file
     if 'error' in error:
       text = error['error']
     elif 'warning' in error:
@@ -216,7 +218,7 @@ def compile_js(out_path, js_files, level, externs):
       js_code.append(open(os.path.join(SOURCE_DIR, js_file), encoding='utf-8').read())
 
   if externs:
-    params.append(('js_externs', open(externs).read()))
+    params.append(('js_externs', open(os.path.join(SOURCE_DIR, externs)).read()))
 
   for url in EXTERNS_URLS:
     params.append(('externs_url', url))
@@ -238,12 +240,12 @@ def compile_js(out_path, js_files, level, externs):
 
   if 'errors' in result:
     print('\n' + str(len(result['errors'])) + ' errors:')
-    print_compilation_errors(result['errors'], js_files)
+    print_compilation_errors(result['errors'], js_files, externs)
     print()
 
   if 'warnings' in result:
     print('\n' + str(len(result['warnings'])) + ' warnings:')
-    print_compilation_errors(result['warnings'], js_files)
+    print_compilation_errors(result['warnings'], js_files, externs)
     print()
 
   print('Writing', out_path)
