@@ -62,7 +62,7 @@ TARGET_JS_INCLUDE = ('<script src="' + TARGET_JS + '" type="text/javascript">'
 JS_INCLUDES = re.compile(r'(<!-- JS -->.*<!-- /JS -->)', flags=re.M | re.S)
 JS_SRC = re.compile(r'<script src="([^"]*)" type="text/javascript">')
 CLOSURE_URL = 'https://closure-compiler.appspot.com/compile'
-BACKGROUND_EXTERNS = 'js/externs.js'
+BACKGROUND_EXTERNS = 'js/background_externs.js'
 JS_EXTERNS = None
 EXTERNS_URLS = [
   'https://raw.githubusercontent.com/google/closure-compiler/master/' +
