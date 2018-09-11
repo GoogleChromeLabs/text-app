@@ -17,6 +17,9 @@ SOURCE_DIR = BASE_DIR
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 
 # These files will be copied into the newly built directory as is.
+# Should include all files not included in the Closure compilation unit (i.e.
+# all non javascript files as well as all javascript files declared outside of
+# the <!-- JS --> block in index.html).
 FILES_TO_COPY = [
   'index.html',
   '_locales/en/messages.json',
