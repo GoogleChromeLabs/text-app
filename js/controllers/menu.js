@@ -22,7 +22,7 @@ MenuController.prototype.onNewTab = function(e, tab) {
   var name = tab.getName();
   var listItem = $('<li id="tab' + id + '" draggable="true">' +
                    '<div class="filename">' + name + '</div>' +
-                   '<div class="close"></div></li>');
+                   '<div class="close" title="' + chrome.i18n.getMessage('closeFileButton') + '"></div></li>');
   listItem.bind('dragstart', this.onDragStart_.bind(this, listItem));
   listItem.bind('dragover', this.onDragOver_.bind(this, listItem));
   listItem.bind('dragend', this.onDragEnd_.bind(this, listItem));
