@@ -17,36 +17,42 @@ function MenuController(tabs) {
   $(document).bind('tabsave', this.onTabSave.bind(this));
 }
 
+/**
+ * Adds a new draggable file tab to the UI.
+ * @param {!Event} e The newtab event (unused).
+ * @param {!Tab} tab The new tab to be added.
+ * @private
+ */
 MenuController.prototype.addNewTab_ = function(e, tab) {
-  let id = tab.getId();
-  let tabElement = document.createElement("li");
+  const id = tab.getId();
+  const tabElement = document.createElement('li');
   tabElement.setAttribute('draggable', 'true');
   tabElement.id = 'tab' + id;
-  let filenameElement = document.createElement("div");
-  filenameElement.appendChild(document.createTextNode(tab.getName()));
-  filenameElement.className = "filename";
+  const filenameElement = document.createElement('div');
+  filenameElement.textContent = tab.getName();
+  filenameElement.className = 'filename';
   tabElement.appendChild(filenameElement);
-  let closeElement = document.createElement("div");
+  const closeElement = document.createElement('div');
   closeElement.setAttribute('title', chrome.i18n.getMessage('closeFileButton'))
-  closeElement.className = "close";
+  closeElement.className = 'close';
   tabElement.appendChild(closeElement);
   document.getElementById('tabs-list').appendChild(tabElement);
 
   tabElement.addEventListener(
-      'dragstart', this.onDragStart_.bind(this, $(tabElement)));
+      'dragstart', () => { this.onDragStart_($(tabElement)); });
   tabElement.addEventListener(
-      'dragover', this.onDragOver_.bind(this, $(tabElement)));
+      'dragover', (event) => { this.onDragOver_($(tabElement), event); });
   tabElement.addEventListener(
-      'dragend', this.onDragEnd_.bind(this, $(tabElement)));
+      'dragend', (event) => { this.onDragEnd_($(tabElement), event)});
   tabElement.addEventListener(
-      'drop', this.onDrop_.bind(this, $(tabElement)));
+      'drop', (event) => { this.onDrop_(event); });
   tabElement.addEventListener(
-      'click', this.tabButtonClicked_.bind(this, id));
+      'click', () => { this.tabButtonClicked_(id); });
   closeElement.addEventListener(
-      'click', this.closeTabClicked_.bind(this, id));
+      'click', () => { this.closeTabClicked_(id); });
 };
 
-MenuController.prototype.onDragStart_ = function(listItem, e) {
+MenuController.prototype.onDragStart_ = function(listItem) {
   this.dragItem_ = listItem;
 };
 
@@ -56,7 +62,7 @@ MenuController.prototype.onDragEnd_ = function(listItem, e) {
   e.stopPropagation();
 };
 
-MenuController.prototype.onDrop_ = function(listItem, e) {
+MenuController.prototype.onDrop_ = function(e) {
   e.stopPropagation();
 };
 
