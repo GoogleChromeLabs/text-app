@@ -54,7 +54,8 @@ Background.prototype.launch = function(launchData) {
     var retainedEntryIds = data['retainedEntryIds'] || [];
     for (var i = 0; i < retainedEntryIds.length; i++) {
       chrome.fileSystem.restoreEntry(retainedEntryIds[i], function(entry) {
-        this.entriesToOpen_.push(entry);
+        if (!chrome.runtime.lastError)
+          this.entriesToOpen_.push(entry);
       }.bind(this));
     }
   }.bind(this));
@@ -73,8 +74,8 @@ Background.prototype.launch = function(launchData) {
         entries[i],
         function(entry) {
           if (this.windows_.length > 0) {
-            this.windows_[0].openEntries([entry]);
-          } else {
+            this.windows_[0].openTabs([entry]);
+          } else if (!chrome.runtime.lastError) {
             this.entriesToOpen_.push(entry);
           }
         }.bind(this));
@@ -123,13 +124,8 @@ Background.prototype.retainFiles_ = function(toRetain) {
 Background.prototype.onWindowReady = function(textApp) {
   this.windows_.push(textApp);
   textApp.setHasChromeFrame(this.ifShowFrame_());
-
-  if (this.entriesToOpen_.length > 0) {
-    textApp.openEntries(this.entriesToOpen_);
-    this.entriesToOpen_ = [];
-  } else {
-    textApp.openNew();
-  }
+  textApp.openTabs(this.entriesToOpen_);
+  this.entriesToOpen_ = [];
 };
 
 /**

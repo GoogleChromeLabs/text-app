@@ -24,6 +24,7 @@ Tab.prototype.getName = function() {
   if (this.entry_) {
     return this.entry_.name;
   } else {
+    // TODO: i18n 'Untitled' text
     return 'Untitled ' + this.id_;
   }
 };
@@ -480,4 +481,12 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
   }
 
   tab.changed();
+};
+
+/**
+ * Determines whether any tabs are open.
+ * @return {boolean} True if at least one tab is open.
+ */
+Tabs.prototype.hasOpenTab = function() {
+  return Boolean(this.tabs_.length);
 };
