@@ -117,6 +117,7 @@ img {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: justify;
   display: -webkit-flex;
+  align-items: center;
   cursor: pointer;
 }
 
