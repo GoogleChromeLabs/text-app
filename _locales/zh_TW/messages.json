@@ -170,5 +170,9 @@
    "yesDialogButton": {
       "description": "The button text which says 'Yes'.",
       "message": "是"
+   },
+   "closeFileButton": {
+      "message": "關閉檔案",
+      "description": "The button text to close a file."
    }
 }

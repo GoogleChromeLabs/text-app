@@ -8,7 +8,7 @@ function MenuController(tabs) {
   $('#file-menu-open').click(this.open_.bind(this));
   $('#file-menu-save').click(this.save_.bind(this));
   $('#file-menu-saveas').click(this.saveas_.bind(this));
-  $(document).bind('newtab', this.onNewTab.bind(this));
+  $(document).bind('newtab', this.addNewTab_.bind(this));
   $(document).bind('switchtab', this.onSwitchTab.bind(this));
   $(document).bind('tabchange', this.onTabChange.bind(this));
   $(document).bind('tabclosed', this.onTabClosed.bind(this));
@@ -17,22 +17,42 @@ function MenuController(tabs) {
   $(document).bind('tabsave', this.onTabSave.bind(this));
 }
 
-MenuController.prototype.onNewTab = function(e, tab) {
-  var id = tab.getId();
-  var name = tab.getName();
-  var listItem = $('<li id="tab' + id + '" draggable="true">' +
-                   '<div class="filename">' + name + '</div>' +
-                   '<div class="close"></div></li>');
-  listItem.bind('dragstart', this.onDragStart_.bind(this, listItem));
-  listItem.bind('dragover', this.onDragOver_.bind(this, listItem));
-  listItem.bind('dragend', this.onDragEnd_.bind(this, listItem));
-  listItem.bind('drop', this.onDrop_.bind(this, listItem));
-  listItem.appendTo($('#tabs-list'));
-  listItem.click(this.tabButtonClicked_.bind(this, id));
-  listItem.find('.close').click(this.closeTabClicked_.bind(this, id));
+/**
+ * Adds a new draggable file tab to the UI.
+ * @param {!Event} e The newtab event (unused).
+ * @param {!Tab} tab The new tab to be added.
+ * @private
+ */
+MenuController.prototype.addNewTab_ = function(e, tab) {
+  const id = tab.getId();
+  const tabElement = document.createElement('li');
+  tabElement.setAttribute('draggable', 'true');
+  tabElement.id = 'tab' + id;
+  const filenameElement = document.createElement('div');
+  filenameElement.textContent = tab.getName();
+  filenameElement.className = 'filename';
+  tabElement.appendChild(filenameElement);
+  const closeElement = document.createElement('div');
+  closeElement.setAttribute('title', chrome.i18n.getMessage('closeFileButton'))
+  closeElement.className = 'close';
+  tabElement.appendChild(closeElement);
+  document.getElementById('tabs-list').appendChild(tabElement);
+
+  tabElement.addEventListener(
+      'dragstart', () => { this.onDragStart_($(tabElement)); });
+  tabElement.addEventListener(
+      'dragover', (event) => { this.onDragOver_($(tabElement), event); });
+  tabElement.addEventListener(
+      'dragend', (event) => { this.onDragEnd_($(tabElement), event)});
+  tabElement.addEventListener(
+      'drop', (event) => { this.onDrop_(event); });
+  tabElement.addEventListener(
+      'click', () => { this.tabButtonClicked_(id); });
+  closeElement.addEventListener(
+      'click', () => { this.closeTabClicked_(id); });
 };
 
-MenuController.prototype.onDragStart_ = function(listItem, e) {
+MenuController.prototype.onDragStart_ = function(listItem) {
   this.dragItem_ = listItem;
 };
 
@@ -42,7 +62,7 @@ MenuController.prototype.onDragEnd_ = function(listItem, e) {
   e.stopPropagation();
 };
 
-MenuController.prototype.onDrop_ = function(listItem, e) {
+MenuController.prototype.onDrop_ = function(e) {
   e.stopPropagation();
 };
 

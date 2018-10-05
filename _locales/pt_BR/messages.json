@@ -174,5 +174,9 @@
   "okDialogButton": {
     "message": "OK",
     "description":"O texto do botão que diz 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Fechar arquivo",
+    "description": "The button text to close a file."
   }
 }
