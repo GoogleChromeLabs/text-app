@@ -23,6 +23,9 @@ BUILD_DIR = os.path.join(BASE_DIR, 'build')
 FILES_TO_COPY = [
   'index.html',
   '_locales/en/messages.json',
+  '_locales/pt_BR/messages.json',
+  '_locales/zh_CN/messages.json',
+  '_locales/zh_TW/messages.json',
   'css/app.css',
   'css/print.css',
   'css/theme-dark.css',
