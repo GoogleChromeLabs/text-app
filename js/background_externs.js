@@ -24,8 +24,7 @@ TextApp.prototype.setHasChromeFrame = function(v) {};
 /**
  * @param {Array.<FileEntry>} entries
  */
-TextApp.prototype.openEntries = function(entries) {};
-TextApp.prototype.openNew = function() {};
+TextApp.prototype.openTabs = function(entries) {};
 /**
  * @return {Array.<FileEntry>}
  */

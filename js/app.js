@@ -49,19 +49,18 @@ TextApp.prototype.init = function() {
 };
 
 /**
- * @param {Array.<FileEntry>} entries The file entries to be opened.
- *
- * Open one tab per file. Usually called from the background page.
+ * Open one tab per FileEntry passed or a new Untitled tab if no tabs were
+ * successfully opened.
+ * @param {!Array.<FileEntry>} entries The file entries to be opened.
  */
-TextApp.prototype.openEntries = function(entries) {
+TextApp.prototype.openTabs = function(entries) {
   for (var i = 0; i < entries.length; i++) {
     this.tabs_.openFileEntry(entries[i]);
   }
   this.windowController_.focus_();
-};
-
-TextApp.prototype.openNew = function() {
-  this.tabs_.newTab();
+  if (!this.tabs_.hasOpenTab()) {
+    this.tabs_.newTab();
+  }
 };
 
 TextApp.prototype.setHasChromeFrame = function(hasFrame) {
