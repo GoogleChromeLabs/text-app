@@ -241,6 +241,10 @@ Tabs.prototype.nextTab = function() {
 
 Tabs.prototype.showTab = function(tabId) {
   var tab = this.getTabById(tabId)
+  if (!tab) {
+    console.error('Can\'t find tab', tabId);
+    return;
+  }
   this.editor_.setSession(tab.getSession());
   this.currentTab_ = tab;
   $.event.trigger('switchtab', tab);
