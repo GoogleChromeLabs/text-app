@@ -488,5 +488,5 @@ Tabs.prototype.onDocChanged_ = function(e, session) {
  * @return {boolean} True if at least one tab is open.
  */
 Tabs.prototype.hasOpenTab = function() {
-  return Boolean(this.tabs_.length);
+  return !!this.tabs_.length;
 };
