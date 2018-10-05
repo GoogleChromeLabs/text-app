@@ -54,8 +54,9 @@ Background.prototype.launch = function(launchData) {
     var retainedEntryIds = data['retainedEntryIds'] || [];
     for (var i = 0; i < retainedEntryIds.length; i++) {
       chrome.fileSystem.restoreEntry(retainedEntryIds[i], function(entry) {
-        if (!chrome.runtime.lastError)
+        if (!chrome.runtime.lastError) {
           this.entriesToOpen_.push(entry);
+        }
       }.bind(this));
     }
   }.bind(this));

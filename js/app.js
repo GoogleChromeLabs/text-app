@@ -58,8 +58,9 @@ TextApp.prototype.openTabs = function(entries) {
     this.tabs_.openFileEntry(entries[i]);
   }
   this.windowController_.focus_();
-  if (!this.tabs_.hasOpenTab())
+  if (!this.tabs_.hasOpenTab()) {
     this.tabs_.newTab();
+  }
 };
 
 TextApp.prototype.setHasChromeFrame = function(hasFrame) {
