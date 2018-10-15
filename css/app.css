@@ -114,11 +114,11 @@ img {
 }
 
 #tabs-list li {
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: justify;
-  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  cursor: pointer;
+  height: 42px;
+  padding: 0px 0px 0px 20px;
 }
 
 #tabs-list li.active {
@@ -128,8 +128,7 @@ img {
 
 #tabs-list li .filename {
   display: inline;
-  -webkit-flex: 1 1 auto;
-  min-width: 0;
+  flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -139,21 +138,14 @@ img {
 }
 
 #tabs-list li .close {
-  background-position: center center;
-  background-repeat: no-repeat;
-  display: -webkit-box;
-  margin: 2px 10px 0 0;
-  height: 20px;
-  width: 20px;
+  height: 100%;
+  width: auto;
+  font-size: 20px;
+  visibility: hidden;
 }
 
 #tabs-list li:hover .close {
-  background-image: url('../images/close-tab.svg');
-  opacity: 0.3;
-}
-
-#tabs-list li .close:hover {
-  opacity: 1;
+  visibility: visible;
 }
 
 #file-tabs-menu {
@@ -316,12 +308,27 @@ header {
 
 .mdc-icon-button {
   -webkit-app-region: no-drag;
-  margin: 0 5px;
+}
+
+header .mdc-icon-button {
   opacity: 0.54;
 }
 
-.mdc-icon-button:focus {
+header .mdc-icon-button:focus {
   opacity: 0.87;
+}
+
+#sidebar .mdc-icon-button {
+  color: #FFFFFF;
+  opacity: 0.7;
+}
+
+#sidebar .mdc-icon-button:focus {
+  opacity: 1;
+}
+
+#sidebar .mdc-icon-button::before, #sidebar .mdc-icon-button::after {
+  z-index: -1;
 }
 
 .icon-button {
@@ -341,6 +348,10 @@ header {
   border: 1px solid rgba(0,0,0,0.16);
   color: #333;
   opacity: 0.8;
+}
+
+#toggle-sidebar {
+  margin: 0 5px;
 }
 
 #search-button {
