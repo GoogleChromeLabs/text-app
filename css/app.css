@@ -314,7 +314,7 @@ header .mdc-icon-button {
   opacity: 0.54;
 }
 
-header .mdc-icon-button:focus {
+header .mdc-icon-button:focus, header .mdc-icon-button:active {
   opacity: 0.87;
 }
 
