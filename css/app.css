@@ -323,7 +323,7 @@ header .mdc-icon-button:focus {
   opacity: 0.7;
 }
 
-#sidebar .mdc-icon-button:focus {
+#sidebar .mdc-icon-button:focus, #sidebar .mdc-icon-button:active {
   opacity: 1;
 }
 
