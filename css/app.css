@@ -320,7 +320,7 @@ header {
   opacity: 0.54;
 }
 
-.mdc-icon-button:focus {
+.mdc-icon-button:focus, .mdc-icon-button:active {
   opacity: 0.87;
 }
 
