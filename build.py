@@ -43,7 +43,6 @@ FILES_TO_COPY = [
   'images/check_no_box.png',
   'images/check_no_box_white.png',
   'images/close.svg',
-  'images/close-tab.svg',
   'images/maximize.svg',
   'images/menu.svg',
   'images/search.svg',
