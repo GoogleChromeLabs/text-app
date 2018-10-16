@@ -118,7 +118,7 @@ img {
   flex-direction: row;
   align-items: center;
   height: 42px;
-  padding: 0px 0px 0px 20px;
+  padding: 0 0 0 20px;
 }
 
 #tabs-list li.active {
@@ -319,8 +319,8 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 }
 
 #sidebar .mdc-icon-button {
-  color: #FFFFFF;
-  opacity: 0.7;
+  color: #FFF;
+  opacity: .7;
 }
 
 #sidebar .mdc-icon-button:focus, #sidebar .mdc-icon-button:active {

@@ -67,12 +67,12 @@ body[theme="light"] #tabs-list li.active {
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {
-  color: #000000;
-  opacity: 0.54;
+  color: #000;
+  opacity: .54;
 }
 
 body[theme="light"] #sidebar .mdc-icon-button:focus {
-  opacity: 0.87;
+  opacity: .87;
 }
 
 
