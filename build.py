@@ -10,6 +10,7 @@ import urllib.parse
 import urllib.request
 
 APP_NAME = 'Text'
+CANARY_APP_NAME = 'Text Canary'
 IS_APP = True
 
 BASE_DIR = os.path.dirname(sys.argv[0])
@@ -83,13 +84,17 @@ COMPILATION_LEVEL = 'SIMPLE_OPTIMIZATIONS'
 BACKGROUND_COMPILATION_LEVEL = 'ADVANCED_OPTIMIZATIONS'
 
 debug_build = False
+stable_build = False
 
 
 def parse_command_line():
   global debug_build
+  global stable_build
   for option in sys.argv[1:]:
     if option == '-d':
       debug_build = True
+    elif option == '-s':
+      stable_build = True
     else:
       raise Exception('Unknown command line option: ' + option)
 
@@ -127,8 +132,10 @@ def process_manifest(out_dir, version):
   manifest = json.load(open(os.path.join(SOURCE_DIR, MANIFEST)))
   if USE_LOCALIZED_NAME:
     manifest['name'] = '__MSG_extName__'
-  else:
+  elif stable_build:
     manifest['name'] = APP_NAME
+  else:
+    manifest['name'] = CANARY_APP_NAME
   manifest['version'] = version
 
   if IS_APP:
@@ -267,6 +274,8 @@ def main():
   version = get_version()
 
   dir_name = APP_NAME + '-' + version
+  if not stable_build:
+    dir_name += '-canary'
   if debug_build:
     dir_name += '-dbg'
   print(dir_name)
