@@ -31,8 +31,11 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
 };
 
 /**
+ * Handles hotkey combination if present in keydown event.
  * Some hotkeys are handled by CodeMirror directly. Among them:
  * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A
+ * @param {Event} e The keydown event
+ * @private
  */
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
@@ -46,7 +49,7 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case this.KEY.F:
-        $('#search-button').click();
+        document.getElementById('search-input').click();
         return false;
 
       case this.KEY.N:
