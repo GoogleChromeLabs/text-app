@@ -21,4 +21,4 @@ Building script requires Python3 and will use online Closure Compiler. Just run
 
     python3 build.py
 
-and the package will be written to `text-app/build/` directory in zipped and unzipped formats.
+and the package will be written to `text-app/build/` directory in zipped and unzipped formats (canary version). To build the stable version run the build script with the flag -s.
