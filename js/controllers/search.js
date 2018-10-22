@@ -7,6 +7,9 @@ function SearchController(search) {
   $('#search-button').click(this.onSearchButton_.bind(this));
   $('#search-input').bind('input', this.onChange_.bind(this));
   $('#search-input').keydown(this.onKeydown_.bind(this));
+  // Prevent search deactivation when search count is clicked
+  document.getElementById('search-counting')
+      .addEventListener('mousedown', (event) => { event.preventDefault() });
   $('#search-next-button').click(this.onFindNext_.bind(this));
   $('#search-previous-button').click(this.onFindPrevious_.bind(this));
   $('.search-container').focusout(this.deactivateSearch_.bind(this));
