@@ -1,4 +1,27 @@
 /**
+ * Enum for keyboard event keycodes
+ * @enum {number}
+ */
+const Keycode = {
+  TAB: 9,
+  ENTER: 13,
+  ESCAPE: 27,
+  SPACE: 32,
+  ZERO: 48,
+  NUMPAD_ZERO: 96,
+  NUMPAD_PLUS: 107,
+  NUMPAD_MINUS: 109,
+  PLUS: 187,
+  MINUS: 189
+};
+// Populate Keycode enum A - Z
+for (var i = 65; i <= 90; i++) {
+  Keycode[String.fromCharCode(i).toUpperCase()] = i
+}
+Object.freeze(Keycode);
+
+
+/**
  * @constructor
  */
 function HotkeysController(windowController, tabs, editor, settings, analytics) {
@@ -7,21 +30,6 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
   this.editor_ = editor;
   this.settings_ = settings;
   this.analytics_ = analytics;
-
-  this.KEY = {};
-  // create key map A - Z
-  for (var i = 65; i <= 90; i++) {
-    this.KEY[String.fromCharCode(i).toUpperCase()] = i;
-  }
-
-  this.KEY.TAB = 9;
-  this.KEY.SPACE = 32;
-  this.KEY.ZERO = 48;
-  this.KEY.NUMPAD_ZERO = 96;
-  this.KEY.NUMPAD_PLUS = 107;
-  this.KEY.NUMPAD_MINUS = 109;
-  this.KEY.PLUS = 187;
-  this.KEY.MINUS = 189;
 
   this.ZOOM_IN_FACTOR = 9/8;
   this.ZOOM_OUT_FACTOR = 8/9;
@@ -37,7 +45,7 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
     switch (e.keyCode) {
-      case this.KEY.TAB:  // Tab
+      case Keycode.TAB:
         if (e.shiftKey) {
           this.tabs_.previousTab();
         } else {
@@ -45,11 +53,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case this.KEY.F:
+      case Keycode.F:
         $('#search-button').click();
         return false;
 
-      case this.KEY.N:
+      case Keycode.N:
         if (e.shiftKey) {
           this.tabs_.newWindow();
         } else {
@@ -57,16 +65,16 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case this.KEY.O:
+      case Keycode.O:
         this.tabs_.openFiles();
         return false;
 
-      case this.KEY.P:
+      case Keycode.P:
         this.analytics_.reportEvent('action', 'print');
         window.print();
         return false;
 
-      case this.KEY.S:
+      case Keycode.S:
         if (e.shiftKey) {
           this.tabs_.saveAs();
         } else {
@@ -74,7 +82,7 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case this.KEY.W:
+      case Keycode.W:
         if (e.shiftKey) {
           this.windowController_.close();
         } else {
@@ -82,32 +90,32 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case this.KEY.Z:
+      case Keycode.Z:
         if (e.shiftKey) {
           this.editor_.redo();
           return false;
         }
         break;
 
-      case this.KEY.ZERO:
-      case this.KEY.NUMPAD_ZERO:
+      case Keycode.ZERO:
+      case Keycode.NUMPAD_ZERO:
         this.settings_.reset('fontsize');
         return false;
 
-      case this.KEY.PLUS:
-      case this.KEY.NUMPAD_PLUS:
+      case Keycode.PLUS:
+      case Keycode.NUMPAD_PLUS:
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_IN_FACTOR);
         return false;
 
-      case this.KEY.MINUS:
-      case this.KEY.NUMPAD_MINUS:
+      case Keycode.MINUS:
+      case Keycode.NUMPAD_MINUS:
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
         return false;
     }
   } else if (e.altKey) {
-    if (e.keyCode === this.KEY.SPACE) {
+    if (e.keyCode === Keycode.SPACE) {
       $('#toggle-sidebar').click();
       return false;
     }
