@@ -6,7 +6,7 @@ function WindowController(editor, settings, analytics, tabs) {
   this.settings_ = settings;
   this.analytics_ = analytics;
   this.tabs_ = tabs;
-  $('#window-close').click(this.close_.bind(this));
+  document.getElementById('window-close').click(() => { close(); } );
   $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
@@ -56,7 +56,10 @@ WindowController.prototype.setTheme = function(theme) {
   $('body').attr('theme', theme);
 };
 
-WindowController.prototype.close_ = function() {
+/**
+ * Close app window after warning user of all unsaved progress if present.
+ */
+WindowController.prototype.close = function() {
   this.tabs_.promptAllUnsaved(window.close);
 };
 

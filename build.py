@@ -46,7 +46,6 @@ FILES_TO_COPY = [
   'images/close.svg',
   'images/maximize.svg',
   'images/menu.svg',
-  'images/search.svg',
   'images/minimize.svg',
   'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
