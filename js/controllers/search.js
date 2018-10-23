@@ -4,12 +4,10 @@
 function SearchController(search) {
   this.search_ = search;
 
-  $('#search-button').click(this.onSearchButton_.bind(this));
+  document.getElementById('search-input')
+      .addEventListener('focus', () => { this.activateSearch_(); });
   $('#search-input').bind('input', this.onChange_.bind(this));
   $('#search-input').keydown(this.onKeydown_.bind(this));
-  // Prevent search deactivation when search count is clicked
-  document.getElementById('search-counting')
-      .addEventListener('mousedown', (event) => { event.preventDefault() });
   $('#search-next-button').click(this.onFindNext_.bind(this));
   $('#search-previous-button').click(this.onFindPrevious_.bind(this));
   $('.search-container').focusout(this.deactivateSearch_.bind(this));
@@ -38,13 +36,14 @@ SearchController.prototype.findNext_ = function(opt_reverse) {
   }
 };
 
-SearchController.prototype.onSearchButton_ = function() {
+/**
+ * Moves focus to the search input and shows all search UI elements.
+ * @private
+ */
+SearchController.prototype.activateSearch_ = function() {
   this.search_.clear();
-  var timeout = 200; // keep in sync with the CSS transition.
-  setTimeout(function() {$('#search-input').select();}, timeout);
+  document.getElementById('search-input').select();
   $('header').addClass('search-active');
-
-  return false;
 };
 
 SearchController.prototype.deactivateSearch_ = function(e) {
