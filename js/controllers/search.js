@@ -5,7 +5,7 @@ function SearchController(search) {
   this.search_ = search;
 
   document.getElementById('search-input')
-      .addEventListener('click', () => { this.activateSearch_(); });
+      .addEventListener('focus', () => { this.activateSearch_(); });
   $('#search-input').bind('input', this.onChange_.bind(this));
   $('#search-input').keydown(this.onKeydown_.bind(this));
   $('#search-next-button').click(this.onFindNext_.bind(this));

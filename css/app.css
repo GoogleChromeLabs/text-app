@@ -393,14 +393,14 @@ header.search-active #search-counting {
 }
 
 .search-navigation-button {
-  border: 0;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: 21px;
-  width: 0;
+  border: 0;
   height: 30px;
   padding: 0;
   transition: width 200ms ease-in-out;
+  width: 0;
 }
 
 .search-navigation-button:focus {
