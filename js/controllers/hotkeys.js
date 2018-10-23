@@ -22,7 +22,7 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
     switch (e.key) {
-      case "Tab":
+      case 'Tab':
         if (e.shiftKey) {
           this.tabs_.previousTab();
         } else {
@@ -30,69 +30,72 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case "f":
-      case "F":
+      case 'f':
+      case 'F':
         $('#search-button').click();
         return false;
 
-      case "n":
+      case 'n':
         this.tabs_.newTab();
         return false;
 
-      case "N":
+      case 'N':
         this.tabs_.newWindow();
         return false;
 
-      case "o":
-      case "O":
+      case 'o':
+      case 'O':
         this.tabs_.openFiles();
         return false;
 
-      case "p":
-      case "P":
+      case 'p':
+      case 'P':
         this.analytics_.reportEvent('action', 'print');
         window.print();
         return false;
 
-      case "s":
+      case 's':
         this.tabs_.save();
         return false;
 
-      case "S":
+      case 'S':
         this.tabs_.saveAs();
         return false;
 
-      case "w":
+      case 'w':
         this.tabs_.closeCurrent();
         return false;
 
-      case "W":
+      case 'W':
         this.windowController_.close();
         return false;
 
-      case "Z":
+      case 'Z':
         this.editor_.redo();
         return false;
 
-      case "0":
-      case ")":
+      case '0':
+      case ')':
         this.settings_.reset('fontsize');
         return false;
 
-      case "+":
-      case "=":
+      case '+':
+      case '=':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_IN_FACTOR);
         return false;
 
-      case "-":
-      case "_":
+      case '-':
+      case '_':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
         return false;
+
+      default:
+        return false;
     }
   } else if (e.altKey) {
-    if (e.key === " ") {
+    if (e.key === ' ') {
       $('#toggle-sidebar').click();
       return false;
     }

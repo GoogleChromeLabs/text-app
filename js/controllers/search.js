@@ -68,12 +68,12 @@ SearchController.prototype.onChange_ = function() {
 
 SearchController.prototype.onKeydown_ = function(e) {
   switch (e.key) {
-    case "Enter":
+    case 'Enter':
       e.stopPropagation();
       this.findNext_(e.shiftKey /* reverse */);
       break;
 
-    case "Escape":
+    case 'Escape':
       e.stopPropagation();
       this.search_.unfocus();
       break;
