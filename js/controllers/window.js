@@ -6,7 +6,7 @@ function WindowController(editor, settings, analytics, tabs) {
   this.settings_ = settings;
   this.analytics_ = analytics;
   this.tabs_ = tabs;
-  $('#window-close').click(this.close.bind(this));
+  document.getElementById('window-close').click(() => { close(); } );
   $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
