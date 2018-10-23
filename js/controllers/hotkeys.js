@@ -8,21 +8,6 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
   this.settings_ = settings;
   this.analytics_ = analytics;
 
-  this.KEY = {};
-  // create key map A - Z
-  for (var i = 65; i <= 90; i++) {
-    this.KEY[String.fromCharCode(i).toUpperCase()] = i;
-  }
-
-  this.KEY.TAB = 9;
-  this.KEY.SPACE = 32;
-  this.KEY.ZERO = 48;
-  this.KEY.NUMPAD_ZERO = 96;
-  this.KEY.NUMPAD_PLUS = 107;
-  this.KEY.NUMPAD_MINUS = 109;
-  this.KEY.PLUS = 187;
-  this.KEY.MINUS = 189;
-
   this.ZOOM_IN_FACTOR = 9/8;
   this.ZOOM_OUT_FACTOR = 8/9;
 
@@ -39,8 +24,8 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
  */
 HotkeysController.prototype.onKeydown_ = function(e) {
   if (e.ctrlKey || e.metaKey) {
-    switch (e.keyCode) {
-      case this.KEY.TAB:  // Tab
+    switch (e.key) {
+      case 'Tab':
         if (e.shiftKey) {
           this.tabs_.previousTab();
         } else {
@@ -48,69 +33,72 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
-      case this.KEY.F:
+      case 'f':
+      case 'F':
         document.getElementById('search-input').focus();
         return false;
 
-      case this.KEY.N:
-        if (e.shiftKey) {
-          this.tabs_.newWindow();
-        } else {
-          this.tabs_.newTab();
-        }
+      case 'n':
+        this.tabs_.newTab();
         return false;
 
-      case this.KEY.O:
+      case 'N':
+        this.tabs_.newWindow();
+        return false;
+
+      case 'o':
+      case 'O':
         this.tabs_.openFiles();
         return false;
 
-      case this.KEY.P:
+      case 'p':
+      case 'P':
         this.analytics_.reportEvent('action', 'print');
         window.print();
         return false;
 
-      case this.KEY.S:
-        if (e.shiftKey) {
-          this.tabs_.saveAs();
-        } else {
-          this.tabs_.save();
-        }
+      case 's':
+        this.tabs_.save();
         return false;
 
-      case this.KEY.W:
-        if (e.shiftKey) {
-          this.windowController_.close();
-        } else {
-          this.tabs_.closeCurrent();
-        }
+      case 'S':
+        this.tabs_.saveAs();
         return false;
 
-      case this.KEY.Z:
-        if (e.shiftKey) {
-          this.editor_.redo();
-          return false;
-        }
-        break;
+      case 'w':
+        this.tabs_.closeCurrent();
+        return false;
 
-      case this.KEY.ZERO:
-      case this.KEY.NUMPAD_ZERO:
+      case 'W':
+        this.windowController_.close();
+        return false;
+
+      case 'Z':
+        this.editor_.redo();
+        return false;
+
+      case '0':
+      case ')':
         this.settings_.reset('fontsize');
         return false;
 
-      case this.KEY.PLUS:
-      case this.KEY.NUMPAD_PLUS:
+      case '+':
+      case '=':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_IN_FACTOR);
         return false;
 
-      case this.KEY.MINUS:
-      case this.KEY.NUMPAD_MINUS:
+      case '-':
+      case '_':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
         return false;
+
+      default:
+        return false;
     }
   } else if (e.altKey) {
-    if (e.keyCode === this.KEY.SPACE) {
+    if (e.key === ' ') {
       $('#toggle-sidebar').click();
       return false;
     }
