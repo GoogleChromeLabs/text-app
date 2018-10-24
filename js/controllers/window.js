@@ -21,8 +21,9 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 
   // Initialize Material UI components
-  mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-icon-button'))
-      .unbounded = true;
+  for (let element of document.querySelectorAll('.mdc-icon-button')) {
+    mdc.ripple.MDCRipple.attachTo(element).unbounded = true;
+  }
 
   if (this.settings_.isReady()) {
     this.initSidebar_();

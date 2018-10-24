@@ -6,15 +6,6 @@ body[theme="dark"] .search-container {
   border-color: #C1C1C1;
 }
 
-body[theme="dark"] .search-navigation-button {
-  background-color: #DDD;
-  border-color: #C1C1C1;
-}
-
-body[theme="dark"] .search-navigation-button:focus {
-  background-color: #EEE;
-}
-
 body[theme="dark"] #sidebar {
   background-color: #272822;
   -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);
