@@ -95,7 +95,7 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       default:
-        return false;
+        break;
     }
   } else if (e.altKey) {
     if (e.key === ' ') {
