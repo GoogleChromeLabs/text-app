@@ -357,6 +357,7 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   border: 1px solid #DDD;
   border-radius: 3px;
   background: white;
+  height: 30px;
   line-height: 30px;
 }
 
@@ -369,7 +370,6 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   border: none;
   flex-grow: 1;
   font-size: 14px;
-  height: 30px;
   padding: 5px 8px;
   -webkit-user-select: auto;
   width: 150px;
@@ -381,7 +381,6 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   min-width: 70px;
   margin: 0 4px 0 -16px;
   text-align: right;
-  height: 30px;
 }
 
 #search-counting.nomatches {
@@ -393,31 +392,22 @@ header.search-active #search-counting {
 }
 
 .search-navigation-button {
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: 21px;
   border: 0;
-  height: 30px;
+  height: inherit;
+  overflow: hidden;
   padding: 0;
   transition: width 200ms ease-in-out;
   width: 0;
 }
 
-.search-navigation-button:focus {
-  outline: none;
-}
-
 header.search-active .search-navigation-button {
   border-left: 1px solid #DDD;
-  width: 36px;
+  width: 30px;
 }
 
-#search-next-button {
-  background-image: url('../images/arrow-down.svg');
-}
-
-#search-previous-button {
-  background-image: url('../images/arrow-up.svg');
+header.search-active .search-navigation-button::before {
+  /* Workaround for issue https://github.com/material-components/material-components-web/issues/3984 */
+  left: 6px;
 }
 
 #title-filename {
