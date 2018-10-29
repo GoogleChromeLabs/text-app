@@ -405,11 +405,6 @@ header.search-active .search-navigation-button {
   width: 30px;
 }
 
-header.search-active .search-navigation-button::before {
-  /* Workaround for issue https://github.com/material-components/material-components-web/issues/3984 */
-  left: 6px;
-}
-
 #title-filename {
   color: #777;
   display: flex;
