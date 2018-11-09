@@ -42,7 +42,6 @@ FILES_TO_COPY = [
   'images/check_no_box.png',
   'images/check_no_box_white.png',
   'images/close.svg',
-  'images/maximize.svg',
   'images/menu.svg',
   'images/minimize.svg',
   'third_party/analytics/google-analytics-bundle.js',
