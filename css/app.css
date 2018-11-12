@@ -446,10 +446,6 @@ header.hide-controls #window-close {
   visibility: hidden;
 }
 
-#window-close {
-  background-image: url('../images/close.svg');
-}
-
 #editor {
   -webkit-box-flex: 1.0;
   position: relative;
