@@ -438,10 +438,6 @@ header.hide-controls #window-maximize {
   visibility: hidden;
 }
 
-#window-maximize {
-  background-image: url('../images/maximize.svg');
-}
-
 header.hide-controls #window-close {
   visibility: hidden;
 }
