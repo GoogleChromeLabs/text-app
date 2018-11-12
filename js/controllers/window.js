@@ -23,7 +23,10 @@ function WindowController(editor, settings, analytics, tabs) {
 
   // Initialize Material UI components
   for (const element of document.querySelectorAll('.mdc-icon-button')) {
-    mdc.ripple.MDCRipple.attachTo(element).unbounded = true;
+    const ripple = mdc.ripple.MDCRipple.attachTo(element);
+    ripple.unbounded = true;
+    // Required due to issue https://github.com/material-components/material-components-web/issues/3984
+    new ResizeObserver(() => { ripple.layout(); }).observe(element);
   }
 
   if (this.settings_.isReady()) {
