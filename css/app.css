@@ -412,6 +412,7 @@ header.search-active .search-navigation-button {
   font-size: 15px;
   justify-content: left;
   overflow: hidden;
+  padding-left: 10px;
   text-overflow: ellipsis;
   -webkit-transition: all 200ms ease-in-out;
   white-space: nowrap;
