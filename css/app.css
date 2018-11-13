@@ -410,7 +410,7 @@ header.search-active .search-navigation-button {
   display: flex;
   flex: 1;
   font-size: 15px;
-  justify-content: center;
+  justify-content: left;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-transition: all 200ms ease-in-out;
