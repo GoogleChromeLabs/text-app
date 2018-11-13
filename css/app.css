@@ -421,12 +421,13 @@ header.search-active .search-navigation-button {
   content: " *";
 }
 
-header.hide-controls #window-minimize {
-  visibility: hidden;
+#window-minimize {
+  /* Move the 'remove' icon down so it looks like a minimize icon */
+  padding-top: 18px;
 }
 
-#window-minimize {
-  background-image: url('../images/minimize.svg');
+header.hide-controls #window-minimize {
+  visibility: hidden;
 }
 
 header.hide-controls #window-maximize {

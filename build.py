@@ -42,7 +42,6 @@ FILES_TO_COPY = [
   'images/check_no_box.png',
   'images/check_no_box_white.png',
   'images/menu.svg',
-  'images/minimize.svg',
   'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
   'third_party/jquery/jquery-1.8.3.min.js',
