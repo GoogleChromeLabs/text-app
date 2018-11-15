@@ -1,6 +1,6 @@
 # Text Chrome App
 
-Just a text editor for Chrome OS and Chrome. To install visit the [Chrome Web Store page](https://chrome.google.com/webstore/detail/mmfbcljfglbokpmkimbfghdkjmjhdgbg).
+Just a text editor for Chrome OS and Chrome. Install via the Chrome Web Store: [stable version](https://chrome.google.com/webstore/detail/mmfbcljfglbokpmkimbfghdkjmjhdgbg) or [canary version](https://chrome.google.com/webstore/detail/text-canary/fojlbpdodmdfcdeigmknnaeikaadaaoh).
 
 ## Getting the code
 
