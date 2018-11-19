@@ -4,7 +4,6 @@ body[theme="default"] header {
 
 body[theme="default"] #sidebar {
   background-color: #333;
-  -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);
 }
 
 body[theme="default"] #settings-menu {
@@ -14,7 +13,6 @@ body[theme="default"] #settings-menu {
 body[theme="default"] #sidebar li:hover {
   background-color: #3A3A3A;
   border-left: 10px solid #868686;
-  -webkit-box-shadow: inset -10px 0 7px -4px rgba(0,0,0,0.5);
   color: #FFF;
   padding-left: 10px;
 }
