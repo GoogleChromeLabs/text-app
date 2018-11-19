@@ -1,3 +1,7 @@
+:root {
+  --tab-height: 42px;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
   font-size: 13px;
@@ -113,10 +117,10 @@ img {
 }
 
 #tabs-list li {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  height: 42px;
+  height: var(--tab-height, 42px);
   padding: 0 0 0 20px;
 }
 
@@ -137,10 +141,12 @@ img {
 }
 
 #tabs-list li .close {
-  height: 100%;
-  width: auto;
+  display: flex;
   font-size: 20px;
+  height: 100%;
+  justify-content: center;
   visibility: hidden;
+  width: var(--tab-height, 42px);
 }
 
 #tabs-list li:hover .close {
