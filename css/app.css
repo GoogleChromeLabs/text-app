@@ -28,7 +28,6 @@ img {
 #sidebar {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
-  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   color: #EBEBEB;
   cursor: default;
   display: -webkit-box;
@@ -160,7 +159,6 @@ img {
 #settings-menu {
   -webkit-box-orient: vertical;
   -webkit-box-pack: justify;
-  -webkit-box-shadow: inset -6px 0 7px rgba(0,0,0,0.5);
   display: -webkit-box;
   min-height: 100%;
   overflow: hidden;
