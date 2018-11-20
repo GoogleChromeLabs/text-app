@@ -27,7 +27,7 @@ Background.prototype.ifShowFrame_ = function() {
 };
 
 /**
- * Open and focus a new window (in addition to any already open windows).
+ * Opens and focuses a new window (in addition to any already open windows).
  */
 Background.prototype.newWindow = function() {
   this.focusWindow(this.windows_.length);
@@ -39,9 +39,9 @@ Background.prototype.newWindow = function() {
  * doesn't exist it will be created.
  */
 Background.prototype.focusWindow = function(windowId) {
-  var windowIdString = 'appWindow' + windowId;
+  const id = `appWindow${windowId}`;
   var options = {
-    id: windowIdString,
+    id,
     frame: (this.ifShowFrame_() ? 'chrome' : 'none'),
     minWidth: 400,
     minHeight: 400,
