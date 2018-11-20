@@ -26,10 +26,22 @@ Background.prototype.ifShowFrame_ = function() {
          os === 'mac' && version < 25;
 };
 
+/**
+ * Opens and focuses a new window (in addition to any already open windows).
+ */
 Background.prototype.newWindow = function() {
-  var appWindowId = 'appWindow' + this.windows_.length;
+  this.focusWindow(this.windows_.length);
+}
+
+/**
+ * @param {number} windowId
+ * Move focus to the window associated with the passed windowId. If this window
+ * doesn't exist it will be created.
+ */
+Background.prototype.focusWindow = function(windowId) {
+  const id = `appWindow${windowId}`;
   var options = {
-    id: appWindowId,
+    id,
     frame: (this.ifShowFrame_() ? 'chrome' : 'none'),
     minWidth: 400,
     minHeight: 400,
@@ -67,8 +79,7 @@ Background.prototype.launch = function(launchData) {
     }
   }
 
-  if (this.windows_.length == 0)
-    this.newWindow();
+  this.focusWindow(0);
 
   for (var i = 0; i < entries.length; i++) {
     chrome.fileSystem.getWritableEntry(
