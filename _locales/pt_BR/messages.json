@@ -92,7 +92,7 @@
     "description":"O texto do botão para fechar a barra lateral."
   },
   "searchPlaceholder": {
-    "message": "Buscar",
+    "message": "Localizar…",
     "description": "The placeholder text in the search input."
   },
   "searchCounting": {
