@@ -1,4 +1,5 @@
 :root {
+  --header-height: 48px;
   --tab-height: 42px;
 }
 
@@ -52,21 +53,23 @@ img {
 }
 
 #sidebar h1 {
-  background-repeat: no-repeat;
   -webkit-app-region: drag;
-  cursor: default;
+  display: flex;
+  flex-direction: column;
   font-size: 21px;
   font-weight: normal;
-  margin-bottom: 4px;
-  margin-top: 12px;
+  height: var(--header-height);
+  justify-content: center;
+  margin: 0;
   padding: 0 20px;
   -webkit-user-select: none;
 }
 
 #sidebar hr {
-  height: 1px;
-  border: none;
   background-color: rgba(0,0,0,0.16);
+  border: none;
+  height: 1px;
+  margin: 0;
 }
 
 #sidebar ul {
@@ -211,7 +214,7 @@ img {
 }
 
 .settings-switch-ul {
-  margin: 4px 0 10px 0;
+  margin: 10px 0;
 }
 
 #settings-list input[type="text"] {
@@ -301,7 +304,7 @@ header {
   -webkit-app-region: drag;
   border-bottom: 1px solid #888;
   display: flex;
-  height: 48px;
+  height: var(--header-height);
   padding-left: 10px;
   position: relative;
   -webkit-user-select: none;
