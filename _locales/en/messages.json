@@ -95,9 +95,9 @@
     "message": "Close sidebar",
     "description":"The button text to close the sidebar."
   },
-  "searchButton": {
+  "searchPlaceholder": {
     "message": "Search",
-    "description":"The button text to search."
+    "description": "The placeholder text in the search input."
   },
   "searchCounting": {
     "message": "$searchIndex$ of $searchCount$",

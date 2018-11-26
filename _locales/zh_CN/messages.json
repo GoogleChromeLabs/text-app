@@ -121,8 +121,8 @@
       "message": "要在关闭前保存它吗？",
       "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
    },
-   "searchButton": {
-      "description": "The button text to search.",
+   "searchPlaceholder": {
+      "description": "The placeholder text in the search input.",
       "message": "搜索"
    },
    "searchCounting": {
