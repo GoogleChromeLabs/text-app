@@ -51,7 +51,7 @@ MenuController.prototype.addNewTab_ = function(e, tab) {
   tabElement.addEventListener(
       'click', () => { this.tabButtonClicked_(id); });
   closeElement.addEventListener(
-      'click', () => { this.closeTabClicked_(id); });
+      'click', (event) => { this.closeTab_(event, id); });
 };
 
 MenuController.prototype.onDragStart_ = function(listItem) {
@@ -132,6 +132,12 @@ MenuController.prototype.tabButtonClicked_ = function(id) {
   return false;
 };
 
-MenuController.prototype.closeTabClicked_ = function(id) {
+/**
+ * Closes a file tab, removing it from the UI.
+ * @param {!Event} The triggering click event.
+ * @param {number} The id of the tab to close.
+ */
+MenuController.prototype.closeTab_ = function(e, id) {
   this.tabs_.close(id);
+  e.stopPropagation();
 };
