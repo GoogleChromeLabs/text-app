@@ -19,10 +19,6 @@
     "message": "Save as",
     "description":"The text of the File Menu 'Save as'."
   },
-  "menuOpenSettings": {
-    "message": "Settings",
-    "description":"The text of the Menu to open settings'."
-  },
   "menuSettings": {
     "message": "Settings",
     "description":"The text of the Menu 'Settings'."

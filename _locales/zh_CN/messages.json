@@ -79,10 +79,6 @@
       "description": "The button text to maximize the app window.",
       "message": "最大化"
    },
-   "menuOpenSettings": {
-      "description": "The text of the Menu to open settings'.",
-      "message": "设置"
-   },
    "menuSettings": {
       "description": "The text of the Menu 'Settings'.",
       "message": "设置"
