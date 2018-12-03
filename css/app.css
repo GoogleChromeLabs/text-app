@@ -68,7 +68,7 @@ img {
 #sidebar hr {
   background-color: rgb(255, 255, 255, 0.12);
   border: none;
-  height: 1px;
+  height: 2px;
   margin: 0;
 }
 
@@ -302,7 +302,7 @@ img {
 header {
   align-items: center;
   -webkit-app-region: drag;
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid #eee;
   display: flex;
   height: var(--header-height);
   padding-left: 10px;
