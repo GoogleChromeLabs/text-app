@@ -13,7 +13,7 @@ body[theme="light"] #settings-menu {
 }
 
 body[theme="light"] #sidebar hr {
-  background-color: #eee;
+  background-color: var(--light-divider-color);
 }
 
 body[theme="light"] #sidebar li:hover {
