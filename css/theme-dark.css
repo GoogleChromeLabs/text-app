@@ -8,7 +8,7 @@ body[theme="dark"] .search-container {
 
 body[theme="dark"] #sidebar {
   background-color: #272822;
-  border-right-color: rgb(255, 255, 255, 0.12);
+  border-right-color: var(--dark-divider-color);
 }
 
 body[theme="dark"] #settings-menu {
