@@ -31,6 +31,7 @@ img {
 }
 
 #sidebar {
+  border-right: 2px solid #eee;
   -webkit-box-orient: horizontal;
   -webkit-box-pack: start;
   color: #EBEBEB;
