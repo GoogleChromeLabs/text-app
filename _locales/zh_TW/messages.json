@@ -68,8 +68,8 @@
       "message": "淺色"
    },
    "linenumbersSetting": {
-      "description": "The text of the settings 'Line numbers'.",
-      "message": "行號"
+      "description": "The text of the line numbers setting.",
+      "message": "顯示每行編號"
    },
    "loadingTitle": {
       "description": "The text displayed in the filename title bar when file loads.",
