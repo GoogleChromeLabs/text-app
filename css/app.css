@@ -171,7 +171,6 @@ img {
   display: -webkit-box;
   min-height: 100%;
   overflow: hidden;
-  -webkit-transition: width 0s linear 0.2s, left 0.2s ease-in-out;
   width: 0;
   z-index: 1;
 }
@@ -179,7 +178,6 @@ img {
 .open-settings #settings-menu {
   position: absolute;
   left: 0;
-  -webkit-transition: left 0.2s ease-in-out;
   width: 100%;
 }
 
