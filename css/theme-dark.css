@@ -1,18 +1,9 @@
-body[theme="dark"] header {
-  background-color: #DDD;
-}
-
 body[theme="dark"] .search-container {
   border-color: #C1C1C1;
 }
 
 body[theme="dark"] #sidebar {
-  background-color: #272822;
   border-right-color: var(--dark-divider-color);
-}
-
-body[theme="dark"] #settings-menu {
-  background-color: #272822;
 }
 
 body[theme="dark"] #sidebar li:hover {
@@ -30,17 +21,21 @@ body[theme="dark"] #settings-list select {
   color: #EBEBEB;
 }
 
-body[theme="dark"] #settings-list select option {
-  background-color: #272822;
-}
-
 
 /* Based on CodeMirror dark theme */
 /* Based on Sublime Text's dark theme */
 
-.cm-s-dark.CodeMirror {background: #272822; color: #f8f8f2;}
+.cm-s-dark.CodeMirror {
+  background: var(--dark-background-color);
+  color: #f8f8f2;
+}
+
+.cm-s-dark .CodeMirror-gutters {
+  background: var(--dark-background-color);
+  border-right: 0px;
+}
+
 .cm-s-dark div.CodeMirror-selected {background: #49483E !important;}
-.cm-s-dark .CodeMirror-gutters {background: #272822; border-right: 0px;}
 .cm-s-dark .CodeMirror-linenumber {color: #d0d0d0;}
 .cm-s-dark .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
 
