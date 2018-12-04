@@ -31,11 +31,11 @@ img {
 }
 
 #sidebar {
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: start;
   color: #EBEBEB;
   cursor: default;
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   position: relative;
   -webkit-transition: width 0.2s ease-in-out;
@@ -105,9 +105,8 @@ img {
 }
 
 #tabs-list-container, #settings-container {
-  display: -webkit-box;
+  flex-grow: 1;
   height: auto;
-  -webkit-box-flex: 1.0;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -157,9 +156,8 @@ img {
 }
 
 #file-tabs-menu {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: justify;
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
   min-height: 100%;
   overflow: hidden;
   width: 100%;
@@ -170,8 +168,6 @@ img {
 }
 
 #settings-menu {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: justify;
   display: none;
   min-height: 100%;
   overflow: hidden;
@@ -180,7 +176,8 @@ img {
 }
 
 .open-settings #settings-menu {
-  display: block;
+  display: flex;
+  flex-direction: column;
   left: 0;
 }
 
