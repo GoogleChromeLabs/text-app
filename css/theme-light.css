@@ -12,6 +12,10 @@ body[theme="light"] #settings-menu {
   color: #000;
 }
 
+body[theme="light"] #sidebar hr {
+  background-color: var(--light-divider-color);
+}
+
 body[theme="light"] #sidebar li:hover {
   background-color: #E5E5E5;
   border-left: 10px solid #C9C9C9;
