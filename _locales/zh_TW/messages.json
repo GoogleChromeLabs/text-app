@@ -119,7 +119,7 @@
    },
    "searchPlaceholder": {
       "description": "The placeholder text in the search input.",
-      "message": "搜尋"
+      "message": "尋找..."
    },
    "searchCounting": {
       "description": "The text showing search counting.",

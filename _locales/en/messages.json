@@ -92,7 +92,7 @@
     "description":"The button text to close the sidebar."
   },
   "searchPlaceholder": {
-    "message": "Search",
+    "message": "Find...",
     "description": "The placeholder text in the search input."
   },
   "searchCounting": {
