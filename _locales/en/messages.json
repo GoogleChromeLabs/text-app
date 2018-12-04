@@ -44,8 +44,8 @@
     "description":"The text of the settings 'Wrap lines'."
   },
   "linenumbersSetting": {
-    "message": "Line numbers",
-    "description":"The text of the settings 'Line numbers'."
+    "message": "Show line numbers",
+    "description": "The text of the line numbers setting."
   },
   "smartindentSetting": {
     "message": "Smart indent",

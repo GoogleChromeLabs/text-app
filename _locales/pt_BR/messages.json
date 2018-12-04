@@ -44,8 +44,8 @@
     "description":"O texto das configurações 'Quebrar linhas'."
   },
   "linenumbersSetting": {
-    "message": "Número de linhas",
-    "description":"O texto das configurações 'Número de linhas'."
+    "message": "Mostrar números de linha",
+    "description": "The text of the line numbers setting."
   },
   "smartindentSetting": {
     "message": "Indentação inteligente",
