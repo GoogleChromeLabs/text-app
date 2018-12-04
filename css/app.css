@@ -335,25 +335,6 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   z-index: -1;
 }
 
-.icon-button {
-  -webkit-app-region: no-drag;
-  background-position: center center;
-  background-repeat: no-repeat;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  cursor: pointer;
-  height: 36px;
-  margin: 0 10px;
-  opacity: 0.65;
-  width: 36px;
-}
-
-.icon-button:hover, .icon-button:active, .icon-button.selected {
-  border: 1px solid rgba(0,0,0,0.16);
-  color: #333;
-  opacity: 0.8;
-}
-
 #toggle-sidebar {
   margin: 0 5px;
 }
