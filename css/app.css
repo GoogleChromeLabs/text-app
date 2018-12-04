@@ -1,5 +1,7 @@
 :root {
+  --dark-divider-color: rgb(255, 255, 255, 0.12);
   --header-height: 48px;
+  --light-divider-color: #eee;
   --tab-height: 42px;
 }
 
@@ -31,6 +33,7 @@ img {
 }
 
 #sidebar {
+  border-right: 2px solid var(--light-divider-color);
   color: #EBEBEB;
   cursor: default;
   display: flex;
@@ -66,9 +69,9 @@ img {
 }
 
 #sidebar hr {
-  background-color: rgba(0,0,0,0.16);
+  background-color: var(--dark-divider-color);
   border: none;
-  height: 1px;
+  height: 2px;
   margin: 0;
 }
 
@@ -300,7 +303,7 @@ img {
 header {
   align-items: center;
   -webkit-app-region: drag;
-  border-bottom: 1px solid #888;
+  border-bottom: 2px solid var(--light-divider-color);
   display: flex;
   height: var(--header-height);
   padding-left: 10px;
@@ -331,25 +334,6 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 
 #sidebar .mdc-icon-button::before, #sidebar .mdc-icon-button::after {
   z-index: -1;
-}
-
-.icon-button {
-  -webkit-app-region: no-drag;
-  background-position: center center;
-  background-repeat: no-repeat;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  cursor: pointer;
-  height: 36px;
-  margin: 0 10px;
-  opacity: 0.65;
-  width: 36px;
-}
-
-.icon-button:hover, .icon-button:active, .icon-button.selected {
-  border: 1px solid rgba(0,0,0,0.16);
-  color: #333;
-  opacity: 0.8;
 }
 
 #toggle-sidebar {
