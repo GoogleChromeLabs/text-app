@@ -34,11 +34,11 @@ img {
 
 #sidebar {
   border-right: 2px solid var(--light-divider-color);
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: start;
   color: #EBEBEB;
   cursor: default;
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   position: relative;
   -webkit-transition: width 0.2s ease-in-out;
@@ -108,9 +108,8 @@ img {
 }
 
 #tabs-list-container, #settings-container {
-  display: -webkit-box;
+  flex-grow: 1;
   height: auto;
-  -webkit-box-flex: 1.0;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -160,30 +159,29 @@ img {
 }
 
 #file-tabs-menu {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: justify;
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
   min-height: 100%;
   overflow: hidden;
   width: 100%;
 }
 
+.open-settings #file-tabs-menu {
+  display: none;
+}
+
 #settings-menu {
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: justify;
-  display: -webkit-box;
+  display: none;
   min-height: 100%;
   overflow: hidden;
-  -webkit-transition: width 0s linear 0.2s, left 0.2s ease-in-out;
-  width: 0;
+  width: 100%;
   z-index: 1;
 }
 
 .open-settings #settings-menu {
-  position: absolute;
+  display: flex;
+  flex-direction: column;
   left: 0;
-  -webkit-transition: left 0.2s ease-in-out;
-  width: 100%;
 }
 
 #settings-list {
