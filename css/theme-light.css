@@ -11,15 +11,14 @@ body[theme="light"] #sidebar hr {
   background-color: var(--light-divider-color);
 }
 
-body[theme="light"] #sidebar li:hover {
+body[theme="light"] #sidebar li:hover,
+body[theme="light"] #tabs-list li.active:hover {
   background-color: #E5E5E5;
-  border-left: 10px solid #C9C9C9;
   color: #000;
-  padding-left: 10px;
 }
 
-body[theme="light"] #settings-list input[type="text"] {
-  background-color: #ddd;
+body[theme="light"] #sidebar input {
+  background-color: var(--light-highlight-color);
 }
 
 body[theme="light"] #settings-list input[type="text"]:focus {
@@ -27,15 +26,9 @@ body[theme="light"] #settings-list input[type="text"]:focus {
   outline: none;
 }
 
-body[theme="light"] #settings-list input[type="checkbox"] {
-  background-color: #ddd;
-}
-
 body[theme="light"] #settings-list select {
-  background: url('../images/menu.svg')no-repeat 75px center #ddd;
-  background-size: 18px 18px;
-  background-position-x: 70px;
   -webkit-appearance: none;
+  background: url('../images/menu.svg') no-repeat 70px / 18px var(--light-highlight-color);
 }
 
 body[theme="light"] #settings-list select:focus {
@@ -43,16 +36,12 @@ body[theme="light"] #settings-list select:focus {
   outline: none;
 }
 
-body[theme="light"] #settings-list select option {
-  background: #ddd;
-}
-
 body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
   content: url('../images/check_no_box.png');
 }
 
 body[theme="light"] #tabs-list li.active {
-  border-left: 10px solid #9B9B9B !important;
+  background-color: var(--light-highlight-color);
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {

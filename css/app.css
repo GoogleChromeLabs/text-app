@@ -1,9 +1,11 @@
 :root {
   --dark-background-color: #1f1f1f;
   --dark-divider-color: rgb(255, 255, 255, 0.12);
+  --dark-highlight-color: rgb(95, 99, 104);
   --header-height: 48px;
   --light-background-color: white;
   --light-divider-color: #eee;
+  --light-highlight-color: rgb(248, 249, 250);
   --tab-height: 42px;
 }
 
@@ -85,12 +87,22 @@ img {
 }
 
 #sidebar li {
-  cursor: pointer;
+  border-radius: 100px;
   -webkit-box-sizing: border-box;
+  cursor: pointer;
   margin: 0px;
   padding: 10px 0px 10px 20px;
   -webkit-user-select: none;
   white-space: nowrap;
+}
+
+#sidebar li:hover, #tabs-list li.active:hover {
+  background-color: #3a3a3a;
+  color: #fff;
+}
+
+#sidebar input {
+  background-color: var(--dark-highlight-color);
 }
 
 #sidebar ::-webkit-scrollbar {
@@ -133,8 +145,7 @@ img {
 }
 
 #tabs-list li.active {
-  border-left: 10px solid #D1D1D1 !important;
-  padding-left: 10px;
+  background-color: var(--dark-highlight-color);
 }
 
 #tabs-list li .filename {
@@ -203,10 +214,6 @@ img {
   word-wrap: break-word;
 }
 
-#settings-list li:hover {
-  background-color: inherit;
-}
-
 #settings-list label {
   -webkit-flex: 1 1 auto;
   cursor: pointer;
@@ -223,18 +230,15 @@ img {
 
 #settings-list input[type="text"] {
   -webkit-app-region: no-drag;
-  background-color: rgba(0, 0, 0, 0);
   border: 1px solid #888;
   border-radius: 1px;
+  cursor: text;
   font-size: 14px;
   line-height: 18px;
   margin: 0;
   padding: 0 8px;
-  -webkit-user-select: auto;
   text-align: center;
-  background: #555;
-  -webkit-appearance: none;
-  cursor: text;
+  -webkit-user-select: auto;
 }
 
 #settings-list input[type="text"]:focus {
@@ -244,7 +248,6 @@ img {
 
 #settings-list input[type="checkbox"] {
   -webkit-appearance: none;
-  background-color: #555;
   border: 1px solid #888;
   border-radius: 1px;
   -webkit-box-sizing: border-box;
@@ -276,20 +279,17 @@ img {
 
 #settings-list select {
   -webkit-app-region: no-drag;
-  background-color: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+  background: url('../images/menu.svg') no-repeat 70px / 18px var(--dark-highlight-color);
   border: 1px solid #888;
   border-radius: 1px;
+  cursor: pointer;
   font-size: 14px;
   line-height: 18px;
   margin: 0;
   padding: 0 8px;
   -webkit-user-select: auto;
   width: 96px;
-  background: url('../images/menu.svg')no-repeat 75px center #555;
-  background-size: 18px 18px;
-  background-position-x: 70px;
-  -webkit-appearance: none;
-  cursor: pointer;
 }
 
 #settings-list optgroup {
