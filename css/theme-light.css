@@ -1,14 +1,9 @@
-body[theme="light"] header {
-  background-color: #F5F5F5;
-}
-
 body[theme="light"] #sidebar {
-  background-color: #F5F5F5;
+  background-color: var(--light-background-color);
   color: #000;
 }
 
 body[theme="light"] #settings-menu {
-  background-color: #F5F5F5;
   color: #000;
 }
 

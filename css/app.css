@@ -1,6 +1,8 @@
 :root {
+  --dark-background-color: #1f1f1f;
   --dark-divider-color: rgb(255, 255, 255, 0.12);
   --header-height: 48px;
+  --light-background-color: white;
   --light-divider-color: #eee;
   --tab-height: 42px;
 }
@@ -33,6 +35,7 @@ img {
 }
 
 #sidebar {
+  background-color: var(--dark-background-color);
   border-right: 2px solid var(--light-divider-color);
   color: #EBEBEB;
   cursor: default;
@@ -303,6 +306,7 @@ img {
 header {
   align-items: center;
   -webkit-app-region: drag;
+  background-color: var(--light-background-color);
   border-bottom: 2px solid var(--light-divider-color);
   display: flex;
   height: var(--header-height);
@@ -468,7 +472,7 @@ input[type=search]:focus {
 }
 
 .dialog-window {
-  background-color: #F5F5F5;
+  background-color: var(--light-background-color);
   border: 1px solid rgba(0,0,0,0.15);
   box-shadow: rgba(0,0,0,0.13) 0px 4px 30px;
   max-width: 50%;
@@ -516,6 +520,10 @@ input[type=search]:focus {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.CodeMirror-gutters {
+  background-color: var(--light-background-color);
 }
 
 .CodeMirror-lines {
