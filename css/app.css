@@ -85,12 +85,18 @@ img {
 }
 
 #sidebar li {
-  cursor: pointer;
+  border-radius: 100px;
   -webkit-box-sizing: border-box;
+  cursor: pointer;
   margin: 0px;
   padding: 10px 0px 10px 20px;
   -webkit-user-select: none;
   white-space: nowrap;
+}
+
+#sidebar li:hover, #tabs-list li.active:hover {
+  background-color: #3a3a3a;
+  color: #fff;
 }
 
 #sidebar ::-webkit-scrollbar {
@@ -133,8 +139,7 @@ img {
 }
 
 #tabs-list li.active {
-  border-left: 10px solid #D1D1D1 !important;
-  padding-left: 10px;
+  background-color: rgb(95, 99, 104);
 }
 
 #tabs-list li .filename {
@@ -201,10 +206,6 @@ img {
   width: 100%;
   word-break: break-all;
   word-wrap: break-word;
-}
-
-#settings-list li:hover {
-  background-color: inherit;
 }
 
 #settings-list label {

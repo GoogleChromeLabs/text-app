@@ -11,11 +11,10 @@ body[theme="light"] #sidebar hr {
   background-color: var(--light-divider-color);
 }
 
-body[theme="light"] #sidebar li:hover {
+body[theme="light"] #sidebar li:hover,
+body[theme="light"] #tabs-list li.active:hover {
   background-color: #E5E5E5;
-  border-left: 10px solid #C9C9C9;
   color: #000;
-  padding-left: 10px;
 }
 
 body[theme="light"] #settings-list input[type="text"] {
@@ -52,7 +51,7 @@ body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
 }
 
 body[theme="light"] #tabs-list li.active {
-  border-left: 10px solid #9B9B9B !important;
+  background-color: rgb(248, 249, 250);
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {
