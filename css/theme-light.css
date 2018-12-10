@@ -11,9 +11,8 @@ body[theme="light"] #sidebar hr {
   background-color: var(--light-divider-color);
 }
 
-body[theme="light"] #sidebar li:hover,
-body[theme="light"] #tabs-list li.active:hover {
-  background-color: #E5E5E5;
+body[theme="light"] #sidebar li:hover {
+  background-color: rgb(210, 227, 252);
   color: #000;
 }
 
@@ -42,6 +41,10 @@ body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
 
 body[theme="light"] #tabs-list li.active {
   background-color: var(--light-highlight-color);
+}
+
+body[theme="light"] #sidebar #tabs-list li:hover {
+  background-color: rgb(232, 240, 254);
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {
