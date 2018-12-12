@@ -30,8 +30,6 @@ Settings.SETTINGS = {
   'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
-  'margin': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
-  'margincol': {'default': 80, 'type': 'integer', 'widget': 'number'},
   'sidebaropen': {'default': false, 'type': 'boolean', 'widget': null},
   'sidebarwidth': {'default': 220, 'type': 'integer', 'widget': null},
   'smartindent': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
