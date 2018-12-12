@@ -207,13 +207,6 @@ EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
 };
 
 /**
- * @param {boolean} show
- * @param {number} col
- */
-EditorCodeMirror.prototype.showHideMargin = function(show, col) {
-};
-
-/**
  * Make the textarea unfocusable and hide cursor.
  */
 EditorCodeMirror.prototype.disable = function() {
