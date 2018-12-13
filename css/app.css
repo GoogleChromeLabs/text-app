@@ -345,8 +345,8 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 .search-container {
   -webkit-app-region: no-drag;
   display: flex;
-  border: 1px solid #DDD;
-  border-radius: 3px;
+  border: 1px solid rgb(232, 234, 237);
+  border-radius: 100px;
   background: white;
   height: 30px;
   line-height: 30px;
@@ -358,10 +358,11 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 }
 
 #search-input {
+  background-color: transparent;
   border: none;
   flex-grow: 1;
   font-size: 14px;
-  padding: 5px 8px;
+  padding-left: 16px;
   -webkit-user-select: auto;
   width: 150px;
 }
