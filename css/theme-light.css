@@ -12,21 +12,22 @@ body[theme="light"] #sidebar hr {
 }
 
 body[theme="light"] #sidebar li:hover {
-  background-color: rgb(210, 227, 252);
+  background-color: var(--light-highlight-color);
   color: #000;
 }
 
 body[theme="light"] #sidebar input {
-  background-color: var(--light-highlight-color);
+  background-color: var(--light-accent-color);
 }
 
 body[theme="light"] #settings-list input[type="text"]:focus {
+  background-color: var(--light-highlight-color);
   outline: none;
 }
 
 body[theme="light"] #settings-list select {
   -webkit-appearance: none;
-  background: url('../images/menu.svg') no-repeat 70px / 18px var(--light-highlight-color);
+  background: url('../images/menu.svg') no-repeat 70px / 18px var(--light-accent-color);
 }
 
 body[theme="light"] #settings-list select:focus {
@@ -39,7 +40,7 @@ body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
 }
 
 body[theme="light"] #tabs-list li.active {
-  background-color: var(--light-highlight-color);
+  background-color: var(--light-accent-color);
 }
 
 body[theme="light"] #sidebar #tabs-list li:hover {
