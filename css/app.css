@@ -1,11 +1,13 @@
 :root {
+  --dark-accent-color: #3a3a3a;
   --dark-background-color: #1f1f1f;
   --dark-divider-color: rgb(255, 255, 255, 0.12);
   --dark-highlight-color: rgb(95, 99, 104);
   --header-height: 48px;
+  --light-accent-color: rgb(248, 249, 250);
   --light-background-color: white;
   --light-divider-color: #eee;
-  --light-highlight-color: rgb(248, 249, 250);
+  --light-highlight-color: rgb(210, 227, 252);
   --tab-height: 36px;
 }
 
@@ -100,12 +102,12 @@ img {
 }
 
 #sidebar li:hover, #tabs-list li.active:hover {
-  background-color: #3a3a3a;
+  background-color: var(--dark-highlight-color);
   color: #fff;
 }
 
 #sidebar input {
-  background-color: var(--dark-highlight-color);
+  background-color: var(--dark-accent-color);
 }
 
 #sidebar ::-webkit-scrollbar {
@@ -146,7 +148,7 @@ img {
 }
 
 #tabs-list li.active {
-  background-color: var(--dark-highlight-color);
+  background-color: var(--dark-accent-color);
 }
 
 #tabs-list li .filename {
@@ -236,12 +238,18 @@ img {
   border-radius: 100px;
   font-size: 14px;
   height: 100%;
+  padding: 0;
   text-align: center;
   -webkit-user-select: auto;
   width: 55px;
 }
 
+#settings-list li:hover input[type="text"] {
+  background-color: inherit;
+}
+
 #settings-list input[type="text"]:focus {
+  background-color: var(--dark-highlight-color);
   outline: none;
 }
 
@@ -278,7 +286,7 @@ img {
 #settings-list select {
   -webkit-app-region: no-drag;
   -webkit-appearance: none;
-  background: url('../images/menu.svg') no-repeat 70px / 18px var(--dark-highlight-color);
+  background: url('../images/menu.svg') no-repeat 70px / 18px var(--dark-accent-color);
   border: 1px solid #888;
   border-radius: 1px;
   cursor: pointer;
