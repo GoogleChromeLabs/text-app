@@ -95,8 +95,8 @@ img {
   display: flex;
   cursor: pointer;
   height: var(--tab-height);
-  margin: 4px 0;
-  padding-left: 20px;
+  margin: 4px 8px;
+  padding: 0 16px;
   -webkit-user-select: none;
   white-space: nowrap;
 }
@@ -163,17 +163,24 @@ img {
 }
 
 #tabs-list li .close {
-  display: flex;
+  display: none;
   font-size: 20px;
   height: 100%;
   justify-content: center;
   padding: 0;
-  visibility: hidden;
   width: var(--tab-height);
 }
 
+#tabs-list li:hover {
+  padding-right: 0;
+}
+
+#tabs-list li:hover .filename {
+  max-width: calc(100% - var(--tab-height));
+}
+
 #tabs-list li:hover .close {
-  visibility: visible;
+  display: flex;
 }
 
 #file-tabs-menu {
@@ -212,17 +219,17 @@ img {
   -webkit-box-orient: horizontal;
   -webkit-box-align: end;
   display: -webkit-flex;
-  padding-right: 20px;
-  width: 100%;
+  padding-right: 0;
   word-break: break-all;
   word-wrap: break-word;
 }
 
 #settings-list label {
-  -webkit-flex: 1 1 auto;
+  align-items: center;
   cursor: pointer;
-  display: inline;
-  min-width: 0;
+  display: flex;
+  flex: 1;
+  height: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -260,7 +267,7 @@ img {
   -webkit-box-sizing: border-box;
   cursor: pointer;
   height: 18px;
-  margin: -3px 0;
+  margin-right: 18px;
   position: relative;
   width: 18px;
 }
