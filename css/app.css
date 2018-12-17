@@ -167,16 +167,13 @@ img {
   font-size: 20px;
   height: 100%;
   justify-content: center;
+  min-width: var(--tab-height);
   padding: 0;
   width: var(--tab-height);
 }
 
 #tabs-list li:hover {
   padding-right: 0;
-}
-
-#tabs-list li:hover .filename {
-  max-width: calc(100% - var(--tab-height));
 }
 
 #tabs-list li:hover .close {
