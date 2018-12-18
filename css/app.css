@@ -264,6 +264,8 @@ img {
   -webkit-box-sizing: border-box;
   cursor: pointer;
   height: 18px;
+  /* TODO(https://github.com/GoogleChromeLabs/text-app/issues/345):
+       remove pixel pushing once checkboxes are replaced with switches */
   margin-right: 18px;
   position: relative;
   width: 18px;
