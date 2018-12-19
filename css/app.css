@@ -8,6 +8,7 @@
   --light-background-color: white;
   --light-divider-color: #eee;
   --light-highlight-color: rgb(210, 227, 252);
+  --settings-input-width: 55px;
   --tab-height: 36px;
 }
 
@@ -95,8 +96,8 @@ img {
   display: flex;
   cursor: pointer;
   height: var(--tab-height);
-  margin: 4px 0;
-  padding-left: 20px;
+  margin: 4px 8px;
+  padding: 0 16px;
   -webkit-user-select: none;
   white-space: nowrap;
 }
@@ -163,17 +164,21 @@ img {
 }
 
 #tabs-list li .close {
-  display: flex;
+  display: none;
   font-size: 20px;
   height: 100%;
   justify-content: center;
+  min-width: var(--tab-height);
   padding: 0;
-  visibility: hidden;
   width: var(--tab-height);
 }
 
+#tabs-list li:hover {
+  padding-right: 0;
+}
+
 #tabs-list li:hover .close {
-  visibility: visible;
+  display: flex;
 }
 
 #file-tabs-menu {
@@ -212,17 +217,18 @@ img {
   -webkit-box-orient: horizontal;
   -webkit-box-align: end;
   display: -webkit-flex;
-  padding-right: 20px;
-  width: 100%;
+  padding-right: 0;
   word-break: break-all;
   word-wrap: break-word;
 }
 
 #settings-list label {
-  -webkit-flex: 1 1 auto;
+  align-items: center;
   cursor: pointer;
-  display: inline;
-  min-width: 0;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  max-width: calc(100% - var(--settings-input-width));
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -241,7 +247,7 @@ img {
   padding: 0;
   text-align: center;
   -webkit-user-select: auto;
-  width: 55px;
+  width: var(--settings-input-width);
 }
 
 #settings-list li:hover input[type="text"] {
@@ -260,7 +266,8 @@ img {
   -webkit-box-sizing: border-box;
   cursor: pointer;
   height: 18px;
-  margin: -3px 0;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   width: 18px;
 }
