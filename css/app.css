@@ -8,6 +8,7 @@
   --light-background-color: white;
   --light-divider-color: #eee;
   --light-highlight-color: rgb(210, 227, 252);
+  --settings-input-width: 55px;
   --tab-height: 36px;
 }
 
@@ -227,6 +228,7 @@ img {
   display: flex;
   flex: 1;
   height: 100%;
+  max-width: calc(100% - var(--settings-input-width));
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -245,7 +247,7 @@ img {
   padding: 0;
   text-align: center;
   -webkit-user-select: auto;
-  width: 55px;
+  width: var(--settings-input-width);
 }
 
 #settings-list li:hover input[type="text"] {
@@ -264,9 +266,8 @@ img {
   -webkit-box-sizing: border-box;
   cursor: pointer;
   height: 18px;
-  /* TODO(https://github.com/GoogleChromeLabs/text-app/issues/345):
-       remove pixel pushing once checkboxes are replaced with switches */
-  margin-right: 18px;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
   width: 18px;
 }
