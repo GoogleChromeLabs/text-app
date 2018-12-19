@@ -35,10 +35,6 @@ body[theme="light"] #settings-list select:focus {
   outline: none;
 }
 
-body[theme="light"] #settings-list input[type="checkbox"]:checked::after {
-  content: url('../images/check_no_box.png');
-}
-
 body[theme="light"] #tabs-list li.active {
   background-color: var(--light-accent-color);
 }
@@ -56,6 +52,15 @@ body[theme="light"] #sidebar .mdc-icon-button:focus {
   opacity: .87;
 }
 
+body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {
+  border-color: rgb(236, 236, 236);
+}
+
+body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
+  background-color: black;
+  border-color: black;
+  opacity: 0.26;
+}
 
 .cm-s-light .cm-keyword {color: #708;}
 .cm-s-light .cm-atom {color: #219;}

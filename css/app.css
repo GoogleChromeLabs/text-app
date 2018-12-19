@@ -9,6 +9,7 @@
   --light-divider-color: #eee;
   --light-highlight-color: rgb(210, 227, 252);
   --settings-input-width: 55px;
+  --switch-on-color: rgb(27, 114, 232);
   --tab-height: 36px;
 }
 
@@ -259,30 +260,34 @@ img {
   outline: none;
 }
 
-#settings-list input[type="checkbox"] {
-  -webkit-appearance: none;
-  border: 1px solid #888;
-  border-radius: 1px;
-  -webkit-box-sizing: border-box;
-  cursor: pointer;
-  height: 18px;
+.mdc-switch {
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  width: 18px;
 }
 
-#settings-list input[type="checkbox"]:focus {
-  border-color: #EBEBEB;
-  outline: none;
+.mdc-switch.mdc-switch--checked .mdc-switch__thumb {
+  border-color: var(--switch-on-color);
 }
 
-#settings-list input[type="checkbox"]:checked::after {
-  content: url('../images/check_no_box_white.png');
-  display: block;
-  position: relative;
-  top: -2px;
-  left: -4px;
+.mdc-switch.mdc-switch--checked .mdc-switch__thumb-underlay::before,
+.mdc-switch.mdc-switch--checked .mdc-switch__thumb-underlay::after {
+  background-color: var(--switch-on-color);
+}
+
+.mdc-switch.mdc-switch--checked .mdc-switch__track {
+  background-color: var(--switch-on-color);
+  border-color: var(--switch-on-color);
+  opacity: 0.26;
+}
+
+.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {
+  border-color: rgb(185, 185, 185);
+}
+
+.mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
+  background-color: white;
+  border-color: white;
+  opacity: 0.3;
 }
 
 #settings-list select:focus {
