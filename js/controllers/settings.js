@@ -46,10 +46,17 @@ SettingsController.prototype.showAll_ = function() {
   }
 };
 
+/**
+ * Displays a new setting value in the UI.
+ * @param {string} key The unique section of the id of the switch element
+ *     (after the 'setting-' prefix).
+ * @param {string} value The value to set the setting to.
+ * @private
+ */
 SettingsController.prototype.show_ = function(key, value) {
   switch (Settings.SETTINGS[key].widget) {
     case 'checkbox':
-      value ? this.checkSwitch_(key) : this.uncheckSwitch_(key);
+      this.setSwitch_(key, value);
       break;
     case 'number':
       $('#setting-' +key).val(parseInt(value));
@@ -61,25 +68,17 @@ SettingsController.prototype.show_ = function(key, value) {
 };
 
 /**
- * Activates a switch Material Component element in the UI.
+ * Sets a switch Material Component element in the UI to active/inactive.
  * @param {string} key The unique section of the id of the switch element
  *     (after the 'setting-' prefix).
+ * @param {boolean} value If true, activates the switch; if false, deactivates
+ *     the switch
+ * @private
  */
-SettingsController.prototype.checkSwitch_ = function(key) {
-  document.getElementById('setting-' + key).setAttribute('checked', '');
-  document.getElementById('setting-' + key + '-switch')
-      .classList.add('mdc-switch--checked');
-}
-
-/**
- * Deactivates a switch Material Component element in the UI.
- * @param {string} key The unique section of the id of the switch element
- *     (after the 'setting-' prefix).
- */
-SettingsController.prototype.uncheckSwitch_ = function(key) {
-  document.getElementById('setting-' + key).removeAttribute('checked');
-  document.getElementById('setting-' + key + '-switch')
-      .classList.remove('mdc-switch--checked');
+SettingsController.prototype.setSwitch_ = function(key, value) {
+  document.getElementById('setting-' + key).toggleAttribute('checked', value);
+  document.getElementById('setting-' + key + '-switch').classList
+      .toggle('mdc-switch--checked', value);
 }
 
 SettingsController.prototype.onSettingChange_ = function(e, key, value) {
@@ -102,3 +101,4 @@ SettingsController.prototype.onWidgetChange_ = function(key) {
 
   this.settings_.set(key, value);
 };
+

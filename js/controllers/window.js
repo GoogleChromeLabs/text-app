@@ -21,13 +21,14 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 
-  this.initUI();
+  this.initUI_();
 }
 
 /**
  * Performs all the required initialization for the UI.
+ * @private
  */
-WindowController.prototype.initUI = function() {
+WindowController.prototype.initUI_ = function() {
   for (const element of document.querySelectorAll('.mdc-icon-button')) {
     const ripple = mdc.ripple.MDCRipple.attachTo(element);
     ripple.unbounded = true;
