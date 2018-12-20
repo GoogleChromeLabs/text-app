@@ -40,7 +40,7 @@ body[theme="light"] #tabs-list li.active {
 }
 
 body[theme="light"] #sidebar #tabs-list li:hover {
-  background-color: rgb(232, 240, 254);
+  background-color: var(--light-highlight-color);
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {
