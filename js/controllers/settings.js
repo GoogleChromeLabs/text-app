@@ -46,10 +46,17 @@ SettingsController.prototype.showAll_ = function() {
   }
 };
 
+/**
+ * Displays a new setting value in the UI.
+ * @param {string} key The unique section of the id of the switch element
+ *     (after the 'setting-' prefix).
+ * @param {string} value The value to set the setting to.
+ * @private
+ */
 SettingsController.prototype.show_ = function(key, value) {
   switch (Settings.SETTINGS[key].widget) {
     case 'checkbox':
-      $('#setting-' + key).prop('checked', value);
+      this.setSwitch_(key, value);
       break;
     case 'number':
       $('#setting-' +key).val(parseInt(value));
@@ -59,6 +66,20 @@ SettingsController.prototype.show_ = function(key, value) {
       break;
   }
 };
+
+/**
+ * Sets a switch Material Component element in the UI to active/inactive.
+ * @param {string} key The unique section of the id of the switch element
+ *     (after the 'setting-' prefix).
+ * @param {boolean} value If true, activates the switch; if false, deactivates
+ *     the switch
+ * @private
+ */
+SettingsController.prototype.setSwitch_ = function(key, value) {
+  document.getElementById('setting-' + key).toggleAttribute('checked', value);
+  document.getElementById('setting-' + key + '-switch').classList
+      .toggle('mdc-switch--checked', value);
+}
 
 SettingsController.prototype.onSettingChange_ = function(e, key, value) {
   this.show_(key, value);

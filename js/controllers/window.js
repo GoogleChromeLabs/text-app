@@ -21,14 +21,23 @@ function WindowController(editor, settings, analytics, tabs) {
   $(document).bind('tabrenamed', this.onChangeTab_.bind(this));
   $(document).bind('tabsave', this.onTabChange_.bind(this));
 
-  // Initialize Material UI components
+  this.initUI_();
+}
+
+/**
+ * Performs all the required initialization for the UI.
+ * @private
+ */
+WindowController.prototype.initUI_ = function() {
   for (const element of document.querySelectorAll('.mdc-icon-button')) {
     const ripple = mdc.ripple.MDCRipple.attachTo(element);
     ripple.unbounded = true;
     // Required due to issue https://github.com/material-components/material-components-web/issues/3984
     new ResizeObserver(() => { ripple.layout(); }).observe(element);
   }
-
+  for (const element of document.querySelectorAll('.mdc-switch')) {
+    new mdc.switchControl.MDCSwitch(element);
+  }
   if (this.settings_.isReady()) {
     this.initSidebar_();
   } else {
