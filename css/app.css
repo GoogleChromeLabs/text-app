@@ -1,13 +1,13 @@
 :root {
-  --dark-accent-color: #3a3a3a;
+  --dark-accent-color: rgb(255, 255, 255, 0.12);
   --dark-background-color: #1f1f1f;
-  --dark-divider-color: rgb(255, 255, 255, 0.12);
-  --dark-highlight-color: rgb(95, 99, 104);
+  --dark-divider-color: var(--dark-accent-color);
+  --dark-highlight-color: rgb(26, 115, 232, 0.26);
   --header-height: 48px;
-  --light-accent-color: rgb(248, 249, 250);
+  --light-accent-color: rgb(0, 0, 0, 0.04);
   --light-background-color: white;
-  --light-divider-color: #eee;
-  --light-highlight-color: rgb(210, 227, 252);
+  --light-divider-color: var(--light-accent-color);
+  --light-highlight-color: rgb(26, 115, 232, 0.18);
   --settings-input-width: 55px;
   --switch-on-color: rgb(27, 114, 232);
   --tab-height: 36px;
@@ -298,7 +298,10 @@ img {
 #settings-list select {
   -webkit-app-region: no-drag;
   -webkit-appearance: none;
-  background: url('../images/menu.svg') no-repeat 70px / 18px var(--dark-accent-color);
+  /* TODO (https://github.com/GoogleChromeLabs/text-app/issues/369): remove hard
+      coded color to match var(--dark-accent-color) and opacity when dropdown is
+      replaced with radio buttons */
+  background: url('../images/menu.svg') no-repeat 70px / 18px rgb(58, 58, 58);
   border: 1px solid #888;
   border-radius: 1px;
   cursor: pointer;
