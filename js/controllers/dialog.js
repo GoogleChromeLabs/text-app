@@ -31,7 +31,7 @@ DialogController.prototype.show = function(callback) {
 
 DialogController.prototype.disableEverything_ = function() {
   this.editor_.disable();
-  var inputs = $('input, select, textarea');
+  var inputs = $('input, select, textarea, .mdc-icon-button');
   for (var i = 0; i < inputs.length; i++) {
     this.disabledElements_.push({'element': inputs[i],
                                'index': inputs[i].tabIndex});
