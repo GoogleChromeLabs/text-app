@@ -34,7 +34,7 @@ DialogController.prototype.show = function(callback) {
  */
 DialogController.prototype.disableEverything_ = function() {
   this.editor_.disable();
-  inputs = document.querySelectorAll(
+  const inputs = document.querySelectorAll(
       'input, select, textarea, .mdc-icon-button');
   for (var i = 0; i < inputs.length; i++) {
     this.disabledElements_.push({'element': inputs[i],
