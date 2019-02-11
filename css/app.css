@@ -8,8 +8,8 @@
   --light-background-color: white;
   --light-divider-color: var(--light-accent-color);
   --light-highlight-color: rgb(26, 115, 232, 0.18);
+  --mdc-theme-secondary: rgb(27, 114, 232);
   --settings-input-width: 55px;
-  --switch-on-color: rgb(27, 114, 232);
   --tab-height: 36px;
 }
 
@@ -265,18 +265,7 @@ img {
   margin-right: auto;
 }
 
-.mdc-switch.mdc-switch--checked .mdc-switch__thumb {
-  border-color: var(--switch-on-color);
-}
-
-.mdc-switch.mdc-switch--checked .mdc-switch__thumb-underlay::before,
-.mdc-switch.mdc-switch--checked .mdc-switch__thumb-underlay::after {
-  background-color: var(--switch-on-color);
-}
-
 .mdc-switch.mdc-switch--checked .mdc-switch__track {
-  background-color: var(--switch-on-color);
-  border-color: var(--switch-on-color);
   opacity: 0.26;
 }
 
