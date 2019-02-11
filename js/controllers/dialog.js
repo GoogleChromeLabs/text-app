@@ -29,9 +29,13 @@ DialogController.prototype.show = function(callback) {
   this.container_.find('.dialog-button').first().focus();
 };
 
+/**
+ * Disables keyboard tabbing to all UI elements outside of the dialog box.
+ */
 DialogController.prototype.disableEverything_ = function() {
   this.editor_.disable();
-  var inputs = $('input, select, textarea, .mdc-icon-button');
+  inputs = document.querySelectorAll(
+      'input, select, textarea, .mdc-icon-button');
   for (var i = 0; i < inputs.length; i++) {
     this.disabledElements_.push({'element': inputs[i],
                                'index': inputs[i].tabIndex});
@@ -39,6 +43,10 @@ DialogController.prototype.disableEverything_ = function() {
   }
 };
 
+/**
+ * Re-enables keyboard tabbing to all UI elements previously disabled due to the
+ * dialog box.
+ */
 DialogController.prototype.reenableEverything_ = function() {
   for (var i = 0; i < this.disabledElements_.length; i++) {
     this.disabledElements_[i]['element'].tabIndex =
