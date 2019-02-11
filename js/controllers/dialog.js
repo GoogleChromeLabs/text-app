@@ -31,6 +31,7 @@ DialogController.prototype.show = function(callback) {
 
 /**
  * Disables keyboard tabbing to all UI elements outside of the dialog box.
+ * @private
  */
 DialogController.prototype.disableEverything_ = function() {
   this.editor_.disable();
@@ -46,6 +47,7 @@ DialogController.prototype.disableEverything_ = function() {
 /**
  * Re-enables keyboard tabbing to all UI elements previously disabled due to the
  * dialog box.
+ * @private
  */
 DialogController.prototype.reenableEverything_ = function() {
   for (var i = 0; i < this.disabledElements_.length; i++) {
