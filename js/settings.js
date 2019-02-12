@@ -35,7 +35,7 @@ Settings.SETTINGS = {
   'smartindent': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'spacestab': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
   'tabsize': {'default': 4, 'type': 'integer', 'widget': 'number'},
-  'theme': {'default': 'default', 'type': 'string', 'widget': 'select'},
+  'theme': {'default': 'default', 'type': 'string', 'widget': 'radio'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'}
 };
 

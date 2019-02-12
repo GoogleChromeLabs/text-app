@@ -156,7 +156,7 @@
       "message": "Tab 大小"
    },
    "themeSetting": {
-      "description": "The text of the settings 'Theme'.",
+      "description": "The text of the theme setting.",
       "message": "主題"
    },
    "wraplinesSetting": {

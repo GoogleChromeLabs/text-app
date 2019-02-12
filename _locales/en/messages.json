@@ -52,8 +52,8 @@
     "description":"The text of the settings 'Smart indent'."
   },
   "themeSetting": {
-    "message": "Theme",
-    "description": "The text of the settings 'Theme'."
+    "message": "Themes",
+    "description": "The text of the theme setting."
   },
   "analyticsSetting": {
     "message": "Send statistics",

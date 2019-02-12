@@ -11,7 +11,8 @@ body[theme="light"] #sidebar hr {
   background-color: var(--light-divider-color);
 }
 
-body[theme="light"] #sidebar li:hover {
+body[theme="light"] #sidebar li:hover,
+body[theme="light"] #sidebar .mdc-form-field:hover {
   background-color: var(--light-highlight-color);
   color: #000;
 }
@@ -22,16 +23,6 @@ body[theme="light"] #sidebar input {
 
 body[theme="light"] #settings-list input[type="text"]:focus {
   background-color: var(--light-highlight-color);
-  outline: none;
-}
-
-body[theme="light"] #settings-list select {
-  -webkit-appearance: none;
-  background: url('../images/menu.svg') no-repeat 70px / 18px var(--light-accent-color);
-}
-
-body[theme="light"] #settings-list select:focus {
-  border: 1px solid #242424;
   outline: none;
 }
 
@@ -60,6 +51,11 @@ body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
   background-color: black;
   border-color: black;
   opacity: 0.26;
+}
+
+body[theme="light"] .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: black;
+  opacity: 0.54;
 }
 
 .cm-s-light .cm-keyword {color: #708;}

@@ -47,6 +47,7 @@ img {
   cursor: default;
   display: flex;
   flex-direction: column;
+  font-size: 120%;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -77,6 +78,12 @@ img {
   -webkit-user-select: none;
 }
 
+#sidebar h2 {
+  font: 500 13px "Roboto", sans-serif;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
 #sidebar hr {
   background-color: var(--dark-divider-color);
   border: none;
@@ -86,16 +93,14 @@ img {
 
 #sidebar ul {
   padding: 0;
-  font-size: 120%;
   list-style-type: none;
 }
 
-#sidebar li {
+#sidebar h2,
+#sidebar li,
+#sidebar .mdc-form-field {
   align-items: center;
-  border-radius: 100px;
-  -webkit-box-sizing: border-box;
   display: flex;
-  cursor: pointer;
   height: var(--tab-height);
   margin: 4px 8px;
   padding: 0 16px;
@@ -103,13 +108,25 @@ img {
   white-space: nowrap;
 }
 
-#sidebar li:hover, #tabs-list li.active:hover {
+#sidebar li,
+#sidebar .mdc-form-field {
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+#sidebar li:hover,
+#sidebar .mdc-form-field:hover,
+#tabs-list li.active:hover {
   background-color: var(--dark-highlight-color);
   color: #fff;
 }
 
 #sidebar input {
   background-color: var(--dark-accent-color);
+}
+
+#sidebar .group {
+  margin: 24px 0;
 }
 
 #sidebar ::-webkit-scrollbar {
@@ -212,7 +229,8 @@ img {
   width: 100%;
 }
 
-#settings-list li {
+#settings-list li,
+#settings-list .mdc-form-field {
   background-color: inherit;
   -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
@@ -223,14 +241,32 @@ img {
   word-wrap: break-word;
 }
 
+.mdc-form-field {
+  color: inherit;
+  display: flex;
+  font: inherit;
+}
+
+.mdc-radio {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle  {
+  border-color: white;
+  opacity: 0.3;
+}
+
 #settings-list label {
   align-items: center;
   cursor: pointer;
   display: flex;
   flex: 1;
   height: 100%;
+  margin: 0;
   max-width: calc(100% - var(--settings-input-width));
   overflow: hidden;
+  padding: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -277,33 +313,6 @@ img {
   background-color: white;
   border-color: white;
   opacity: 0.3;
-}
-
-#settings-list select:focus {
-  border: 1px solid #EBEBEB;
-  outline: none;
-}
-
-#settings-list select {
-  -webkit-app-region: no-drag;
-  -webkit-appearance: none;
-  /* TODO (https://github.com/GoogleChromeLabs/text-app/issues/369): remove hard
-      coded color to match var(--dark-accent-color) and opacity when dropdown is
-      replaced with radio buttons */
-  background: url('../images/menu.svg') no-repeat 70px / 18px rgb(58, 58, 58);
-  border: 1px solid #888;
-  border-radius: 1px;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 18px;
-  margin: 0;
-  padding: 0 8px;
-  -webkit-user-select: auto;
-  width: 96px;
-}
-
-#settings-list optgroup {
-  color: #000000;
 }
 
 #main-container {

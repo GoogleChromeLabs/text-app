@@ -10,11 +10,6 @@ body[theme="dark"] #settings-list input[type="text"] {
   color: #EBEBEB;
 }
 
-body[theme="dark"] #settings-list select {
-  color: #EBEBEB;
-}
-
-
 /* Based on CodeMirror dark theme */
 /* Based on Sublime Text's dark theme */
 

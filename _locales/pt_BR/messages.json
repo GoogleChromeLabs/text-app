@@ -52,8 +52,8 @@
     "description":"O texto das configurações 'Indentação inteligente'."
   },
   "themeSetting": {
-    "message": "Tema",
-    "description": "O texto das configurações 'Tema'."
+    "message": "Temas",
+    "description": "The text of the theme setting."
   },
   "analyticsSetting": {
     "message": "Enviar estatísticas",

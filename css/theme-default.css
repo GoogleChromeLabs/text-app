@@ -2,10 +2,6 @@ body[theme="default"] #settings-list input[type="text"] {
   color: #EBEBEB;
 }
 
-body[theme="default"] #settings-list select {
-  color: #EBEBEB;
-}
-
 body[theme="default"] div.CodeMirror span.CodeMirror-matchingbracket {
   color: inherit !important;
   border-bottom: 1px solid black;
