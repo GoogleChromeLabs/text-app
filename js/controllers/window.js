@@ -38,6 +38,10 @@ WindowController.prototype.initUI_ = function() {
   for (const element of document.querySelectorAll('.mdc-switch')) {
     new mdc.switchControl.MDCSwitch(element);
   }
+  for (const element of document.querySelectorAll('.mdc-radio')) {
+    const formField = new mdc.formField.MDCFormField(element.parentElement);
+    formField.input = new mdc.radio.MDCRadio(element);;
+  }
   if (this.settings_.isReady()) {
     this.initSidebar_();
   } else {

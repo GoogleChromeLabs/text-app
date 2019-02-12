@@ -13,19 +13,28 @@ function SettingsController(settings) {
 
   $(document).bind('settingschange', this.onSettingChange_.bind(this));
 
-  this.bindChanges_();
+  this.addInputListeners_();
 
   $('#open-settings').click(this.open_.bind(this));
   $('#close-settings').click(this.close_.bind(this));
 }
 
-SettingsController.prototype.bindChanges_ = function() {
-  for (var key in Settings.SETTINGS) {
+/**
+ * Adds event listeners to settings inputs.
+ * @private
+ */
+SettingsController.prototype.addInputListeners_ = function() {
+  for (const key in Settings.SETTINGS) {
     switch (Settings.SETTINGS[key].widget) {
       case 'checkbox':
       case 'number':
-      case 'select':
-        $('#setting-' + key).change(this.onWidgetChange_.bind(this, key));
+        $('#setting-' + key).change(this.saveSetting_.bind(this, key));
+        break;
+      case 'radio':
+        for (const element of
+            document.querySelectorAll('input[name=setting-' + key + ']')) {
+          element.addEventListener('input', () => this.saveSetting_(key));
+        }
         break;
     }
   }
@@ -61,9 +70,9 @@ SettingsController.prototype.show_ = function(key, value) {
     case 'number':
       $('#setting-' +key).val(parseInt(value));
       break;
-    case 'select':
-      $('#setting-' +key).val(value);
-      break;
+    case 'radio':
+      document.getElementById('setting-' + key + '-' + value)
+          .setAttribute('checked', '');
   }
 };
 
@@ -85,7 +94,13 @@ SettingsController.prototype.onSettingChange_ = function(e, key, value) {
   this.show_(key, value);
 };
 
-SettingsController.prototype.onWidgetChange_ = function(key) {
+/**
+ * Saves the value of a setting UI widget.
+ * @param {string} key The unique section of the id of the setting element
+ *     (after the 'setting-' prefix).
+ * @private
+ */
+SettingsController.prototype.saveSetting_ = function(key) {
   var value;
   switch (Settings.SETTINGS[key].widget) {
     case 'checkbox':
@@ -94,8 +109,9 @@ SettingsController.prototype.onWidgetChange_ = function(key) {
     case 'number':
       value = parseInt($('#setting-' + key).val());
       break;
-    case 'select':
-      value = $('#setting-' + key).val();
+    case 'radio':
+      value = document.querySelector('input[name=setting-' + key + ']:checked')
+          .getAttribute('value');
       break;
   }
 

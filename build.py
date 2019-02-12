@@ -39,7 +39,6 @@ FILES_TO_COPY = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
-  'images/menu.svg',
   'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
   'third_party/jquery/jquery-1.8.3.min.js',

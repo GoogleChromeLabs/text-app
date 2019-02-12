@@ -103,13 +103,50 @@
               </div>
             </li>
             <li>
-              <label for="setting-theme" i18n-content="themeSetting"></label>
-              <select name="setting-theme" id="setting-theme">
-                <option value="default" i18n-content="DefaultThemeOption"></option>
-                <option value="light" i18n-content="LightThemeOption"></option>
-                <option value="dark" i18n-content="DarkThemeOption"></option>
-              </select>
+              <label for="setting-alwaysontop" i18n-content="alwaysOnTopSetting"></label>
+              <div class="mdc-switch" id="setting-alwaysontop-switch">
+                <div class="mdc-switch__track"></div>
+                <div class="mdc-switch__thumb-underlay">
+                  <div class="mdc-switch__thumb">
+                    <input type="checkbox" id="setting-alwaysontop"
+                        class="mdc-switch__native-control" role="switch">
+                  </div>
+                </div>
+              </div>
             </li>
+            <div class="group">
+              <h2 i18n-content="themeSetting"></h2>
+              <div class="mdc-form-field">
+                <label for="setting-theme-default" i18n-content="DefaultThemeOption"></label>
+                <div class="mdc-radio">
+                  <input class="mdc-radio__native-control" type="radio" id="setting-theme-default" name="setting-theme" value="default">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-form-field">
+                <label for="setting-theme-light" i18n-content="LightThemeOption"></label>
+                <div class="mdc-radio">
+                  <input class="mdc-radio__native-control" type="radio" id="setting-theme-light" name="setting-theme" value="light">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-form-field">
+                <label for="setting-theme-dark" i18n-content="DarkThemeOption"></label>
+                <div class="mdc-radio">
+                  <input class="mdc-radio__native-control" type="radio" id="setting-theme-dark" name="setting-theme" value="dark">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <li>
               <label for="setting-analytics" i18n-content="analyticsSetting"
                      i18n-values="title:analyticsTooltip"></label>
@@ -120,18 +157,6 @@
                     <input type="checkbox" id="setting-analytics"
                         class="mdc-switch__native-control" role="switch"
                         i18n-values="title:analyticsTooltip">
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <label for="setting-alwaysontop" i18n-content="alwaysOnTopSetting"></label>
-              <div class="mdc-switch" id="setting-alwaysontop-switch">
-                <div class="mdc-switch__track"></div>
-                <div class="mdc-switch__thumb-underlay">
-                  <div class="mdc-switch__thumb">
-                    <input type="checkbox" id="setting-alwaysontop"
-                        class="mdc-switch__native-control" role="switch">
                   </div>
                 </div>
               </div>
