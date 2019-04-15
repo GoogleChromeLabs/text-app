@@ -1,0 +1,178 @@
+{
+  "appDesc": {
+    "message": "Chrome OS と Chrome 向けのテキスト エディタです。",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "新規作成",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "開く",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "保存",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "名前を付けて保存",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "設定",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "フォントサイズ",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Ctrl キーを押しながら - または + キーを押して設定",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "タブからスペースへの変換",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "タブサイズ",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "行の折り返し",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "行番号の表示",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "スマート インデント",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "テーマ",
+    "description": "The text of the theme setting."
+  },
+  "analyticsSetting": {
+    "message": "統計情報を送信する",
+    "description": "The label for the checkbox in settings tab that turns on Analytics."
+  },
+  "analyticsTooltip": {
+    "message": "使用統計情報を自動送信します",
+    "description": "The tooltip for send statistics checkbox."
+  },
+  "alwaysOnTopSetting": {
+    "message": "常に手前に表示する",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "デフォルト",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "明るい",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "暗い",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "戻る",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "サイドバーを開く",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "サイドバーを閉じる",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "検索...",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ / $searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "次へ",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "前へ",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "エラー",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "読み込み中...",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "最小化",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "最大化",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "復元",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "終了",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "はい",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "いいえ",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "キャンセル",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "$filename$ は変更されています。",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "閉じる前に保存しますか？",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "ファイルを閉じる",
+    "description": "The button text to close a file."
+  }
+}
