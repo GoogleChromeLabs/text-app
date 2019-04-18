@@ -346,6 +346,7 @@ header {
 
 header .mdc-icon-button {
   opacity: 0.54;
+  -webkit-transition: opacity 200ms;
 }
 
 header .mdc-icon-button:focus, header .mdc-icon-button:active {
@@ -478,6 +479,10 @@ input[type=search]:focus {
 ::-webkit-search-results-button,
 ::-webkit-search-results-decoration {
   display: none;
+}
+
+.mdc-icon-button::before {
+  -webkit-transition: opacity 200ms;
 }
 
 /* Dialog */
