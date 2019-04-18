@@ -13,6 +13,10 @@
   --tab-height: 36px;
 }
 
+* {
+  -webkit-transition: background-color 200ms;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
   font-size: 13px;
@@ -128,7 +132,6 @@ img {
 }
 
 #sidebar input {
-  -webkit-transition: background-color 200ms;
   background-color: var(--dark-accent-color);
 }
 
