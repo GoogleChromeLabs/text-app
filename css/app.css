@@ -55,7 +55,7 @@ img {
   height: 100%;
   overflow: hidden;
   position: relative;
-  -webkit-transition: width 0.2s ease-in-out;
+  -webkit-transition: width 0.2s ease-in-out, background-color 0.2s;
   width: 0;
 }
 
