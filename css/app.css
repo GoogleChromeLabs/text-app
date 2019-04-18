@@ -114,6 +114,12 @@ img {
   cursor: pointer;
 }
 
+#sidebar li,
+#sidebar .mdc-form-field,
+#tabs-list li.active {
+  -webkit-transition: all 200ms;
+}
+
 #sidebar li:hover,
 #sidebar .mdc-form-field:hover,
 #tabs-list li.active:hover {
