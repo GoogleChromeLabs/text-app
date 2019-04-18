@@ -128,6 +128,7 @@ img {
 }
 
 #sidebar input {
+  -webkit-transition: background-color 200ms;
   background-color: var(--dark-accent-color);
 }
 
