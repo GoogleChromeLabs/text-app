@@ -52,9 +52,11 @@ WindowController.prototype.initUI_ = function() {
 WindowController.prototype.initSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
+    $('#sidebar').css('border-right-width', '2px');
     $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   } else {
     $('#sidebar').css('width', '0');
+    $('#sidebar').css('border-right-width', '0');
     $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
   }
 };
@@ -109,10 +111,12 @@ WindowController.prototype.toggleSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     this.settings_.set('sidebaropen', false);
     $('#sidebar').css('width', '0');
+    $('#sidebar').css('border-right-width', '0');
     $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
   } else {
     this.settings_.set('sidebaropen', true);
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
+    $('#sidebar').css('border-right-width', '2px');
     $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   }
   this.editor_.focus();
