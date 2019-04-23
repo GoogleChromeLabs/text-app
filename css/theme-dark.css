@@ -1,6 +1,10 @@
+body[theme="dark"] header,
+body[theme="dark"] .search-container {
+  background-color: var(--dark-background-color)
+}
+
 body[theme="dark"] .search-container {
   border-color: #C1C1C1;
-  background-color: var(--dark-background-color);
 }
 
 body[theme="dark"] #search-input,
@@ -9,7 +13,7 @@ body[theme="dark"] .mdc-icon-button {
 }
 
 body[theme="dark"] #search-counting.nomatches {
-  color: #ff0000;
+  color: #B00;
 }
 
 body[theme="dark"] #sidebar {
@@ -33,7 +37,7 @@ body[theme="dark"] #settings-list input[type="text"] {
   border-right: 0px;
 }
 
-.cm-s-dark div.CodeMirror-selected, body[theme="dark"] header {background: #49483E !important;}
+.cm-s-dark div.CodeMirror-selected {background: #49483E !important;}
 .cm-s-dark .CodeMirror-linenumber {color: #d0d0d0;}
 .cm-s-dark .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
 
