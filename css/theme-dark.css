@@ -1,10 +1,14 @@
 body[theme="dark"] header,
 body[theme="dark"] .search-container {
-  background-color: var(--dark-background-color)
+  background-color: var(--dark-background-color);
+}
+
+body[theme="dark"] header {
+  border-bottom: 2px solid var(--dark-divider-color);
 }
 
 body[theme="dark"] .search-container {
-  border-color: #C1C1C1;
+  border-color: var(--dark-divider-color);
 }
 
 body[theme="dark"] #search-input,

@@ -50,6 +50,7 @@ WindowController.prototype.initUI_ = function() {
 }
 
 WindowController.prototype.initSidebar_ = function() {
+  // FIXME: move this to CSS where possible (init code)
   if (this.settings_.get('sidebaropen')) {
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
     $('#sidebar').css('border-right-width', '2px');
@@ -108,6 +109,7 @@ WindowController.prototype.setAlwaysOnTop = function(isAlwaysOnTop) {
 };
 
 WindowController.prototype.toggleSidebar_ = function() {
+  // FIXME: Move this to css where possible (toggle code)
   if (this.settings_.get('sidebaropen')) {
     this.settings_.set('sidebaropen', false);
     $('#sidebar').css('width', '0');
