@@ -40,14 +40,14 @@ WindowController.prototype.initUI_ = function() {
   }
   for (const element of document.querySelectorAll('.mdc-radio')) {
     const formField = new mdc.formField.MDCFormField(element.parentElement);
-    formField.input = new mdc.radio.MDCRadio(element);;
+    formField.input = new mdc.radio.MDCRadio(element);
   }
   if (this.settings_.isReady()) {
     this.initSidebar_();
   } else {
     $(document).bind('settingsready', this.initSidebar_.bind(this));
   }
-}
+};
 
 WindowController.prototype.initSidebar_ = function() {
   // FIXME: move this to CSS where possible (init code)

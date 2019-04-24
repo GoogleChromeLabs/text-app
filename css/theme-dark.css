@@ -13,7 +13,7 @@ body[theme="dark"] .search-container {
 
 body[theme="dark"] #search-input,
 body[theme="dark"] .mdc-icon-button {
-  color: white;
+  color: #EBEBEB;
 }
 
 body[theme="dark"] #search-counting.nomatches {
