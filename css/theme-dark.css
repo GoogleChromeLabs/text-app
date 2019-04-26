@@ -74,3 +74,12 @@ body[theme="dark"] div.CodeMirror span.CodeMirror-matchingbracket {
 body[theme="dark"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
 }
+
+body[theme="dark"] header.search-active .search-navigation-button {
+  border-color: var(--dark-divider-color);
+}
+
+body[theme="dark"] .mdc-icon-button::before,
+body[theme="dark"] .mdc-icon-button::after {
+  background-color: var(--light-background-color);
+}
