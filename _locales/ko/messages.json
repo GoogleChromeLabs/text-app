@@ -1,0 +1,178 @@
+{
+  "appDesc": {
+    "message": "Chrome OS 및 Chrome용 텍스트 편집기",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "새로 만들기",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "열기",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "저장",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "다른 이름으로 저장",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "설정",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "글꼴 크기",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Ctrl- 및 Ctrl+를 사용하여 설정",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "탭하여 공백 전환",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "탭 크기",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "자동 줄 바꿈",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "행 번호 표시",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "스마트 들여쓰기",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "테마",
+    "description": "The text of the theme setting."
+  },
+  "analyticsSetting": {
+    "message": "통계 보내기",
+    "description": "The label for the checkbox in settings tab that turns on Analytics."
+  },
+  "analyticsTooltip": {
+    "message": "사용 통계 자동 보내기",
+    "description": "The tooltip for send statistics checkbox."
+  },
+  "alwaysOnTopSetting": {
+    "message": "항상 맨 위에 표시",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "기본 테마",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "밝게",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "어둡게",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "뒤로",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "사이드바 열기",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "사이드바 닫기",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "검색어 입력...",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchCount$개 중 $searchIndex$개",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "다음",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "이전",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "오류",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "로드 중...",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "최소화",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "최대화",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "복원",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "종료",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "예",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "아니요",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "취소",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "$filename$이(가) 수정되었습니다.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "닫기 전에 저장하시겠습니까?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "확인",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "파일 닫기",
+    "description": "The button text to close a file."
+  }
+}

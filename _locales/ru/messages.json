@@ -1,0 +1,178 @@
+{
+  "appDesc": {
+    "message": "Текстовый редактор для Chrome OS и Chrome.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "Создать",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Открыть",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Сохранить",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Сохранить как",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "Настройки",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "Размер шрифта",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Настроить, используя сочетание клавиш Ctrl + Минус (−) и Ctrl + Плюс (+)",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "Заменять символы табуляции пробелами",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Шаг табуляции",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Переносить строки",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Показывать номера строк",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "Умные отступы",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Темы",
+    "description": "The text of the theme setting."
+  },
+  "analyticsSetting": {
+    "message": "Отправлять статистику",
+    "description": "The label for the checkbox in settings tab that turns on Analytics."
+  },
+  "analyticsTooltip": {
+    "message": "Автоматически отправлять статистику использования",
+    "description": "The tooltip for send statistics checkbox."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Показывать поверх других окон",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "По умолчанию",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Светлая",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Тёмная",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Назад",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Открыть боковую панель",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Закрыть боковую панель",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "Поиск…",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ из $searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Далее",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Назад",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "Ошибка",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "Загрузка…",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "Свернуть",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "Развернуть",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Восстановить",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Закрыть",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "Да",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Нет",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Отмена",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "Файл \"$filename$\" был изменен.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "Сохранить его перед закрытием?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "ОК",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Закрыть файл",
+    "description": "The button text to close a file."
+  }
+}

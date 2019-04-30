@@ -1,0 +1,178 @@
+{
+  "appDesc": {
+    "message": "Et tekstredigeringsprogram for Chrome OS og Chrome.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "Ny",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Åpne",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Lagre",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Lagre som",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "Innstillinger",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "Skriftstørrelse",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Velg med Ctrl- og Ctrl+",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "Gjør tabulatorer om til mellomrom",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Tabulatorstørrelse",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Bryt linjer",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Vis linjenumre",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "Smart innrykk",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Temaer",
+    "description": "The text of the theme setting."
+  },
+  "analyticsSetting": {
+    "message": "Send statistikk",
+    "description": "The label for the checkbox in settings tab that turns on Analytics."
+  },
+  "analyticsTooltip": {
+    "message": "Send bruksstatistikk automatisk",
+    "description": "The tooltip for send statistics checkbox."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Alltid øverst",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "Standard",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Lyst",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Mørkt",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Tilbake",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Åpne sidefeltet",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Lukk sidefeltet",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "Finn",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ av $searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Neste",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Forrige",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "Feil",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "Laster inn …",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "Minimer",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "Maksimer",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Gjenopprett",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Avslutt",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "Ja",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Nei",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Avbryt",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "$filename$ er endret.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "Vil du lagre filen før du lukker den?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Lukk filen",
+    "description": "The button text to close a file."
+  }
+}
