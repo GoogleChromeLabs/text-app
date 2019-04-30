@@ -1,5 +1,23 @@
+body[theme="dark"] header,
 body[theme="dark"] .search-container {
-  border-color: #C1C1C1;
+  background-color: var(--dark-background-color);
+}
+
+body[theme="dark"] header {
+  border-bottom: 2px solid var(--dark-divider-color);
+}
+
+body[theme="dark"] .search-container {
+  border-color: var(--dark-divider-color);
+}
+
+body[theme="dark"] #search-input,
+body[theme="dark"] .mdc-icon-button {
+  color: #EBEBEB;
+}
+
+body[theme="dark"] #search-counting.nomatches {
+  color: #B00;
 }
 
 body[theme="dark"] #sidebar {
@@ -55,4 +73,13 @@ body[theme="dark"] div.CodeMirror span.CodeMirror-matchingbracket {
 
 body[theme="dark"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
+}
+
+body[theme="dark"] header.search-active .search-navigation-button {
+  border-color: var(--dark-divider-color);
+}
+
+body[theme="dark"] .mdc-icon-button::before,
+body[theme="dark"] .mdc-icon-button::after {
+  background-color: var(--light-background-color);
 }
