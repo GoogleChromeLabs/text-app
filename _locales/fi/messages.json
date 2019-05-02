@@ -1,0 +1,178 @@
+{
+  "appDesc": {
+    "message": "Chrome-käyttöjärjestelmän ja Chromen tekstinkäsittelyohjelma",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "Uusi",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Avaa",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Tallenna",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Tallenna nimellä",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "Asetukset",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "Kirjasinkoko",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Aseta: Ctrl- tai Ctrl+",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "Sarkaimet väleiksi",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Sarkainkoko",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Rivitä teksti",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Näytä rivinumerot",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "Älykäs sisennys",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Teemat",
+    "description": "The text of the theme setting."
+  },
+  "analyticsSetting": {
+    "message": "Lähetä tilastoja",
+    "description": "The label for the checkbox in settings tab that turns on Analytics."
+  },
+  "analyticsTooltip": {
+    "message": "Lähetä käyttötilastot automaattisesti",
+    "description": "The tooltip for send statistics checkbox."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Aina päällimmäisenä",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "Oletus",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Vaalea",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Tumma",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Takaisin",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Avaa sivupalkki",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Sulje sivupalkki",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "Etsi…",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$/$searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Seuraava",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Edellinen",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "Virhe",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "Ladataan…",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "Pienennä",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "Suurenna",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Palauta",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Lopeta",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "Kyllä",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Ei",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Peruuta",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "$filename$ on muuttunut.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "Haluatko tallentaa sen ennen sulkemista?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Sulje tiedosto",
+    "description": "The button text to close a file."
+  }
+}
