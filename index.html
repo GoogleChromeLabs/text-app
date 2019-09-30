@@ -11,7 +11,7 @@
   <link href="css/theme-dark.css" rel="stylesheet">
   <link href="css/theme-light.css" rel="stylesheet">
 </head>
-<body>
+<body i18n-values="aria-label:screenreaderModeHelp">
   <div id="window-container">
     <div id="sidebar">
       <div id="sidebar-resizer"></div>
@@ -109,6 +109,18 @@
                 <div class="mdc-switch__thumb-underlay">
                   <div class="mdc-switch__thumb">
                     <input type="checkbox" id="setting-alwaysontop"
+                        class="mdc-switch__native-control" role="switch">
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <label for="setting-screenreadermode" i18n-content="screenreaderModeSetting"></label>
+              <div class="mdc-switch" id="setting-screenreadermode-switch">
+                <div class="mdc-switch__track"></div>
+                <div class="mdc-switch__thumb-underlay">
+                  <div class="mdc-switch__thumb">
+                    <input type="checkbox" id="setting-screenreadermode"
                         class="mdc-switch__native-control" role="switch">
                   </div>
                 </div>
@@ -261,6 +273,7 @@
   <script src="js/analytics.js" type="text/javascript"></script>
   <script src="js/app.js" type="text/javascript"></script>
   <script src="js/editor-cm.js" type="text/javascript"></script>
+  <script src="js/editor-ta.js" type="text/javascript"></script>
   <script src="js/i18n-template.js" type="text/javascript"></script>
   <script src="js/search.js" type="text/javascript"></script>
   <script src="js/settings.js" type="text/javascript"></script>

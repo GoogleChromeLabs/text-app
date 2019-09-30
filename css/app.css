@@ -3,6 +3,17 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
+  /* These colors are copied from codemirror to maintain consistency. */
+  --light-theme-line-number-color: #999999;
+  --dark-theme-line-number-color: #d0d0d0;
+  --light-theme-text-color: #000000;
+  --dark-theme-text-color: #f8f8f2;
+  /*
+   * editor styles are mostly copied from codemirror so that the text area
+   * maintains the same look.
+   */
+  --editor-line-height: 1.2em;
+  --editor-padding: 4px;
   --header-height: 48px;
   --light-accent-color: rgb(0, 0, 0, 0.04);
   --light-background-color: white;
@@ -105,7 +116,7 @@ img {
 #sidebar .mdc-form-field {
   align-items: center;
   display: flex;
-  height: var(--tab-height);
+  min-height: var(--tab-height);
   margin: 4px 8px;
   padding: 0 16px;
   -webkit-user-select: none;
@@ -270,9 +281,10 @@ img {
   margin: 0;
   max-width: calc(100% - var(--settings-input-width));
   overflow: hidden;
-  padding: 0;
+  padding: 4px 0;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .settings-switch-ul {
@@ -284,7 +296,7 @@ img {
   border: 0px;
   border-radius: 100px;
   font-size: 14px;
-  height: 100%;
+  height: var(--tab-height);
   padding: 0;
   text-align: center;
   -webkit-user-select: auto;
@@ -378,6 +390,10 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   line-height: 30px;
 }
 
+.search-container.disabled {
+  opacity: 0.38;
+}
+
 #search-input-container {
   display: flex;
   width: 208px;
@@ -461,7 +477,30 @@ header.hide-controls #window-close {
   position: relative;
 }
 
-
+/* These are the styles for the screenreader mode editor */
+#editor-textarea {
+  background: var(--light-background-color);
+  color: var(--light-theme-text-color);
+  width: calc(100% - 2*var(--editor-padding));
+  height: calc(100vh - var(--header-height) - 2*var(--editor-padding));
+  resize: none;
+  padding: var(--editor-padding);
+  font-family: monospace;
+  line-height: var(--editor-line-height);
+  outline: none;
+  border: none;
+}
+.dark-theme #editor-textarea {
+  background: var(--dark-background-color);
+  color: var(--dark-theme-text-color);
+}
+#editor-textarea:focus {
+  outline: none;
+  border: none;
+}
+input[type=text][disabled] {
+  opacity: .38;
+}
 /* Markup below overrides default search input box styling. */
 input[type=search] {
   -webkit-appearance:none;
@@ -556,7 +595,7 @@ input[type=search]:focus {
 }
 
 .CodeMirror-lines {
-  line-height: 1.2em;
+  line-height: var(--editor-line-height);
 }
 
 header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
