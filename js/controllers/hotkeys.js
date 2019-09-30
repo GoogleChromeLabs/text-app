@@ -12,7 +12,6 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
   this.ZOOM_OUT_FACTOR = 8/9;
 
   $(document).keydown(this.onKeydown_.bind(this));
-  document.addEventListener('mousewheel', this.onMouseWheel_.bind(this));
 };
 
 /**
