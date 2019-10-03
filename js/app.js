@@ -23,7 +23,7 @@ function TextApp() {
 TextApp.prototype.init = function() {
   this.settings_ = new Settings();
   this.analytics_ = new Analytics();
-  this.editor_ = new Editor($('#editor')[0], this.settings_);
+  this.editor_ = new EditorCodeMirror($('#editor')[0], this.settings_);
   this.dialogController_ = new DialogController($('#dialog-container'),
                                                 this.editor_);
   this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
@@ -82,9 +82,24 @@ TextApp.prototype.setTheme = function() {
 };
 
 /**
+ * remove the editor so it can be reinitalised
+ */
+TextApp.prototype.removeEditor = function() {
+  const editor = $('#editor')[0];
+  while(editor.firstElementChild !== null) {
+    editor.firstElementChild.remove();
+  }
+}
+
+/**
  * Called when all the services have started and settings are loaded.
  */
 TextApp.prototype.onSettingsReady_ = function() {
+  if (this.settings_.get('accessibilitymode')) {
+    this.removeEditor();
+    this.editor_ = new EditorTextArea($('#editor')[0], this.settings_);
+  }
+
   this.setTheme();
   this.editor_.setFontSize(this.settings_.get('fontsize'));
   this.editor_.showHideLineNumbers(this.settings_.get('linenumbers'));
@@ -134,6 +149,15 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
 
     case 'wraplines':
       this.editor_.setWrapLines(value);
+      break;
+
+    case 'accessibilitymode':
+      this.removeEditor();
+      if (value) {
+        this.editor_ = new EditorTextArea($('#editor')[0], this.settings_);
+      } else {
+        this.editor_ = new EditorCodeMirror($('#editor')[0], this.settings_);
+      }
       break;
   }
 };

@@ -26,6 +26,7 @@ Settings.AREA = 'sync';
  * @type {Object.<string, Object>}
  */
 Settings.SETTINGS = {
+  'accessibilitymode': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'analytics': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},

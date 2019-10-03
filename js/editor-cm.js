@@ -330,6 +330,3 @@ EditorCodeMirror.prototype.enable = function() {
   this.cm_.setOption('readOnly', false);
   this.cm_.focus();
 };
-
-var Editor = EditorCodeMirror;
-

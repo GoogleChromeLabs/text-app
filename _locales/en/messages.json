@@ -67,6 +67,10 @@
     "message": "Always on top",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
   },
+  "accessibilityModeSetting": {
+    "message": "Accessibility Mode",
+    "description": "The label for the checkbox in settings tab that activates accessibility mode, this mode allows for screenreaders to function correctly but disables syntax highlighting"
+  },
   "defaultThemeOption": {
     "message": "Default",
     "description":"The text of the default Option Theme."
