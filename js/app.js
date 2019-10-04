@@ -100,6 +100,11 @@ TextApp.prototype.onSettingsReady_ = function() {
     this.editor_ = new EditorTextArea($('#editor')[0], this.settings_);
   }
 
+  this.initEditor_();
+};
+
+// Loads settings into a new text area
+TextApp.prototype.initEditor_ = function() {
   this.setTheme();
   this.editor_.setFontSize(this.settings_.get('fontsize'));
   this.editor_.showHideLineNumbers(this.settings_.get('linenumbers'));
@@ -110,7 +115,7 @@ TextApp.prototype.onSettingsReady_ = function() {
   this.analytics_.setEnabled(this.settings_.get('analytics'));
   this.analytics_.reportSettings(this.settings_);
   this.windowController_.setAlwaysOnTop(this.settings_.get('alwaysontop'));
-};
+}
 
 /**
  * @param {Event} e
@@ -158,6 +163,7 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
       } else {
         this.editor_ = new EditorCodeMirror($('#editor')[0], this.settings_);
       }
+      this.initEditor_();
       break;
   }
 };

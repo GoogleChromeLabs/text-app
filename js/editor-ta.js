@@ -6,15 +6,72 @@
 function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
+  this.numLines_ = 1;
+
   this.setTheme();
 
-  this.element_.innerText = 'HELLO I AM A EDITOR';
+  const initFontSize = this.settings_.get('fontsize') + 'px';
 
+  this.textarea_ = document.createElement('textarea');
+  this.textarea_.setAttribute('id', 'editor-ta');
+  this.textarea_.style.fontSize = initFontSize;
+  this.textarea_.addEventListener('input', function() {
+    this.onChange();
+  }.bind(this));
+
+  this.wrapper_ = document.createElement('div');
+  this.wrapper_.classList.add('editor-ta-wrapper');
+  this.wrapper_.appendChild(this.textarea_);
+
+  this.lineNumbers_ = document.createElement('div');
+  this.lineNumbers_.setAttribute('id', 'editor-ta-line-numbers');
+  this.lineNumbers_.style.fontSize = initFontSize;
+  this.lineNumbers_.appendChild(this.lineNumberElem(1));
+
+  this.container_ = document.createElement('div');
+  this.container_.classList.add('editor-ta-container');
+  this.container_.append(this.lineNumbers_);
+  this.container_.append(this.wrapper_);
+
+  this.element_.appendChild(this.container_);
+
+  // Hack to be able to grow the textarea to it's input.
+  // - 8 to compenstate for padding
+  this.initHeight_ = editorElement.getBoundingClientRect().height - 8;
+  this.mirror_ = document.createElement('div');
+  this.mirror_.classList.add('hidden');
+  this.mirror_.style.fontSize = initFontSize;
+  this.element_.appendChild(this.mirror_);
+
+  this.updateHeight(this.initHeight_);
+  // container should match editor so undo the padding change
+  this.container_.style.height = (this.initHeight_ + 8) + 'px';
   // TODO: set up search
   // TODO: setup how we are handling tabs?
 
 }
 
+/**
+ * @param {number} height
+ * Updates height for both line number and container elem
+ */
+EditorTextArea.prototype.updateHeight = function(height) {
+  this.textarea_.style.height = height + 'px';
+  this.wrapper_.style.height = height + 'px';
+  this.lineNumbers_.style.height = height + 'px';
+}
+
+
+/**
+ * @param {number} number
+ * @return {HTMLElement}
+ * Create a span for the line number gutter containing the line number
+ */
+EditorTextArea.prototype.lineNumberElem = function(number) {
+  const e = document.createElement('div');
+  e.innerText = number;
+  return e;
+}
 
 /**
  * @param {string} opt_content
@@ -23,6 +80,9 @@ function EditorTextArea(editorElement, settings) {
  */
 EditorTextArea.prototype.newSession = function(opt_content) {
   // TODO: this
+  // Note opt_content is inital content to load into the area, remember to
+  // update the this.numLines_ and stuff;
+  // maybe just called updateLineNumbers and updateTextArea}
 };
 
 /**
@@ -31,6 +91,8 @@ EditorTextArea.prototype.newSession = function(opt_content) {
  */
 EditorTextArea.prototype.setSession = function(session) {
   // TODO: this
+  // Note when switching out content remember to update the this.numLines_ and stuff;
+  // maybe just called updateLineNumbers and updateTextArea
 };
 
 /**
@@ -42,7 +104,44 @@ EditorTextArea.prototype.getSearch = function() {
 };
 
 EditorTextArea.prototype.onChange = function() {
-  // TODO: this
+  this.numLines_ = this.textarea_.value.split('').filter(x => x === '\n').length + 1;
+  this.mirror_.innerText = this.textarea_.value;
+  // If we have a blank line at the end we have to add a character to get the
+  // height to set correctly
+  if (this.textarea_.value[this.textarea_.value.length-1] === '\n') {
+    this.mirror_.innerText += 'A';
+  }
+  this.updateLineNumbers();
+  this.updateTextArea();
+  // TODO: need to emit a docChange event to each tab can know a change occured...
+};
+
+EditorTextArea.prototype.updateTextArea = function() {
+  const calculatedHeight = this.mirror_.getBoundingClientRect().height;
+  // TODO(zafzal): adjust for padding.
+  if (calculatedHeight < this.initHeight_) {
+    this.container_.scrollTop = 0;
+    this.updateHeight(this.initHeight_);
+    return;
+  }
+  this.updateHeight(calculatedHeight);
+};
+
+
+EditorTextArea.prototype.updateLineNumbers = function() {
+  let linesRendered = this.lineNumbers_.children.length;
+
+  // remove excess
+  while (linesRendered > this.numLines_) {
+    this.lineNumbers_.lastChild.remove();
+    linesRendered--;
+  }
+  // add missing
+  while(linesRendered < this.numLines_) {
+    this.lineNumbers_.appendChild(this.lineNumberElem(linesRendered+1));
+    linesRendered++;
+  }
+
 };
 
 EditorTextArea.prototype.undo = function() {
@@ -54,7 +153,7 @@ EditorTextArea.prototype.redo = function() {
 };
 
 EditorTextArea.prototype.focus = function() {
-  // TODO: this
+  this.textarea_.focus();
 };
 
 /**
@@ -70,7 +169,11 @@ EditorTextArea.prototype.setMode = function(session, extension) {
  * Update font size from settings.
  */
 EditorTextArea.prototype.setFontSize = function(fontSize) {
-
+  this.textarea_.style.fontSize = fontSize + 'px';
+  this.lineNumbers_.style.fontSize = fontSize + 'px';
+  this.mirror_.style.fontSize = fontSize + 'px';
+  this.updateLineNumbers();
+  this.updateTextArea();
 };
 
 /**
@@ -130,4 +233,3 @@ EditorTextArea.prototype.disable = function() {
 EditorTextArea.prototype.enable = function() {
   // TODO: this
 };
-
