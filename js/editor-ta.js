@@ -18,6 +18,11 @@ function EditorTextArea(editorElement, settings) {
   this.textarea_.addEventListener('input', function() {
     this.onChange();
   }.bind(this));
+  window.addEventListener('resize', function() {
+    this.updateInitHeight();
+    this.updateLineNumbers();
+    this.updateTextArea();
+  }.bind(this));
 
   this.wrapper_ = document.createElement('div');
   this.wrapper_.classList.add('editor-ta-wrapper');
@@ -37,7 +42,7 @@ function EditorTextArea(editorElement, settings) {
 
   // Hack to be able to grow the textarea to it's input.
   // - 8 to compenstate for padding
-  this.initHeight_ = editorElement.getBoundingClientRect().height - 8;
+  this.updateInitHeight();
   this.mirror_ = document.createElement('div');
   this.mirror_.classList.add('hidden');
   this.mirror_.style.fontSize = initFontSize;
@@ -45,7 +50,6 @@ function EditorTextArea(editorElement, settings) {
 
   this.updateHeight(this.initHeight_);
   // container should match editor so undo the padding change
-  this.container_.style.height = (this.initHeight_ + 8) + 'px';
   // TODO: set up search
   // TODO: setup how we are handling tabs?
 
@@ -71,6 +75,11 @@ EditorTextArea.prototype.lineNumberElem = function(number) {
   const e = document.createElement('div');
   e.innerText = number;
   return e;
+}
+
+EditorTextArea.prototype.updateInitHeight = function() {
+  this.initHeight_ = this.element_.getBoundingClientRect().height - 8;
+  this.container_.style.height = (this.initHeight_ + 8) + 'px';
 }
 
 /**
