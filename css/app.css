@@ -3,6 +3,9 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
+  --editor-gutter-padding: 4px 3px 16px 5px;
+  --editor-gutter-vertical-padding: 20px;
+  --editor-line-height: 1.2em;
   --header-height: 48px;
   --light-accent-color: rgb(0, 0, 0, 0.04);
   --light-background-color: white;
@@ -11,6 +14,8 @@
   --mdc-theme-secondary: rgb(27, 114, 232);
   --settings-input-width: 55px;
   --tab-height: 36px;
+  --editor-padding: 4px 4px 16px 4px;
+  --editor-vertical-padding: 20px;
 }
 
 * {
@@ -462,18 +467,18 @@ header.hide-controls #window-close {
 }
 
 /* These are the styles for the accessibility mode editor */
-.editor-ta-container {
+.editor-textarea-container {
   width: 100%;
   height: 100%;
   display: flex;
   overflow-x: hidden;
 }
 
-#editor-ta-line-numbers {
+#editor-textarea-line-numbers {
   background: var(--light-background-color);
-  min-height: calc(100% - 8px);
+  min-height: calc(100% - 2*var(--editor-gutter-vertical-padding));
   height: auto;
-  padding: 4px 0;
+  padding: var(--editor-gutter-padding);
   min-width: 29px;
   width: auto;
   font-family: monospace;
@@ -484,24 +489,24 @@ header.hide-controls #window-close {
   flex-direction: column;
 }
 
-#editor-ta-line-numbers>div {
-  width: calc(100% - 8px);
+#editor-textarea-line-numbers>div {
+  width: calc(100% - var(--editor-gutter-padding-right) - var(--editor-gutter-padding-left));
   text-align: right;
-  padding: 0 3px 0 5px;
+  padding: 0 var(--editor-gutter-padding-right) 0 var(--editor-gutter-padding-left);
   height: auto;
-  line-height: 1.2em;
+  line-height: var(--editor-line-height);
 }
 
-.editor-ta-wrapper {
-  min-height: calc(100% - 8px);
+.editor-textarea-wrapper {
+  min-height: calc(100% - (2 * var(--editor-vertical-padding)));
   height: auto;
-  padding: 4px;
+  padding: var(--editor-padding);
   flex: 1;
   overflow-y: hidden;
   overflow-x: auto;
 }
 
-#editor-ta {
+#editor-textarea {
   border: none;
   height: 100%;
   margin: 0;
@@ -509,12 +514,12 @@ header.hide-controls #window-close {
   padding: 0;
   resize: none;
   font-family: monospace;
-  line-height: 1.2em;
+  line-height: var(--editor-line-height);
   font-size: 14px;
   overflow: hidden;
 }
 
-#editor-ta:focus {
+#editor-textarea:focus {
   outline: none;
 }
 
@@ -612,18 +617,25 @@ input[type=search]:focus {
 }
 
 .CodeMirror-lines {
-  line-height: 1.2em;
+  line-height: var(--editor-line-height);
 }
 
 header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
   background-color: rgba(253, 207, 76, .5);
 }
 
-.hidden {
+.hidden-textarea-mirror {
   position: absolute;
-  bottom: -999999;
-  opacity: 0;
+  visibility: hidden;
   font-family: monospace;
-  line-height: 1.2em;
+  line-height: var(--editor-line-height);
   white-space: nowrap;
+}
+
+.hidden-line-mirror {
+  position: absolute;
+  visibility: hidden;
+  font-family: monospace;
+  line-height: var(--editor-line-height);
+  word-break: break-all;
 }
