@@ -497,6 +497,8 @@ header.hide-controls #window-close {
   height: auto;
   padding: 4px;
   flex: 1;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 #editor-ta {
@@ -623,4 +625,5 @@ header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
   opacity: 0;
   font-family: monospace;
   line-height: 1.2em;
+  white-space: nowrap;
 }
