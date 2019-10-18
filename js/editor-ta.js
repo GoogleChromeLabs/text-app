@@ -7,9 +7,13 @@ function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.numLines_ = 1;
+<<<<<<< HEAD
 
   this.setTheme();
 
+=======
+  this.currSession_ = null;
+>>>>>>> 880977e4... Added basic support of tabs
   const initFontSize = this.settings_.get('fontsize') + 'px';
 
   // The main text area the user will be interacting with
@@ -126,10 +130,9 @@ EditorTextArea.prototype.updateInitDimentions = function() {
  * Create an edit session for a new file. Each tab should have its own session.
  */
 EditorTextArea.prototype.newSession = function(opt_content) {
-  // TODO(zafzal): this
-  // Note opt_content is inital content to load into the area, remember to
-  // update the this.numLines_ and stuff;
-  // maybe just called updateLineNumbers and updateTextArea}
+  return {
+    data: opt_content || ''
+  }
 };
 
 /**
@@ -137,9 +140,9 @@ EditorTextArea.prototype.newSession = function(opt_content) {
  * Change the current session, usually to switch to another tab.
  */
 EditorTextArea.prototype.setSession = function(session) {
-  // TODO(zafzal): this
-  // Note when switching out content remember to update the this.numLines_ and stuff;
-  // maybe just called updateLineNumbers and updateTextArea
+  this.currSession_ = session;
+  this.textarea_.value = session.data;
+  this.syncTextArea();
 };
 
 /**
@@ -150,9 +153,14 @@ EditorTextArea.prototype.getSearch = function() {
   // TODO(zafzal): this
 };
 
-EditorTextArea.prototype.onChange = function() {
-  // TODO(zafzal): Speed this up
-  this.numLines_ = this.textarea_.value.split('').filter(x => x === '\n').length + 1;
+EditorTextArea.prototype.syncTextArea = function() {
+  const text = this.textarea_.value;
+  let count = 0;
+  for(const c of text) {
+    if (c === '\n')
+      count++;
+  }
+  this.numLines_ = count + 1;
   this.mirror_.innerText = this.textarea_.value;
 
   // If we have a blank line at the end we have to add a character to get the
@@ -162,7 +170,12 @@ EditorTextArea.prototype.onChange = function() {
   }
   this.updateLineNumbers();
   this.updateTextArea();
-  // TODO(zafzal): need to emit a docChange event to each tab can know a change occured...
+}
+
+EditorTextArea.prototype.onChange = function() {
+  this.currSession_.data = this.textarea_.value;
+  this.syncTextArea();
+  $.event.trigger('docchange', this.currSession_);
 };
 
 EditorTextArea.prototype.updateTextArea = function() {
