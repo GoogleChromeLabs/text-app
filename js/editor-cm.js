@@ -1,6 +1,5 @@
 var EditSession = CodeMirror.Doc;
 
-
 /**
  * @constructor
  * @param {DOM} elementId
@@ -10,7 +9,6 @@ function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.currentSession_ = null;
-
   this.cm_ = CodeMirror(
       editorElement,
       {
@@ -23,12 +21,10 @@ function EditorCodeMirror(editorElement, settings) {
           caseInsensitive: true
         }
       });
-
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
   this.textarea_ = this.cm_.getInputField();
   this.prevInput_ = null;
-
   this.setTheme();
   this.search_ = new Search(this.cm_);
   // Mimic Sublime behaviour there.
@@ -97,6 +93,7 @@ EditorCodeMirror.prototype.newSession = function(opt_content) {
   };
   return session;
 };
+
 /**
  * @param {EditSession} session
  * Change the current session, usually to switch to another tab.
@@ -227,4 +224,11 @@ EditorCodeMirror.prototype.disable = function() {
 EditorCodeMirror.prototype.enable = function() {
   this.cm_.setOption('readOnly', false);
   this.cm_.focus();
+};
+
+/**
+ * Prepare the Editor to be killed and removed from the DOM
+ */
+EditorCodeMirror.prototype.destory = function() {
+  // no destruction logic needed
 };
