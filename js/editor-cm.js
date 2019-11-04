@@ -1,16 +1,19 @@
 var EditSession = CodeMirror.Doc;
 
-// The following code was taken from chrome dev tools to help improve codemirror
-// screen reader support for navigating around a document.
+// The devToolsAccessibleTextArea class was taken from chrome dev tools to help
+// improve codemirror screen reader support for navigating around a document.
 // https://github.com/ChromeDevTools/devtools-frontend/blob/0ddf8e4898701ab4174096707346d71cc5985268/front_end/text_editor/CodeMirrorTextEditor.js#L1736
 
 
-// CodeMirror uses an offscreen <textarea> to detect input. Due to inconsistencies in the many browsers it supports,
-// it simplifies things by regularly checking if something is in the textarea, adding those characters to the document,
-// and then clearing the textarea. This breaks assistive technology that wants to read from CodeMirror, because the
-// <textarea> that they interact with is constantly empty.
-// Because we target up-to-date Chrome, we can gaurantee consistent input events. This lets us leave the current
-// line from the editor in our <textarea>. CodeMirror still expects a mostly empty <textarea>, so we pass CodeMirror a
+// CodeMirror uses an offscreen <textarea> to detect input. Due to
+// inconsistencies in the many browsers it supports, it simplifies things by
+// regularly checking if something is in the textarea, adding those characters
+// to the document, and then clearing the textarea. This breaks assistive
+// technology that wants to read from CodeMirror, because the <textarea> that
+// they interact with is constantly empty. Because we target chrome on
+// chrome os, we can gaurantee consistent input events. This lets us leave the
+// current line from the editor in our <textarea>.
+// CodeMirror still expects a mostly empty <textarea>, so we pass CodeMirror a
 // fake <textarea> that only contains the users input.
 CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inputStyles.textarea {
   /**
@@ -111,6 +114,9 @@ function EditorCodeMirror(editorElement, settings) {
         'inputStyle': 'devToolsAccessibleTextArea',
         // this is 25 days in milliseconds, we set the poll interval to be
         // incredibly long so that a poll doesn't break our selection logic.
+        // We can remove the need for the poll because we only target chrome on
+        // chrome os which handles events consistently, the poll is for other
+        // browsers with less reliable input events, which we can ignore here.
         'pollInterval': Math.pow(2, 31) - 1,
         'highlightSelectionMatches': {
           minChars: 1,
