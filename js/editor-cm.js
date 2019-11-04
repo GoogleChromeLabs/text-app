@@ -1,5 +1,102 @@
 var EditSession = CodeMirror.Doc;
 
+// The devToolsAccessibleTextArea class was taken from chrome dev tools to help
+// improve codemirror screen reader support for navigating around a document.
+// https://github.com/ChromeDevTools/devtools-frontend/blob/0ddf8e4898701ab4174096707346d71cc5985268/front_end/text_editor/CodeMirrorTextEditor.js#L1736
+
+
+// CodeMirror uses an offscreen <textarea> to detect input. Due to
+// inconsistencies in the many browsers it supports, it simplifies things by
+// regularly checking if something is in the textarea, adding those characters
+// to the document, and then clearing the textarea. This breaks assistive
+// technology that wants to read from CodeMirror, because the <textarea> that
+// they interact with is constantly empty. Because we target chrome on
+// chrome os, we can gaurantee consistent input events. This lets us leave the
+// current line from the editor in our <textarea>.
+// CodeMirror still expects a mostly empty <textarea>, so we pass CodeMirror a
+// fake <textarea> that only contains the users input.
+CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inputStyles.textarea {
+  /**
+   * @override
+   * @param {!Object} display
+   */
+  init(display) {
+    super.init(display);
+    this.textarea.addEventListener('compositionstart', this._onCompositionStart.bind(this));
+  }
+
+  _onCompositionStart() {
+    if (this.textarea.selectionEnd === this.textarea.value.length)
+      return;
+    // CodeMirror always expects the caret to be at the end of the textarea
+    // When in IME composition mode, clip the textarea to how CodeMirror expects it,
+    // and then let CodeMirror do it's thing.
+    this.textarea.value = this.textarea.value.substring(0, this.textarea.selectionEnd);
+    this.textarea.setSelectionRange(this.textarea.value.length, this.textarea.value.length);
+    this.prevInput = this.textarea.value;
+  }
+
+  /**
+   * @override
+   * @param {boolean=} typing
+   */
+  reset(typing) {
+    if (typing || this.contextMenuPending || this.composing || this.cm.somethingSelected()) {
+      super.reset(typing);
+      return;
+    }
+
+    // When navigating around the document, keep the current visual line in the textarea.
+    const cursor = this.cm.getCursor();
+    let start, end;
+    if (this.cm.options.lineWrapping) {
+      // To get the visual line, compute the leftmost and rightmost character positions.
+      const top = this.cm.charCoords(cursor, 'page').top;
+      start = this.cm.coordsChar({left: -Infinity, top});
+      end = this.cm.coordsChar({left: Infinity, top});
+    } else {
+      // Limit the line to 1000 characters to prevent lag.
+      const offset = Math.floor(cursor.ch / 1000) * 1000;
+      start = {ch: offset, line: cursor.line};
+      end = {ch: offset + 1000, line: cursor.line};
+    }
+    this.textarea.value = this.cm.getRange(start, end);
+    const caretPosition = cursor.ch - start.ch;
+    this.textarea.setSelectionRange(caretPosition, caretPosition);
+    this.prevInput = this.textarea.value;
+  }
+
+  /**
+   * @override
+   * @return {boolean}
+   */
+  poll() {
+    if (this.contextMenuPending || this.composing)
+      return super.poll();
+    const text = this.textarea.value;
+    let start = 0;
+    const length = Math.min(this.prevInput.length, text.length);
+    while (start < length && this.prevInput[start] === text[start])
+      ++start;
+    let end = 0;
+    while (end < length - start && this.prevInput[this.prevInput.length - end - 1] === text[text.length - end - 1])
+      ++end;
+
+    // CodeMirror expects the user to be typing into a blank <textarea>.
+    // Pass a fake textarea into super.poll that only contains the users input.
+    /** @type {!HTMLTextAreaElement} */
+    const placeholder = this.textarea;
+    this.textarea = /** @type {!HTMLTextAreaElement} */ (document.createElement('textarea'));
+    this.textarea.value = text.substring(start, text.length - end);
+    this.textarea.setSelectionRange(placeholder.selectionStart - start, placeholder.selectionEnd - start);
+    this.prevInput = '';
+    const result = super.poll();
+    this.prevInput = text;
+    this.textarea = placeholder;
+    return result;
+  }
+};
+
 /**
  * @constructor
  * @param {DOM} elementId
@@ -14,6 +111,13 @@ function EditorCodeMirror(editorElement, settings) {
         'value': '',
         'autofocus': true,
         'matchBrackets': true,
+        'inputStyle': 'devToolsAccessibleTextArea',
+        // this is 25 days in milliseconds, we set the poll interval to be
+        // incredibly long so that a poll doesn't break our selection logic.
+        // We can remove the need for the poll because we only target chrome on
+        // chrome os which handles events consistently, the poll is for other
+        // browsers with less reliable input events, which we can ignore here.
+        'pollInterval': Math.pow(2, 31) - 1,
         'highlightSelectionMatches': {
           minChars: 1,
           delay: 0,
