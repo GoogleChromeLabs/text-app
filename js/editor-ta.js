@@ -20,10 +20,13 @@ function EditorTextArea(editorElement, settings) {
   this.textarea_ = document.createElement('textarea');
   this.textarea_.setAttribute('id', 'editor-textarea');
   this.textarea_.style.fontSize = initFontSize;
-  this.textarea_.addEventListener('input', function() {
+  this.textarea_.addEventListener('input', () => {
     this.syncTextArea();
-  }.bind(this));
+  });
 
+  // Build up the text editor in js, we do this here and not in the html since
+  // this is what codemirror does and we want to match it's interface as much
+  // as possible to allow for a easy switching between the two.
   this.wrapper_ = document.createElement('div');
   this.wrapper_.classList.add('editor-textarea-wrapper');
   this.wrapper_.appendChild(this.textarea_);
@@ -38,12 +41,17 @@ function EditorTextArea(editorElement, settings) {
   this.container_.append(this.lineNumbers_);
   this.container_.append(this.wrapper_);
 
-  this.containerResizeObserver_ = new ResizeObserver(this.calibrateDimensions.bind(this));
+  this.containerResizeObserver_ = new ResizeObserver(() => {
+    this.calibrateDimensions();
+  });
   this.containerResizeObserver_.observe(this.container_);
-  this.wrapperResizeObserver_ = new ResizeObserver(this.calibrateDimensions.bind(this));
+  this.wrapperResizeObserver_ = new ResizeObserver(() => {
+    this.calibrateDimensions();
+  });
   this.wrapperResizeObserver_.observe(this.wrapper_);
-
-  window.onresize = this.calibrateDimensions.bind(this);
+  window.addEventListener('resize', () => {
+    this.calibrateDimensions();
+  });
 
   this.element_.appendChild(this.container_);
 
@@ -88,9 +96,9 @@ EditorTextArea.prototype.updateHeight = function(height) {
   this.wrapper_.style.height = height + 'px';
   // Annoyingly, we need to give the wrapper time to register it's height
   // change before updating the text area or the two elements overlap
-  setTimeout(function() {
+  setTimeout(() => {
     this.textarea_.style.height = height + 'px';
-  }.bind(this), 0);
+  }, 0);
 
   this.lineNumbers_.style.height = height + 'px';
 }
@@ -359,5 +367,7 @@ EditorTextArea.prototype.enable = function() {
 EditorTextArea.prototype.destory = function() {
   this.containerResizeObserver_.disconnect();
   this.wrapperResizeObserver_.disconnect();
-  window.removeEventListener('resize', this.calibrateDimensions.bind(this));
+  window.removeEventListener('resize', () => {
+    this.calibrateDimensions();
+  });
 };
