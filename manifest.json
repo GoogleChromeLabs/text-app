@@ -34,5 +34,6 @@
       "types": ["application/javascript", "application/json", "application/x-shellscript", "application/xml", "text/*"],
       "extensions": ["asp", "aspx", "abc", "acgi", "aip", "asm", "c", "c++", "cc", "clj", "com", "coffee", "conf", "cpp", "cs", "csh", "css", "csv", "cxx", "def", "diff", "ejs", "el", "eml", "etx", "f", "f77", "f90", "flx", "for", "g", "gn", "gemspec", "go", "groovy", "gyp", "gypi", "h", "hh", "hlb", "hpp", "hs", "htc", "htm", "html", "htmls", "htt", "htx", "ics", "idc", "ifb", "jav", "java", "js", "json", "jsp", "ksh", "list", "log", "lsp", "lst", "lsx", "lua", "m", "mk", "mm", "man", "manifest", "mar", "mcf", "md", "mdoc", "me", "ms", "p", "pch", "pas", "patch", "pl", "plist", "pm", "pod", "py", "rake", "rb", "rexx", "roff", "rst", "rt", "rtx", "ru", "s", "scm", "sdml", "sgm", "sgml", "sh", "shtml", "spc", "ssi", "st", "t", "talk", "tcl", "tcsh", "text", "textile", "tr", "tsv", "txt", "uil", "uni", "unis", "uri", "uris", "uu", "uue", "vcf", "vcs", "wml", "wmls", "wsc", "xml", "yaml", "yml", "zsh"]
     }
-  }
+  },
+  "kiosk_enabled" : true
 }
