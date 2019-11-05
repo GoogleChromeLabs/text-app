@@ -12,7 +12,6 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
   this.ZOOM_OUT_FACTOR = 8/9;
 
   $(document).keydown(this.onKeydown_.bind(this));
-  document.addEventListener('mousewheel', this.onMouseWheel_.bind(this));
 };
 
 /**
@@ -108,17 +107,6 @@ HotkeysController.prototype.onKeydown_ = function(e) {
     if (e.key === ' ') {
       $('#toggle-sidebar').click();
       return false;
-    }
-  }
-};
-
-HotkeysController.prototype.onMouseWheel_ = function(e) {
-  if (e.ctrlKey || e.metaKey) {
-    var fontSize = this.settings_.get('fontsize');
-    if (e.wheelDelta > 0) {
-      this.settings_.set('fontsize', fontSize * this.ZOOM_IN_FACTOR);
-    } else {
-      this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
     }
   }
 };

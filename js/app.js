@@ -89,9 +89,7 @@ TextApp.prototype.removeEditor = function(editor) {
  */
 TextApp.prototype.onSettingsReady_ = function() {
   this.settingsController_ = new SettingsController(this.settings_);
-
   this.initEditor_();
-
   this.analytics_.setEnabled(this.settings_.get('analytics'));
   this.analytics_.reportSettings(this.settings_);
   this.windowController_.setAlwaysOnTop(this.settings_.get('alwaysontop'));

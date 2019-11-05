@@ -6,16 +6,15 @@
 function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
-  this.numLines_ = 1;
-
-  this.setTheme();
-
+  this.numLines_ = 1
   this.textareaPadding_ = 20;
   this.dimentions = {
     height: null,
     width: null
   };
+  this.setTheme();
   const initFontSize = this.settings_.get('fontsize') + 'px';
+
   // We need a named reference to this arrow function so we can remove it
   // after we set it as a event handler.
   this.onInput = () => {
@@ -375,7 +374,7 @@ EditorTextArea.prototype.enable = function() {
 };
 
 /**
- * Prepare the Editor to be killed and then remove it from the DOM.
+ * Prepare the Editor to be killed and removed from the DOM.
  */
 EditorTextArea.prototype.destory = function() {
   this.containerResizeObserver_.disconnect();

@@ -470,10 +470,11 @@ Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
 };
 
 Tabs.prototype.onDocChanged_ = function(_, { type }) {
-  // Assume that updates are coming from the current tab
+  // Assume that updates are coming from the current tab, if they arn't
+  // we have no real way to recover so failing here is acceptable.
   var tab = this.currentTab_;
   tab.changed();
-  // sync the session
+  // Sync the session.
   util.syncUnifiedSession(this.currentTab_.getSession(), type, this.lineEndings_);
 };
 
