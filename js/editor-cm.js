@@ -105,6 +105,7 @@ CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inp
 function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
+  this.currentSession_ = null;
   this.cm_ = CodeMirror(
       editorElement,
       {
