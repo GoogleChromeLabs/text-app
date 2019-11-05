@@ -76,11 +76,11 @@ util.getExtension = function(fileName) {
   }
 };
 
-/*
+/**
  * @param {?string} [text] Text content.
  * @return {string} Line endings.
  * Returns guessed line endings or LF if not successful.
-*/
+ */
 util.guessLineEndings = function(text) {
   if (!text) {
     return '\n';
@@ -90,3 +90,33 @@ util.guessLineEndings = function(text) {
 
   return (hasCRLF ? '\r\n' : '\n');
 };
+
+/**
+ * @param {?string} opt_content Optional content.
+ * Creates a unified session that can be read from any supported editor
+ */
+util.createUnifiedSession = function(opt_content) {
+  const textarea = document.createElement('textarea');
+  textarea.value = opt_content || '';
+  return {
+    codemirror: new CodeMirror.Doc(opt_content || ''),
+    textarea
+  }
+}
+
+/**
+ * @param {EditSession} session
+ * @param {string} updated Which text source is the source of truth.
+ * @param {string} lineEndings What to use as a line ending
+ * Syncs the multiple formats of a unified session.
+ */
+util.syncUnifiedSession = function(session, updated, lineEndings) {
+  switch(updated) {
+    case 'codemirror':
+      session.textarea.value = session.codemirror.getValue(lineEndings);
+      break;
+    case 'textarea':
+      session.codemirror.setValue(session.textarea.value);
+      break;
+  }
+}

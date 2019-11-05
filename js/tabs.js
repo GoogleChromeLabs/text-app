@@ -70,7 +70,7 @@ Tab.prototype.updatePath_ = function() {
 };
 
 Tab.prototype.getContent_ = function() {
-  return this.session_.getValue(this.lineEndings_);
+  return this.session_.codemirror.getValue(this.lineEndings_);
 };
 
 Tab.prototype.save = function(opt_callbackDone) {
@@ -117,6 +117,10 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   this.currentTab_ = null;
   $(document).bind('docchange', this.onDocChanged_.bind(this));
+}
+
+Tabs.prototype.updateEditor = function(editor) {
+  this.editor_ = editor;
 }
 
 /**
@@ -191,7 +195,7 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
     id++;
   }
 
-  var session = this.editor_.newSession(opt_content);
+  var session = util.createUnifiedSession(opt_content);
   var lineEndings = util.guessLineEndings(opt_content);
 
   var tab = new Tab(id, session, lineEndings, opt_entry || null,
@@ -385,7 +389,7 @@ Tabs.prototype.save = function(opt_tab, opt_callback) {
 Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
   var tab = opt_tab || this.currentTab_;
   var suggestedName = tab.getEntry() && tab.getEntry().name ||
-                      util.sanitizeFileName(tab.session_.getLine(0)) ||
+                      util.sanitizeFileName(tab.session_.codemirror.getLine(0)) ||
                       tab.getName();
   if (!util.getExtension(suggestedName)) {
       suggestedName += '.txt';
@@ -465,26 +469,12 @@ Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
   this.save(tab, opt_callback);
 };
 
-Tabs.prototype.onDocChanged_ = function(e, session) {
+Tabs.prototype.onDocChanged_ = function(_, { type }) {
+  // Assume that updates are coming from the current tab
   var tab = this.currentTab_;
-  if (this.currentTab_.getSession() !== session) {
-    console.warn('Something wrong. Current session should be',
-                 this.currentTab_.getSession(),
-                 ', but this session was changed:', session);
-    for (var i = 0; i < this.tabs_; i++) {
-      if (this.tabs_[i].getSession() === session) {
-        tab = this.tabs_[i];
-        break;
-      }
-    }
-
-    if (tab === this.currentTab_) {
-      console.error('Unknown tab changed.');
-      return;
-    }
-  }
-
   tab.changed();
+  // sync the session
+  util.syncUnifiedSession(this.currentTab_.getSession(), type, this.lineEndings_);
 };
 
 /**

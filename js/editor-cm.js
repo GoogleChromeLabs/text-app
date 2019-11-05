@@ -8,7 +8,6 @@ var EditSession = CodeMirror.Doc;
 function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
-  this.currentSession_ = null;
   this.cm_ = CodeMirror(
       editorElement,
       {
@@ -82,25 +81,12 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 /**
- * @param {string} opt_content
- * @return {EditSession}
- * Create an edit session for a new file. Each tab should have its own session.
- */
-EditorCodeMirror.prototype.newSession = function(opt_content) {
-  var session = {
-    type: 'codemirror',
-    data: new CodeMirror.Doc(opt_content || '')
-  };
-  return session;
-};
-
-/**
  * @param {EditSession} session
  * Change the current session, usually to switch to another tab.
  */
 EditorCodeMirror.prototype.setSession = function(session) {
-  this.currentSession_ = session;
-  this.cm_.swapDoc(session.data);
+  if (session.codemirror !== this.cm_.getDoc())
+    this.cm_.swapDoc(session.codemirror);
 };
 
 /**
@@ -112,7 +98,9 @@ EditorCodeMirror.prototype.getSearch = function() {
 };
 
 EditorCodeMirror.prototype.onChange = function() {
-  $.event.trigger('docchange', this.currentSession_);
+  $.event.trigger('docchange', {
+    type: 'codemirror'
+  });
 };
 
 EditorCodeMirror.prototype.undo = function() {
@@ -230,5 +218,6 @@ EditorCodeMirror.prototype.enable = function() {
  * Prepare the Editor to be killed and removed from the DOM
  */
 EditorCodeMirror.prototype.destory = function() {
-  // no destruction logic needed
+  // detach the current doc so it can be reset in future
+  this.cm_.swapDoc(new CodeMirror.Doc(''));
 };

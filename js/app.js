@@ -88,6 +88,8 @@ TextApp.prototype.removeEditor = function(editor) {
  * Called when all the services have started and settings are loaded.
  */
 TextApp.prototype.onSettingsReady_ = function() {
+  this.settingsController_ = new SettingsController(this.settings_);
+
   this.initEditor_();
 
   this.analytics_.setEnabled(this.settings_.get('analytics'));
@@ -118,15 +120,30 @@ TextApp.prototype.initEditor_ = function() {
   // set up all dependent objects
   this.dialogController_ = new DialogController($('#dialog-container'),
                                                 this.editor_);
-  this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
+  if (!this.tabs_) {
+    this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
+    this.menuController_ = new MenuController(this.tabs_);
+  } else {
+    // if tabs already exists, just replace the editor so we preserve state
+    this.tabs_.updateEditor(this.editor_);
+  }
 
-  this.menuController_ = new MenuController(this.tabs_);
-  this.searchController_ = new SearchController(this.editor_.getSearch());
-  this.settingsController_ = new SettingsController(this.settings_);
-  this.windowController_ = new WindowController(
+  if (!this.windowController_) {
+    this.windowController_ = new WindowController(
       this.editor_, this.settings_, this.analytics_, this.tabs_);
-  this.hotkeysController_ = new HotkeysController( this.windowController_,
+  } else {
+    this.windowController_.updateEditor(this.editor_);
+  }
+
+  if (!this.hotkeysController_) {
+    this.hotkeysController_ = new HotkeysController( this.windowController_,
       this.tabs_, this.editor_, this.settings_, this.analytics_);
+  } else {
+    this.hotkeysController_.updateEditor(this.editor_);
+  }
+
+
+  this.searchController_ = new SearchController(this.editor_.getSearch());
 
   this.setTheme();
   this.editor_.setFontSize(this.settings_.get('fontsize'));
@@ -179,9 +196,11 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
     case 'accessibilitymode':
       // This recreates a new editor and inserts it into the dom on a11y mode
       // change, this is quite slow but the complexity of keeping both alive
-      // and switching them out seemed excessive given the frequence that this
+      // and switching them out seemed excessive given the frequency that this
       // setting will likely be changed.
       this.initEditor_();
+
+      this.editor_.setSession(this.tabs_.currentTab_.getSession());
       break;
   }
 };
