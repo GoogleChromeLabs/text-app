@@ -70,10 +70,10 @@ TextApp.prototype.setTheme = function() {
 
 /**
  * Remove the editor so it can be reinitialized.
- * @param editor The Dom element containing the editor
+ * @param editor The Dom element containing the editor.
  */
 TextApp.prototype.removeEditor = function(editor) {
-  // Let the object do any clean up it needs
+  // Let the object do any clean up it needs.
   if (this.editor_ !== null) {
     this.editor_.destory();
   }
@@ -100,10 +100,10 @@ TextApp.prototype.onSettingsReady_ = function() {
 };
 
 /**
- * Create a new editor and load all settings
+ * Create a new editor and load all settings.
  */
 TextApp.prototype.initEditor_ = function() {
-  // Remove any editor that already exists
+  // Remove any editor that already exists.
   if (this.editor_ !== null) {
     const editor = document.getElementById('editor');
     this.removeEditor(editor);
@@ -115,34 +115,32 @@ TextApp.prototype.initEditor_ = function() {
     this.editor_ = new EditorCodeMirror(editor, this.settings_);
   }
 
-  // set up all dependent objects
-  this.dialogController_ = new DialogController($('#dialog-container'),
-                                                this.editor_);
   if (!this.tabs_) {
+    // If tabs doesn't exist this is the first editor being created, if so
+    // create all the needed controllers.
+    this.dialogController_ = new DialogController(
+        $('#dialog-container'), this.editor_);
     this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
     this.menuController_ = new MenuController(this.tabs_);
-  } else {
-    // if tabs already exists, just replace the editor so we preserve state
-    this.tabs_.updateEditor(this.editor_);
-  }
-
-  if (!this.windowController_) {
     this.windowController_ = new WindowController(
       this.editor_, this.settings_, this.analytics_, this.tabs_);
-  } else {
-    this.windowController_.updateEditor(this.editor_);
-  }
-
-  if (!this.hotkeysController_) {
     this.hotkeysController_ = new HotkeysController( this.windowController_,
       this.tabs_, this.editor_, this.settings_, this.analytics_);
   } else {
+    // If tabs already exists, just replace the editor rather then creating a
+    // new Tabs object instance, this way we don't lose any tabs that were open.
+    this.tabs_.updateEditor(this.editor_);
+
+    // WindowController and hotkeysController should be only created once.
+    // On any subsequent editor changes they should be notified of the editor
+    // change rather then reconstructed. This is to prevent these objects from
+    // creating spurious event handlers that all run in tandem.
+    this.windowController_.updateEditor(this.editor_);
     this.hotkeysController_.updateEditor(this.editor_);
   }
-
-
   this.searchController_ = new SearchController(this.editor_.getSearch());
 
+  // Load settings.
   this.setTheme();
   this.editor_.setFontSize(this.settings_.get('fontsize'));
   this.editor_.showHideLineNumbers(this.settings_.get('linenumbers'));
@@ -197,7 +195,6 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
       // and switching them out seemed excessive given the frequency that this
       // setting will likely be changed.
       this.initEditor_();
-
       this.editor_.setSession(this.tabs_.currentTab_.getSession());
       break;
   }

@@ -6,8 +6,9 @@
 function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
-  this.numLines_ = 1
+  this.numLines_ = 1;
   this.textareaPadding_ = 20;
+  this.currentSession_ = null;
   this.dimentions = {
     height: null,
     width: null
@@ -16,7 +17,7 @@ function EditorTextArea(editorElement, settings) {
   const initFontSize = this.settings_.get('fontsize') + 'px';
 
   // We need a named reference to this arrow function so we can remove it
-  // after we set it as a event handler.
+  // as an EventListener.
   this.onInput = () => {
     this.syncTextArea();
     this.onChange();
@@ -73,13 +74,16 @@ function EditorTextArea(editorElement, settings) {
   // TODO: setup how we are handling tab characters?
 }
 
+/**
+ * @param {HTMLElement} textarea
+ * Attaches a given textarea to the editor so it may be edited.
+ */
 EditorTextArea.prototype.attachTextArea = function(textarea) {
   const initFontSize = this.settings_.get('fontsize') + 'px';
-  // detach previous text area
+  // Detach previous text area.
   if (this.textarea_) {
     this.textarea_.remove();
     this.textarea_.removeEventListener('input', this.onInput);
-    this.textarea_.setAttribute('id', '');
   }
 
   textarea.setAttribute('id', 'editor-textarea');
@@ -106,8 +110,8 @@ EditorTextArea.prototype.calibrateDimensions = function() {
 }
 
 /**
- * Updates height for both line number gutter and textarea.
  * @param {number} height
+ * Updates height for both line number gutter and textarea.
  */
 EditorTextArea.prototype.updateHeight = function(height) {
   this.wrapper_.style.height = height + 'px';
@@ -121,18 +125,18 @@ EditorTextArea.prototype.updateHeight = function(height) {
 }
 
 /**
- * Updates width for the textarea.
  * @param {number} width
+ * Updates width for the textarea.
  */
 EditorTextArea.prototype.updateWidth = function(width) {
   this.textarea_.style.width = width + 'px';
 }
 
 /**
- * Create a div containing a line number for the gutter.
  * @param {number} number
  * @param {number} height
  * @return {HTMLElement}
+ * Create a div containing a line number for the gutter.
  */
 EditorTextArea.prototype.createLineElement = function(number, height) {
   const e = document.createElement('div');
@@ -164,11 +168,12 @@ EditorTextArea.prototype.updateDimentions = function() {
 EditorTextArea.prototype.setSession = function(session) {
   this.attachTextArea(session.textarea);
   this.syncTextArea();
+  this.currentSession_ = session;
 };
 
 /**
- * Return search object.
  * @return {Search}
+ * Return search object.
  */
 EditorTextArea.prototype.getSearch = function() {
   // TODO(zafzal): this.
@@ -206,7 +211,8 @@ EditorTextArea.prototype.syncTextArea = function() {
 
 EditorTextArea.prototype.onChange = function() {
   $.event.trigger('docchange', {
-    type: 'textarea'
+    type: 'textarea',
+    session: this.currentSession_
   });
 };
 
@@ -289,17 +295,17 @@ EditorTextArea.prototype.focus = function() {
 };
 
 /**
- * Set the syntac highlighting mode of the text editor
  * @param {Session} session
  * @param {string} extension
+ * Set the syntac highlighting mode of the text editor
  */
 EditorTextArea.prototype.setMode = function(session, extension) {
   // Textarea does not support any modes other than plain text.
 };
 
 /**
- * Update font size from settings.
  * @param {number} fontSize
+ * Update font size from settings.
  */
 EditorTextArea.prototype.setFontSize = function(fontSize) {
   this.textarea_.style.fontSize = fontSize + 'px';

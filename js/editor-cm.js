@@ -4,7 +4,6 @@ var EditSession = CodeMirror.Doc;
 // improve codemirror screen reader support for navigating around a document.
 // https://github.com/ChromeDevTools/devtools-frontend/blob/0ddf8e4898701ab4174096707346d71cc5985268/front_end/text_editor/CodeMirrorTextEditor.js#L1736
 
-
 // CodeMirror uses an offscreen <textarea> to detect input. Due to
 // inconsistencies in the many browsers it supports, it simplifies things by
 // regularly checking if something is in the textarea, adding those characters
@@ -186,12 +185,12 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 /**
- * @param {EditSession} session
+ * @param {SessionDescriptor} session
  * Change the current session, usually to switch to another tab.
  */
 EditorCodeMirror.prototype.setSession = function(session) {
-  if (session.codemirror !== this.cm_.getDoc())
-    this.cm_.swapDoc(session.codemirror);
+  this.cm_.swapDoc(session.codemirror);
+  this.currentSession_ = session;
 };
 
 /**
@@ -204,7 +203,8 @@ EditorCodeMirror.prototype.getSearch = function() {
 
 EditorCodeMirror.prototype.onChange = function() {
   $.event.trigger('docchange', {
-    type: 'codemirror'
+    type: 'codemirror',
+    session: this.currentSession_
   });
 };
 
@@ -221,10 +221,11 @@ EditorCodeMirror.prototype.focus = function() {
 };
 
 /**
- * @param {Session} session
+ * @param {SessionDescriptor} session
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
+  session = session.codemirror;
   var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
   if (mode) {
     var currentSession = null;
