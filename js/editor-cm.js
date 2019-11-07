@@ -4,7 +4,6 @@ var EditSession = CodeMirror.Doc;
 // improve codemirror screen reader support for navigating around a document.
 // https://github.com/ChromeDevTools/devtools-frontend/blob/0ddf8e4898701ab4174096707346d71cc5985268/front_end/text_editor/CodeMirrorTextEditor.js#L1736
 
-
 // CodeMirror uses an offscreen <textarea> to detect input. Due to
 // inconsistencies in the many browsers it supports, it simplifies things by
 // regularly checking if something is in the textarea, adding those characters
@@ -186,21 +185,12 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 /**
- * @param {string} opt_content
- * @return {EditSession}
- * Create an edit session for a new file. Each tab should have its own session.
- */
-EditorCodeMirror.prototype.newSession = function(opt_content) {
-  var session = new CodeMirror.Doc(opt_content || '');
-  return session;
-};
-
-/**
- * @param {EditSession} session
+ * @param {SessionDescriptor} session
  * Change the current session, usually to switch to another tab.
  */
 EditorCodeMirror.prototype.setSession = function(session) {
-  this.cm_.swapDoc(session);
+  this.cm_.swapDoc(session.codemirror);
+  this.currentSession_ = session;
 };
 
 /**
@@ -212,7 +202,10 @@ EditorCodeMirror.prototype.getSearch = function() {
 };
 
 EditorCodeMirror.prototype.onChange = function() {
-  $.event.trigger('docchange', this.cm_.getDoc());
+  $.event.trigger('docchange', {
+    type: 'codemirror',
+    session: this.currentSession_
+  });
 };
 
 EditorCodeMirror.prototype.undo = function() {
@@ -228,10 +221,11 @@ EditorCodeMirror.prototype.focus = function() {
 };
 
 /**
- * @param {Session} session
+ * @param {SessionDescriptor} session
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
+  session = session.codemirror;
   var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
   if (mode) {
     var currentSession = null;
@@ -330,5 +324,8 @@ EditorCodeMirror.prototype.enable = function() {
  * Prepare the Editor to be killed and removed from the DOM
  */
 EditorCodeMirror.prototype.destory = function() {
-  // no destruction logic needed
+  // By swapping out the doc for a empty one, codemirror detaches the current
+  // doc so when the codemirror instance is deleted our document does not enter
+  // a corrupted state where it still thinks it's attached to the edior.
+  this.cm_.swapDoc(new CodeMirror.Doc(''));
 };
