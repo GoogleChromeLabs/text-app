@@ -3,10 +3,17 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
+  /*
+   * editor styles are mostly copied from codemirror so that the text area
+   * maintains the same look.
+   */
+  --editor-gutter-horiztonal-padding: 8px;
+  --editor-gutter-min-size: 29px;
   --editor-gutter-padding: 4px 3px 16px 5px;
   --editor-gutter-vertical-padding: 20px;
-  --editor-gutter-horiztonal-padding: 8px;
   --editor-line-height: 1.2em;
+  --editor-padding: 4px 4px 16px 4px;
+  --editor-vertical-padding: 20px;
   --header-height: 48px;
   --light-accent-color: rgb(0, 0, 0, 0.04);
   --light-background-color: white;
@@ -15,8 +22,6 @@
   --mdc-theme-secondary: rgb(27, 114, 232);
   --settings-input-width: 55px;
   --tab-height: 36px;
-  --editor-padding: 4px 4px 16px 4px;
-  --editor-vertical-padding: 20px;
 }
 
 * {
@@ -480,7 +485,8 @@ header.hide-controls #window-close {
   min-height: calc(100% - 2*var(--editor-gutter-vertical-padding));
   height: auto;
   padding: var(--editor-gutter-padding);
-  min-width: calc(29px - var(--editor-gutter-horiztonal-padding));
+  min-width: calc(var(--editor-gutter-min-size) -
+    var(--editor-gutter-horiztonal-padding));
   width: auto;
   font-family: monospace;
   font-size: 14px;

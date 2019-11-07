@@ -103,7 +103,7 @@ util.guessLineEndings = function(text) {
 /**
  * @param {?string} opt_content Optional content.
  * @return {SessionDescriptor}
- * Creates a unified session that can be read from any supported editor
+ * Creates a unified session that can be read from any supported editor.
  */
 util.createUnifiedSession = function(opt_content) {
   const textarea = document.createElement('textarea');
@@ -111,7 +111,7 @@ util.createUnifiedSession = function(opt_content) {
 
   return {
     codemirror: new CodeMirror.Doc(opt_content || ''),
-    textarea: textarea
+    textarea: textarea,
   };
 }
 
@@ -121,9 +121,12 @@ util.createUnifiedSession = function(opt_content) {
  * @param {string} lineEndings What to use as a line ending
  * Syncs the multiple formats of a unified session. If one format of the session
  * such as the codemirror instance generates a change, it's registered here and
- * copied over to the other format (textarea) so both of the formats have the
- * correct text. This means if you switch between a11y mode and default mode
- * you don't lose any text (and the undo/redo stack is partially consistent).
+ * copied over to the other formats (such as textarea) so all of the formats
+ * have the correct text. This means if you switch between modes you don't lose
+ * any text and the undo stack is consistent (the redo stack may
+ * diverge as all edits are treated as direct edits when transfered from one
+ * format to the other).
+ *
  */
 util.syncUnifiedSession = function(session, updated, lineEndings) {
   switch(updated) {

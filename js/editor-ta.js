@@ -110,8 +110,8 @@ EditorTextArea.prototype.calibrateDimensions = function() {
 }
 
 /**
- * @param {number} height
  * Updates height for both line number gutter and textarea.
+ * @param {number} height
  */
 EditorTextArea.prototype.updateHeight = function(height) {
   this.wrapper_.style.height = height + 'px';
@@ -125,18 +125,18 @@ EditorTextArea.prototype.updateHeight = function(height) {
 }
 
 /**
- * @param {number} width
  * Updates width for the textarea.
+ * @param {number} width
  */
 EditorTextArea.prototype.updateWidth = function(width) {
   this.textarea_.style.width = width + 'px';
 }
 
 /**
+ * Create a div containing a line number for the gutter.
  * @param {number} number
  * @param {number} height
  * @return {HTMLElement}
- * Create a div containing a line number for the gutter.
  */
 EditorTextArea.prototype.createLineElement = function(number, height) {
   const e = document.createElement('div');
@@ -172,8 +172,8 @@ EditorTextArea.prototype.setSession = function(session) {
 };
 
 /**
- * @return {Search}
  * Return search object.
+ * @return {Search}
  */
 EditorTextArea.prototype.getSearch = function() {
   // TODO(zafzal): this.
@@ -295,17 +295,17 @@ EditorTextArea.prototype.focus = function() {
 };
 
 /**
+ * Set the syntac highlighting mode of the text editor
  * @param {Session} session
  * @param {string} extension
- * Set the syntac highlighting mode of the text editor
  */
 EditorTextArea.prototype.setMode = function(session, extension) {
   // Textarea does not support any modes other than plain text.
 };
 
 /**
- * @param {number} fontSize
  * Update font size from settings.
+ * @param {number} fontSize
  */
 EditorTextArea.prototype.setFontSize = function(fontSize) {
   this.textarea_.style.fontSize = fontSize + 'px';

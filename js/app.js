@@ -123,9 +123,9 @@ TextApp.prototype.initEditor_ = function() {
     this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
     this.menuController_ = new MenuController(this.tabs_);
     this.windowController_ = new WindowController(
-      this.editor_, this.settings_, this.analytics_, this.tabs_);
-    this.hotkeysController_ = new HotkeysController( this.windowController_,
-      this.tabs_, this.editor_, this.settings_, this.analytics_);
+        this.editor_, this.settings_, this.analytics_, this.tabs_);
+    this.hotkeysController_ = new HotkeysController(this.windowController_,
+        this.tabs_, this.editor_, this.settings_, this.analytics_);
   } else {
     // If tabs already exists, just replace the editor rather then creating a
     // new Tabs object instance, this way we don't lose any tabs that were open.
