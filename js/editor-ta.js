@@ -7,29 +7,27 @@ function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.numLines_ = 1;
-  this.currSession_ = null;
   this.textareaPadding_ = 20;
+  this.currentSession_ = null;
   this.dimentions = {
     height: null,
     width: null
   };
+  this.setTheme();
   const initFontSize = this.settings_.get('fontsize') + 'px';
 
-  // The main text area the user will be interacting with.
-  // TODO: shift this into the HTML and reference it.
-  this.textarea_ = document.createElement('textarea');
-  this.textarea_.setAttribute('id', 'editor-textarea');
-  this.textarea_.style.fontSize = initFontSize;
-  this.textarea_.addEventListener('input', () => {
+  // We need a named reference to this arrow function so we can remove it
+  // as an EventListener.
+  this.onInput = () => {
     this.syncTextArea();
-  });
+    this.onChange();
+  }
 
   // Build up the text editor in js, we do this here and not in the html since
   // this is what codemirror does and we want to match it's interface as much
   // as possible to allow for a easy switching between the two.
   this.wrapper_ = document.createElement('div');
   this.wrapper_.classList.add('editor-textarea-wrapper');
-  this.wrapper_.appendChild(this.textarea_);
 
   this.lineNumbers_ = document.createElement('div');
   this.lineNumbers_.setAttribute('id', 'editor-textarea-line-numbers');
@@ -67,10 +65,33 @@ function EditorTextArea(editorElement, settings) {
   this.element_.appendChild(this.mirror_);
   this.element_.appendChild(this.lineMirror_);
 
+  // The main text area the user will be interacting with.
+  this.attachTextArea(document.createElement('textarea'));
+
   this.calibrateDimensions();
 
   // TODO: set up search
-  // TODO: setup how we are handling tabs?
+  // TODO: setup how we are handling tab characters?
+}
+
+/**
+ * @param {HTMLElement} textarea
+ * Attaches a given textarea to the editor so it may be edited.
+ */
+EditorTextArea.prototype.attachTextArea = function(textarea) {
+  const initFontSize = this.settings_.get('fontsize') + 'px';
+  // Detach previous text area.
+  if (this.textarea_) {
+    this.textarea_.remove();
+    this.textarea_.removeEventListener('input', this.onInput);
+  }
+
+  textarea.setAttribute('id', 'editor-textarea');
+  textarea.style.fontSize = initFontSize;
+  textarea.addEventListener('input', this.onInput);
+
+  this.textarea_ = textarea;
+  this.wrapper_.appendChild(this.textarea_ );
 }
 
 /**
@@ -141,19 +162,13 @@ EditorTextArea.prototype.updateDimentions = function() {
 }
 
 /**
- * Create an edit session for a new file. Each tab should have its own session.
- * @param {string} opt_content
- * @return {EditSession}
- */
-EditorTextArea.prototype.newSession = function(opt_content) {
-};
-
-/**
  * Change the current session, usually to switch to another tab.
- * @param {EditSession} session
+ * @param {SessionDescriptor} session
  */
 EditorTextArea.prototype.setSession = function(session) {
-
+  this.attachTextArea(session.textarea);
+  this.syncTextArea();
+  this.currentSession_ = session;
 };
 
 /**
@@ -195,7 +210,10 @@ EditorTextArea.prototype.syncTextArea = function() {
 }
 
 EditorTextArea.prototype.onChange = function() {
-  // TODO: throw a docchange event
+  $.event.trigger('docchange', {
+    type: 'textarea',
+    session: this.currentSession_
+  });
 };
 
 EditorTextArea.prototype.updateTextArea = function() {
