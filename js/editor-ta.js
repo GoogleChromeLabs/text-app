@@ -13,7 +13,6 @@ function EditorTextArea(editorElement, settings) {
     height: null,
     width: null
   };
-  this.setTheme();
   const initFontSize = this.settings_.get('fontsize') + 'px';
 
   // We need a named reference to this arrow function so we can remove it
@@ -69,7 +68,7 @@ function EditorTextArea(editorElement, settings) {
   this.attachTextArea(document.createElement('textarea'));
 
   this.calibrateDimensions();
-
+  this.setTheme();
   // TODO: set up search
   // TODO: setup how we are handling tab characters?
 }
@@ -327,8 +326,12 @@ EditorTextArea.prototype.setTabSize = function(size) {
 /**
  * @param {string} theme
  */
-EditorTextArea.prototype.setTheme = function(theme) {
-  // TODO(zafzal): this.
+EditorTextArea.prototype.setTheme = function() {
+  if (this.settings_.get('theme') === 'dark') {
+    this.container_.classList.add('dark-theme');
+  } else {
+    this.container_.classList.remove('dark-theme');
+  }
 };
 
 /**
