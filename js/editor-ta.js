@@ -87,6 +87,7 @@ EditorTextArea.prototype.attachTextArea = function(textarea) {
   }
 
   textarea.setAttribute('id', 'editor-textarea');
+  textarea.setAttribute('spellcheck', 'false');
   textarea.style.fontSize = initFontSize;
   textarea.addEventListener('input', this.onInput);
 
