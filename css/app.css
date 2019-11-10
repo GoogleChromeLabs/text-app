@@ -3,6 +3,11 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
+  /* These colors are copied from codemirror to maintain consistency. */
+  --light-theme-line-number-color: #999999;
+  --dark-theme-line-number-color: #d0d0d0;
+  --light-theme-text-color: #000000;
+  --dark-theme-text-color: #f8f8f2;
   /*
    * editor styles are mostly copied from codemirror so that the text area
    * maintains the same look.
@@ -491,9 +496,15 @@ header.hide-controls #window-close {
   font-family: monospace;
   font-size: 14px;
   border-right: 1px solid #ddd;
-  color: #999999;
+  color: var(--light-theme-line-number-color);
   display: flex;
   flex-direction: column;
+}
+
+.editor-textarea-container.dark-theme #editor-textarea-line-numbers {
+  background: var(--dark-background-color);
+  color: var(--dark-theme-line-number-color);
+  border-right: none;
 }
 
 #editor-textarea-line-numbers>div {
@@ -504,6 +515,7 @@ header.hide-controls #window-close {
 }
 
 .editor-textarea-wrapper {
+  color: var(--light-theme-text-color);
   min-height: calc(100% - (2 * var(--editor-vertical-padding)));
   height: auto;
   padding: var(--editor-padding);
@@ -514,6 +526,8 @@ header.hide-controls #window-close {
 
 #editor-textarea {
   border: none;
+  background: none;
+  color: inherit;
   height: 100%;
   margin: 0;
   width: 100%;
@@ -525,7 +539,18 @@ header.hide-controls #window-close {
   overflow: hidden;
 }
 
-#editor-textarea:focus {
+#editor-textarea:focus, #editor-textarea:hover {
+  outline: none;
+}
+
+
+.editor-textarea-container.dark-theme .editor-textarea-wrapper {
+  background: var(--dark-background-color);
+  color: var(--dark-theme-text-color);
+}
+
+#ed
+itor-textarea:focus {
   outline: none;
 }
 
