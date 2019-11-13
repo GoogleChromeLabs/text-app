@@ -14,6 +14,7 @@
    */
   --editor-gutter-horiztonal-padding: 8px;
   --editor-gutter-min-size: 29px;
+  /* 20px to give enough room at the bottom for a scrollbar */
   --editor-gutter-padding: 4px 3px 16px 5px;
   --editor-gutter-vertical-padding: 20px;
   --editor-line-height: 1.2em;
@@ -543,14 +544,12 @@ header.hide-controls #window-close {
   outline: none;
 }
 
-
 .editor-textarea-container.dark-theme .editor-textarea-wrapper {
   background: var(--dark-background-color);
   color: var(--dark-theme-text-color);
 }
 
-#ed
-itor-textarea:focus {
+#editor-textarea:focus {
   outline: none;
 }
 
@@ -655,18 +654,11 @@ header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
   background-color: rgba(253, 207, 76, .5);
 }
 
-.hidden-textarea-mirror {
-  position: absolute;
-  visibility: hidden;
-  font-family: monospace;
-  line-height: var(--editor-line-height);
-  white-space: nowrap;
-}
 
-.hidden-line-mirror {
+.hidden-character-sizer {
   position: absolute;
   visibility: hidden;
   font-family: monospace;
   line-height: var(--editor-line-height);
-  word-break: break-all;
+  word-wrap: break-word;
 }

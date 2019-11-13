@@ -13,8 +13,14 @@ function EditorTextArea(editorElement, settings) {
     height: null,
     width: null
   };
+  this.characterDimentions_ = {
+    height: null,
+    width: null
+  };
+  this.lineHeightCache = [];
+  this.longestLine_ = 0;
   const initFontSize = this.settings_.get('fontsize') + 'px';
-
+  this.totalCalculatedHeight_ = this.settings_.get('fontsize');
   // We need a named reference to this arrow function so we can remove it
   // as an EventListener.
   this.onInput = () => {
@@ -52,25 +58,36 @@ function EditorTextArea(editorElement, settings) {
 
   this.element_.appendChild(this.container_);
 
-  // A hack which leverages a hidden div to figure out the height and width
-  // the text area should be since text areas cannot grow with input
-  // automatically.
-  this.mirror_ = document.createElement('div');
-  this.mirror_.classList.add('hidden-textarea-mirror');
-  this.mirror_.style.fontSize = initFontSize;
-  this.lineMirror_ = document.createElement('div');
-  this.lineMirror_.classList.add('hidden-line-mirror');
-  this.lineMirror_.style.fontSize = initFontSize;
-  this.element_.appendChild(this.mirror_);
-  this.element_.appendChild(this.lineMirror_);
+  // We can calculate how much space a line takes up as long as we know the size
+  // of one character. Sadly 1 character doesn't seem to have a neat
+  // relationship with font size so this div is used to get the size of a
+  // character at the current font size to be used in calculations.
+  this.characterSizer_ = document.createElement('div');
+  this.characterSizer_.classList.add('hidden-character-sizer');
+  this.characterSizer_.style.fontSize = initFontSize;
+  this.characterSizer_.innerText = 'A';
+  this.element_.appendChild(this.characterSizer_);
 
   // The main text area the user will be interacting with.
   this.attachTextArea(document.createElement('textarea'));
 
+  this.syncCharacterDimentions();
   this.calibrateDimensions();
   this.setTheme();
   // TODO: set up search
   // TODO: setup how we are handling tab characters?
+}
+
+/**
+ * Updates the current understanding of how big a single character in the
+ * textarea is.
+ */
+EditorTextArea.prototype.syncCharacterDimentions = function() {
+  const fontSize = this.settings_.get('fontsize') + 'px';
+  this.characterSizer_.style.fontSize = fontSize;
+  const characterBoundingRect = this.characterSizer_.getBoundingClientRect();
+  this.characterDimentions_.width = characterBoundingRect.width;
+  this.characterDimentions_.height = characterBoundingRect.height;
 }
 
 /**
@@ -101,9 +118,6 @@ EditorTextArea.prototype.calibrateDimensions = function() {
   this.updateDimentions();
 
   if (this.settings_.get('wraplines')) {
-    // Update the width of the line mirror so we can extract out
-    // accurate heights.
-    this.lineMirror_.style.width = this.dimentions.width + 'px';
     this.updateLineNumbers();
   }
   this.updateTextArea();
@@ -116,7 +130,7 @@ EditorTextArea.prototype.calibrateDimensions = function() {
 EditorTextArea.prototype.updateHeight = function(height) {
   this.wrapper_.style.height = height + 'px';
   // Annoyingly, we need to give the wrapper time to register it's height
-  // change before updating the text area or the two elements overlap
+  // change before updating the text area or the two elements overlap.
   setTimeout(() => {
     this.textarea_.style.height = height + 'px';
   }, 0);
@@ -143,7 +157,7 @@ EditorTextArea.prototype.createLineElement = function(number, height) {
   e.innerText = number;
   if (height !== undefined)
     e.style.height = height + 'px';
-  // Else let css define the deafult height of the element.
+  // Else let css define the default height of the element.
   return e;
 }
 
@@ -186,25 +200,22 @@ EditorTextArea.prototype.getSearch = function() {
  */
 EditorTextArea.prototype.syncTextArea = function() {
   const text = this.textarea_.value;
+
   let count = 0;
-  for(const c of text) {
-    if (c === '\n')
-      count++;
+  let total = 0;
+  let longestLine = 0;
+  for (const line of text.split('\n')) {
+    this.lineHeightCache[count] = this.getLineHeight(line);
+    if (line.length > longestLine) {
+      longestLine = line.length;
+    }
+    total += this.lineHeightCache[count];
+    count++;
   }
-  this.numLines_ = count + 1;
-  let newMirrorText = this.textarea_.value;
+  this.longestLine_ = longestLine;
+  this.numLines_ = count;
+  this.totalCalculatedHeight_ = total;
 
-  // The height of a div is based on the number of lines of inside of it, as
-  // such text like `hello\nworld\n` registers as 2 lines and the height will
-  // grow to encompass 2 lines of text. This is not what we want since the
-  // trailing new line should render a empty line at the end. To fix this we
-  // convert any line like `hello\nworld\n` to `hello\nworld\nA` which the div
-  // will register as 3 lines and correctly encompass.
-  if (this.textarea_.value[this.textarea_.value.length-1] === '\n') {
-    newMirrorText += 'A';
-  }
-
-  this.mirror_.innerText = newMirrorText;
   this.updateLineNumbers();
   this.updateTextArea();
 }
@@ -216,63 +227,98 @@ EditorTextArea.prototype.onChange = function() {
   });
 };
 
+EditorTextArea.prototype.getTotalHeight = function() {
+  return this.totalCalculatedHeight_;
+};
+
+EditorTextArea.prototype.getTotalWidth = function() {
+  if (this.settings_.get('wraplines')) {
+    return this.dimentions.width;
+  } else {
+    return this.characterDimentions_.width * this.longestLine_;
+  }
+}
+
+EditorTextArea.prototype.getLineHeight = function(line) {
+  const charWidth = this.characterDimentions_.width;
+  const charHeight = this.characterDimentions_.height;
+  if (!this.settings_.get('wraplines')) {
+    return charHeight;
+  }
+
+  const words = line.split(' ');
+  let lines = 1;
+  let width = this.dimentions.width;
+  let wordLength = 0;
+  while (words.length > 0) {
+    if (wordLength === 0) {
+      // grab a new word to place
+      wordLength = words.shift(0).length*charWidth;
+    }
+
+    if (width - wordLength < 0 && width !== this.dimentions.width) {
+      // We need to wrap this word to a new line.
+      width = this.dimentions.width;
+      lines++;
+    } else if (width - wordLength < 0) {
+      // This is the only word on the line, break the word itself.
+      lines++;
+      wordLength -= width;
+    } else {
+      width -= wordLength;
+      wordLength = 0;
+    }
+  }
+  return lines * charHeight;
+}
+
 EditorTextArea.prototype.updateTextArea = function() {
-  const calculatedHeight = this.mirror_.getBoundingClientRect().height+4;
-  const calculatedWidth = this.mirror_.getBoundingClientRect().width;
+  const calculatedHeight = this.getTotalHeight();
+  const calculatedWidth = this.getTotalWidth();
+
   // If the height is less then the window height just snap to the window
   // height.
   if (calculatedHeight < this.dimentions.height) {
-    // this case is triggered when someone deletes all the text in a file
-    // in this case snap the scroll to the top as well
+    // In this case snap the scroll to the top as well in case the user deleted
+    // a large chunk of text.
     this.container_.scrollTop = 0;
     this.updateHeight(this.dimentions.height);
   } else {
     this.updateHeight(calculatedHeight);
   }
 
-  // If lines are being wrapped just snap to window size else let the textarea grow
-  // to be as long as the longest line (but have a minimum size).
-  if (this.settings_.get('wraplines')) {
-    this.updateWidth(this.dimentions.width);
-  } else {
-    this.updateWidth(Math.max(this.dimentions.width, calculatedWidth));
-  }
+  // The minium width of the textarea is the window size.
+  this.updateWidth(Math.max(this.dimentions.width, calculatedWidth));
 };
 
 EditorTextArea.prototype.updateLineNumbers = function() {
   const wrapLines = this.settings_.get('wraplines');
-  if (wrapLines) {
-    // If we are wrapping the lines we need to recompute the line heights
-    // on any change.
-    this.clearLineNumbers()
-  }
   let linesRendered = this.lineNumbers_.children.length;
+
+  // Update any existing elements if word wrap is on, as line heights may change
+  if (wrapLines) {
+    let i = 0;
+    for (const child of this.lineNumbers_.children) {
+      child.style.height = this.lineHeightCache[i]+'px';
+      i++;
+    }
+  }
 
   // Remove excess elements.
   while (linesRendered > this.numLines_) {
     this.lineNumbers_.lastChild.remove();
     linesRendered--;
   }
+
   // Add missing elements.
   while(linesRendered < this.numLines_) {
-    const line = linesRendered + 1;
-    // If word wrap is on we have to additionally set height.
-    const height = wrapLines ? this.getLineHeight(line) : undefined;
-    this.lineNumbers_.appendChild(this.createLineElement(line, height));
+    const height = this.lineHeightCache[linesRendered];
+    this.lineNumbers_.appendChild(
+      this.createLineElement(linesRendered + 1, height));
     linesRendered++;
   }
 
 };
-
-EditorTextArea.prototype.getLineHeight = function(lineNumber) {
-  // TODO(zafzal): Speed this up, splitting the whole doc is a bottleneck
-  let line = this.textarea_.value.split('\n')[lineNumber-1];
-  // An empty string will have 0 height.
-  if (line === '')
-    line = 'A';
-  this.lineMirror_.innerText = line;
-  return this.lineMirror_.getBoundingClientRect().height;
-}
 
 /**
  * Clears the line numbers in the gutter so they can be repopulated.
@@ -310,8 +356,8 @@ EditorTextArea.prototype.setMode = function(session, extension) {
 EditorTextArea.prototype.setFontSize = function(fontSize) {
   this.textarea_.style.fontSize = fontSize + 'px';
   this.lineNumbers_.style.fontSize = fontSize + 'px';
-  this.mirror_.style.fontSize = fontSize + 'px';
-  this.lineMirror_.style.fontSize = fontSize + 'px';
+
+  this.syncCharacterDimentions();
   this.updateLineNumbers();
   this.updateTextArea();
 };
