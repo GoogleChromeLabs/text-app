@@ -538,6 +538,7 @@ header.hide-controls #window-close {
   line-height: var(--editor-line-height);
   font-size: 14px;
   overflow: hidden;
+  white-space: break-spaces;
 }
 
 #editor-textarea:focus, #editor-textarea:hover {

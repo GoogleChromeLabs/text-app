@@ -118,8 +118,9 @@ EditorTextArea.prototype.calibrateDimensions = function() {
   this.updateDimentions();
 
   if (this.settings_.get('wraplines')) {
-    this.updateLineNumbers();
+    this.syncTextArea();
   }
+  this.updateLineNumbers();
   this.updateTextArea();
 }
 
@@ -246,13 +247,44 @@ EditorTextArea.prototype.getLineHeight = function(line) {
     return charHeight;
   }
 
-  const words = line.split(' ');
+  // This line box filling algorithm defines how big a line will be by
+  // determining the points at which the line will break. This is at a
+  // whitespace character, in the middle of a word if it's the only word on the
+  // line or at a line break suggestion character (see below).
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens#Suggesting_line_break_opportunities
+  const words = [];
+  const tokens = line.split(/\s/);
+  let i = 0;
+  for (let token of tokens) {
+    if (/[-\u00AD]/.test(token)) {
+      // Split a word with a line break suggestion character into chunks so each
+      // component can correctly wrap.
+      const suggestedChunks = token.split(/[-\u00AD]/);
+      let i = 0;
+      for (word of suggestedChunks) {
+        if (i < suggestedChunks.length-1) {
+          word += '-';
+        }
+        words.push(word);
+        i++;
+      }
+    } else if (token.length > 0) {
+      // If we are not at the end, add in the trailing space to the word.
+      if (i < tokens.length - 1) {
+        token += ' ';
+      }
+      words.push(token);
+    }
+    i++;
+  }
+
   let lines = 1;
   let width = this.dimentions.width;
   let wordLength = 0;
-  while (words.length > 0) {
+
+  while (words.length > 0 || wordLength !== 0) {
     if (wordLength === 0) {
-      // grab a new word to place
+      // Grab a new word to place.
       wordLength = words.shift(0).length*charWidth;
     }
 
@@ -320,14 +352,6 @@ EditorTextArea.prototype.updateLineNumbers = function() {
 
 };
 
-/**
- * Clears the line numbers in the gutter so they can be repopulated.
- */
-EditorTextArea.prototype.clearLineNumbers = function() {
-  while (this.lineNumbers_.lastChild)
-    this.lineNumbers_.lastChild.remove();
-}
-
 EditorTextArea.prototype.undo = function() {
   // This is handled by the text area defaults.
 };
@@ -392,9 +416,6 @@ EditorTextArea.prototype.showHideLineNumbers = function(val) {
  * @param {boolean} val
  */
 EditorTextArea.prototype.setWrapLines = function(val) {
-  // of the wrap lines setting has changed at all we need to recompute line no.
-  this.clearLineNumbers();
-
   // update the text area and line numbers to match the new view
   this.updateTextArea();
   this.updateLineNumbers();
