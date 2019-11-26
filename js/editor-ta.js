@@ -7,7 +7,8 @@ function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.numLines_ = 1;
-  this.textareaPadding_ = 20;
+  this.verticalTextareaPadding_ = 20;
+  this.horiztonalTextareaPadding_ = 8;
   this.currentSession_ = null;
   this.dimentions = {
     height: null,
@@ -154,8 +155,9 @@ EditorTextArea.prototype.createLineElement = function(number, height) {
  */
 EditorTextArea.prototype.updateDimentions = function() {
   const editorHeight = this.element_.getBoundingClientRect().height;
-  this.dimentions.height = (editorHeight - this.textareaPadding_);
-  this.dimentions.width = (this.wrapper_.getBoundingClientRect().width - this.textareaPadding_);
+  this.dimentions.height = (editorHeight - this.verticalTextareaPadding_);
+  this.dimentions.width = (this.wrapper_.getBoundingClientRect().width -
+    this.horizontalTextareaPadding_);
 
   // grow container to match the editor
   this.container_.style.height = (editorHeight) + 'px';
