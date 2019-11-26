@@ -661,5 +661,4 @@ header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
   visibility: hidden;
   font-family: monospace;
   line-height: var(--editor-line-height);
-  word-wrap: break-word;
 }

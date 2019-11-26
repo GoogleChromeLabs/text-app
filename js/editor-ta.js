@@ -21,7 +21,7 @@ function EditorTextArea(editorElement, settings) {
   this.lineHeightCache = [];
   this.longestLine_ = 0;
   const initFontSize = this.settings_.get('fontsize') + 'px';
-  this.totalCalculatedHeight_ = this.settings_.get('fontsize');
+  this.totalCalculatedHeight_ = null;
   // We need a named reference to this arrow function so we can remove it
   // as an EventListener.
   this.onInput = () => {
@@ -324,7 +324,6 @@ EditorTextArea.prototype.getLineHeight = function(line) {
       wordLength = 0;
     }
   }
-  console.log('>>>>>', lines);
   return lines * charHeight;
 }
 
