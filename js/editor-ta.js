@@ -7,7 +7,8 @@ function EditorTextArea(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
   this.numLines_ = 1;
-  this.textareaPadding_ = 20;
+  this.verticalTextareaPadding_ = 20;
+  this.horizontalTextareaPadding_ = 8;
   this.currentSession_ = null;
   this.dimentions = {
     height: null,
@@ -169,8 +170,9 @@ EditorTextArea.prototype.createLineElement = function(number, height) {
  */
 EditorTextArea.prototype.updateDimentions = function() {
   const editorHeight = this.element_.getBoundingClientRect().height;
-  this.dimentions.height = (editorHeight - this.textareaPadding_);
-  this.dimentions.width = (this.wrapper_.getBoundingClientRect().width - this.textareaPadding_);
+  this.dimentions.height = (editorHeight - this.verticalTextareaPadding_);
+  this.dimentions.width = (this.wrapper_.getBoundingClientRect().width
+    - this.horizontalTextareaPadding_);
 
   // grow container to match the editor
   this.container_.style.height = (editorHeight) + 'px';
@@ -195,13 +197,10 @@ EditorTextArea.prototype.getSearch = function() {
 };
 
 /**
- * Correct the text area's dimentions given it's content.
- * This is needed because a text area does not grow with it's input without
- * some javascript help.
+ * Updates the line cache, line number, calculated height and longest line
+ * variables with the provided text as the reference text.
  */
-EditorTextArea.prototype.syncTextArea = function() {
-  const text = this.textarea_.value;
-
+EditorTextArea.prototype.updateLineInfo = function(text) {
   let count = 0;
   let total = 0;
   let longestLine = 0;
@@ -214,11 +213,31 @@ EditorTextArea.prototype.syncTextArea = function() {
     count++;
   }
   this.longestLine_ = longestLine;
+
   this.numLines_ = count;
   this.totalCalculatedHeight_ = total;
+}
 
+/**
+ * Correct the text area's dimentions given it's content.
+ * This is needed because a text area does not grow with it's input without
+ * some javascript help.
+ */
+EditorTextArea.prototype.syncTextArea = function() {
+  const text = this.textarea_.value;
+  const prevNumLines = this.numLines_;
+
+  this.updateLineInfo(text);
   this.updateLineNumbers();
   this.updateTextArea();
+
+  // If the magnitutde of the line number has changed it means the sidebar has
+  // a different width, i.e 10 vs 100.
+  if (Math.floor(Math.log10(this.numLines_)) != Math.floor(Math.log10(prevNumLines))) {
+    this.updateDimentions();
+    this.updateLineInfo(text);
+  }
+
 }
 
 EditorTextArea.prototype.onChange = function() {
@@ -246,7 +265,6 @@ EditorTextArea.prototype.getLineHeight = function(line) {
   if (!this.settings_.get('wraplines')) {
     return charHeight;
   }
-
   // This line box filling algorithm defines how big a line will be by
   // determining the points at which the line will break. This is at a
   // whitespace character, in the middle of a word if it's the only word on the
@@ -274,21 +292,26 @@ EditorTextArea.prototype.getLineHeight = function(line) {
         token += ' ';
       }
       words.push(token);
+    } else {
+      // If we have a empty string it means we split on 2 white space chars
+      if (i < tokens.length - 1) {
+        words.push(' ');
+      }
     }
     i++;
   }
 
   let lines = 1;
+
   let width = this.dimentions.width;
   let wordLength = 0;
-
   while (words.length > 0 || wordLength !== 0) {
     if (wordLength === 0) {
       // Grab a new word to place.
       wordLength = words.shift(0).length*charWidth;
     }
 
-    if (width - wordLength < 0 && width !== this.dimentions.width) {
+    if (width - wordLength < 1 && width !== this.dimentions.width) {
       // We need to wrap this word to a new line.
       width = this.dimentions.width;
       lines++;
@@ -301,6 +324,7 @@ EditorTextArea.prototype.getLineHeight = function(line) {
       wordLength = 0;
     }
   }
+  console.log('>>>>>', lines);
   return lines * charHeight;
 }
 
