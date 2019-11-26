@@ -173,7 +173,6 @@ EditorTextArea.prototype.updateDimentions = function() {
   this.dimentions.height = (editorHeight - this.verticalTextareaPadding_);
   this.dimentions.width = (this.wrapper_.getBoundingClientRect().width
     - this.horizontalTextareaPadding_);
-
   // grow container to match the editor
   this.container_.style.height = (editorHeight) + 'px';
 }
