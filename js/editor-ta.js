@@ -22,11 +22,17 @@ function EditorTextArea(editorElement, settings) {
   this.longestLine_ = 0;
   const initFontSize = this.settings_.get('fontsize') + 'px';
   this.totalCalculatedHeight_ = null;
-  // We need a named reference to this arrow function so we can remove it
-  // as an EventListener.
+  // We need a named reference to these arrow functions so we can remove them
+  // as EventListeners.
   this.onInput = () => {
     this.syncTextArea();
     this.onChange();
+  }
+  this.onKeydown = (e) => {
+    // control-shift-z should trigger a redo
+    if (e.ctrlkey && e.shift && e.key === "e") {
+      this.redo();
+    }
   }
 
   // Build up the text editor in js, we do this here and not in the html since
@@ -101,12 +107,14 @@ EditorTextArea.prototype.attachTextArea = function(textarea) {
   if (this.textarea_) {
     this.textarea_.remove();
     this.textarea_.removeEventListener('input', this.onInput);
+    this.textarea_.removeEventListener('keydown', this.onKeydown);
   }
 
   textarea.setAttribute('id', 'editor-textarea');
   textarea.setAttribute('spellcheck', 'false');
   textarea.style.fontSize = initFontSize;
   textarea.addEventListener('input', this.onInput);
+  textarea.addEventListener('input', this.onKeydown);
 
   this.textarea_ = textarea;
   this.wrapper_.appendChild(this.textarea_ );
@@ -380,7 +388,9 @@ EditorTextArea.prototype.undo = function() {
 };
 
 EditorTextArea.prototype.redo = function() {
-  // This is handled by the text area defaults.
+  // This is handled by the text area defaults but we also want to trigger a
+  // redo from control-shift-z to match codemirror behavior.
+  document.execCommand('redo', false, null);
 };
 
 EditorTextArea.prototype.focus = function() {
