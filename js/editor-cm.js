@@ -329,7 +329,7 @@ EditorCodeMirror.prototype.enable = function() {
 /**
  * Prepare the Editor to be killed and removed from the DOM
  */
-EditorCodeMirror.prototype.destory = function() {
-  // detach the current doc so it can be reset in future
+EditorCodeMirror.prototype.destroy = function() {
+  // Detach the current doc so it can be reset in future.
   this.cm_.swapDoc(new CodeMirror.Doc(''));
 };

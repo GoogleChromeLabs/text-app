@@ -38,7 +38,7 @@ Settings.SETTINGS = {
   'tabsize': {'default': 4, 'type': 'integer', 'widget': 'number'},
   'theme': {'default': 'default', 'type': 'string', 'widget': 'radio'},
   'wraplines': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
-  'search': {'default': true, 'type': 'boolean', 'widget': 'search'}
+  'search': {'default': true, 'type': 'boolean', 'widget': 'search'},
 };
 
 Settings.prototype.removeOldSettings_ = function() {
@@ -109,24 +109,30 @@ Settings.prototype.onChanged_ = function(changes, areaName) {
 Settings.prototype.enableAll = function() {
   for (const [key, setting] of Object.entries(Settings.SETTINGS)) {
     const widget = setting.widget;
+    let elem;
 
-    if (widget === 'checkbox') {
-      const elem = document.getElementById(`setting-${key}-switch`);
-      elem.classList.remove('mdc-switch--disabled');
-      elem.querySelector('input').removeAttribute('disabled');
-    } else if (widget === 'number') {
-      const elem = document.getElementById(`setting-${key}`);
-      elem.removeAttribute('disabled');
-    } else if (widget === 'search') {
-      const elem = document.getElementById('search-input');
-      elem.removeAttribute('disabled');
-      const container = document.querySelector('.search-container');
-      container.classList.remove('disabled');
+    switch(widget) {
+      case 'checkbox':
+        elem = document.getElementById(`setting-${key}-switch`);
+        elem.classList.remove('mdc-switch--disabled');
+        elem.querySelector('input').removeAttribute('disabled');
+        break;
+      case 'number':
+        elem = document.getElementById(`setting-${key}`);
+        elem.removeAttribute('disabled');
+        break;
+      case 'search':
+        elem = document.getElementById('search-input');
+        elem.removeAttribute('disabled');
+        const container = document.querySelector('.search-container');
+        container.classList.remove('disabled');
+        break;
+      default:
+        // Else it can't be disabled.
+        break;
     }
-    // Else it can't be disabled.
   }
 }
-
 
 /**
  * Locks a setting to particular value and prevents the user from changing it.
@@ -134,21 +140,28 @@ Settings.prototype.enableAll = function() {
  */
 Settings.prototype.disable = function(setting, value) {
   this.set(setting, value);
+  let elem;
 
   const widget = Settings.SETTINGS[setting].widget;
-  if (widget === 'checkbox') {
-    const elem = document.getElementById(`setting-${setting}-switch`);
-    elem.classList.add('mdc-switch--disabled');
-    elem.querySelector('input').setAttribute('disabled', 'true');
-  } else if (widget === 'number') {
-    const elem = document.getElementById(`setting-${setting}`);
-    elem.setAttribute('disabled', 'true');
-  } else if (widget === 'search') {
-    const elem = document.getElementById('search-input');
-    elem.setAttribute('disabled', 'true');
-    const container = document.querySelector('.search-container');
-    container.classList.add('disabled');
+  switch (widget) {
+    case 'checkbox':
+      elem = document.getElementById(`setting-${setting}-switch`);
+      elem.classList.add('mdc-switch--disabled');
+      elem.querySelector('input').setAttribute('disabled', 'true');
+      break;
+    case 'number':
+      elem = document.getElementById(`setting-${setting}`);
+      elem.setAttribute('disabled', 'true');
+      break;
+    case 'search':
+      elem = document.getElementById('search-input');
+      elem.setAttribute('disabled', 'true');
+      const container = document.querySelector('.search-container');
+      container.classList.add('disabled');
+      break;
+    default:
+      // Do nothing if widget isn't supported.
+      // This case is hit by settings with no widget or a radio widget.
+      break;
   }
-  // Do nothing if widget isn't supported.
-  // This case is hit by settings with no widget or a radio widget.
 }

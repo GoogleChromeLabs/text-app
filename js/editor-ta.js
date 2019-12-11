@@ -68,7 +68,7 @@ EditorTextArea.prototype.lockedSettings = function() {
  * @return {Search}
  */
 EditorTextArea.prototype.getSearch = function() {
-  // unsupported.
+  // Unsupported.
 };
 
 
@@ -84,10 +84,7 @@ EditorTextArea.prototype.undo = function() {
 };
 
 EditorTextArea.prototype.redo = function() {
-  // This is handled by the text area defaults, but control-shift-z
-  // isn't supported by a textarea, so we still need this function to trigger a
-  // redo for that keyboard shortcut.
-  document.execCommand('redo');
+  // This is handled by the text area defaults.
 };
 
 EditorTextArea.prototype.focus = function() {
@@ -95,7 +92,7 @@ EditorTextArea.prototype.focus = function() {
 };
 
 /**
- * Set the syntac highlighting mode of the text editor
+ * Set the syntax highlighting mode of the text editor.
  * @param {Session} session
  * @param {string} extension
  */
@@ -115,7 +112,7 @@ EditorTextArea.prototype.setFontSize = function(fontSize) {
  * @param {number} size
  */
 EditorTextArea.prototype.setTabSize = function(size) {
-  // unsupported.
+  // Unsupported.
 };
 
 /**
@@ -133,47 +130,41 @@ EditorTextArea.prototype.setTheme = function() {
  * @param {boolean} val
  */
 EditorTextArea.prototype.showHideLineNumbers = function(val) {
-  // unsupported.
+  // Unsupported.
 };
 
 /**
  * @param {boolean} val
  */
 EditorTextArea.prototype.setWrapLines = function(val) {
-  // unsupported.
+  // Unsupported.
 };
 
 /**
  * @param {boolean} val
  */
 EditorTextArea.prototype.setSmartIndent = function(val) {
-  // unsupported.
+  // Unsupported.
 };
 
 /**
  * @param {boolean} val
  */
 EditorTextArea.prototype.replaceTabWithSpaces = function(val) {
-  // unsupported.
+  // Unsupported.
 };
 
-/**
- * Make the textarea unfocusable and hide cursor.
- */
 EditorTextArea.prototype.disable = function() {
-  // unsupported.
+  // Unsupported.
 };
 
-/**
- * Focus textarea again.
- */
 EditorTextArea.prototype.enable = function() {
-  // unsupported.
+  // Unsupported.
 };
 
 /**
  * Prepare the Editor to be killed and then remove it from the DOM.
  */
-EditorTextArea.prototype.destory = function() {
-
+EditorTextArea.prototype.destroy = function() {
+  // Text area does not have any destruction logic.
 };

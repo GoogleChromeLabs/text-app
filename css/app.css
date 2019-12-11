@@ -3,13 +3,14 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
+  --disabled-opacity: 0.38;
   /* These colors are copied from codemirror to maintain consistency. */
   --light-theme-line-number-color: #999999;
   --dark-theme-line-number-color: #d0d0d0;
   --light-theme-text-color: #000000;
   --dark-theme-text-color: #f8f8f2;
   /*
-   * editor styles are mostly copied from codemirror so that the text area
+   * Editor styles are mostly copied from codemirror so that the text area
    * maintains the same look.
    */
   --editor-line-height: 1.2em;
@@ -391,7 +392,7 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 }
 
 .search-container.disabled {
-  opacity: 0.38;
+  opacity: var(--disabled-opacity);
 }
 
 #search-input-container {
@@ -499,7 +500,7 @@ header.hide-controls #window-close {
   border: none;
 }
 input[type=text][disabled] {
-  opacity: .38;
+  opacity: var(--disabled-opacity);
 }
 /* Markup below overrides default search input box styling. */
 input[type=search] {

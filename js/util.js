@@ -1,9 +1,9 @@
 var util = {};
 
 /**
- * A object which describes a edit session. Each session contains a instance of
- * how it should be represented to codemirror and to textarea so the two can be
- * easily switched between.
+ * A object which describes an edit session. Each session contains an instance
+ * of how it should be represented to codemirror and to textarea so the two can
+ * be easily switched between.
  * @typedef {{
  *            textarea:HTMLElement,
  *            codemirror:Object,
@@ -125,11 +125,13 @@ util.createUnifiedSession = function(opt_content) {
  * such as the codemirror instance generates a change, it's registered here and
  * copied over to the other formats (such as textarea) so all of the formats
  * have the correct text. This means if you switch between modes you don't lose
- * any text and the undo stack is consistent (the redo stack may
- * diverge as all edits are treated as direct edits when transfered from one
- * format to the other).
+ * any text. This does cause the other editer to lose it's undo/redo stack,
+ * textarea loses all history whereas codemirror tries and interpert each
+ * changed character as a single edit, which blows the undo stack out.
  */
 util.syncUnifiedSession = function(session, updated, lineEndings) {
+  // TODO: Update this so that updating 1 editor syncs to the other editors in a
+  // way that preserves undo/redo stacks.
   switch(updated) {
     case 'codemirror':
       session.textarea.value = session.codemirror.getValue(lineEndings);

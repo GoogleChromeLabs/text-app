@@ -67,11 +67,11 @@
     "message": "Always on top",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
   },
-  "screenreaderModeSetting": {
-    "message": "Screen Reader Mode",
+  "screenReaderModeSetting": {
+    "message": "Screen reader mode",
     "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
   },
-  "screenreaderModeHelp": {
+  "screenReaderModeHelp": {
     "message": "For a more optimised screen reader experience turn on screen reader mode from the settings menu.",
     "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimises the app for use with a screen reader."
   },

@@ -79,10 +79,6 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         this.windowController_.close();
         return false;
 
-      case 'Z':
-        this.editor_.redo();
-        return false;
-
       case '0':
       case ')':
         this.settings_.reset('fontsize');

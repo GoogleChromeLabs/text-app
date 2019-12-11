@@ -470,18 +470,18 @@ Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
 };
 
 /**
- * @param {Event} event The DocChange event object.
- * @param {Object} eventData The data passed with the DocChange event. This
- *   object contains where the event came from, i.e textarea or codemirror, which
- *   helps the syncUnifiedSession function determine which of the editors is the
- *   source of truth. It also contains the current session of the editor so this
- *   function can check to make sure Tabs state is still accurate.
  * The event handler which is called when a DocChange event is caught, this
  * handler registers the change and then syncs the codemirror and textarea
  * instances so they both contain the same text.
+ * @param {Event} event The DocChange event object.
+ * @param {Object} eventData The data passed with the DocChange event. This
+ *   object contains where the event came from, i.e, textarea or codemirror, which
+ *   helps the syncUnifiedSession function determine which of the editors is the
+ *   source of truth. It also contains the current session of the editor so this
+ *   function can check to make sure Tabs state is still accurate.
  */
 Tabs.prototype.onDocChanged_ = function(event, eventData) {
-  // Assume that updates are coming from the current tab, if they arn't
+  // Assume that updates are coming from the current tab, if they aren't
   // we have no real way to recover so failing here is acceptable.
   var tab = this.currentTab_;
   tab.changed();
