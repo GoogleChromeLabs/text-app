@@ -1,174 +1,174 @@
 {
-   "analyticsSetting": {
-      "description": "The label for the checkbox in settings tab that turns on Analytics.",
-      "message": "傳送統計資料"
-   },
-   "analyticsTooltip": {
-      "description": "The tooltip for send statistics checkbox.",
-      "message": "自動傳送統計資料"
-   },
-   "appDesc": {
-      "description": "The description of the application, displayed in the web store.",
-      "message": "適用於 Chrome OS 和 Chrome 瀏覽器的純文字編輯器。"
-   },
-   "cancelDialogButton": {
-      "description": "The button text which says 'Cancel'.",
-      "message": "取消"
-   },
-   "closeButton": {
-      "description": "The button text to close the app window.",
-      "message": "關閉"
-   },
-   "closeSettings": {
-      "description": "The text to close the settings Menu.",
-      "message": "返回"
-   },
-   "closeSidebarButton": {
-      "description": "The button text to close the sidebar.",
-      "message": "關閉側欄"
-   },
-   "darkThemeOption": {
-      "description": "The text of the dark Option Theme.",
-      "message": "深色"
-   },
-   "defaultThemeOption": {
-      "description": "The text of the default Option Theme.",
-      "message": "預設"
-   },
-   "errorTitle": {
-      "description": "The error text displayed in the filename title bar.",
-      "message": "錯誤"
-   },
-   "fileMenuNew": {
-      "description": "The text of the File Menu 'New'.",
-      "message": "新增"
-   },
-   "fileMenuOpen": {
-      "description": "The text of the File Menu 'Open'.",
-      "message": "開啟"
-   },
-   "fileMenuSave": {
-      "description": "The text of the File Menu 'Save'.",
-      "message": "儲存"
-   },
-   "fileMenuSaveas": {
-      "description": "The text of the File Menu 'Save as'.",
-      "message": "另存新檔"
-   },
-   "fontsizeSetting": {
-      "description": "The text of the settings 'Font size'.",
-      "message": "字體大小"
-   },
-   "fontsizeTooltip": {
-      "description": "The tooltip of the setting 'Font size'.",
-      "message": "使用 Ctrl- 和 Ctrl+ 調整字體大小"
-   },
-   "lightThemeOption": {
-      "description": "The text of the light Option Theme.",
-      "message": "淺色"
-   },
-   "linenumbersSetting": {
-      "description": "The text of the line numbers setting.",
-      "message": "顯示每行編號"
-   },
-   "loadingTitle": {
-      "description": "The text displayed in the filename title bar when file loads.",
-      "message": "載入中..."
-   },
-   "maximizeButton": {
-      "description": "The button text to maximize the app window.",
-      "message": "最大化"
-   },
-   "menuSettings": {
-      "description": "The text of the Menu 'Settings'.",
-      "message": "設定"
-   },
-   "minimizeButton": {
-      "description": "The button text to minimize the app window.",
-      "message": "最小化"
-   },
-   "noDialogButton": {
-      "description": "The button text which says 'No'.",
-      "message": "否"
-   },
-   "okDialogButton": {
-      "description": "The button text which says 'OK'.",
-      "message": "確定"
-   },
-   "openSidebarButton": {
-      "description": "The button text to open the sidebar.",
-      "message": "開啟側欄"
-   },
-   "restoreButton": {
-      "description": "The button text to restore the app window.",
-      "message": "還原"
-   },
-   "saveFilePromptLine1": {
-      "message": "「$filename$」已經過修改。",
-      "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
-      "placeholders": {
-         "filename": {
-           "content": "$1",
-           "example": "file.txt"
-         }
+  "analyticsSetting": {
+    "description": "The label for the checkbox in settings tab that turns on Analytics.",
+    "message": "傳送統計資料"
+  },
+  "analyticsTooltip": {
+    "description": "The tooltip for send statistics checkbox.",
+    "message": "自動傳送統計資料"
+  },
+  "appDesc": {
+    "description": "The description of the application, displayed in the web store.",
+    "message": "適用於 Chrome OS 和 Chrome 瀏覽器的純文字編輯器。"
+  },
+  "cancelDialogButton": {
+    "description": "The button text which says 'Cancel'.",
+    "message": "取消"
+  },
+  "closeButton": {
+    "description": "The button text to close the app window.",
+    "message": "關閉"
+  },
+  "closeSettings": {
+    "description": "The text to close the settings Menu.",
+    "message": "返回"
+  },
+  "closeSidebarButton": {
+    "description": "The button text to close the sidebar.",
+    "message": "關閉側欄"
+  },
+  "darkThemeOption": {
+    "description": "The text of the dark Option Theme.",
+    "message": "深色"
+  },
+  "defaultThemeOption": {
+    "description": "The text of the default Option Theme.",
+    "message": "預設"
+  },
+  "errorTitle": {
+    "description": "The error text displayed in the filename title bar.",
+    "message": "錯誤"
+  },
+  "fileMenuNew": {
+    "description": "The text of the File Menu 'New'.",
+    "message": "新增"
+  },
+  "fileMenuOpen": {
+    "description": "The text of the File Menu 'Open'.",
+    "message": "開啟"
+  },
+  "fileMenuSave": {
+    "description": "The text of the File Menu 'Save'.",
+    "message": "儲存"
+  },
+  "fileMenuSaveas": {
+    "description": "The text of the File Menu 'Save as'.",
+    "message": "另存新檔"
+  },
+  "fontsizeSetting": {
+    "description": "The text of the settings 'Font size'.",
+    "message": "字體大小"
+  },
+  "fontsizeTooltip": {
+    "description": "The tooltip of the setting 'Font size'.",
+    "message": "使用 Ctrl- 和 Ctrl+ 調整字體大小"
+  },
+  "lightThemeOption": {
+    "description": "The text of the light Option Theme.",
+    "message": "淺色"
+  },
+  "linenumbersSetting": {
+    "description": "The text of the line numbers setting.",
+    "message": "顯示每行編號"
+  },
+  "loadingTitle": {
+    "description": "The text displayed in the filename title bar when file loads.",
+    "message": "載入中..."
+  },
+  "maximizeButton": {
+    "description": "The button text to maximize the app window.",
+    "message": "最大化"
+  },
+  "menuSettings": {
+    "description": "The text of the Menu 'Settings'.",
+    "message": "設定"
+  },
+  "minimizeButton": {
+    "description": "The button text to minimize the app window.",
+    "message": "最小化"
+  },
+  "noDialogButton": {
+    "description": "The button text which says 'No'.",
+    "message": "否"
+  },
+  "okDialogButton": {
+    "description": "The button text which says 'OK'.",
+    "message": "確定"
+  },
+  "openSidebarButton": {
+    "description": "The button text to open the sidebar.",
+    "message": "開啟側欄"
+  },
+  "restoreButton": {
+    "description": "The button text to restore the app window.",
+    "message": "還原"
+  },
+  "saveFilePromptLine1": {
+    "message": "「$filename$」已經過修改。",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
       }
-   },
-   "saveFilePromptLine2": {
-     "message": "你要先儲存變更再關閉檔案嗎？",
-     "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
-   },
-   "searchPlaceholder": {
-      "description": "The placeholder text in the search input.",
-      "message": "尋找..."
-   },
-   "searchCounting": {
-      "description": "The text showing search counting.",
-      "message": "第 $searchIndex$ 個，共 $searchCount$ 個",
-      "placeholders": {
-         "searchCount": {
-            "content": "$2",
-            "example": "Search count"
-         },
-         "searchIndex": {
-            "content": "$1",
-            "example": "Search index"
-         }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "你要先儲存變更再關閉檔案嗎？",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "searchPlaceholder": {
+    "description": "The placeholder text in the search input.",
+    "message": "尋找..."
+  },
+  "searchCounting": {
+    "description": "The text showing search counting.",
+    "message": "第 $searchIndex$ 個，共 $searchCount$ 個",
+    "placeholders": {
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      },
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
       }
-   },
-   "searchNextButton": {
-      "description": "The button text to search the next result.",
-      "message": "下一個"
-   },
-   "searchPreviousButton": {
-      "description": "The button text to search the previous result.",
-      "message": "上一個"
-   },
-   "smartindentSetting": {
-      "description": "The text of the settings 'Smart indent'.",
-      "message": "智慧型縮排"
-   },
-   "spacestabSetting": {
-      "description": "The text of the settings 'Tabs to spaces'.",
-      "message": "Tab 代替空格"
-   },
-   "tabsizeSetting": {
-      "description": "The text of the settings 'Tab size'.",
-      "message": "Tab 大小"
-   },
-   "themeSetting": {
-      "description": "The text of the theme setting.",
-      "message": "主題"
-   },
-   "wraplinesSetting": {
-      "description": "The text of the settings 'Wrap lines'.",
-      "message": "換行"
-   },
-   "yesDialogButton": {
-      "description": "The button text which says 'Yes'.",
-      "message": "是"
-   },
-   "closeFileButton": {
-      "message": "關閉檔案",
-      "description": "The button text to close a file."
-   }
+    }
+  },
+  "searchNextButton": {
+    "description": "The button text to search the next result.",
+    "message": "下一個"
+  },
+  "searchPreviousButton": {
+    "description": "The button text to search the previous result.",
+    "message": "上一個"
+  },
+  "smartindentSetting": {
+    "description": "The text of the settings 'Smart indent'.",
+    "message": "智慧型縮排"
+  },
+  "spacestabSetting": {
+    "description": "The text of the settings 'Tabs to spaces'.",
+    "message": "Tab 代替空格"
+  },
+  "tabsizeSetting": {
+    "description": "The text of the settings 'Tab size'.",
+    "message": "Tab 大小"
+  },
+  "themeSetting": {
+    "description": "The text of the theme setting.",
+    "message": "主題"
+  },
+  "wraplinesSetting": {
+    "description": "The text of the settings 'Wrap lines'.",
+    "message": "換行"
+  },
+  "yesDialogButton": {
+    "description": "The button text which says 'Yes'.",
+    "message": "是"
+  },
+  "closeFileButton": {
+    "message": "關閉檔案",
+    "description": "The button text to close a file."
+  }
 }
