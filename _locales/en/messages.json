@@ -1,31 +1,31 @@
 {
   "appDesc": {
     "message": "A text editor for Chrome OS and Chrome.",
-    "description":"The description of the application, displayed in the web store."
+    "description": "The description of the application, displayed in the web store."
   },
   "fileMenuNew": {
     "message": "New",
-    "description":"The text of the File Menu 'New'."
+    "description": "The text of the File Menu 'New'."
   },
   "fileMenuOpen": {
     "message": "Open",
-    "description":"The text of the File Menu 'Open'."
+    "description": "The text of the File Menu 'Open'."
   },
   "fileMenuSave": {
     "message": "Save",
-    "description":"The text of the File Menu 'Save'."
+    "description": "The text of the File Menu 'Save'."
   },
   "fileMenuSaveas": {
     "message": "Save as",
-    "description":"The text of the File Menu 'Save as'."
+    "description": "The text of the File Menu 'Save as'."
   },
   "menuSettings": {
     "message": "Settings",
-    "description":"The text of the Menu 'Settings'."
+    "description": "The text of the Menu 'Settings'."
   },
   "fontsizeSetting": {
     "message": "Font size",
-    "description":"The text of the settings 'Font size'."
+    "description": "The text of the settings 'Font size'."
   },
   "fontsizeTooltip": {
     "message": "Set with Ctrl- and Ctrl+",
@@ -33,15 +33,15 @@
   },
   "spacestabSetting": {
     "message": "Tabs to spaces",
-    "description":"The text of the settings 'Tabs to spaces'."
+    "description": "The text of the settings 'Tabs to spaces'."
   },
   "tabsizeSetting": {
     "message": "Tab size",
-    "description":"The text of the settings 'Tab size'."
+    "description": "The text of the settings 'Tab size'."
   },
   "wraplinesSetting": {
     "message": "Wrap lines",
-    "description":"The text of the settings 'Wrap lines'."
+    "description": "The text of the settings 'Wrap lines'."
   },
   "linenumbersSetting": {
     "message": "Show line numbers",
@@ -49,7 +49,7 @@
   },
   "smartindentSetting": {
     "message": "Smart indent",
-    "description":"The text of the settings 'Smart indent'."
+    "description": "The text of the settings 'Smart indent'."
   },
   "themeSetting": {
     "message": "Themes",
@@ -69,27 +69,27 @@
   },
   "defaultThemeOption": {
     "message": "Default",
-    "description":"The text of the default Option Theme."
+    "description": "The text of the default Option Theme."
   },
   "lightThemeOption": {
     "message": "Light",
-    "description":"The text of the light Option Theme."
+    "description": "The text of the light Option Theme."
   },
   "darkThemeOption": {
     "message": "Dark",
-    "description":"The text of the dark Option Theme."
+    "description": "The text of the dark Option Theme."
   },
   "closeSettings": {
     "message": "Back",
-    "description":"The text to close the settings Menu."
+    "description": "The text to close the settings Menu."
   },
   "openSidebarButton": {
     "message": "Open sidebar",
-    "description":"The button text to open the sidebar."
+    "description": "The button text to open the sidebar."
   },
   "closeSidebarButton": {
     "message": "Close sidebar",
-    "description":"The button text to close the sidebar."
+    "description": "The button text to close the sidebar."
   },
   "searchPlaceholder": {
     "message": "Find...",
@@ -97,7 +97,7 @@
   },
   "searchCounting": {
     "message": "$searchIndex$ of $searchCount$",
-    "description":"The text showing search counting.",
+    "description": "The text showing search counting.",
     "placeholders": {
       "searchIndex": {
         "content": "$1",
@@ -111,35 +111,35 @@
   },
   "searchNextButton": {
     "message": "Next",
-    "description":"The button text to search the next result."
+    "description": "The button text to search the next result."
   },
   "searchPreviousButton": {
     "message": "Previous",
-    "description":"The button text to search the previous result."
+    "description": "The button text to search the previous result."
   },
   "errorTitle": {
     "message": "Error",
-    "description":"The error text displayed in the filename title bar."
+    "description": "The error text displayed in the filename title bar."
   },
   "loadingTitle": {
     "message": "Loading...",
-    "description":"The text displayed in the filename title bar when file loads."
+    "description": "The text displayed in the filename title bar when file loads."
   },
   "minimizeButton": {
     "message": "Minimize",
-    "description":"The button text to minimize the app window."
+    "description": "The button text to minimize the app window."
   },
   "maximizeButton": {
     "message": "Maximize",
-    "description":"The button text to maximize the app window."
+    "description": "The button text to maximize the app window."
   },
   "restoreButton": {
     "message": "Restore",
-    "description":"The button text to restore the app window."
+    "description": "The button text to restore the app window."
   },
   "closeButton": {
     "message": "Quit",
-    "description":"The button text to close the app window."
+    "description": "The button text to close the app window."
   },
   "yesDialogButton": {
     "message": "Yes",
@@ -147,11 +147,11 @@
   },
   "noDialogButton": {
     "message": "No",
-    "description":"The button text which says 'No'."
+    "description": "The button text which says 'No'."
   },
   "cancelDialogButton": {
     "message": "Cancel",
-    "description":"The button text which says 'Cancel'."
+    "description": "The button text which says 'Cancel'."
   },
   "saveFilePromptLine1": {
     "message": "$filename$ has been modified.",
@@ -169,7 +169,7 @@
   },
   "okDialogButton": {
     "message": "OK",
-    "description":"The button text which says 'OK'."
+    "description": "The button text which says 'OK'."
   },
   "closeFileButton": {
     "message": "Close file",
