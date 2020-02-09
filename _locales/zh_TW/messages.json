@@ -170,5 +170,13 @@
   "closeFileButton": {
     "message": "關閉檔案",
     "description": "The button text to close a file."
+  },
+  "screenReaderModeSetting": {
+    "message": "螢幕閱讀器模式",
+    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
+  },
+  "screenReaderModeHelp": {
+    "message": "請在設定選單中開啟螢幕閱讀器模式，以獲得更佳的螢幕閱讀器使用體驗。",
+    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }

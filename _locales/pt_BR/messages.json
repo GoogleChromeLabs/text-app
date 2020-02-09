@@ -174,5 +174,13 @@
   "closeFileButton": {
     "message": "Fechar arquivo",
     "description": "The button text to close a file."
+  },
+  "screenReaderModeSetting": {
+    "message": "Modo leitor de tela",
+    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
+  },
+  "screenReaderModeHelp": {
+    "message": "Para ter uma experiência mais otimizada, ative o modo leitor de tela no menu \"Configurações\".",
+    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }
