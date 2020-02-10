@@ -174,5 +174,13 @@
   "closeFileButton": {
     "message": "Luk fil",
     "description": "The button text to close a file."
+  },
+  "screenReaderModeSetting": {
+    "message": "Tilstanden Skærmlæser",
+    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
+  },
+  "screenReaderModeHelp": {
+    "message": "Aktivér tilstanden Skærmlæser i menuen med indstillinger for at få mest muligt ud af din skærmlæser.",
+    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }
