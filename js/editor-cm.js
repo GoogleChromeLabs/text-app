@@ -183,20 +183,20 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 /**
- * @param {string} opt_content
- * @return {EditSession}
- * Create an edit session for a new file. Each tab should have its own session.
- */
-EditorCodeMirror.prototype.newSession = function(opt_content) {
-  var session = new CodeMirror.Doc(opt_content || '');
-  return session;
-};
-/**
- * @param {EditSession} session
+ * @param {SessionDescriptor} session
  * Change the current session, usually to switch to another tab.
  */
 EditorCodeMirror.prototype.setSession = function(session) {
-  this.cm_.swapDoc(session);
+  this.cm_.swapDoc(session.codemirror);
+  this.currentSession_ = session;
+};
+
+/**
+ * Returns all settings which are locked to a certain value
+ * when this editor is open.
+ */
+EditorCodeMirror.prototype.lockedSettings = function() {
+  return {};
 };
 
 /**
@@ -208,7 +208,10 @@ EditorCodeMirror.prototype.getSearch = function() {
 };
 
 EditorCodeMirror.prototype.onChange = function() {
-  $.event.trigger('docchange', this.cm_.getDoc());
+  $.event.trigger('docchange', {
+    type: 'codemirror',
+    session: this.currentSession_
+  });
 };
 
 EditorCodeMirror.prototype.undo = function() {
@@ -224,10 +227,11 @@ EditorCodeMirror.prototype.focus = function() {
 };
 
 /**
- * @param {Session} session
+ * @param {SessionDescriptor} session
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
+  session = session.codemirror;
   var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
   if (mode) {
     var currentSession = null;
@@ -322,5 +326,10 @@ EditorCodeMirror.prototype.enable = function() {
   this.cm_.focus();
 };
 
-var Editor = EditorCodeMirror;
-
+/**
+ * Prepare the Editor to be killed and removed from the DOM
+ */
+EditorCodeMirror.prototype.destroy = function() {
+  // Detach the current doc so it can be reset in future.
+  this.cm_.swapDoc(new CodeMirror.Doc(''));
+};

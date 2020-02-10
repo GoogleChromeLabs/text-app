@@ -16,6 +16,10 @@ function SearchController(search) {
   $('.search-container').focusout(this.deactivateSearch_.bind(this));
 }
 
+SearchController.prototype.updateEditor = function(editor) {
+  this.search_ = editor.getSearch();
+}
+
 SearchController.prototype.updateSearchCount_ = function() {
   if ($('#search-input').val().length === 0) {
     $('#search-counting').text('');
