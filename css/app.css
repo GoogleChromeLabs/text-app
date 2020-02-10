@@ -482,8 +482,9 @@ header.hide-controls #window-close {
 #editor-textarea {
   background: var(--light-background-color);
   color: var(--light-theme-text-color);
-  width: calc(100% - 2*var(--editor-padding));
-  height: calc(100vh - var(--header-height) - 2*var(--editor-padding));
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   resize: none;
   padding: var(--editor-padding);
   font-family: monospace;
