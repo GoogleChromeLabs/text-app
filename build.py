@@ -8,6 +8,7 @@ import subprocess
 import sys
 import urllib.parse
 import urllib.request
+import glob
 
 APP_NAME = 'Text'
 CANARY_APP_NAME = 'Text Canary'
@@ -23,10 +24,6 @@ BUILD_DIR = os.path.join(BASE_DIR, 'build')
 # the <!-- JS --> block in index.html).
 FILES_TO_COPY = [
   'index.html',
-  '_locales/en/messages.json',
-  '_locales/pt_BR/messages.json',
-  '_locales/zh_CN/messages.json',
-  '_locales/zh_TW/messages.json',
   'css/app.css',
   'css/print.css',
   'css/theme-dark.css',
@@ -46,7 +43,7 @@ FILES_TO_COPY = [
   'third_party/material-components-web/material-components-web.min.js',
   'third_party/material-design-icons/iconfont/material-icons.css',
   'third_party/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
- ]
+ ] + glob.glob('_locales/*/messages.json')
 
 MANIFEST = 'manifest.json'
 INDEX_HTML = 'index.html'
