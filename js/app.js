@@ -22,7 +22,6 @@ function TextApp() {
  */
 TextApp.prototype.init = function() {
   this.settings_ = new Settings();
-  this.analytics_ = new Analytics();
   // Editor is initalised after settings are ready.
   this.editor_ = null;
 
@@ -32,7 +31,6 @@ TextApp.prototype.init = function() {
     $(document).bind('settingsready', this.onSettingsReady_.bind(this));
   }
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
-
 };
 
 /**
@@ -92,8 +90,6 @@ TextApp.prototype.onSettingsReady_ = function() {
 
   this.initEditor_();
 
-  this.analytics_.setEnabled(this.settings_.get('analytics'));
-  this.analytics_.reportSettings(this.settings_);
   this.windowController_.setAlwaysOnTop(this.settings_.get('alwaysontop'));
 
   chrome.runtime.getBackgroundPage(function(bg) {
@@ -105,16 +101,16 @@ TextApp.prototype.onSettingsReady_ = function() {
  * Create all of the controllers the editor needs.
  */
 TextApp.prototype.initControllers_ = function() {
-  this.dialogController_ = new DialogController(
-    $('#dialog-container'), this.editor_);
+  this.dialogController_ =
+      new DialogController($('#dialog-container'), this.editor_);
   this.tabs_ = new Tabs(this.editor_, this.dialogController_, this.settings_);
   this.menuController_ = new MenuController(this.tabs_);
-  this.windowController_ = new WindowController(
-      this.editor_, this.settings_, this.analytics_, this.tabs_);
-  this.hotkeysController_ = new HotkeysController(this.windowController_,
-      this.tabs_, this.editor_, this.settings_, this.analytics_);
+  this.windowController_ =
+      new WindowController(this.editor_, this.settings_, this.tabs_);
+  this.hotkeysController_ = new HotkeysController(
+      this.windowController_, this.tabs_, this.editor_, this.settings_);
   this.searchController_ = new SearchController(this.editor_.getSearch());
-}
+};
 /**
  * Ensures all controllers are notified of a new editor instance.
  */
@@ -123,7 +119,7 @@ TextApp.prototype.updateControllers_ = function() {
   this.windowController_.updateEditor(this.editor_);
   this.hotkeysController_.updateEditor(this.editor_);
   this.searchController_.updateEditor(this.editor_);
-}
+};
 
 /**
  * Loads all settings into the current editor.
@@ -136,7 +132,7 @@ TextApp.prototype.loadSettingsIntoEditor = function() {
   this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
   this.editor_.setTabSize(this.settings_.get('tabsize'));
   this.editor_.setWrapLines(this.settings_.get('wraplines'));
-}
+};
 
 /**
  * Create a new editor and load all settings.
@@ -235,4 +231,3 @@ const textApp = new TextApp();
 document.addEventListener('DOMContentLoaded', function() {
   textApp.init();
 });
-
