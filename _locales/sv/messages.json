@@ -1,1 +1,178 @@
-{"appDesc": {"message": "En textredigerare f\u00f6r Chrome OS och Chrome.", "description": "The description of the application, displayed in the web store."}, "fileMenuNew": {"message": "Ny", "description": "The text of the File Menu 'New'."}, "fileMenuOpen": {"message": "\u00d6ppna", "description": "The text of the File Menu 'Open'."}, "fileMenuSave": {"message": "Spara", "description": "The text of the File Menu 'Save'."}, "fileMenuSaveas": {"message": "Spara som", "description": "The text of the File Menu 'Save as'."}, "menuSettings": {"message": "Inst\u00e4llningar", "description": "The text of the Menu 'Settings'."}, "fontsizeSetting": {"message": "Teckenstorlek", "description": "The text of the settings 'Font size'."}, "fontsizeTooltip": {"message": "\u00c4ndra med ctrl\u00a0- och ctrl\u00a0+", "description": "The tooltip of the setting 'Font size'."}, "spacestabSetting": {"message": "Tabbar till blanksteg", "description": "The text of the settings 'Tabs to spaces'."}, "tabsizeSetting": {"message": "Tabbavst\u00e5nd", "description": "The text of the settings 'Tab size'."}, "wraplinesSetting": {"message": "Radbrytning", "description": "The text of the settings 'Wrap lines'."}, "linenumbersSetting": {"message": "Visa radnummer", "description": "The text of the line numbers setting."}, "smartindentSetting": {"message": "Smart indrag", "description": "The text of the settings 'Smart indent'."}, "themeSetting": {"message": "Teman", "description": "The text of the theme setting."}, "alwaysOnTopSetting": {"message": "Alltid \u00f6verst", "description": "The label for the checkbox in settings tab that sets the window always on top."}, "defaultThemeOption": {"message": "Standard", "description": "The text of the default Option Theme."}, "lightThemeOption": {"message": "Ljust", "description": "The text of the light Option Theme."}, "darkThemeOption": {"message": "M\u00f6rkt", "description": "The text of the dark Option Theme."}, "closeSettings": {"message": "Tillbaka", "description": "The text to close the settings Menu."}, "openSidebarButton": {"message": "\u00d6ppna sidof\u00e4lt", "description": "The button text to open the sidebar."}, "closeSidebarButton": {"message": "St\u00e4ng sidof\u00e4lt", "description": "The button text to close the sidebar."}, "searchPlaceholder": {"message": "S\u00f6k \u2026", "description": "The placeholder text in the search input."}, "searchCounting": {"message": "$searchIndex$ av $searchCount$", "description": "The text showing search counting.", "placeholders": {"searchIndex": {"content": "$1", "example": "Search index"}, "searchCount": {"content": "$2", "example": "Search count"}}}, "searchNextButton": {"message": "N\u00e4sta", "description": "The button text to search the next result."}, "searchPreviousButton": {"message": "F\u00f6reg\u00e5ende", "description": "The button text to search the previous result."}, "errorTitle": {"message": "Fel", "description": "The error text displayed in the filename title bar."}, "loadingTitle": {"message": "L\u00e4ser in \u2026", "description": "The text displayed in the filename title bar when file loads."}, "minimizeButton": {"message": "Minimera", "description": "The button text to minimize the app window."}, "maximizeButton": {"message": "Maximera", "description": "The button text to maximize the app window."}, "restoreButton": {"message": "\u00c5terst\u00e4ll", "description": "The button text to restore the app window."}, "closeButton": {"message": "Avsluta", "description": "The button text to close the app window."}, "yesDialogButton": {"message": "Ja", "description": "The button text which says 'Yes'."}, "noDialogButton": {"message": "Nej", "description": "The button text which says 'No'."}, "cancelDialogButton": {"message": "Avbryt", "description": "The button text which says 'Cancel'."}, "saveFilePromptLine1": {"message": "$filename$ har \u00e4ndrats.", "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.", "placeholders": {"filename": {"content": "$1", "example": "file.txt"}}}, "saveFilePromptLine2": {"message": "Vill du spara filen innan du st\u00e4nger den?", "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."}, "okDialogButton": {"message": "OK", "description": "The button text which says 'OK'."}, "closeFileButton": {"message": "St\u00e4ng fil", "description": "The button text to close a file."}, "screenReaderModeSetting": {"message": "L\u00e4ge f\u00f6r sk\u00e4rml\u00e4sningsprogrammet", "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."}, "screenReaderModeHelp": {"message": "Om du vill optimera sk\u00e4rml\u00e4sningsprogrammet aktiverar du l\u00e4get f\u00f6r det i inst\u00e4llningsmenyn.", "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."}}
+{
+  "appDesc": {
+    "message": "En textredigerare för Chrome OS och Chrome.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "Ny",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Öppna",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Spara",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Spara som",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "Inställningar",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "Teckenstorlek",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Ändra med ctrl - och ctrl +",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "Tabbar till blanksteg",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Tabbavstånd",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Radbrytning",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Visa radnummer",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "Smart indrag",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Teman",
+    "description": "The text of the theme setting."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Alltid överst",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "Standard",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Ljust",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Mörkt",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Tillbaka",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Öppna sidofält",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Stäng sidofält",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "Sök …",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ av $searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Nästa",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Föregående",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "Fel",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "Läser in …",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "Minimera",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "Maximera",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Återställ",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Avsluta",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "Ja",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Nej",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Avbryt",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "$filename$ har ändrats.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "Vill du spara filen innan du stänger den?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Stäng fil",
+    "description": "The button text to close a file."
+  },
+  "screenReaderModeSetting": {
+    "message": "Läge för skärmläsningsprogrammet",
+    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
+  },
+  "screenReaderModeHelp": {
+    "message": "Om du vill optimera skärmläsningsprogrammet aktiverar du läget för det i inställningsmenyn.",
+    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
+  }
+}

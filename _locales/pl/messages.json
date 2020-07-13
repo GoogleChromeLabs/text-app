@@ -1,1 +1,178 @@
-{"appDesc": {"message": "Edytor tekstu dla Chrome\u00a0OS i\u00a0Chrome.", "description": "The description of the application, displayed in the web store."}, "fileMenuNew": {"message": "Nowy", "description": "The text of the File Menu 'New'."}, "fileMenuOpen": {"message": "Otw\u00f3rz", "description": "The text of the File Menu 'Open'."}, "fileMenuSave": {"message": "Zapisz", "description": "The text of the File Menu 'Save'."}, "fileMenuSaveas": {"message": "Zapisz jako", "description": "The text of the File Menu 'Save as'."}, "menuSettings": {"message": "Ustawienia", "description": "The text of the Menu 'Settings'."}, "fontsizeSetting": {"message": "Rozmiar czcionki", "description": "The text of the settings 'Font size'."}, "fontsizeTooltip": {"message": "Ustaw za pomoc\u0105 Ctrl- i\u00a0Ctrl+", "description": "The tooltip of the setting 'Font size'."}, "spacestabSetting": {"message": "Tabulatory na spacje", "description": "The text of the settings 'Tabs to spaces'."}, "tabsizeSetting": {"message": "Rozmiar tabulatora", "description": "The text of the settings 'Tab size'."}, "wraplinesSetting": {"message": "Zawijaj wiersze", "description": "The text of the settings 'Wrap lines'."}, "linenumbersSetting": {"message": "Poka\u017c numery wierszy", "description": "The text of the line numbers setting."}, "smartindentSetting": {"message": "Inteligentne wci\u0119cie", "description": "The text of the settings 'Smart indent'."}, "themeSetting": {"message": "Motywy", "description": "The text of the theme setting."}, "alwaysOnTopSetting": {"message": "Zawsze na wierzchu", "description": "The label for the checkbox in settings tab that sets the window always on top."}, "defaultThemeOption": {"message": "Domy\u015blny", "description": "The text of the default Option Theme."}, "lightThemeOption": {"message": "Jasny", "description": "The text of the light Option Theme."}, "darkThemeOption": {"message": "Ciemny", "description": "The text of the dark Option Theme."}, "closeSettings": {"message": "Wstecz", "description": "The text to close the settings Menu."}, "openSidebarButton": {"message": "Otw\u00f3rz pasek boczny", "description": "The button text to open the sidebar."}, "closeSidebarButton": {"message": "Zamknij pasek boczny", "description": "The button text to close the sidebar."}, "searchPlaceholder": {"message": "Znajd\u017a...", "description": "The placeholder text in the search input."}, "searchCounting": {"message": "$searchIndex$ z\u00a0$searchCount$", "description": "The text showing search counting.", "placeholders": {"searchIndex": {"content": "$1", "example": "Search index"}, "searchCount": {"content": "$2", "example": "Search count"}}}, "searchNextButton": {"message": "Dalej", "description": "The button text to search the next result."}, "searchPreviousButton": {"message": "Poprzedni", "description": "The button text to search the previous result."}, "errorTitle": {"message": "B\u0142\u0105d", "description": "The error text displayed in the filename title bar."}, "loadingTitle": {"message": "Wczytuj\u0119...", "description": "The text displayed in the filename title bar when file loads."}, "minimizeButton": {"message": "Minimalizuj", "description": "The button text to minimize the app window."}, "maximizeButton": {"message": "Maksymalizuj", "description": "The button text to maximize the app window."}, "restoreButton": {"message": "Przywr\u00f3\u0107", "description": "The button text to restore the app window."}, "closeButton": {"message": "Zamknij", "description": "The button text to close the app window."}, "yesDialogButton": {"message": "Tak", "description": "The button text which says 'Yes'."}, "noDialogButton": {"message": "Nie", "description": "The button text which says 'No'."}, "cancelDialogButton": {"message": "Anuluj", "description": "The button text which says 'Cancel'."}, "saveFilePromptLine1": {"message": "Plik $filename$ zosta\u0142 zmodyfikowany.", "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.", "placeholders": {"filename": {"content": "$1", "example": "file.txt"}}}, "saveFilePromptLine2": {"message": "Czy przed zamkni\u0119ciem chcesz go zapisa\u0107?", "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."}, "okDialogButton": {"message": "OK", "description": "The button text which says 'OK'."}, "closeFileButton": {"message": "Zamknij plik", "description": "The button text to close a file."}, "screenReaderModeSetting": {"message": "Tryb czytnika ekranu", "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."}, "screenReaderModeHelp": {"message": "Aby zoptymalizowa\u0107 dzia\u0142anie czytnika ekranu, w\u0142\u0105cz jego tryb w menu ustawie\u0144.", "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."}}
+{
+  "appDesc": {
+    "message": "Edytor tekstu dla Chrome OS i Chrome.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "fileMenuNew": {
+    "message": "Nowy",
+    "description": "The text of the File Menu 'New'."
+  },
+  "fileMenuOpen": {
+    "message": "Otwórz",
+    "description": "The text of the File Menu 'Open'."
+  },
+  "fileMenuSave": {
+    "message": "Zapisz",
+    "description": "The text of the File Menu 'Save'."
+  },
+  "fileMenuSaveas": {
+    "message": "Zapisz jako",
+    "description": "The text of the File Menu 'Save as'."
+  },
+  "menuSettings": {
+    "message": "Ustawienia",
+    "description": "The text of the Menu 'Settings'."
+  },
+  "fontsizeSetting": {
+    "message": "Rozmiar czcionki",
+    "description": "The text of the settings 'Font size'."
+  },
+  "fontsizeTooltip": {
+    "message": "Ustaw za pomocą Ctrl- i Ctrl+",
+    "description": "The tooltip of the setting 'Font size'."
+  },
+  "spacestabSetting": {
+    "message": "Tabulatory na spacje",
+    "description": "The text of the settings 'Tabs to spaces'."
+  },
+  "tabsizeSetting": {
+    "message": "Rozmiar tabulatora",
+    "description": "The text of the settings 'Tab size'."
+  },
+  "wraplinesSetting": {
+    "message": "Zawijaj wiersze",
+    "description": "The text of the settings 'Wrap lines'."
+  },
+  "linenumbersSetting": {
+    "message": "Pokaż numery wierszy",
+    "description": "The text of the line numbers setting."
+  },
+  "smartindentSetting": {
+    "message": "Inteligentne wcięcie",
+    "description": "The text of the settings 'Smart indent'."
+  },
+  "themeSetting": {
+    "message": "Motywy",
+    "description": "The text of the theme setting."
+  },
+  "alwaysOnTopSetting": {
+    "message": "Zawsze na wierzchu",
+    "description": "The label for the checkbox in settings tab that sets the window always on top."
+  },
+  "defaultThemeOption": {
+    "message": "Domyślny",
+    "description": "The text of the default Option Theme."
+  },
+  "lightThemeOption": {
+    "message": "Jasny",
+    "description": "The text of the light Option Theme."
+  },
+  "darkThemeOption": {
+    "message": "Ciemny",
+    "description": "The text of the dark Option Theme."
+  },
+  "closeSettings": {
+    "message": "Wstecz",
+    "description": "The text to close the settings Menu."
+  },
+  "openSidebarButton": {
+    "message": "Otwórz pasek boczny",
+    "description": "The button text to open the sidebar."
+  },
+  "closeSidebarButton": {
+    "message": "Zamknij pasek boczny",
+    "description": "The button text to close the sidebar."
+  },
+  "searchPlaceholder": {
+    "message": "Znajdź...",
+    "description": "The placeholder text in the search input."
+  },
+  "searchCounting": {
+    "message": "$searchIndex$ z $searchCount$",
+    "description": "The text showing search counting.",
+    "placeholders": {
+      "searchIndex": {
+        "content": "$1",
+        "example": "Search index"
+      },
+      "searchCount": {
+        "content": "$2",
+        "example": "Search count"
+      }
+    }
+  },
+  "searchNextButton": {
+    "message": "Dalej",
+    "description": "The button text to search the next result."
+  },
+  "searchPreviousButton": {
+    "message": "Poprzedni",
+    "description": "The button text to search the previous result."
+  },
+  "errorTitle": {
+    "message": "Błąd",
+    "description": "The error text displayed in the filename title bar."
+  },
+  "loadingTitle": {
+    "message": "Wczytuję...",
+    "description": "The text displayed in the filename title bar when file loads."
+  },
+  "minimizeButton": {
+    "message": "Minimalizuj",
+    "description": "The button text to minimize the app window."
+  },
+  "maximizeButton": {
+    "message": "Maksymalizuj",
+    "description": "The button text to maximize the app window."
+  },
+  "restoreButton": {
+    "message": "Przywróć",
+    "description": "The button text to restore the app window."
+  },
+  "closeButton": {
+    "message": "Zamknij",
+    "description": "The button text to close the app window."
+  },
+  "yesDialogButton": {
+    "message": "Tak",
+    "description": "The button text which says 'Yes'."
+  },
+  "noDialogButton": {
+    "message": "Nie",
+    "description": "The button text which says 'No'."
+  },
+  "cancelDialogButton": {
+    "message": "Anuluj",
+    "description": "The button text which says 'Cancel'."
+  },
+  "saveFilePromptLine1": {
+    "message": "Plik $filename$ został zmodyfikowany.",
+    "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+    "placeholders": {
+      "filename": {
+        "content": "$1",
+        "example": "file.txt"
+      }
+    }
+  },
+  "saveFilePromptLine2": {
+    "message": "Czy przed zamknięciem chcesz go zapisać?",
+    "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
+  },
+  "okDialogButton": {
+    "message": "OK",
+    "description": "The button text which says 'OK'."
+  },
+  "closeFileButton": {
+    "message": "Zamknij plik",
+    "description": "The button text to close a file."
+  },
+  "screenReaderModeSetting": {
+    "message": "Tryb czytnika ekranu",
+    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
+  },
+  "screenReaderModeHelp": {
+    "message": "Aby zoptymalizować działanie czytnika ekranu, włącz jego tryb w menu ustawień.",
+    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
+  }
+}
