@@ -55,14 +55,6 @@
     "message": "テーマ",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "統計情報を送信する",
-    "description": "The label for the checkbox in settings tab that turns on Analytics."
-  },
-  "analyticsTooltip": {
-    "message": "使用統計情報を自動送信します",
-    "description": "The tooltip for send statistics checkbox."
-  },
   "alwaysOnTopSetting": {
     "message": "常に手前に表示する",
     "description": "The label for the checkbox in settings tab that sets the window always on top."

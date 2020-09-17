@@ -55,14 +55,6 @@
     "message": "Темы",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "Отправлять статистику",
-    "description": "The label for the checkbox in settings tab that turns on Analytics."
-  },
-  "analyticsTooltip": {
-    "message": "Автоматически отправлять статистику использования",
-    "description": "The tooltip for send statistics checkbox."
-  },
   "alwaysOnTopSetting": {
     "message": "Показывать поверх других окон",
     "description": "The label for the checkbox in settings tab that sets the window always on top."

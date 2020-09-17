@@ -55,14 +55,6 @@
     "message": "Teemat",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "Lähetä tilastoja",
-    "description": "The label for the checkbox in settings tab that turns on Analytics."
-  },
-  "analyticsTooltip": {
-    "message": "Lähetä käyttötilastot automaattisesti",
-    "description": "The tooltip for send statistics checkbox."
-  },
   "alwaysOnTopSetting": {
     "message": "Aina päällimmäisenä",
     "description": "The label for the checkbox in settings tab that sets the window always on top."

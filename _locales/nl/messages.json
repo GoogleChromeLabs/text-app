@@ -55,14 +55,6 @@
     "message": "Thema's",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "Statistieken verzenden",
-    "description": "The label for the checkbox in settings tab that turns on Analytics."
-  },
-  "analyticsTooltip": {
-    "message": "Automatisch gebruiksstatistieken verzenden",
-    "description": "The tooltip for send statistics checkbox."
-  },
   "alwaysOnTopSetting": {
     "message": "Altijd op voorgrond",
     "description": "The label for the checkbox in settings tab that sets the window always on top."

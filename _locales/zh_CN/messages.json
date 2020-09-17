@@ -1,12 +1,4 @@
 {
-  "analyticsSetting": {
-    "description": "The label for the checkbox in settings tab that turns on Analytics.",
-    "message": "发送统计数据"
-  },
-  "analyticsTooltip": {
-    "description": "The tooltip for send statistics checkbox.",
-    "message": "自动发送统计数据"
-  },
   "appDesc": {
     "description": "The description of the application, displayed in the web store.",
     "message": "一个适用于Chrome OS和Chrome浏览器的文本编辑器。"

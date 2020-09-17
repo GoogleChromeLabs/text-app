@@ -1,15 +1,14 @@
 /**
  * @constructor
  */
-function HotkeysController(windowController, tabs, editor, settings, analytics) {
+function HotkeysController(windowController, tabs, editor, settings) {
   this.windowController_ = windowController;
   this.tabs_ = tabs;
   this.editor_ = editor;
   this.settings_ = settings;
-  this.analytics_ = analytics;
 
-  this.ZOOM_IN_FACTOR = 9/8;
-  this.ZOOM_OUT_FACTOR = 8/9;
+  this.ZOOM_IN_FACTOR = 9 / 8;
+  this.ZOOM_OUT_FACTOR = 8 / 9;
 
   $(document).keydown(this.onKeydown_.bind(this));
 };
@@ -19,7 +18,7 @@ function HotkeysController(windowController, tabs, editor, settings, analytics) 
  */
 HotkeysController.prototype.updateEditor = function(editor) {
   this.editor_ = editor;
-}
+};
 
 /**
  * Handles hotkey combination if present in keydown event.
@@ -59,7 +58,6 @@ HotkeysController.prototype.onKeydown_ = function(e) {
 
       case 'p':
       case 'P':
-        this.analytics_.reportEvent('action', 'print');
         window.print();
         return false;
 

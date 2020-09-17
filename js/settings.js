@@ -26,8 +26,8 @@ Settings.AREA = 'sync';
  * @type {Object.<string, Object>}
  */
 Settings.SETTINGS = {
-  'screenreadermode': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
-  'analytics': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
+  'screenreadermode':
+      {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
@@ -42,8 +42,7 @@ Settings.SETTINGS = {
 };
 
 Settings.prototype.removeOldSettings_ = function() {
-  if ('autosave' in this.settings_)
-    delete this.settings_['autosave'];
+  if ('autosave' in this.settings_) delete this.settings_['autosave'];
   this.storage_.remove('autosave');
 };
 
@@ -93,8 +92,7 @@ Settings.prototype.onChanged_ = function(changes, areaName) {
   }
 
   for (var key in changes) {
-    if (key.indexOf('settings-') !== 0)
-      continue;
+    if (key.indexOf('settings-') !== 0) continue;
     var value = changes[key].newValue;
     key = key.substring(9);
     console.log('Settings changed:', key, value);
@@ -111,7 +109,7 @@ Settings.prototype.enableAll = function() {
     const widget = setting.widget;
     let elem;
 
-    switch(widget) {
+    switch (widget) {
       case 'checkbox':
         elem = document.getElementById(`setting-${key}-switch`);
         elem.classList.remove('mdc-switch--disabled');
@@ -132,11 +130,11 @@ Settings.prototype.enableAll = function() {
         break;
     }
   }
-}
+};
 
 /**
- * Locks a setting to particular value and prevents the user from changing it.
- * Can only lock a setting with a checkbox or a number widget.
+ * Locks a setting to particular value and prevents the user from changing
+ * it. Can only lock a setting with a checkbox or a number widget.
  */
 Settings.prototype.disable = function(setting, value) {
   this.set(setting, value);

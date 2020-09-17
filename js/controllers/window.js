@@ -1,13 +1,13 @@
 /**
  * @constructor
  */
-function WindowController(editor, settings, analytics, tabs) {
+function WindowController(editor, settings, tabs) {
   this.editor_ = editor;
   this.settings_ = settings;
-  this.analytics_ = analytics;
   this.tabs_ = tabs;
-  document.getElementById('window-close')
-      .addEventListener('click', () => { this.close(); } );
+  document.getElementById('window-close').addEventListener('click', () => {
+    this.close();
+  });
   $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
@@ -29,7 +29,7 @@ function WindowController(editor, settings, analytics, tabs) {
  */
 WindowController.prototype.updateEditor = function(editor) {
   this.editor_ = editor;
-}
+};
 
 /**
  * Performs all the required initialization for the UI.
@@ -39,8 +39,11 @@ WindowController.prototype.initUI_ = function() {
   for (const element of document.querySelectorAll('.mdc-icon-button')) {
     const ripple = mdc.ripple.MDCRipple.attachTo(element);
     ripple.unbounded = true;
-    // Required due to issue https://github.com/material-components/material-components-web/issues/3984
-    new ResizeObserver(() => { ripple.layout(); }).observe(element);
+    // Required due to issue
+    // https://github.com/material-components/material-components-web/issues/3984
+    new ResizeObserver(() => {
+      ripple.layout();
+    }).observe(element);
   }
   for (const element of document.querySelectorAll('.mdc-switch')) {
     new mdc.switchControl.MDCSwitch(element);
@@ -61,11 +64,13 @@ WindowController.prototype.initSidebar_ = function() {
   if (this.settings_.get('sidebaropen')) {
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
     $('#sidebar').css('border-right-width', '2px');
-    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
+    $('#toggle-sidebar')
+        .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   } else {
     $('#sidebar').css('width', '0');
     $('#sidebar').css('border-right-width', '0');
-    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
+    $('#toggle-sidebar')
+        .attr('title', chrome.i18n.getMessage('openSidebarButton'));
   }
 };
 
@@ -104,10 +109,12 @@ WindowController.prototype.maximize_ = function() {
 
   if (maximized) {
     window.chrome.app.window.current().restore();
-    $('#window-maximize').attr('title', chrome.i18n.getMessage('maximizeButton'));
+    $('#window-maximize')
+        .attr('title', chrome.i18n.getMessage('maximizeButton'));
   } else {
     window.chrome.app.window.current().maximize();
-    $('#window-maximize').attr('title', chrome.i18n.getMessage('restoreButton'));
+    $('#window-maximize')
+        .attr('title', chrome.i18n.getMessage('restoreButton'));
   }
 };
 
@@ -121,15 +128,19 @@ WindowController.prototype.toggleSidebar_ = function() {
     this.settings_.set('sidebaropen', false);
     $('#sidebar').css('width', '0');
     $('#sidebar').css('border-right-width', '0');
-    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('openSidebarButton'));
+    $('#toggle-sidebar')
+        .attr('title', chrome.i18n.getMessage('openSidebarButton'));
   } else {
     this.settings_.set('sidebaropen', true);
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
     $('#sidebar').css('border-right-width', '2px');
-    $('#toggle-sidebar').attr('title', chrome.i18n.getMessage('closeSidebarButton'));
+    $('#toggle-sidebar')
+        .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   }
   this.editor_.focus();
-  setTimeout(function() {$.event.trigger('resize');}, 200);
+  setTimeout(function() {
+    $.event.trigger('resize');
+  }, 200);
 };
 
 WindowController.prototype.onLoadingFile = function(e) {
@@ -169,8 +180,7 @@ WindowController.prototype.resizeStart_ = function(e) {
 WindowController.prototype.resizeOnMouseMove_ = function(e) {
   var change = e.clientX - this.resizeMouseStartX_;
   var sidebarWidth = this.resizeStartWidth_ + change;
-  if (sidebarWidth < 20)
-    sidebarWidth = 20;
+  if (sidebarWidth < 20) sidebarWidth = 20;
   $('#sidebar').css('width', sidebarWidth + 'px');
   return sidebarWidth;
 };
@@ -187,5 +197,4 @@ WindowController.prototype.resizeFinish_ = function(e) {
 WindowController.prototype.onError_ = function(event) {
   var message = event.originalEvent.message;
   var errorStack = event.originalEvent.error.stack;
-  this.analytics_.reportError(message, errorStack);
 };

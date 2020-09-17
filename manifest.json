@@ -26,8 +26,7 @@
   "permissions": [
     "app.window.alwaysOnTop",
     {"fileSystem": ["write", "retainEntries"]},
-    "storage",
-    "https://www.google-analytics.com/"
+    "storage"
   ],
   "file_handlers": {
     "text": {

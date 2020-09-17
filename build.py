@@ -36,7 +36,6 @@ FILES_TO_COPY = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
-  'third_party/analytics/google-analytics-bundle.js',
   'third_party/CodeMirror/lib/codemirror.css',
   'third_party/jquery/jquery-1.8.3.min.js',
   'third_party/material-components-web/material-components-web.min.css',
@@ -58,8 +57,6 @@ JS_EXTERNS = None
 EXTERNS_URLS = [
   'https://raw.githubusercontent.com/google/closure-compiler/master/' +
       'contrib/externs/jquery-1.8.js',
-  'https://raw.githubusercontent.com/google/closure-compiler/master/' +
-      'contrib/externs/google_analytics_api.js',
   'https://raw.githubusercontent.com/google/closure-compiler/master/' +
       'contrib/externs/chrome_extensions.js',
 ]

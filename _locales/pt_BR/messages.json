@@ -55,14 +55,6 @@
     "message": "Temas",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "Enviar estatísticas",
-    "description": "O texto do checkbox nas configurações que ativa as estatísticas."
-  },
-  "analyticsTooltip": {
-    "message": "Envia automaticamente as estatísticas de uso",
-    "description": "A dica no checkbox para enviar as estatísticas."
-  },
   "alwaysOnTopSetting": {
     "message": "Sempre em cima",
     "description": "O texto do checkbox nas configurações que define a janela sempre em cima."

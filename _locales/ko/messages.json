@@ -55,14 +55,6 @@
     "message": "테마",
     "description": "The text of the theme setting."
   },
-  "analyticsSetting": {
-    "message": "통계 보내기",
-    "description": "The label for the checkbox in settings tab that turns on Analytics."
-  },
-  "analyticsTooltip": {
-    "message": "사용 통계 자동 보내기",
-    "description": "The tooltip for send statistics checkbox."
-  },
   "alwaysOnTopSetting": {
     "message": "항상 맨 위에 표시",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
