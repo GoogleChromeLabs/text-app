@@ -62,11 +62,13 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case 's':
-        this.tabs_.save();
-        return false;
-
       case 'S':
-        this.tabs_.saveAs();
+        if (e.shiftKey) {
+          this.tabs_.saveAs();
+        }
+        else {
+          this.tabs_.save();
+        }
         return false;
 
       case 'w':
