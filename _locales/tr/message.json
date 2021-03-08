@@ -1,94 +1,94 @@
 {
   "appDesc": {
-    "message": "A text editor for Chrome OS and Chrome.",
+    "message": "Chrome ve Chrome OS için metin düzenleyici.",
     "description": "The description of the application, displayed in the web store."
   },
   "fileMenuNew": {
-    "message": "New",
+    "message": "Yeni",
     "description": "The text of the File Menu 'New'."
   },
   "fileMenuOpen": {
-    "message": "Open",
+    "message": "Aç",
     "description": "The text of the File Menu 'Open'."
   },
   "fileMenuSave": {
-    "message": "Save",
+    "message": "Kaydet",
     "description": "The text of the File Menu 'Save'."
   },
   "fileMenuSaveas": {
-    "message": "Save as",
+    "message": "Farklı Kaydet",
     "description": "The text of the File Menu 'Save as'."
   },
   "menuSettings": {
-    "message": "Settings",
+    "message": "Ayarlar",
     "description": "The text of the Menu 'Settings'."
   },
   "fontsizeSetting": {
-    "message": "Font size",
+    "message": "Yazı boyutu",
     "description": "The text of the settings 'Font size'."
   },
   "fontsizeTooltip": {
-    "message": "Set with Ctrl- and Ctrl+",
+    "message": "Ctrl- ve Ctrl+ yazı boyutunu değiştirir.",
     "description": "The tooltip of the setting 'Font size'."
   },
   "spacestabSetting": {
-    "message": "Tabs to spaces",
+    "message": "Gririntiyi boşluğa çevir",
     "description": "The text of the settings 'Tabs to spaces'."
   },
   "tabsizeSetting": {
-    "message": "Tab size",
+    "message": "Tab tuşu kaç boşluk bırakacak",
     "description": "The text of the settings 'Tab size'."
   },
   "wraplinesSetting": {
-    "message": "Wrap lines",
+    "message": "Sözcük kaydırma",
     "description": "The text of the settings 'Wrap lines'."
   },
   "linenumbersSetting": {
-    "message": "Show line numbers",
+    "message": "Satır numaralarını göster",
     "description": "The text of the line numbers setting."
   },
   "smartindentSetting": {
-    "message": "Smart indent",
+    "message": "Otomatik girinti",
     "description": "The text of the settings 'Smart indent'."
   },
   "themeSetting": {
-    "message": "Themes",
+    "message": "Temalar",
     "description": "The text of the theme setting."
   },
   "alwaysOnTopSetting": {
-    "message": "Always on top",
+    "message": "Her zaman üstte",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
   },
   "defaultThemeOption": {
-    "message": "Default",
+    "message": "Varsayılan",
     "description": "The text of the default Option Theme."
   },
   "lightThemeOption": {
-    "message": "Light",
+    "message": "Aydınlık",
     "description": "The text of the light Option Theme."
   },
   "darkThemeOption": {
-    "message": "Dark",
+    "message": "Karanlık",
     "description": "The text of the dark Option Theme."
   },
   "closeSettings": {
-    "message": "Back",
+    "message": "Geri",
     "description": "The text to close the settings Menu."
   },
   "openSidebarButton": {
-    "message": "Open sidebar",
+    "message": "Kenar çubuğunu aç",
     "description": "The button text to open the sidebar."
   },
   "closeSidebarButton": {
-    "message": "Close sidebar",
+    "message": "Kenar çubuğunu kapat",
     "description": "The button text to close the sidebar."
   },
   "searchPlaceholder": {
-    "message": "Find...",
+    "message": "Bul...",
     "description": "The placeholder text in the search input."
   },
   "searchCounting": {
-    "message": "$searchIndex$ of $searchCount$",
+    "message": "$searchIndex$ / $searchCount$",
     "description": "The text showing search counting.",
     "placeholders": {
       "searchIndex": {
@@ -102,51 +102,51 @@
     }
   },
   "searchNextButton": {
-    "message": "Next",
+    "message": "Sonraki",
     "description": "The button text to search the next result."
   },
   "searchPreviousButton": {
-    "message": "Previous",
+    "message": "Önceki",
     "description": "The button text to search the previous result."
   },
   "errorTitle": {
-    "message": "Error",
+    "message": "Hata",
     "description": "The error text displayed in the filename title bar."
   },
   "loadingTitle": {
-    "message": "Loading...",
+    "message": "Yükleniyor...",
     "description": "The text displayed in the filename title bar when file loads."
   },
   "minimizeButton": {
-    "message": "Minimize",
+    "message": "Küçült",
     "description": "The button text to minimize the app window."
   },
   "maximizeButton": {
-    "message": "Maximize",
+    "message": "Büyüt",
     "description": "The button text to maximize the app window."
   },
   "restoreButton": {
-    "message": "Restore",
+    "message": "Onar",
     "description": "The button text to restore the app window."
   },
   "closeButton": {
-    "message": "Quit",
+    "message": "Çıkış",
     "description": "The button text to close the app window."
   },
   "yesDialogButton": {
-    "message": "Yes",
+    "message": "Evet",
     "description": "The button text which says 'Yes'."
   },
   "noDialogButton": {
-    "message": "No",
+    "message": "Hayır",
     "description": "The button text which says 'No'."
   },
   "cancelDialogButton": {
-    "message": "Cancel",
+    "message": "İptal",
     "description": "The button text which says 'Cancel'."
   },
   "saveFilePromptLine1": {
-    "message": "$filename$ has been modified.",
+    "message": "$filename$ dosyasının içeriği değiştirildi.",
     "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
     "placeholders": {
       "filename": {
@@ -156,23 +156,23 @@
     }
   },
   "saveFilePromptLine2": {
-    "message": "Do you want to save it before closing?",
+    "message": "Dosyayı kapatmadan önce kaydetmek ister misiniz?",
     "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file."
   },
   "okDialogButton": {
-    "message": "OK",
+    "message": "Tamam",
     "description": "The button text which says 'OK'."
   },
   "closeFileButton": {
-    "message": "Close file",
+    "message": "Dosyayı Kapat",
     "description": "The button text to close a file."
   },
   "screenReaderModeSetting": {
-    "message": "Screen reader mode",
+    "message": "Ekran okuyucu modu",
     "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
   },
   "screenReaderModeHelp": {
-    "message": "For a more optimized screen reader experience turn on screen reader mode from the settings menu.",
+    "message": "Daha optimize bir ekran okuyucu deneyimi için, ayarlar menüsünden ekran okuyucu modunu açın.",
     "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }
