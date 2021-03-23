@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/LICENSE
 
 /*
  * Author: Constantin Jucovschi (c.jucovschi@jacobs-university.de)
@@ -103,7 +103,7 @@
       // Do we look like '\command' ?  If so, attempt to apply the plugin 'command'
       if (source.match(/^\\[a-zA-Z@]+/)) {
         var cmdName = source.current().slice(1);
-        plug = plugins[cmdName] || plugins["DEFAULT"];
+        plug = plugins.hasOwnProperty(cmdName) ? plugins[cmdName] : plugins["DEFAULT"];
         plug = new plug();
         pushCommand(state, plug);
         setState(state, beginParams);

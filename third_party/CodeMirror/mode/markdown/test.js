@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/LICENSE
 
 (function() {
   var config = {tabSize: 4, indentUnit: 2}
@@ -45,6 +45,8 @@
       "formatting" : "override-formatting"
   }});
   function FormatTokenTypeOverrideTest(name) { test.mode(name, modeFormattingOverride, Array.prototype.slice.call(arguments, 1)); }
+  var modeET = CodeMirror.getMode(config, {name: "markdown", emoji: true});
+  function ET(name) { test.mode(name, modeET, Array.prototype.slice.call(arguments, 1)); }
 
 
   FT("formatting_emAsterisk",
@@ -284,10 +286,12 @@
      "[header&header-1 foo]",
      "[header&header-1 ===]");
 
-  // Check if single underlining - works
-  MT("setextH2",
-     "[header&header-2 foo]",
-     "[header&header-2 -]");
+  // Check if single underlining - should not be interpreted
+  // as it might lead to an empty list:
+  // https://spec.commonmark.org/0.28/#setext-heading-underline
+  MT("setextH2Single",
+     "foo",
+     "-");
 
   // Check if 3+ -'s work
   MT("setextH2",
@@ -311,7 +315,7 @@
      "[header&header-2 bar]",
      "[header&header-2 ---]");
 
-  MT("setextAferATX",
+  MT("setextAfterATX",
      "[header&header-1 # foo]",
      "[header&header-2 bar]",
      "[header&header-2 ---]");
@@ -378,10 +382,10 @@
      "[header&header-1 bar]",
      "[header&header-1 =]");
 
-  // ensure we don't regard space after dash as a list
+  // ensure we regard space after a single dash as a list
   MT("setext_emptyList",
-     "[header&header-2 foo]",
-     "[header&header-2 - ]",
+     "foo",
+     "[variable-2 - ]",
      "foo");
 
   // Single-line blockquote with trailing space
@@ -655,7 +659,7 @@
      "  [variable-2 text after fenced code]");
 
   // should correctly parse numbered list content indentation
-  MT("listCommonMark_NumeberedListIndent",
+  MT("listCommonMark_NumberedListIndent",
      "[variable-2 1000. list with base indent of 6]",
      "",
      "      [variable-2 text must be indented 6 spaces at minimum]",
@@ -1305,4 +1309,11 @@
   MT_noXml("xmlHighlightDisabled",
      "<div>foo</div>");
 
+  // Tests Emojis
+
+  ET("emojiDefault",
+    "[builtin :foobar:]");
+
+  ET("emojiTable",
+    " :--:");
 })();

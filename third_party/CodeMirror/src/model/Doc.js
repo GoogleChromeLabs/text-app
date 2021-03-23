@@ -137,14 +137,14 @@ Doc.prototype = createObj(BranchChunk.prototype, {
     let out = []
     for (let i = 0; i < ranges.length; i++)
       out[i] = new Range(clipPos(this, ranges[i].anchor),
-                         clipPos(this, ranges[i].head))
+                         clipPos(this, ranges[i].head || ranges[i].anchor))
     if (primary == null) primary = Math.min(ranges.length - 1, this.sel.primIndex)
-    setSelection(this, normalizeSelection(out, primary), options)
+    setSelection(this, normalizeSelection(this.cm, out, primary), options)
   }),
   addSelection: docMethodOp(function(anchor, head, options) {
     let ranges = this.sel.ranges.slice(0)
     ranges.push(new Range(clipPos(this, anchor), clipPos(this, head || anchor)))
-    setSelection(this, normalizeSelection(ranges, ranges.length - 1), options)
+    setSelection(this, normalizeSelection(this.cm, ranges, ranges.length - 1), options)
   }),
 
   getSelection: function(lineSep) {
@@ -197,7 +197,10 @@ Doc.prototype = createObj(BranchChunk.prototype, {
     for (let i = 0; i < hist.undone.length; i++) if (!hist.undone[i].ranges) ++undone
     return {undo: done, redo: undone}
   },
-  clearHistory: function() {this.history = new History(this.history.maxGeneration)},
+  clearHistory: function() {
+    this.history = new History(this.history)
+    linkedDocs(this, doc => doc.history = this.history, true)
+  },
 
   markClean: function() {
     this.cleanGeneration = this.changeGeneration(true)
@@ -216,7 +219,7 @@ Doc.prototype = createObj(BranchChunk.prototype, {
             undone: copyHistoryArray(this.history.undone)}
   },
   setHistory: function(histData) {
-    let hist = this.history = new History(this.history.maxGeneration)
+    let hist = this.history = new History(this.history)
     hist.done = copyHistoryArray(histData.done.slice(0), null, true)
     hist.undone = copyHistoryArray(histData.undone.slice(0), null, true)
   },

@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: http://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/LICENSE
 
 (function() {
   var mode = CodeMirror.getMode({indentUnit: 2}, "powershell");
@@ -63,7 +63,7 @@
   MT('operator_long', "[operator -match]");
 
   forEach([
-    '(', ')', '[[', ']]', '{', '}', ',', '`', ';', '.'
+    '(', ')', '[[', ']]', '{', '}', ',', '`', ';', '.', '\\'
   ], function(punctuation) {
     MT("punctuation_" + punctuation.replace(/^[\[\]]/,''), "[punctuation " + punctuation + "]");
   });

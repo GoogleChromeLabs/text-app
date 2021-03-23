@@ -39,7 +39,7 @@ export class LineWidget {
     this.height = null
     let diff = widgetHeight(this) - oldH
     if (!diff) return
-    updateLineHeight(line, line.height + diff)
+    if (!lineIsHidden(this.doc, line)) updateLineHeight(line, line.height + diff)
     if (cm) {
       runInOp(cm, () => {
         cm.curOp.forceUpdate = true
@@ -63,7 +63,7 @@ export function addLineWidget(doc, handle, node, options) {
   changeLine(doc, handle, "widget", line => {
     let widgets = line.widgets || (line.widgets = [])
     if (widget.insertAt == null) widgets.push(widget)
-    else widgets.splice(Math.min(widgets.length - 1, Math.max(0, widget.insertAt)), 0, widget)
+    else widgets.splice(Math.min(widgets.length, Math.max(0, widget.insertAt)), 0, widget)
     widget.line = line
     if (cm && !lineIsHidden(doc, line)) {
       let aboveVisible = heightAtLine(line) < doc.scrollTop
