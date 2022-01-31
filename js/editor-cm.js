@@ -126,7 +126,7 @@ function EditorCodeMirror(editorElement, settings) {
       });
   this.cm_.setSize(null, 'auto');
   this.cm_.on('change', this.onChange.bind(this));
-  this.setTheme();
+  this.setTheme(settings.get('theme'));
   this.search_ = new Search(this.cm_);
   // Mimic Sublime behaviour there.
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
@@ -264,10 +264,11 @@ EditorCodeMirror.prototype.setTabSize = function(size) {
 };
 
 /**
- * @param {string} theme
+ * @param {string} theme The color theme to change to. Default light.
  */
 EditorCodeMirror.prototype.setTheme = function(theme) {
-  this.cm_.setOption('theme', theme || 'default');
+  if (theme !== 'dark') theme = 'light';
+  this.cm_.setOption('theme', theme);
 };
 
 /**

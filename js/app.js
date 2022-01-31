@@ -14,6 +14,17 @@ function TextApp() {
   this.windowController_ = null;
 
   this.hasFrame_ = false;
+
+  /**
+   * If true, the "default" setting for the color theme chooses light/dark
+   * depending on the system's preferred color scheme.
+   * If false, the "default" setting is a dark side nav and a light editor.
+   *
+   * @type {boolean}
+   */
+  this.enableSystemTheme_ = false;
+  /** The media query list to detect if the preferred color scheme is dark. */
+  this.colorSchemeMatcherDark_ = null;
 }
 
 /**
@@ -21,6 +32,9 @@ function TextApp() {
  * here.
  */
 TextApp.prototype.init = function() {
+  this.enableSystemTheme_ =
+      parseInt(navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10) >= 103;
+
   this.settings_ = new Settings();
   // Editor is initalised after settings are ready.
   this.editor_ = null;
@@ -31,6 +45,14 @@ TextApp.prototype.init = function() {
     $(document).bind('settingsready', this.onSettingsReady_.bind(this));
   }
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
+
+  if (this.enableSystemTheme_) {
+    this.colorSchemeMatcherDark_ =
+        window.matchMedia('(prefers-color-scheme: dark)');
+    this.colorSchemeMatcherDark_.addEventListener('change', () => {
+      if (this.settings_.get('theme') === 'default') this.setTheme();
+    });
+  }
 };
 
 /**
@@ -62,6 +84,11 @@ TextApp.prototype.getFilesToRetain = function() {
 
 TextApp.prototype.setTheme = function() {
   var theme = this.settings_.get('theme');
+
+  if (this.enableSystemTheme_ && theme === 'default') {
+    theme = this.colorSchemeMatcherDark_.matches ? 'dark' : 'light';
+  }
+
   this.windowController_.setTheme(theme);
   this.editor_.setTheme(theme);
 };

@@ -15,7 +15,7 @@ function EditorTextArea(editorElement, settings) {
   }
 
   this.attachTextArea(document.createElement('textarea'));
-  this.setTheme();
+  this.setTheme(settings.get('theme'));
 }
 
 /**
@@ -116,10 +116,10 @@ EditorTextArea.prototype.setTabSize = function(size) {
 };
 
 /**
- * @param {string} theme
+ * @param {string} theme The color theme to change to. Default light.
  */
-EditorTextArea.prototype.setTheme = function() {
-  if (this.settings_.get('theme') === 'dark') {
+EditorTextArea.prototype.setTheme = function(theme) {
+  if (theme === 'dark') {
     this.root_.classList.add('dark-theme');
   } else {
     this.root_.classList.remove('dark-theme');
