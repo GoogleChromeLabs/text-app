@@ -28,6 +28,10 @@ body[theme="dark"] #settings-list input[type="text"] {
   color: #EBEBEB;
 }
 
+body[theme="dark"] #title-filename {
+  color: #bdc1c6;
+}
+
 /* Based on CodeMirror dark theme */
 /* Based on Sublime Text's dark theme */
 
@@ -42,7 +46,7 @@ body[theme="dark"] #settings-list input[type="text"] {
 }
 
 .cm-s-dark div.CodeMirror-selected {background: #49483E !important;}
-.cm-s-dark .CodeMirror-linenumber {color: #d0d0d0;}
+.cm-s-dark .CodeMirror-linenumber {color: #bdc1c6;}
 .cm-s-dark .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
 
 .cm-s-dark span.cm-comment {color: #75715e;}

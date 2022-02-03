@@ -5,8 +5,6 @@
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
   --disabled-opacity: 0.38;
   /* These colors are copied from codemirror to maintain consistency. */
-  --light-theme-line-number-color: #999999;
-  --dark-theme-line-number-color: #d0d0d0;
   --light-theme-text-color: #000000;
   --dark-theme-text-color: #f8f8f2;
   /*
@@ -441,7 +439,7 @@ header.search-active .search-navigation-button {
 }
 
 #title-filename {
-  color: #777;
+  color: #5f6368;
   display: flex;
   flex: 1;
   font-size: 15px;
