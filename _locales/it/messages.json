@@ -63,6 +63,10 @@
     "message": "Predefinito",
     "description": "The text of the default Option Theme."
   },
+  "deviceThemeOption": {
+    "message": "Usa tema del dispositivo",
+    "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
+  },
   "lightThemeOption": {
     "message": "Chiaro",
     "description": "The text of the light Option Theme."

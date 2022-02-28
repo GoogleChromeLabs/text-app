@@ -35,7 +35,7 @@ TextApp.prototype.init = function() {
   this.enableSystemTheme_ =
       parseInt(navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10) >= 103;
 
-  this.settings_ = new Settings();
+  this.settings_ = new Settings(this.enableSystemTheme_);
   // Editor is initalised after settings are ready.
   this.editor_ = null;
 

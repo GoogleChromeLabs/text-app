@@ -63,6 +63,10 @@
     "message": "Padrão",
     "description": "O texto da Opção de Tema padrão."
   },
+  "deviceThemeOption": {
+    "message": "Usar o tema do dispositivo",
+    "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
+  },
   "lightThemeOption": {
     "message": "Claro",
     "description": "O texto da Opção de Tema claro."

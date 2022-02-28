@@ -27,6 +27,10 @@
     "description": "The text of the default Option Theme.",
     "message": "默认"
   },
+  "deviceThemeOption": {
+    "message": "使用设备主题",
+    "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
+  },
   "errorTitle": {
     "description": "The error text displayed in the filename title bar.",
     "message": "错误"
