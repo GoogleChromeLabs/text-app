@@ -27,10 +27,10 @@ MenuController.prototype.addNewTab_ = function(e, tab) {
   const id = tab.getId();
   const tabElement = document.createElement('li');
   tabElement.setAttribute('draggable', 'true');
-  tabElement.id = 'tab' + id;
-  const filenameElement = document.createElement('div');
+  const filenameElement = document.createElement('button');
+  filenameElement.id = 'tab' + id;
   filenameElement.textContent = tab.getName();
-  filenameElement.className = 'filename';
+  filenameElement.className = 'filename sidebar-button';
   tabElement.appendChild(filenameElement);
   const closeElement = document.createElement('button');
   closeElement.textContent = 'close';
@@ -48,7 +48,7 @@ MenuController.prototype.addNewTab_ = function(e, tab) {
       'dragend', (event) => { this.onDragEnd_($(tabElement), event)});
   tabElement.addEventListener(
       'drop', (event) => { this.onDrop_(event); });
-  tabElement.addEventListener(
+  filenameElement.addEventListener(
       'click', () => { this.tabButtonClicked_(id); });
   closeElement.addEventListener(
       'click', (event) => { this.closeTab_(event, id); });
@@ -70,8 +70,10 @@ MenuController.prototype.onDrop_ = function(e) {
 
 MenuController.prototype.onDragOver_ = function(overItem, e) {
   e.preventDefault();
-  if (!this.dragItem_ || overItem.attr('id') === this.dragItem_.attr('id'))
+  if (!this.dragItem_ || overItem.find('.filename').attr('id')
+      === this.dragItem_.find('.filename').attr('id')) {
     return;
+  }
 
   if (this.dragItem_.index() < overItem.index()) {
     overItem.after(this.dragItem_);
@@ -82,12 +84,12 @@ MenuController.prototype.onDragOver_ = function(overItem, e) {
 };
 
 MenuController.prototype.onTabRenamed = function(e, tab) {
-  $('#tab' + tab.getId() + ' .filename').text(tab.getName());
+  $('#tab' + tab.getId() + '.filename').text(tab.getName());
   this.tabs_.modeAutoSet(tab);
 };
 
 MenuController.prototype.onTabPathChange = function(e, tab) {
-  $('#tab' + tab.getId() + ' .filename').attr('title', tab.getPath());
+  $('#tab' + tab.getId() + '.filename').attr('title', tab.getPath());
 };
 
 MenuController.prototype.onTabChange = function(e, tab) {
@@ -95,7 +97,7 @@ MenuController.prototype.onTabChange = function(e, tab) {
 };
 
 MenuController.prototype.onTabClosed = function(e, tab) {
-  $('#tab' + tab.getId()).remove();
+  $('#tab' + tab.getId()).parent().remove();
 };
 
 MenuController.prototype.onTabSave = function(e, tab) {
@@ -103,8 +105,10 @@ MenuController.prototype.onTabSave = function(e, tab) {
 };
 
 MenuController.prototype.onSwitchTab = function(e, tab) {
-  $('#tabs-list li.active').removeClass('active');
-  $('#tab' + tab.getId()).addClass('active');
+  // Add the .active class to the <li> wrapping the tab button so the <li> gets
+  // the active background-color style.
+  $('#tabs-list .active').removeClass('active');
+  $('#tab' + tab.getId()).parent().addClass('active');
 };
 
 MenuController.prototype.newTab_ = function() {
