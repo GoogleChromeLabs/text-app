@@ -12,7 +12,7 @@ body[theme="light"] #sidebar hr {
 }
 
 body[theme="light"] #sidebar li:hover,
-body[theme="light"] #sidebar .mdc-form-field:hover {
+body[theme="light"] #settings-list .mdc-form-field:hover {
   background-color: var(--light-highlight-color);
   color: #000;
 }
@@ -26,12 +26,9 @@ body[theme="light"] #settings-list input[type="text"]:focus {
   outline: none;
 }
 
-body[theme="light"] #tabs-list li.active {
+body[theme="light"] #tabs-list li.active,
+body[theme="light"] #tabs-list li.active:hover {
   background-color: var(--light-accent-color);
-}
-
-body[theme="light"] #sidebar #tabs-list li:hover {
-  background-color: var(--light-highlight-color);
 }
 
 body[theme="light"] #sidebar .mdc-icon-button {

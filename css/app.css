@@ -93,9 +93,15 @@ img {
 }
 
 #sidebar h2 {
+  align-items: center;
+  display: flex;
   font: 500 13px "Roboto", sans-serif;
   letter-spacing: 1.2px;
+  margin: 4px 8px;
+  min-height: var(--tab-height);
+  padding: 0 16px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 #sidebar hr {
@@ -110,29 +116,30 @@ img {
   list-style-type: none;
 }
 
-#sidebar h2,
-#sidebar li,
-#sidebar .mdc-form-field {
-  align-items: center;
-  display: flex;
-  min-height: var(--tab-height);
-  margin: 4px 8px;
-  padding: 0 16px;
-  -webkit-user-select: none;
-  white-space: nowrap;
-}
-
-#sidebar li,
-#sidebar .mdc-form-field {
+#sidebar li {
   border-radius: 100px;
-  cursor: pointer;
+  margin: 4px 8px;
 }
 
-#sidebar li:hover,
-#sidebar .mdc-form-field:hover,
-#tabs-list li.active:hover {
-  background-color: var(--dark-highlight-color);
-  color: #fff;
+.sidebar-button {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 100px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  margin: 0;
+  min-height: var(--tab-height);
+  padding: 0 16px;
+  text-align: start;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.sidebar-button:focus-visible {
+  outline: 2px solid -webkit-focus-ring-color;
 }
 
 #sidebar input {
@@ -178,39 +185,45 @@ img {
   align-items: center;
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
-#tabs-list li.active {
+#tabs-list li.active,
+#tabs-list li.active:hover {
   background-color: var(--dark-accent-color);
 }
 
-#tabs-list li .filename {
+#tabs-list .filename {
   display: inline;
   flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs-list li.unsaved .filename:after {
+#tabs-list .filename.unsaved:after {
   content: " *";
 }
 
-#tabs-list li .close {
+#tabs-list li > .close {
   display: none;
   font-size: 20px;
-  height: 100%;
+  height: var(--tab-height);
   justify-content: center;
   min-width: var(--tab-height);
   padding: 0;
   width: var(--tab-height);
 }
 
-#tabs-list li:hover {
-  padding-right: 0;
+#tabs-list li:hover > .close {
+  align-items: center;
+  display: flex;
+  position: absolute;
+  right: 8px;
+  top: 0;
 }
 
-#tabs-list li:hover .close {
-  display: flex;
+#tabs-list li:hover > .filename {
+  padding-right: var(--tab-height);
 }
 
 #file-tabs-menu {
@@ -245,14 +258,30 @@ img {
 
 #settings-list li,
 #settings-list .mdc-form-field {
+  align-items: center;
   background-color: inherit;
+  border-radius: 100px;
+  cursor: pointer;
   -webkit-box-flex: 1.0;
   -webkit-box-orient: horizontal;
   -webkit-box-align: end;
   display: -webkit-flex;
-  padding-right: 0;
+  margin: 4px 8px;
+  min-height: var(--tab-height);
+  padding: 0;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+#settings-list li:focus-within,
+#settings-list .mdc-form-field:focus-within {
+  outline: 2px solid -webkit-focus-ring-color;
+}
+
+#sidebar li:hover,
+#settings-list .mdc-form-field:hover {
+  background-color: var(--dark-highlight-color);
+  color: #fff;
 }
 
 .mdc-form-field {
@@ -273,14 +302,15 @@ img {
 
 #settings-list label {
   align-items: center;
+  box-sizing: border-box;
   cursor: pointer;
   display: flex;
   flex: 1;
-  height: 100%;
   margin: 0;
   max-width: calc(100% - var(--settings-input-width));
+  min-height: var(--tab-height);
   overflow: hidden;
-  padding: 4px 0;
+  padding: 4px 0 4px 16px;
   text-overflow: ellipsis;
   word-break: break-word;
   white-space: normal;
