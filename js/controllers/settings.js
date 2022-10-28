@@ -42,11 +42,15 @@ SettingsController.prototype.addInputListeners_ = function() {
 
 SettingsController.prototype.openSettings_ = function() {
   $('#sidebar').addClass('open-settings');
+  // Focus the first setting.
+  $('#settings-list input:first').focus();
 };
 
 /** Close the settings page if it was open. */
 SettingsController.prototype.closeSettings = function() {
   $('#sidebar').removeClass('open-settings');
+  // Focus the button that reopens settings.
+  $('#open-settings').focus();
 };
 
 SettingsController.prototype.showAll_ = function() {
