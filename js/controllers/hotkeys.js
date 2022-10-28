@@ -1,11 +1,13 @@
 /**
  * @constructor
  */
-function HotkeysController(windowController, tabs, editor, settings) {
+function HotkeysController(windowController, tabs, editor, settings,
+    settingsController) {
   this.windowController_ = windowController;
   this.tabs_ = tabs;
   this.editor_ = editor;
   this.settings_ = settings;
+  this.settingsController_ = settingsController;
 
   this.ZOOM_IN_FACTOR = 9 / 8;
   this.ZOOM_OUT_FACTOR = 8 / 9;
@@ -94,6 +96,14 @@ HotkeysController.prototype.onKeydown_ = function(e) {
       case '_':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
+        return false;
+
+      case 'e':
+        // Focus the current file's tab in the sidebar. This includes opening
+        // the sidebar and closing settings if needed.
+        this.windowController_.openSidebar();
+        this.settingsController_.closeSettings();
+        $('#tab' + this.tabs_.getCurrentTab().getId()).focus();
         return false;
 
       default:

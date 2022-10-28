@@ -15,8 +15,8 @@ function SettingsController(settings) {
 
   this.addInputListeners_();
 
-  $('#open-settings').click(this.open_.bind(this));
-  $('#close-settings').click(this.close_.bind(this));
+  $('#open-settings').click(this.openSettings_.bind(this));
+  $('#close-settings').click(this.closeSettings.bind(this));
 }
 
 /**
@@ -40,11 +40,12 @@ SettingsController.prototype.addInputListeners_ = function() {
   }
 };
 
-SettingsController.prototype.open_ = function() {
+SettingsController.prototype.openSettings_ = function() {
   $('#sidebar').addClass('open-settings');
 };
 
-SettingsController.prototype.close_ = function() {
+/** Close the settings page if it was open. */
+SettingsController.prototype.closeSettings = function() {
   $('#sidebar').removeClass('open-settings');
 };
 

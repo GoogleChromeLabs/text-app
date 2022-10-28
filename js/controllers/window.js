@@ -122,6 +122,16 @@ WindowController.prototype.setAlwaysOnTop = function(isAlwaysOnTop) {
   window.chrome.app.window.current().setAlwaysOnTop(isAlwaysOnTop);
 };
 
+/** Opens the sidebar if it is closed. */
+WindowController.prototype.openSidebar = function() {
+  if (this.settings_.get('sidebaropen')) return;
+  this.settings_.set('sidebaropen', true);
+    $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
+    $('#sidebar').css('border-right-width', '2px');
+    $('#toggle-sidebar')
+        .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
+};
+
 WindowController.prototype.toggleSidebar_ = function() {
   // FIXME: Move this to css where possible (toggle code)
   if (this.settings_.get('sidebaropen')) {
@@ -131,11 +141,7 @@ WindowController.prototype.toggleSidebar_ = function() {
     $('#toggle-sidebar')
         .attr('title', chrome.i18n.getMessage('openSidebarButton'));
   } else {
-    this.settings_.set('sidebaropen', true);
-    $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
-    $('#sidebar').css('border-right-width', '2px');
-    $('#toggle-sidebar')
-        .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
+    this.openSidebar();
   }
   this.editor_.focus();
 };
