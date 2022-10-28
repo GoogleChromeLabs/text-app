@@ -40,6 +40,15 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         }
         return false;
 
+      case 'e':
+      case 'E':
+        // Focus the current file's tab in the sidebar. This includes opening
+        // the sidebar and closing settings if needed.
+        this.windowController_.openSidebar();
+        this.settingsController_.closeSettings();
+        $('#tab' + this.tabs_.getCurrentTab().getId()).focus();
+        return false;
+
       case 'f':
       case 'F':
         document.getElementById('search-input').focus();
@@ -96,14 +105,6 @@ HotkeysController.prototype.onKeydown_ = function(e) {
       case '_':
         var fontSize = this.settings_.get('fontsize');
         this.settings_.set('fontsize', fontSize * this.ZOOM_OUT_FACTOR);
-        return false;
-
-      case 'e':
-        // Focus the current file's tab in the sidebar. This includes opening
-        // the sidebar and closing settings if needed.
-        this.windowController_.openSidebar();
-        this.settingsController_.closeSettings();
-        $('#tab' + this.tabs_.getCurrentTab().getId()).focus();
         return false;
 
       default:
