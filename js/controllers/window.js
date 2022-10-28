@@ -138,9 +138,6 @@ WindowController.prototype.toggleSidebar_ = function() {
         .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
   }
   this.editor_.focus();
-  setTimeout(function() {
-    $.event.trigger('resize');
-  }, 200);
 };
 
 WindowController.prototype.onLoadingFile = function(e) {
