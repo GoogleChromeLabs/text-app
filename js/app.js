@@ -135,7 +135,8 @@ TextApp.prototype.initControllers_ = function() {
   this.windowController_ =
       new WindowController(this.editor_, this.settings_, this.tabs_);
   this.hotkeysController_ = new HotkeysController(
-      this.windowController_, this.tabs_, this.editor_, this.settings_);
+      this.windowController_, this.tabs_, this.editor_, this.settings_,
+      this.settingsController_);
   this.searchController_ = new SearchController(this.editor_.getSearch());
 };
 /**
