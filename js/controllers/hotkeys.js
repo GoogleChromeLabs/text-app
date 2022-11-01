@@ -55,11 +55,12 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case 'n':
-        this.tabs_.newTab();
-        return false;
-
       case 'N':
-        this.tabs_.newWindow();
+        if (e.shiftKey) {
+          this.tabs_.newWindow();
+        } else {
+          this.tabs_.newTab();
+        }
         return false;
 
       case 'o':
@@ -83,11 +84,12 @@ HotkeysController.prototype.onKeydown_ = function(e) {
         return false;
 
       case 'w':
-        this.tabs_.closeCurrent();
-        return false;
-
       case 'W':
-        this.windowController_.close();
+        if (e.shiftKey) {
+          this.windowController_.close();
+        } else {
+          this.tabs_.closeCurrent();
+        }
         return false;
 
       case '0':
