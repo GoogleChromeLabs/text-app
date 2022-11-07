@@ -15,7 +15,7 @@
   <div id="window-container">
     <div id="sidebar">
       <div id="sidebar-resizer"></div>
-      <div id="file-tabs-menu">
+      <div id="file-tabs-menu" role="navigation">
         <h1>Text</h1>
 
         <hr>
@@ -68,7 +68,7 @@
           </li>
         </ul>
       </div>
-      <div id="settings-menu">
+      <div id="settings-menu" role="navigation">
         <h1 i18n-content="menuSettings"></h1>
         <hr>
         <div id="settings-container">
@@ -156,8 +156,8 @@
                 </div>
               </div>
             </li>
-            <div class="group">
-              <h2 i18n-content="themeSetting"></h2>
+            <div class="group" role="radiogroup" aria-labelledby="setting-theme-heading">
+              <h2 id="setting-theme-heading" i18n-content="themeSetting"></h2>
               <div class="mdc-form-field">
                 <label for="setting-theme-default" i18n-content="DefaultThemeOption"></label>
                 <div class="mdc-radio">
