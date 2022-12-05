@@ -23,6 +23,10 @@
     "message": "Impostazioni",
     "description": "The text of the Menu 'Settings'."
   },
+  "menuShortcuts": {
+    "message": "Scorciatoie",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "Dimensioni carattere",
     "description": "The text of the settings 'Font size'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "Scuro",
     "description": "The text of the dark Option Theme."
+  },
+  "helpSection": {
+    "message": "Guida",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "Indietro",

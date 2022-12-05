@@ -23,6 +23,10 @@
     "message": "Asetukset",
     "description": "The text of the Menu 'Settings'."
   },
+  "menuShortcuts": {
+    "message": "Pikanäppäimet",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "Kirjasinkoko",
     "description": "The text of the settings 'Font size'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "Tumma",
     "description": "The text of the dark Option Theme."
+  },
+  "helpSection": {
+    "message": "Ohje",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "Takaisin",

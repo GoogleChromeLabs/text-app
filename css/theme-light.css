@@ -31,6 +31,7 @@ body[theme="light"] #tabs-list li.active:hover {
   background-color: var(--light-accent-color);
 }
 
+body[theme="light"] #sidebar .icon,
 body[theme="light"] #sidebar .mdc-icon-button {
   color: #000;
   opacity: .54;

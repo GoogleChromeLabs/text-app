@@ -12,6 +12,7 @@ body[theme="dark"] .search-container {
 }
 
 body[theme="dark"] #search-input,
+body[theme="dark"] .icon,
 body[theme="dark"] .mdc-icon-button {
   color: #EBEBEB;
 }

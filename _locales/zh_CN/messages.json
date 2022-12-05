@@ -23,6 +23,10 @@
     "description": "The text of the dark Option Theme.",
     "message": "黑暗"
   },
+  "helpSection": {
+    "message": "帮助",
+    "description": "Title for a section with useful links to help articles."
+  },
   "defaultThemeOption": {
     "description": "The text of the default Option Theme.",
     "message": "默认"
@@ -78,6 +82,10 @@
   "menuSettings": {
     "description": "The text of the Menu 'Settings'.",
     "message": "设置"
+  },
+  "menuShortcuts": {
+    "message": "快捷键",
+    "description": "The text of the Menu 'Shortcuts'."
   },
   "minimizeButton": {
     "description": "The button text to minimize the app window.",
