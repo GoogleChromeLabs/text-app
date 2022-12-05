@@ -23,6 +23,10 @@
     "message": "Inställningar",
     "description": "The text of the Menu 'Settings'."
   },
+  "menuShortcuts": {
+    "message": "Genvägar",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "Teckenstorlek",
     "description": "The text of the settings 'Font size'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "Mörkt",
     "description": "The text of the dark Option Theme."
+  },
+  "helpSection": {
+    "message": "Hjälp",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "Tillbaka",

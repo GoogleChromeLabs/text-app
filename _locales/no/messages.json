@@ -23,6 +23,10 @@
     "message": "Innstillinger",
     "description": "The text of the Menu 'Settings'."
   },
+  "menuShortcuts": {
+    "message": "Snarveier",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "Skriftstørrelse",
     "description": "The text of the settings 'Font size'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "Mørkt",
     "description": "The text of the dark Option Theme."
+  },
+  "helpSection": {
+    "message": "Hjelp",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "Tilbake",

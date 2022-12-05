@@ -484,6 +484,14 @@ header.search-active .search-navigation-button {
   content: " *";
 }
 
+#open-shortcuts {
+  justify-content: space-between;
+}
+
+#open-shortcuts .icon {
+  font-size: 20px;
+}
+
 #window-minimize {
   /* Move the 'remove' icon down so it looks like a minimize icon */
   padding-top: 18px;

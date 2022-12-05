@@ -23,6 +23,10 @@
     "message": "설정",
     "description": "The text of the Menu 'Settings'."
   },
+  "menuShortcuts": {
+    "message": "바로가기",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "글꼴 크기",
     "description": "The text of the settings 'Font size'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "어둡게",
     "description": "The text of the dark Option Theme."
+  },
+  "helpSection": {
+    "message": "도움말",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "뒤로",

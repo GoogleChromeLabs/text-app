@@ -23,6 +23,10 @@
     "message": "Configurações",
     "description": "O texto do Menu 'Configurações'."
   },
+  "menuShortcuts": {
+    "message": "Atalhos",
+    "description": "The text of the Menu 'Shortcuts'."
+  },
   "fontsizeSetting": {
     "message": "Tamanho da fonte",
     "description": "O texto das configurações 'Tamanho da fonte'."
@@ -74,6 +78,10 @@
   "darkThemeOption": {
     "message": "Escuro",
     "description": "O texto da Opção de Tema escuro."
+  },
+  "helpSection": {
+    "message": "Ajuda",
+    "description": "Title for a section with useful links to help articles."
   },
   "closeSettings": {
     "message": "Voltar",

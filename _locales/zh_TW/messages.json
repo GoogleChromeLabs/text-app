@@ -23,6 +23,10 @@
     "description": "The text of the dark Option Theme.",
     "message": "深色"
   },
+  "helpSection": {
+    "message": "說明",
+    "description": "Title for a section with useful links to help articles."
+  },
   "defaultThemeOption": {
     "description": "The text of the default Option Theme.",
     "message": "預設"
@@ -78,6 +82,10 @@
   "menuSettings": {
     "description": "The text of the Menu 'Settings'.",
     "message": "設定"
+  },
+  "menuShortcuts": {
+    "message": "快速鍵",
+    "description": "The text of the Menu 'Shortcuts'."
   },
   "minimizeButton": {
     "description": "The button text to minimize the app window.",
