@@ -42,11 +42,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
 
       case 'e':
       case 'E':
-        // Focus the current file's tab in the sidebar. This includes opening
+        // Focus the first button in the sidebar. This includes opening
         // the sidebar and closing settings if needed.
         this.windowController_.openSidebar();
         this.settingsController_.closeSettings();
-        $('#tab' + this.tabs_.getCurrentTab().getId()).focus();
+        document.querySelector('.sidebar-button').focus();
         return false;
 
       case 'f':
