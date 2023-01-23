@@ -84,8 +84,8 @@
     "message": "设置"
   },
   "menuShortcuts": {
-    "message": "快捷键",
-    "description": "The text of the Menu 'Shortcuts'."
+    "message": "键盘快捷键",
+    "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app."
   },
   "minimizeButton": {
     "description": "The button text to minimize the app window.",

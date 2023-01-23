@@ -25,7 +25,7 @@
   },
   "menuShortcuts": {
     "message": "Pikanäppäimet",
-    "description": "The text of the Menu 'Shortcuts'."
+    "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app."
   },
   "fontsizeSetting": {
     "message": "Kirjasinkoko",

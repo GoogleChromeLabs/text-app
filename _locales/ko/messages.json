@@ -24,8 +24,8 @@
     "description": "The text of the Menu 'Settings'."
   },
   "menuShortcuts": {
-    "message": "바로가기",
-    "description": "The text of the Menu 'Shortcuts'."
+    "message": "단축키",
+    "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app."
   },
   "fontsizeSetting": {
     "message": "글꼴 크기",
