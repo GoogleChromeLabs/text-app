@@ -24,8 +24,8 @@
     "description": "O texto do Menu 'Configurações'."
   },
   "menuShortcuts": {
-    "message": "Atalhos",
-    "description": "The text of the Menu 'Shortcuts'."
+    "message": "Atalhos do teclado",
+    "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app."
   },
   "fontsizeSetting": {
     "message": "Tamanho da fonte",

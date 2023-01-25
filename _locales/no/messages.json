@@ -24,8 +24,8 @@
     "description": "The text of the Menu 'Settings'."
   },
   "menuShortcuts": {
-    "message": "Snarveier",
-    "description": "The text of the Menu 'Shortcuts'."
+    "message": "Hurtigtaster",
+    "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app."
   },
   "fontsizeSetting": {
     "message": "Skriftstørrelse",
