@@ -19,6 +19,10 @@
     "message": "Salvar como",
     "description": "O texto do Menu de Arquivo 'Salvar como'."
   },
+  "fileMenuSaveall": {
+    "message": "Salvar tudo",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Configurações",
     "description": "O texto do Menu 'Configurações'."

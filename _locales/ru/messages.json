@@ -19,6 +19,10 @@
     "message": "Сохранить как",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Сохранить все",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Настройки",
     "description": "The text of the Menu 'Settings'."

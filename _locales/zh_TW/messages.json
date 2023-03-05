@@ -79,6 +79,10 @@
     "description": "The button text to maximize the app window.",
     "message": "最大化"
   },
+  "fileMenuSaveall": {
+    "message": "保存全部",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "description": "The text of the Menu 'Settings'.",
     "message": "設定"

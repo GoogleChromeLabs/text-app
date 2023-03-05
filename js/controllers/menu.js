@@ -8,6 +8,7 @@ function MenuController(tabs) {
   $('#file-menu-open').click(this.open_.bind(this));
   $('#file-menu-save').click(this.save_.bind(this));
   $('#file-menu-saveas').click(this.saveas_.bind(this));
+  $('#file-menu-saveall').click(this.saveall_.bind(this));
   $('#open-shortcuts').click(this.openShortcuts_.bind(this));
   $(document).bind('newtab', this.addNewTab_.bind(this));
   $(document).bind('switchtab', this.onSwitchTab.bind(this));
@@ -131,6 +132,11 @@ MenuController.prototype.saveas_ = function() {
   this.tabs_.saveAs();
   return false;
 };
+
+MenuController.prototype.saveall_ = function() {
+  this.tabs_.saveAll();
+  return false;
+ };
 
 MenuController.prototype.openShortcuts_ = function() {
   window.open('https://support.google.com/chromebook/answer/183101#textapp', '_blank');

@@ -19,6 +19,10 @@
     "message": "Zapisz jako",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Zapisz wszystko",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Ustawienia",
     "description": "The text of the Menu 'Settings'."

@@ -76,7 +76,11 @@ HotkeysController.prototype.onKeydown_ = function(e) {
       case 's':
       case 'S':
         if (e.shiftKey) {
-          this.tabs_.saveAs();
+          if (e.altKey) {
+            this.tabs_.saveAll();
+          } else {
+            this.tabs_.saveAs();
+          }
         }
         else {
           this.tabs_.save();

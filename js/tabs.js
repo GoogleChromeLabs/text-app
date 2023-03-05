@@ -405,6 +405,27 @@ Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
 };
 
 /**
+ * Invoke the save dialog for all tabs with unsaved progress. Does not close any tabs.
+ */
+Tabs.prototype.saveAll = function() {
+  this.saveAllFromIndex_(0);
+}
+
+Tabs.prototype.saveAllFromIndex_ = function(i) {
+  if (i >= this.tabs_.length) {
+    return;
+  }
+
+  var tab = this.tabs_[i];
+  if (tab.isSaved()) {
+    this.saveAllFromIndex_(i + 1);
+  } else {
+    this.save(
+      tab, this.saveAllFromIndex_.bind(this, i + 1));
+  }
+}
+
+/**
  * @return {Array.<FileEntry>}
  */
 Tabs.prototype.getFilesToRetain = function() {
