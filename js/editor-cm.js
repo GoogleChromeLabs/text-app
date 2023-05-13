@@ -183,7 +183,7 @@ EditorCodeMirror.prototype.focus = function() {
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
   session = session.codemirror;
-  var mode = CodeMirror.findModeByExtension(extension).name;
+  var mode = CodeMirror.findModeByExtension(extension).mode;
   if (mode) {
     var currentSession = null;
     if (session !== this.cm_.getDoc()) {
