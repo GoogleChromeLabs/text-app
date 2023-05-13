@@ -23,7 +23,7 @@ CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inp
   init(display) {
     super.init(display);
     this.textarea.addEventListener('compositionstart', this._onCompositionStart.bind(this));
-    CodeMirror.modeURL = "third_party/CodeMirror/mode/%N/%N.js":
+    CodeMirror.modeURL = "third_party/CodeMirror/mode/%N/%N.js";
   }
 
   _onCompositionStart() {
