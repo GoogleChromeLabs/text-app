@@ -146,7 +146,6 @@ WindowController.prototype.toggleSidebar_ = function() {
   } else {
     this.openSidebar();
   }
-  this.editor_.focus();
 };
 
 WindowController.prototype.onLoadingFile = function(e) {
