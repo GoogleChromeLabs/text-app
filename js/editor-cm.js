@@ -23,6 +23,7 @@ CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inp
   init(display) {
     super.init(display);
     this.textarea.addEventListener('compositionstart', this._onCompositionStart.bind(this));
+    CodeMirror.modeURL = "third_party/CodeMirror/mode/%N/%N.js";
   }
 
   _onCompositionStart() {
@@ -132,56 +133,6 @@ function EditorCodeMirror(editorElement, settings) {
   this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
 
-EditorCodeMirror.EXTENSION_TO_MODE = {
-    'bash': 'shell',
-    'coffee': 'coffeescript',
-    'c': 'clike',
-    'c++': 'clike',
-    'cc': 'clike',
-    'cs': 'clike',
-    'css': 'css',
-    'cpp': 'clike',
-    'cxx': 'clike',
-    'diff': 'diff',
-    'gemspec': 'ruby',
-    'go': 'go',
-    'h': 'clike',
-    'hh': 'clike',
-    'hpp': 'clike',
-    'htm': 'htmlmixed',
-    'html': 'htmlmixed',
-    'java': 'clike',
-    'js': 'javascript',
-    'json': 'yaml',
-    'latex': 'stex',
-    'less': 'text/x-less',
-    'ltx': 'stex',
-    'lua': 'lua',
-    'markdown': 'markdown',
-    'md': 'markdown',
-    'ml': 'ocaml',
-    'mli': 'ocaml',
-    'patch': 'diff',
-    'pgsql': 'sql',
-    'pl': 'perl',
-    'pm': 'perl',
-    'php': 'php',
-    'phtml': 'php',
-    'py': 'python',
-    'rb': 'ruby',
-    'rdf': 'xml',
-    'rs': 'rust',
-    'rss': 'xml',
-    'ru': 'ruby',
-    'sh': 'shell',
-    'sql': 'sql',
-    'svg': 'xml',
-    'tex': 'stex',
-    'xhtml': 'htmlmixed',
-    'xml': 'xml',
-    'xq': 'xquery',
-    'yaml': 'yaml'};
-
 /**
  * @param {SessionDescriptor} session
  * Change the current session, usually to switch to another tab.
@@ -232,13 +183,15 @@ EditorCodeMirror.prototype.focus = function() {
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
   session = session.codemirror;
-  var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
-  if (mode) {
+  var info = CodeMirror.findModeByExtension(extension);
+  if (info) {
+    var mode = info.mode;
     var currentSession = null;
     if (session !== this.cm_.getDoc()) {
       currentSession = this.cm_.swapDoc(session);
     }
     this.cm_.setOption('mode', mode);
+    CodeMirror.autoLoadMode(this.cm_, mode);
     if (currentSession !== null) {
       this.cm_.swapDoc(currentSession);
     }
