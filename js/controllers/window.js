@@ -11,6 +11,7 @@ function WindowController(editor, settings, tabs) {
   $('#window-minimize').click(this.minimize_.bind(this));
   $('#window-maximize').click(this.maximize_.bind(this));
   $('#toggle-sidebar').click(this.toggleSidebar_.bind(this));
+  $('#sidebar').on('transitionend', this.updateSidebarVisibility_.bind(this));
   $('#sidebar-resizer').mousedown(this.resizeStart_.bind(this));
   $(window).bind('error', this.onError_.bind(this));
   $(document).bind('filesystemerror', this.onFileSystemError.bind(this));
@@ -72,6 +73,7 @@ WindowController.prototype.initSidebar_ = function() {
     $('#toggle-sidebar')
         .attr('title', chrome.i18n.getMessage('openSidebarButton'));
   }
+  this.updateSidebarVisibility_();
 };
 
 WindowController.prototype.windowControlsVisible = function(show) {
@@ -128,6 +130,7 @@ WindowController.prototype.openSidebar = function() {
   this.settings_.set('sidebaropen', true);
     $('#sidebar').css('width', this.settings_.get('sidebarwidth') + 'px');
     $('#sidebar').css('border-right-width', '2px');
+    $('#sidebar').css('visibility', 'visible');
     $('#toggle-sidebar')
         .attr('title', chrome.i18n.getMessage('closeSidebarButton'));
 };
@@ -143,7 +146,6 @@ WindowController.prototype.toggleSidebar_ = function() {
   } else {
     this.openSidebar();
   }
-  this.editor_.focus();
 };
 
 WindowController.prototype.onLoadingFile = function(e) {
@@ -195,6 +197,15 @@ WindowController.prototype.resizeFinish_ = function(e) {
   $(document).off('mouseup.sidebar');
   $(document).css('cursor', 'default');
   $('#sidebar').css('-webkit-transition', 'width 0.2s ease-in-out');
+};
+
+WindowController.prototype.updateSidebarVisibility_ = function() {
+  const sidebar = $('#sidebar');
+  if (sidebar.width() === 0) {
+    sidebar.css('visibility', 'hidden');
+  } else {
+    sidebar.css('visibility', 'visible');
+  }
 };
 
 WindowController.prototype.onError_ = function(event) {
