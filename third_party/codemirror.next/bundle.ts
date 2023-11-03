@@ -4,6 +4,17 @@
 import {
   defaultKeymap, history, historyKeymap,
 } from '@codemirror/commands';
+import {
+  closeSearchPanel,
+  findNext,
+  findPrevious,
+  openSearchPanel,
+  search,
+  SearchCursor,
+  SearchQuery,
+  selectMatches,
+  setSearchQuery,
+} from '@codemirror/search';
 import { Compartment, EditorState } from '@codemirror/state';
 import {
   drawSelection,
@@ -11,33 +22,22 @@ import {
   keymap, lineNumbers
 } from '@codemirror/view';
 
-declare global {
-  interface Window {
-    CodeMirror: {
-      commands: {
-        defaultKeymap: typeof defaultKeymap,
-        history: typeof history,
-        historyKeymap: typeof historyKeymap,
-      },
-      state: {
-        Compartment: typeof Compartment,
-        EditorState: typeof EditorState,
-      },
-      view: {
-        drawSelection: typeof drawSelection,
-        EditorView: typeof EditorView,
-        keymap: typeof keymap,
-        lineNumbers: typeof lineNumbers,
-      }
-    },
-  }
-}
-
-window.CodeMirror = {
+const CodeMirrorNext = {
   commands: {
     defaultKeymap,
     history,
     historyKeymap,
+  },
+  search: {
+    closeSearchPanel,
+    findNext,
+    findPrevious,
+    openSearchPanel,
+    search,
+    SearchCursor,
+    SearchQuery,
+    selectMatches,
+    setSearchQuery,
   },
   state: {
     Compartment,
@@ -49,5 +49,12 @@ window.CodeMirror = {
     keymap,
     lineNumbers,
   },
+} as const;
+
+declare global {
+  interface Window {
+    CodeMirror: typeof CodeMirrorNext;
+  }
 }
 
+window.CodeMirror = CodeMirrorNext;

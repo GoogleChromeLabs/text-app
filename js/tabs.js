@@ -82,7 +82,7 @@ Tab.prototype.updatePath_ = function() {
 Tab.prototype.getContent_ = function() {
   // XXX this looks wrong, can we use:
   // https://codemirror.net/docs/ref/#state.EditorState^lineSeparator
-  return this.session_.editorState.doc.toString().split('\n').join(this.lineEndings_);
+  return this.session_.doc.toString().split('\n').join(this.lineEndings_);
 };
 
 Tab.prototype.save = function(opt_callbackDone) {

@@ -11,7 +11,7 @@ function EditorCodeMirror(editorElement, settings) {
 
   // Extensions don't need to be loaded here as we will always load a state
   // created by newState with setSession.
-  this.editorView_ = new EditorView({
+  this.editorView_ = new window.CodeMirror.view.EditorView({
     doc: "",
     parent: editorElement,
   })
