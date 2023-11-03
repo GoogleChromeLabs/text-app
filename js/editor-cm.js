@@ -27,7 +27,7 @@ function EditorCodeMirror(editorElement, settings) {
   */
 
   // XXX this.setTheme(settings.get('theme'));
-  // XXX this.search_ = new Search(this.cm_);
+  this.search_ = new Search(this.editorView_);
   // Mimic Sublime behaviour there.
   // XXX this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
@@ -90,7 +90,10 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       CodeMirror.view.drawSelection(),
       CodeMirror.view.lineNumbers(),
       CodeMirror.view.keymap.of([...CodeMirror.commands.defaultKeymap, ...CodeMirror.commands.historyKeymap]),
-      this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2))
+      this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2)),
+      CodeMirror.search.search({
+        literal: true,
+      }),
     ],
   });
 };
@@ -116,7 +119,7 @@ EditorCodeMirror.prototype.lockedSettings = function() {
  * Return search object.
  */
 EditorCodeMirror.prototype.getSearch = function() {
-  return null; // XXX this.search_;
+  return this.search_;
 };
 
 EditorCodeMirror.prototype.focus = function() {

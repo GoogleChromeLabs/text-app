@@ -632,8 +632,10 @@ input[type=search]:focus {
   background-color: var(--light-background-color);
 }
 
-/*
-header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
+#editor .cm-editor .cm-search {
+  display: none;
+}
+
+header.search-active ~ #editor div.cm-editor .cm-searchMatch {
   background-color: rgba(253, 207, 76, .5);
 }
-*/
