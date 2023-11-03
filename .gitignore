@@ -3,3 +3,9 @@
 *.sublime-workspace
 build
 test/unit/*/*.js
+
+third_party/codemirror.next/chunk/*
+third_party/codemirror.next/node_modules/*
+third_party/codemirror.next/bundle.js
+third_party/codemirror.next/bundle.d.ts
+third_party/codemirror.next/codemirror.next.*

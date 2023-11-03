@@ -8,6 +8,14 @@ You can download the whole source code [as one archive](https://github.com/Googl
 
     git clone --recursive git://github.com/GoogleChromeLabs/text-app.git
 
+## Prebuild CodeMirror
+Do this before running the development version or building the package.
+```
+cd third_party/codemirror.next
+npm install
+npm run rebuild
+```
+
 ## Running the development version
 
 * Check `Developer Mode` in `chrome://extensions`

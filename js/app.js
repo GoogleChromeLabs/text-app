@@ -2,6 +2,7 @@
  * @constructor
  */
 function TextApp() {
+  /** @type {EditorCodeMirror} */
   this.editor_ = null;
   this.settings_ = null;
   this.tabs_ = null;
@@ -212,6 +213,7 @@ TextApp.prototype.initEditor_ = function() {
 TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
     case 'alwaysontop':
+      console.log('# TextApp.onSettingsChanged_ alwaysontop');
       this.windowController_.setAlwaysOnTop(value);
       break;
 

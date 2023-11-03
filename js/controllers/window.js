@@ -99,7 +99,8 @@ WindowController.prototype.close = function() {
 };
 
 WindowController.prototype.focus_ = function() {
-  window.chrome.app.window.current().focus();
+  // Skip for now. TODO: Add it back after other changes are done.
+  // window.chrome.app.window.current().focus();
 };
 
 WindowController.prototype.minimize_ = function() {
@@ -121,7 +122,8 @@ WindowController.prototype.maximize_ = function() {
 };
 
 WindowController.prototype.setAlwaysOnTop = function(isAlwaysOnTop) {
-  window.chrome.app.window.current().setAlwaysOnTop(isAlwaysOnTop);
+  // Skip for now. TODO: Add it back after other changes are done.
+  // window.chrome.app.window.current().setAlwaysOnTop(isAlwaysOnTop);
 };
 
 /** Opens the sidebar if it is closed. */
