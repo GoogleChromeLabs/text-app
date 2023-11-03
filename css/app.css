@@ -620,22 +620,20 @@ input[type=search]:focus {
   color: #000;
 }
 
-#editor .CodeMirror {
-  position: absolute !important;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+#editor .cm-editor {
+  height: 100%;
 }
 
-.CodeMirror-gutters {
+/* XXX right align line numbers
+ * XXX remove dotted outline when focused
+ */
+
+.cm-gutter {
   background-color: var(--light-background-color);
 }
 
-.CodeMirror-lines {
-  line-height: var(--editor-line-height);
-}
-
+/*
 header.search-active ~ #editor div.CodeMirror .cm-matchhighlight {
   background-color: rgba(253, 207, 76, .5);
 }
+*/

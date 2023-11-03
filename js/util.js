@@ -1,29 +1,6 @@
 var util = {};
 
 /**
- * A object which describes an edit session. Each session contains an instance
- * of how it should be represented to codemirror and to textarea so the two can
- * be easily switched between.
- * @typedef {{
- *            textarea:HTMLElement,
- *            codemirror:Object,
- *          }}
- */
-var SessionDescriptor;
-
-/**
- * A object which describes an edit session. Each session contains an instance
- * of how it should be represented to codemirror and to textarea so the two can
- * be easily switched between. We will eventually remove textarea.
- * 
- * @typedef {{
- *            textarea: HTMLElement,
- *            editorState: Window.CodeMirror.state.EditorState,
- *          }}
- */
-var SessionDescriptorV2;
-
-/**
  * @param {Event} e
  * @return {string} Human-readable error description.
  */
@@ -113,48 +90,3 @@ util.guessLineEndings = function(text) {
 
   return (hasCRLF ? '\r\n' : '\n');
 };
-
-/**
- * @param {?string} opt_content Optional content.
- * @return {SessionDescriptorV2}
- * Creates a unified session that can be read from any supported editor.
- */
-util.createUnifiedSession = function(opt_content) {
-  console.log('# util.createUnifiedSession', opt_content);
-  const textarea = document.createElement('textarea');
-  textarea.value = opt_content || '';
-
-  const editorState = window.CodeMirror.state.EditorState.create({doc: opt_content || ''});
-
-  return {
-    // https://codemirror.net/5/doc/manual.html#api_doc
-    // codemirror: new CodeMirror.Doc(opt_content || ''),
-    textarea: textarea,
-    editorState,
-  };
-}
-
-/**
- * @param {SessionDescriptor} session
- * @param {string} updated Which text source is the source of truth.
- * @param {string} lineEndings What to use as a line ending
- * Syncs the multiple formats of a unified session. If one format of the session
- * such as the codemirror instance generates a change, it's registered here and
- * copied over to the other formats (such as textarea) so all of the formats
- * have the correct text. This means if you switch between modes you don't lose
- * any text. This does cause the other editer to lose it's undo/redo stack,
- * textarea loses all history whereas codemirror tries and interpert each
- * changed character as a single edit, which blows the undo stack out.
- */
-// util.syncUnifiedSession = function(session, updated, lineEndings) {
-//   // TODO: Update this so that updating 1 editor syncs to the other editors in a
-//   // way that preserves undo/redo stacks.
-//   switch(updated) {
-//     case 'codemirror':
-//       session.textarea.value = session.codemirror.getValue(lineEndings);
-//       break;
-//     case 'textarea':
-//       session.codemirror.setValue(session.textarea.value);
-//       break;
-//   }
-// }

@@ -1,14 +1,13 @@
 /**
  * @constructor
  * @param {number} id
- * @param {SessionDescriptorV2} session Edit session.
+ * @param {EditorState} session Edit session.
  * @param {string} lineEndings What character(s) to use as the line ending.
  * @param {FileEntry} entry
  */
 function Tab(id, session, lineEndings, entry, dialogController) {
   this.id_ = id;
-  console.log('# New Tab. Session', session);
-  /** @type {SessionDescriptorV2} */
+  /** @type {EditorState} */
   this.session_ = session;
   /** @type {string} Separator between lines. */
   this.lineEndings_ = lineEndings;
@@ -44,8 +43,13 @@ Tab.prototype.getExtension = function() {
   return util.getExtension(this.getName());
 };
 
+// XXX consider renaming session -> state
 Tab.prototype.getSession = function() {
   return this.session_;
+};
+
+Tab.prototype.setSession = function(session) {
+  return this.session_ = session;
 };
 
 /**
@@ -76,18 +80,15 @@ Tab.prototype.updatePath_ = function() {
 
 /** Get the contents of the file in the tab. */
 Tab.prototype.getContent_ = function() {
-  // return this.session_.codemirror.getValue(this.lineEndings_);
-  // toString() joins by \n
-  // The session's editorState is unchanged.
+  // XXX this looks wrong, can we use:
+  // https://codemirror.net/docs/ref/#state.EditorState^lineSeparator
   return this.session_.editorState.doc.toString().split('\n').join(this.lineEndings_);
 };
 
 Tab.prototype.save = function(opt_callbackDone) {
-  console.log('# Tab.save. Content:\n' + this.getContent_());
   util.writeFile(
-    this.entry_,
-    this.getContent_(),
-    function () {
+    this.entry_, this.getContent_(),
+    function() {
       this.saved_ = true;
       $.event.trigger('tabsave', this);
       if (opt_callbackDone)
@@ -131,7 +132,6 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   /** @type {Tab|null} Current selected tab, or initially null. */
   this.currentTab_ = null;
-  $(document).bind('docchange', this.onDocChanged_.bind(this));
 }
 
 Tabs.prototype.updateEditor = function(editor) {
@@ -214,9 +214,8 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   while (this.getTabById(id)) {
     id++;
   }
-  console.log('# Tabs.newTab: id', id, 'opt_content', opt_content);
 
-  var session = util.createUnifiedSession(opt_content);
+  var session = this.editor_.newState(opt_content);
   var lineEndings = util.guessLineEndings(opt_content);
 
   var tab = new Tab(id, session, lineEndings, opt_entry || null,
@@ -266,9 +265,6 @@ Tabs.prototype.nextTab = function() {
 };
 
 Tabs.prototype.showTab = function(tabId) {
-  // this.editor_.cm_.state
-  console.log('Tabs.showTab. tabId', tabId, 'current tab', this.currentTab_);
-
   if (this.currentTab_) {
     // Before switching tabs, write the editorView's state to the tab.
     this.updateCurrentTabState_();
@@ -279,8 +275,6 @@ Tabs.prototype.showTab = function(tabId) {
     console.error('Can\'t find tab', tabId);
     return;
   }
-  // Session?
-  console.log('Tabs.showTab. tabId', tabId, 'Session', tab.getSession(), 'current tab', this.currentTab_);
   this.editor_.setSession(tab.getSession());
   this.currentTab_ = tab;
   $.event.trigger('switchtab', tab);
@@ -341,8 +335,8 @@ Tabs.prototype.closeTab_ = function(tab) {
  * edit the contents, the EditorView's state won't match the tab's session state.
  */
 Tabs.prototype.updateCurrentTabState_ = function() {
-  if (!this.currentTab_) return; 
-  this.currentTab_.getSession().editorState = this.editor_.cm_.state;
+  if (!this.currentTab_) return;
+  this.currentTab_.setSession(this.editor_.editorView_.state);
 }
 
 Tabs.prototype.closeCurrent = function() {
@@ -439,7 +433,6 @@ Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
   }
 
   var suggestedName = tab.getEntry() && tab.getEntry().name ||
-                      // util.sanitizeFileName(tab.session_.codemirror.getLine(0)) ||
                       util.sanitizeFileName(tab.session_.editorState.doc.line(1).text) ||
                       tab.getName();
 
@@ -492,7 +485,6 @@ Tabs.prototype.modeAutoSet = function(tab) {
 };
 
 Tabs.prototype.readFileToNewTab_ = function(entry, file) {
-  console.log('# Tabs.readFileToNewTab');
   $.event.trigger('loadingfile');
   var self = this;
   var reader = new FileReader();
@@ -520,45 +512,6 @@ Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
 
   tab.setEntry(entry);
   this.save(tab, opt_callback);
-};
-
-/**
- * The event handler which is called when a DocChange event is caught, this
- * handler registers the change and then syncs the codemirror and textarea
- * instances so they both contain the same text.
- * @param {Event} event The DocChange event object.
- * @param {Object} eventData The data passed with the DocChange event. This
- *   object contains where the event came from, i.e, textarea or codemirror, which
- *   helps the syncUnifiedSession function determine which of the editors is the
- *   source of truth. It also contains the current session of the editor so this
- *   function can check to make sure Tabs state is still accurate.
- */
-Tabs.prototype.onDocChanged_ = function(event, eventData) {
-  console.log('# Tabs.onDocChanged: NOT NEEDED because removing screen reader mode')
-  // Assume that updates are coming from the current tab, if they aren't
-  // we have no real way to recover so failing here is acceptable.
-  var tab = this.currentTab_;
-  tab.changed();
-  const session = eventData.session;
-  if (this.currentTab_.getSession() !== session) {
-    // Tabs state may be corrupted, log a warning.
-    console.warn('Something wrong. Current session should be',
-        this.currentTab_.getSession(),
-        ', but this session was changed:', session);
-    for (var i = 0; i < this.tabs_; i++) {
-      if (this.tabs_[i].getSession() === session) {
-        tab = this.tabs_[i];
-        break;
-      }
-    }
-
-    if (tab === this.currentTab_) {
-      console.error('Unknown tab changed.');
-      return;
-    }
-  }
-  // Sync the session.
-  // util.syncUnifiedSession(this.currentTab_.getSession(), eventData.type, this.lineEndings_);
 };
 
 /**

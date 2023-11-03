@@ -171,11 +171,7 @@ TextApp.prototype.initEditor_ = function() {
   const editor = document.getElementById('editor');
   this.removeEditor(editor);
 
-  if (this.settings_.get('screenreadermode')) {
-    this.editor_ = new EditorTextArea(editor, this.settings_);
-  } else {
-    this.editor_ = new EditorCodeMirror(editor, this.settings_);
-  }
+  this.editor_ = new EditorCodeMirror(editor, this.settings_);
 
   if (!this.tabs_) {
     // If tabs doesn't exist this is the first editor being created, if so
@@ -213,7 +209,6 @@ TextApp.prototype.initEditor_ = function() {
 TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
   switch (key) {
     case 'alwaysontop':
-      console.log('# TextApp.onSettingsChanged_ alwaysontop');
       this.windowController_.setAlwaysOnTop(value);
       break;
 

@@ -1,106 +1,3 @@
-// var EditSession = CodeMirror.Doc;
-
-// The devToolsAccessibleTextArea class was taken from chrome dev tools to help
-// improve codemirror screen reader support for navigating around a document.
-// https://github.com/ChromeDevTools/devtools-frontend/blob/0ddf8e4898701ab4174096707346d71cc5985268/front_end/text_editor/CodeMirrorTextEditor.js#L1736
-
-
-// CodeMirror uses an offscreen <textarea> to detect input. Due to
-// inconsistencies in the many browsers it supports, it simplifies things by
-// regularly checking if something is in the textarea, adding those characters
-// to the document, and then clearing the textarea. This breaks assistive
-// technology that wants to read from CodeMirror, because the <textarea> that
-// they interact with is constantly empty. Because we target chrome on
-// chrome os, we can gaurantee consistent input events. This lets us leave the
-// current line from the editor in our <textarea>.
-// CodeMirror still expects a mostly empty <textarea>, so we pass CodeMirror a
-// fake <textarea> that only contains the users input.
-// CodeMirror.inputStyles.devToolsAccessibleTextArea = class extends CodeMirror.inputStyles.textarea {
-//   /**
-//    * @override
-//    * @param {!Object} display
-//    */
-//   init(display) {
-//     super.init(display);
-//     this.textarea.addEventListener('compositionstart', this._onCompositionStart.bind(this));
-//   }
-
-//   _onCompositionStart() {
-//     if (this.textarea.selectionEnd === this.textarea.value.length)
-//       return;
-//     // CodeMirror always expects the caret to be at the end of the textarea
-//     // When in IME composition mode, clip the textarea to how CodeMirror expects it,
-//     // and then let CodeMirror do it's thing.
-//     this.textarea.value = this.textarea.value.substring(0, this.textarea.selectionEnd);
-//     this.textarea.setSelectionRange(this.textarea.value.length, this.textarea.value.length);
-//     this.prevInput = this.textarea.value;
-//   }
-
-//   /**
-//    * @override
-//    * @param {boolean=} typing
-//    */
-//   reset(typing) {
-//     if (typing || this.contextMenuPending || this.composing || this.cm.somethingSelected()) {
-//       super.reset(typing);
-//       return;
-//     }
-
-//     // When navigating around the document, keep the current visual line in the textarea.
-//     const cursor = this.cm.getCursor();
-//     let start, end;
-//     if (this.cm.options.lineWrapping) {
-//       // To get the visual line, compute the leftmost and rightmost character positions.
-//       const top = this.cm.charCoords(cursor, 'page').top;
-//       start = this.cm.coordsChar({left: -Infinity, top});
-//       end = this.cm.coordsChar({left: Infinity, top});
-//     } else {
-//       // Limit the line to 1000 characters to prevent lag.
-//       const offset = Math.floor(cursor.ch / 1000) * 1000;
-//       start = {ch: offset, line: cursor.line};
-//       end = {ch: offset + 1000, line: cursor.line};
-//     }
-//     this.textarea.value = this.cm.getRange(start, end);
-//     const caretPosition = cursor.ch - start.ch;
-//     this.textarea.setSelectionRange(caretPosition, caretPosition);
-//     this.prevInput = this.textarea.value;
-//   }
-
-//   /**
-//    * @override
-//    * @return {boolean}
-//    */
-//   poll() {
-//     if (this.contextMenuPending || this.composing)
-//       return super.poll();
-//     const text = this.textarea.value;
-//     let start = 0;
-//     const length = Math.min(this.prevInput.length, text.length);
-//     while (start < length && this.prevInput[start] === text[start])
-//       ++start;
-//     let end = 0;
-//     while (end < length - start && this.prevInput[this.prevInput.length - end - 1] === text[text.length - end - 1])
-//       ++end;
-
-//     // CodeMirror expects the user to be typing into a blank <textarea>.
-//     // Pass a fake textarea into super.poll that only contains the users input.
-//     /** @type {!HTMLTextAreaElement} */
-//     const placeholder = this.textarea;
-//     this.textarea = /** @type {!HTMLTextAreaElement} */ (document.createElement('textarea'));
-//     this.textarea.value = text.substring(start, text.length - end);
-//     this.textarea.setSelectionRange(placeholder.selectionStart - start, placeholder.selectionEnd - start);
-//     this.prevInput = '';
-//     const result = super.poll();
-//     this.prevInput = text;
-//     this.textarea = placeholder;
-//     return result;
-//   }
-// };
-
-
-// https://codemirror.net/docs/migration/ Configuration
-const tabSize = new CodeMirror.state.Compartment;
-
 /**
  * @constructor
  * @param {DOM} elementId
@@ -109,45 +6,30 @@ const tabSize = new CodeMirror.state.Compartment;
 function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
-  // this.cm_ = CodeMirror(
-  //     editorElement,
-  //     {
-  //       'value': '',
-  //       'autofocus': true,
-  //       'matchBrackets': true,
-  //       'inputStyle': 'devToolsAccessibleTextArea',
-  //       // this is 25 days in milliseconds, we set the poll interval to be
-  //       // incredibly long so that a poll doesn't break our selection logic.
-  //       // We can remove the need for the poll because we only target chrome on
-  //       // chrome os which handles events consistently, the poll is for other
-  //       // browsers with less reliable input events, which we can ignore here.
-  //       'pollInterval': Math.pow(2, 31) - 1,
-  //       'highlightSelectionMatches': {
-  //         minChars: 1,
-  //         delay: 0,
-  //         caseInsensitive: true
-  //       }
-  //     });
-  var CodeMirror = window.CodeMirror;
-  this.cm_ = new CodeMirror.view.EditorView({
-    doc: 'MY FIRST DOC',
-    extensions: [
-      CodeMirror.commands.history(),
-      CodeMirror.view.drawSelection(),
-      CodeMirror.view.lineNumbers(),
-      CodeMirror.view.keymap.of([...CodeMirror.commands.defaultKeymap, ...CodeMirror.commands.historyKeymap]),
-      tabSize.of(CodeMirror.state.EditorState.tabSize.of(2))
-    ],
-    parent: editorElement,
-  });
 
-  // this.cm_.setSize(null, 'auto');  // Not a function.
-  // TODO: Replace this event with something else!
-  // this.cm_.on('change', this.onChange.bind(this));  // on is not a function.
-  // this.setTheme(settings.get('theme'));  // setOption is not a function.
-  this.search_ = new Search(this.cm_);
+  this.tabSize_ = new CodeMirror.state.Compartment;
+
+  // Extensions don't need to be loaded here as we will always load a state
+  // created by newState with setSession.
+  this.editorView_ = new EditorView({
+    doc: "",
+    parent: editorElement,
+  })
+
+  /*
+    'autofocus': true,
+    'matchBrackets': true,
+    'highlightSelectionMatches': {
+      minChars: 1,
+      delay: 0,
+      caseInsensitive: true
+    }
+  */
+
+  // XXX this.setTheme(settings.get('theme'));
+  // XXX this.search_ = new Search(this.cm_);
   // Mimic Sublime behaviour there.
-  // this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
+  // XXX this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
 
 EditorCodeMirror.EXTENSION_TO_MODE = {
@@ -200,15 +82,25 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'xq': 'xquery',
     'yaml': 'yaml'};
 
+EditorCodeMirror.prototype.newState = function(opt_content) {
+  return CodeMirror.state.EditorState.create({
+    doc: opt_content || '',
+    extensions: [
+      CodeMirror.commands.history(),
+      CodeMirror.view.drawSelection(),
+      CodeMirror.view.lineNumbers(),
+      CodeMirror.view.keymap.of([...CodeMirror.commands.defaultKeymap, ...CodeMirror.commands.historyKeymap]),
+      this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2))
+    ],
+  });
+};
+
 /**
- * @param {SessionDescriptor} session
+ * @param {EditorState} editorState
  * Change the current session, usually to switch to another tab.
  */
-EditorCodeMirror.prototype.setSession = function(session) {
-  console.log('EditorCodeMirror.setSession. editorState.doc.toString():', session.editorState.doc.toString());
-  // this.cm_.swapDoc(session.codemirror);
-  this.cm_.setState(session.editorState);
-  this.currentSession_ = session;
+EditorCodeMirror.prototype.setSession = function(editorState) {
+  this.editorView_.setState(editorState);
 };
 
 /**
@@ -224,35 +116,18 @@ EditorCodeMirror.prototype.lockedSettings = function() {
  * Return search object.
  */
 EditorCodeMirror.prototype.getSearch = function() {
-  return this.search_;
-};
-
-EditorCodeMirror.prototype.onChange = function() {
-  console.log('# EditorCodeMirror.onChange event');
-  $.event.trigger('docchange', {
-    type: 'codemirror',
-    session: this.currentSession_
-  });
-};
-
-EditorCodeMirror.prototype.undo = function() {
-  this.cm_.undo();
-};
-
-EditorCodeMirror.prototype.redo = function() {
-  this.cm_.redo();
+  return null; // XXX this.search_;
 };
 
 EditorCodeMirror.prototype.focus = function() {
-  this.cm_.focus();
+  // XXX this.cm_.focus();
 };
 
 /**
- * @param {SessionDescriptor} session
+ * @param {EditorState} session
  * @param {string} extension
  */
 EditorCodeMirror.prototype.setMode = function(session, extension) {
-  console.log('# EditorCodeMirror.setMode', session, extension);
   session = session.codemirror;
   var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
   if (mode) {
@@ -272,60 +147,57 @@ EditorCodeMirror.prototype.setMode = function(session, extension) {
  * Update font size from settings.
  */
 EditorCodeMirror.prototype.setFontSize = function(fontSize) {
-  $('.CodeMirror').css('font-size',fontSize + 'px');
-  // this.cm_.refresh();  // TODO: refresh is not a function.
+  // XXX $('.CodeMirror').css('font-size',fontSize + 'px');
+  // XXX this.cm_.refresh();
 };
 
 /**
  * @param {number} size
  */
 EditorCodeMirror.prototype.setTabSize = function(size) {
-  // Copied from migration/Configuration.
-  this.cm_.dispatch({
-    effects: tabSize.reconfigure(CodeMirror.state.EditorState.tabSize.of(size))
+  this.editorView_.dispatch({
+    effects: this.tabSize_.reconfigure(CodeMirror.state.EditorState.tabSize.of(size))
   });
-
-  // this.cm_.setOption('tabSize', size);
-  // this.cm_.setOption('indentUnit', size);
-  // this.replaceTabWithSpaces(this.settings_.get('spacestab'));
 };
 
 /**
  * @param {string} theme The color theme to change to. Default light.
  */
 EditorCodeMirror.prototype.setTheme = function(theme) {
-  if (theme !== 'dark') theme = 'light';
-  // this.cm_.setOption('theme', theme);  // TODO: setOption is not a function.
+  // XXX if (theme !== 'dark') theme = 'light';
+  // XXX this.cm_.setOption('theme', theme);
 };
 
 /**
  * @param {boolean} val
  */
 EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
-  // this.cm_.setOption('lineNumbers', val);
+  // XXX this.cm_.setOption('lineNumbers', val);
 };
 
 /**
  * @param {boolean} val
  */
 EditorCodeMirror.prototype.setWrapLines = function(val) {
-  // this.cm_.setOption('lineWrapping', val);
+  // XXX this.cm_.setOption('lineWrapping', val);
 };
 
 /**
  * @param {boolean} val
  */
 EditorCodeMirror.prototype.setSmartIndent = function(val) {
-  // this.cm_.setOption('smartIndent', val);
+  // XXX this.cm_.setOption('smartIndent', val);
 };
 
 /**
  * @param {boolean} val
  */
 EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
-  console.log('# EditorCodeMirror.replaceTabWithSpaces', val);
-  // this.cm_.setOption('indentWithTabs', !val);
+  // XXX
   // NOTE: https://codemirror.net/examples/change/ has an example of this.
+  return;
+
+  this.cm_.setOption('indentWithTabs', !val);
   if (val) {
     // Need to update this closure once the tabsize has changed. So, have to
     // call this method when it happens.
@@ -340,7 +212,7 @@ EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
       }
     };
   } else {
-    // CodeMirror.commands.defaultTab = this.defaultTabHandler_;
+    CodeMirror.commands.defaultTab = this.defaultTabHandler_;
   }
 };
 
@@ -348,12 +220,12 @@ EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
  * Make the textarea unfocusable and hide cursor.
  */
 EditorCodeMirror.prototype.disable = function() {
-  this.cm_.setOption('readOnly', 'nocursor');
+  // XXX this.cm_.setOption('readOnly', 'nocursor');
 };
 
 EditorCodeMirror.prototype.enable = function() {
-  this.cm_.setOption('readOnly', false);
-  this.cm_.focus();
+  // XXX this.cm_.setOption('readOnly', false);
+  // XXX this.cm_.focus();
 };
 
 /**
@@ -361,5 +233,5 @@ EditorCodeMirror.prototype.enable = function() {
  */
 EditorCodeMirror.prototype.destroy = function() {
   // Detach the current doc so it can be reset in future.
-  this.cm_.swapDoc(new CodeMirror.Doc(''));
+  // XXX this.cm_.swapDoc(new CodeMirror.Doc(''));
 };
