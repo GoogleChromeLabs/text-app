@@ -435,7 +435,7 @@ Tabs.prototype.saveAs = function(opt_tab, opt_callback) {
   }
 
   var suggestedName = tab.getEntry() && tab.getEntry().name ||
-                      util.sanitizeFileName(tab.session_.editorState.doc.line(1).text) ||
+                      util.sanitizeFileName(tab.session_.doc.line(1).text) ||
                       tab.getName();
 
   if (!util.getExtension(suggestedName)) {
