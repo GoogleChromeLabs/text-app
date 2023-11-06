@@ -15,7 +15,7 @@ import {
   selectMatches,
   setSearchQuery,
 } from '@codemirror/search';
-import { Compartment, EditorState } from '@codemirror/state';
+import { Compartment, EditorSelection, EditorState } from '@codemirror/state';
 import {
   drawSelection,
   EditorView,
@@ -41,6 +41,7 @@ const CodeMirrorNext = {
   },
   state: {
     Compartment,
+    EditorSelection,
     EditorState,
   },
   view: {

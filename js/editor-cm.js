@@ -4,6 +4,8 @@
  * @param {Settings} settings
  */
 function EditorCodeMirror(editorElement, settings) {
+  window.ecm = this;
+
   this.element_ = editorElement;
   this.settings_ = settings;
 

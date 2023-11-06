@@ -4,11 +4,11 @@
  */
 function Search(editorView) {
   this.editorView_ = editorView;
-  this.query_ = null;
+  this.query_ = "";
+  // Index of the currently selected match, starting from 0.
   this.index_ = 0;
   this.resultsCount_ = 0;
 };
-
 
 /**
  * @param {string} query
@@ -18,7 +18,12 @@ Search.prototype.computeResultsCount_ = function(query) {
   query = query.toLowerCase();
   this.index_ = 0;
   this.resultsCount_ = 0;
-  var cursor = this.editorView_.state.selection.main.from;
+
+  if (!query) {
+    return;
+  }
+
+  const cursor = this.editorView_.state.selection.main.anchor;
 
   let text = this.editorView_.state.doc;
   let search = new CodeMirror.search.SearchCursor(
@@ -36,15 +41,25 @@ Search.prototype.computeResultsCount_ = function(query) {
  * Reset selection.
  */
 Search.prototype.resetSelection_ = function() {
-  // XXX set selection to the anchor
+  const cursor = this.editorView_.state.selection.main.anchor;
+  this.editorView_.dispatch({
+    selection: CodeMirror.state.EditorSelection.single(cursor),
+  });
 };
 
 /**
- * Clear search.
+ * Called when the user focuses the search box.
  */
-Search.prototype.clear = function() {
-  this.query_ = null;
+Search.prototype.activate = function() {
   this.resetSelection_();
+  CodeMirror.search.openSearchPanel(this.editorView_);
+};
+
+/**
+ * Called when the user unfocuses the search box.
+ */
+Search.prototype.deactivate = function() {
+  this.find("");
   CodeMirror.search.closeSearchPanel(this.editorView_);
 };
 
@@ -68,13 +83,11 @@ Search.prototype.getResultsCount = function() {
 };
 
 /**
- * @param {string} query
+ * @param {string} query Search query, may be empty.
  * Initialize search. This is called every time the search string is updated.
  */
 Search.prototype.find = function(query) {
   this.query_ = query;
-
-  CodeMirror.search.openSearchPanel(this.editorView_);
 
   this.editorView_.dispatch({
     effects: CodeMirror.search.setSearchQuery.of(
@@ -84,13 +97,13 @@ Search.prototype.find = function(query) {
 
   this.computeResultsCount_(query);
 
-  //CodeMirror.search.selectMatches(this.editorView_);
-
-  // XXX this doesn't quite match previous behaviour, where we would find the
-  // match from the start of selection. This also breaks index tracking.
-  // e.g. "hello |hello>", searching for "h" matches the first "h"
-  this.findNext(/*opt_reverse=*/true);
-  this.findNext(/*opt_reverse=*/false);
+  this.resetSelection_();
+  if (this.resultsCount_) {
+    // Select the first match not before the cursor. We set index_ earlier
+    // as if that match was selected.
+    this.index_--;
+    this.findNext(/*opt_reverse=*/false);
+  }
 };
 
 /**
@@ -100,10 +113,10 @@ Search.prototype.find = function(query) {
  */
 Search.prototype.findNext = function(opt_reverse) {
   if (opt_reverse) {
-    this.index_++;
+    this.index_ += this.resultsCount_ - 1;
     CodeMirror.search.findPrevious(this.editorView_);
   } else {
-    this.index_ += this.resultsCount_ - 1;
+    this.index_++;
     CodeMirror.search.findNext(this.editorView_);
   }
 

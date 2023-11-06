@@ -4,6 +4,11 @@
 function SearchController(search) {
   this.search_ = search;
 
+  // When there is an active text selection, focusing the search box with the
+  // mouse seems to trigger a recursive focus/focusout pair. It would be good
+  // to understand why but for now drop the extra events to prevent errors.
+  this.activating_ = false;
+
   document.getElementById('search-input')
       .addEventListener('focus', () => { this.activateSearch_(); });
   $('#search-input').bind('input', this.onChange_.bind(this));
@@ -48,18 +53,28 @@ SearchController.prototype.findNext_ = function(opt_reverse) {
  * @private
  */
 SearchController.prototype.activateSearch_ = function() {
-  this.search_.clear();
+  if (this.activating_) {
+    return;
+  }
+
+  this.activating_ = true;
+  this.search_.activate();
   document.getElementById('search-input').select();
   $('header').addClass('search-active');
+  this.activating_ = false;
 };
 
 SearchController.prototype.deactivateSearch_ = function(e) {
+  if (this.activating_) {
+    return;
+  }
+
   // relatedTarget is null if the element clicked on can't receive focus
   if (!e.relatedTarget || !e.relatedTarget.closest('.search-container')) {
     $('#search-input').val('');
     $('#search-counting').text('');
     $('header').removeClass('search-active');
-    this.search_.clear();
+    this.search_.deactivate();
   }
 };
 
@@ -67,11 +82,8 @@ SearchController.prototype.onChange_ = function() {
   var searchString = $('#search-input').val();
   if (searchString === this.search_.getQuery())
     return;
-  if (searchString) {
-    this.search_.find(searchString);
-  } else {
-    this.search_.clear();
-  }
+
+  this.search_.find(searchString);
   this.updateSearchCount_();
 };
 
