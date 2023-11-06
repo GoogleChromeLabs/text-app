@@ -132,6 +132,8 @@ function Tabs(editor, dialogController, settings) {
   this.tabs_ = [];
   /** @type {Tab|null} Current selected tab, or initially null. */
   this.currentTab_ = null;
+
+  $(document).bind('docchange', this.onDocChanged_.bind(this));
 }
 
 Tabs.prototype.updateEditor = function(editor) {
@@ -513,6 +515,13 @@ Tabs.prototype.saveEntry_ = function(tab, entry, opt_callback) {
   tab.setEntry(entry);
   this.save(tab, opt_callback);
 };
+
+/**
+ * The event handler for the docchange event.
+ */
+Tabs.prototype.onDocChanged_ = function() {
+  this.currentTab_.changed();
+}
 
 /**
  * Determines whether any tabs are open.

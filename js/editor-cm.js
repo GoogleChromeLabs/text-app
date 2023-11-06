@@ -115,6 +115,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       ]),
       this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2)),
       this.lineWrappingComponent_.of(CodeMirror.view.EditorView.lineWrapping),
+      CodeMirror.view.EditorView.updateListener.of(this.onViewUpdate.bind(this)),
       CodeMirror.search.search({
         literal: true,
       }),
@@ -270,6 +271,15 @@ EditorCodeMirror.prototype.disable = function() {
 EditorCodeMirror.prototype.enable = function() {
   // XXX this.cm_.setOption('readOnly', false);
   // XXX this.cm_.focus();
+};
+
+/**
+ * @param {ViewUpdate} update
+ */
+EditorCodeMirror.prototype.onViewUpdate = function(update) {
+  if (update.docChanged) {
+    $.event.trigger('docchange');
+  }
 };
 
 /**

@@ -19,7 +19,9 @@ import { Compartment, EditorSelection, EditorState } from '@codemirror/state';
 import {
   drawSelection,
   EditorView,
-  keymap, lineNumbers
+  keymap,
+  lineNumbers,
+  ViewUpdate,
 } from '@codemirror/view';
 
 const CodeMirrorNext = {
