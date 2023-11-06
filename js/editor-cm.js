@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @constructor
  * @param {DOM} elementId
@@ -6,10 +8,18 @@
 function EditorCodeMirror(editorElement, settings) {
   window.ecm = this;
 
+  const CodeMirror = window.CodeMirror;
   this.element_ = editorElement;
   this.settings_ = settings;
 
-  this.tabSize_ = new CodeMirror.state.Compartment;
+  /** @type {window.CodeMirror.state.Compartment} for changing tab size dynamically. */
+  this.tabSize_ = new window.CodeMirror.state.Compartment();
+
+  /**
+   * @type {window.CodeMirror.state.Compartment} for changing the "Wrap lines"
+   * setting dynamically.
+   */
+  this.lineWrappingComponent_ = new window.CodeMirror.state.Compartment();
 
   // Extensions don't need to be loaded here as we will always load a state
   // created by newState with setSession.
@@ -85,14 +95,20 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 EditorCodeMirror.prototype.newState = function(opt_content) {
+  const CodeMirror = window.CodeMirror;
   return CodeMirror.state.EditorState.create({
     doc: opt_content || '',
     extensions: [
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
       CodeMirror.view.lineNumbers(),
-      CodeMirror.view.keymap.of([...CodeMirror.commands.defaultKeymap, ...CodeMirror.commands.historyKeymap]),
+      CodeMirror.view.keymap.of([
+        ...CodeMirror.commands.defaultKeymap,
+        ...CodeMirror.commands.historyKeymap,
+        CodeMirror.commands.indentWithTab,
+      ]),
       this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2)),
+      this.lineWrappingComponent_.of(CodeMirror.view.EditorView.lineWrapping),
       CodeMirror.search.search({
         literal: true,
       }),
@@ -106,6 +122,9 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
  */
 EditorCodeMirror.prototype.setSession = function(editorState) {
   this.editorView_.setState(editorState);
+  // Apply all settings because settings only apply to the current state but we
+  // want the settings to affect all the tabs.
+  this.applyAllSettings();
 };
 
 /**
@@ -147,6 +166,16 @@ EditorCodeMirror.prototype.setMode = function(session, extension) {
   }
 };
 
+/** Apply all settings to the current state. */
+EditorCodeMirror.prototype.applyAllSettings = function() {
+  this.setFontSize(this.settings_.get('fontsize'));
+  this.showHideLineNumbers(this.settings_.get('linenumbers'));
+  this.setSmartIndent(this.settings_.get('smartindent'));
+  this.replaceTabWithSpaces(this.settings_.get('spacestab'));
+  this.setTabSize(this.settings_.get('tabsize'));
+  this.setWrapLines(this.settings_.get('wraplines'));
+}
+
 /**
  * @param {number} fontSize
  * Update font size from settings.
@@ -161,7 +190,7 @@ EditorCodeMirror.prototype.setFontSize = function(fontSize) {
  */
 EditorCodeMirror.prototype.setTabSize = function(size) {
   this.editorView_.dispatch({
-    effects: this.tabSize_.reconfigure(CodeMirror.state.EditorState.tabSize.of(size))
+    effects: this.tabSize_.reconfigure(window.CodeMirror.state.EditorState.tabSize.of(size))
   });
 };
 
@@ -181,14 +210,16 @@ EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
 };
 
 /**
- * @param {boolean} val
+ * @param {boolean} val Whether or not to enable line wrapping.
  */
 EditorCodeMirror.prototype.setWrapLines = function(val) {
-  // XXX this.cm_.setOption('lineWrapping', val);
+  this.editorView_.dispatch({
+    effects: this.lineWrappingComponent_.reconfigure(val ? window.CodeMirror.view.EditorView.lineWrapping : [])
+  });
 };
 
 /**
- * @param {boolean} val
+ * @param {boolean} val Whether or not to enable smart indent.
  */
 EditorCodeMirror.prototype.setSmartIndent = function(val) {
   // XXX this.cm_.setOption('smartIndent', val);

@@ -155,12 +155,7 @@ TextApp.prototype.updateControllers_ = function() {
  */
 TextApp.prototype.loadSettingsIntoEditor = function() {
   this.setTheme();
-  this.editor_.setFontSize(this.settings_.get('fontsize'));
-  this.editor_.showHideLineNumbers(this.settings_.get('linenumbers'));
-  this.editor_.setSmartIndent(this.settings_.get('smartindent'));
-  this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
-  this.editor_.setTabSize(this.settings_.get('tabsize'));
-  this.editor_.setWrapLines(this.settings_.get('wraplines'));
+  this.editor_.applyAllSettings();
 };
 
 /**

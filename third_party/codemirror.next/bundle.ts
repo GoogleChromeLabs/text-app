@@ -2,7 +2,7 @@
 // components.
 
 import {
-  defaultKeymap, history, historyKeymap,
+  defaultKeymap, history, historyKeymap, indentWithTab,
 } from '@codemirror/commands';
 import {
   closeSearchPanel,
@@ -27,6 +27,7 @@ const CodeMirrorNext = {
     defaultKeymap,
     history,
     historyKeymap,
+    indentWithTab,
   },
   search: {
     closeSearchPanel,
