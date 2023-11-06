@@ -3,22 +3,15 @@
   --dark-background-color: #1f1f1f;
   --dark-divider-color: var(--dark-accent-color);
   --dark-highlight-color: rgb(26, 115, 232, 0.26);
-  --disabled-opacity: 0.38;
-  /* These colors are copied from codemirror to maintain consistency. */
-  --light-theme-text-color: #000000;
+  --dark-selection-color: #49483e;
   --dark-theme-text-color: #f8f8f2;
-  /*
-   * Editor styles are mostly copied from codemirror so that the text area
-   * maintains the same look.
-   */
-  --editor-line-height: 1.2em;
-  --editor-padding: 4px;
+  --disabled-opacity: 0.38;
   --header-height: 48px;
   --light-accent-color: rgb(0, 0, 0, 0.04);
   --light-background-color: white;
   --light-divider-color: var(--light-accent-color);
   --light-highlight-color: rgb(26, 115, 232, 0.18);
-  --mdc-theme-secondary: rgb(27, 114, 232);
+  --light-theme-text-color: black;
   --settings-input-width: 55px;
   --tab-height: 36px;
 }
@@ -515,27 +508,6 @@ header.hide-controls #window-close {
 }
 
 /* These are the styles for the screenreader mode editor */
-#editor-textarea {
-  background: var(--light-background-color);
-  color: var(--light-theme-text-color);
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  resize: none;
-  padding: var(--editor-padding);
-  font-family: monospace;
-  line-height: var(--editor-line-height);
-  outline: none;
-  border: none;
-}
-.dark-theme #editor-textarea {
-  background: var(--dark-background-color);
-  color: var(--dark-theme-text-color);
-}
-#editor-textarea:focus {
-  outline: none;
-  border: none;
-}
 input[type=text][disabled] {
   opacity: var(--disabled-opacity);
 }
@@ -622,14 +594,7 @@ input[type=search]:focus {
 
 #editor .cm-editor {
   height: 100%;
-}
-
-/* XXX right align line numbers
- * XXX remove dotted outline when focused
- */
-
-.cm-gutter {
-  background-color: var(--light-background-color);
+  outline: none;
 }
 
 #editor .cm-editor .cm-search {

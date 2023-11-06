@@ -13,23 +13,55 @@ function EditorCodeMirror(editorElement, settings) {
   this.settings_ = settings;
 
   /** @type {window.CodeMirror.state.Compartment} for changing tab size dynamically. */
-  this.tabSize_ = new window.CodeMirror.state.Compartment();
+  this.tabSize_ = new CodeMirror.state.Compartment();
 
   /**
    * @type {window.CodeMirror.state.Compartment} for changing the "Wrap lines"
    * setting dynamically.
    */
-  this.lineWrappingComponent_ = new window.CodeMirror.state.Compartment();
+  this.lineWrappingComponent_ = new CodeMirror.state.Compartment();
 
   /**
    * @type {window.CodeMirror.state.Compartment} for changing the "show line numbers"
    * setting dynamically.
    */
-  this.lineNumbersComponent_ = new window.CodeMirror.state.Compartment();
+  this.lineNumbersComponent_ = new CodeMirror.state.Compartment();
+
+  /** @type {window.CodeMirror.state.Compartment} for setting light/dark mode. */
+  this.themeCompartment_ = new CodeMirror.state.Compartment();
+
+  this.lightTheme_ = CodeMirror.view.EditorView.theme({
+    "&": {
+      backgroundColor: "var(--light-background-color)",
+      color: "var(--light-theme-text-color)",
+    },
+    ".cm-gutter": {
+      backgroundColor: "var(--light-background-color)"
+    },
+    ".cm-cursor": {
+      borderLeftColor: "var(--light-theme-text-color)",
+    },
+  }, {dark: false});
+
+  this.darkTheme_ = CodeMirror.view.EditorView.theme({
+    "&": {
+      backgroundColor: "var(--dark-background-color)",
+      color: "var(--dark-theme-text-color)",
+    },
+    ".cm-gutter": {
+      backgroundColor: "var(--dark-background-color)",
+    },
+    ".cm-cursor": {
+      borderLeftColor: "var(--dark-theme-text-color)",
+    },
+    ".cm-selectionBackground": {
+      backgroundColor: "var(--dark-selection-color) !important",
+    },
+  }, {dark: true});
 
   // Extensions don't need to be loaded here as we will always load a state
   // created by newState with setSession.
-  this.editorView_ = new window.CodeMirror.view.EditorView({
+  this.editorView_ = new CodeMirror.view.EditorView({
     doc: "",
     parent: editorElement,
   })
@@ -37,14 +69,8 @@ function EditorCodeMirror(editorElement, settings) {
   /*
     'autofocus': true,
     'matchBrackets': true,
-    'highlightSelectionMatches': {
-      minChars: 1,
-      delay: 0,
-      caseInsensitive: true
-    }
   */
 
-  // XXX this.setTheme(settings.get('theme'));
   this.search_ = new Search(this.editorView_);
   // Mimic Sublime behaviour there.
   // XXX this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
@@ -119,6 +145,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       CodeMirror.search.search({
         literal: true,
       }),
+      this.themeCompartment_.of(this.lightTheme_),
     ],
   });
 };
@@ -175,6 +202,7 @@ EditorCodeMirror.prototype.setMode = function(session, extension) {
 
 /** Apply all settings to the current state. */
 EditorCodeMirror.prototype.applyAllSettings = function() {
+  this.setTheme(this.settings_.get('theme'));
   this.setFontSize(this.settings_.get('fontsize'));
   this.showHideLineNumbers(this.settings_.get('linenumbers'));
   this.setSmartIndent(this.settings_.get('smartindent'));
@@ -205,8 +233,9 @@ EditorCodeMirror.prototype.setTabSize = function(size) {
  * @param {string} theme The color theme to change to. Default light.
  */
 EditorCodeMirror.prototype.setTheme = function(theme) {
-  // XXX if (theme !== 'dark') theme = 'light';
-  // XXX this.cm_.setOption('theme', theme);
+  this.editorView_.dispatch({
+    effects: this.themeCompartment_.reconfigure(theme === "dark" ? this.darkTheme_ : this.lightTheme_),
+  });
 };
 
 /**
