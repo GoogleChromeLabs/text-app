@@ -21,6 +21,12 @@ function EditorCodeMirror(editorElement, settings) {
    */
   this.lineWrappingComponent_ = new window.CodeMirror.state.Compartment();
 
+  /**
+   * @type {window.CodeMirror.state.Compartment} for changing the "show line numbers"
+   * setting dynamically.
+   */
+  this.lineNumbersComponent_ = new window.CodeMirror.state.Compartment();
+
   // Extensions don't need to be loaded here as we will always load a state
   // created by newState with setSession.
   this.editorView_ = new window.CodeMirror.view.EditorView({
@@ -101,7 +107,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
     extensions: [
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
-      CodeMirror.view.lineNumbers(),
+      this.lineNumbersComponent_.of(CodeMirror.view.lineNumbers()),
       CodeMirror.view.keymap.of([
         ...CodeMirror.commands.defaultKeymap,
         ...CodeMirror.commands.historyKeymap,
@@ -203,10 +209,12 @@ EditorCodeMirror.prototype.setTheme = function(theme) {
 };
 
 /**
- * @param {boolean} val
+ * @param {boolean} val Whether or not to show line numbers.
  */
 EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
-  // XXX this.cm_.setOption('lineNumbers', val);
+  this.editorView_.dispatch({
+    effects: this.lineNumbersComponent_.reconfigure(val ? window.CodeMirror.view.lineNumbers() : [])
+  });
 };
 
 /**
