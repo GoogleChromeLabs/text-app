@@ -224,7 +224,7 @@ EditorCodeMirror.prototype.getSearch = function() {
 };
 
 EditorCodeMirror.prototype.focus = function() {
-  // XXX this.cm_.focus();
+  this.editorView_.focus();
 };
 
 /**
@@ -334,18 +334,6 @@ EditorCodeMirror.prototype.setReplaceTabWithSpaces = function(useSpace) {
   this.editorView_.dispatch({
     effects: [this.getIndentUnitStateEffect(useSpace, tabsize)],
   });
-};
-
-/**
- * Make the textarea unfocusable and hide cursor.
- */
-EditorCodeMirror.prototype.disable = function() {
-  // XXX this.cm_.setOption('readOnly', 'nocursor');
-};
-
-EditorCodeMirror.prototype.enable = function() {
-  // XXX this.cm_.setOption('readOnly', false);
-  // XXX this.cm_.focus();
 };
 
 /**
