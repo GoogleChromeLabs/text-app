@@ -21,12 +21,3 @@
 .cm-s-light .cm-quote {color: #090;}
 .cm-s-light .cm-hr {color: #999;}
 .cm-s-light .cm-link {color: #00c;}
-
-body[theme="light"] div.CodeMirror span.CodeMirror-matchingbracket {
-  color: inherit !important;
-  border-bottom: 1px solid black;
-}
-
-body[theme="light"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
-  color: inherit !important;
-}

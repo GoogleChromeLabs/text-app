@@ -16,17 +16,3 @@
 .cm-s-dark span.cm-bracket {color: #f8f8f2;}
 .cm-s-dark span.cm-tag {color: #f92672;}
 .cm-s-dark span.cm-link {color: #ae81ff;}
-
-.cm-s-dark .CodeMirror-matchingbracket {
-  text-decoration: underline;
-  color: white !important;
-}
-
-body[theme="dark"] div.CodeMirror span.CodeMirror-matchingbracket {
-  color: inherit !important;
-  border-bottom: 1px solid #f8f8f2;
-}
-
-body[theme="dark"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
-  color: inherit !important;
-}
