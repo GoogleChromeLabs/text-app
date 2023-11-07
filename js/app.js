@@ -207,7 +207,7 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
       break;
 
     case 'spacestab':
-      this.editor_.replaceTabWithSpaces(this.settings_.get('spacestab'));
+      this.editor_.setReplaceTabWithSpaces(this.settings_.get('spacestab'));
       break;
 
     case 'tabsize':

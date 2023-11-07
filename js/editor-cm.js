@@ -15,6 +15,9 @@ function EditorCodeMirror(editorElement, settings) {
   /** @type {window.CodeMirror.state.Compartment} for changing tab size dynamically. */
   this.tabSize_ = new CodeMirror.state.Compartment();
 
+  /** @type {window.CodeMirror.state.Compartment} for changing indent unit dynamically. */
+  this.indentUnitCompartment_ = new CodeMirror.state.Compartment();
+
   /**
    * @type {window.CodeMirror.state.Compartment} for changing the "Wrap lines"
    * setting dynamically.
@@ -53,8 +56,12 @@ function EditorCodeMirror(editorElement, settings) {
   this.lightTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: false});
   this.darkTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: true});
 
-  // Extensions don't need to be loaded here as we will always load a state
-  // created by newState with setSession.
+  /**
+   * Extensions don't need to be loaded here because we will always load a
+   * state created by newState with setSession.
+   * 
+   * @type {window.CodeMirror.view.EditorView}
+   */
   this.editorView_ = new CodeMirror.view.EditorView({
     doc: "",
     parent: editorElement,
@@ -66,8 +73,6 @@ function EditorCodeMirror(editorElement, settings) {
   */
 
   this.search_ = new Search(this.editorView_);
-  // Mimic Sublime behaviour there.
-  // XXX this.defaultTabHandler_ = CodeMirror.commands.defaultTab;
 }
 
 EditorCodeMirror.EXTENSION_TO_MODE = {
@@ -131,9 +136,42 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       CodeMirror.view.keymap.of([
         ...CodeMirror.commands.defaultKeymap,
         ...CodeMirror.commands.historyKeymap,
-        CodeMirror.commands.indentWithTab,
+        {
+          key: 'Tab',
+          preventDefault: true,
+          run: ({state, dispatch}) => {
+            // Get the setting value again because it might have changed.
+            const useSpace = this.settings_.get('spacestab');
+
+            // If the indent unit is tab, use the built-in insertTab function.
+            if (!useSpace) {
+              return window.CodeMirror.commands.insertTab({state, dispatch});
+            }
+            // If something is selected, use the built-in indentMore function.
+            // It automatically handles spaces vs tabs.
+            if (state.selection.ranges.some(r => !r.empty)) {
+              return window.CodeMirror.commands.indentMore({state, dispatch});
+            }
+
+            const indentContext = new window.CodeMirror.language.IndentContext(state);
+            const cursorColumn = indentContext.column(state.selection.main.head);
+
+            // Insert the number of spaces equivalent to a tab.
+            const tabSize = indentContext.unit;
+            const numSpaces = tabSize - cursorColumn % tabSize;
+            dispatch(state.update(state.replaceSelection(' '.repeat(numSpaces)),
+                {scrollIntoView: true, userEvent: "input"}));
+            return true;
+          },
+        },
+        {
+          key: 'Shift-Tab',
+          preventDefault: true,
+          run: CodeMirror.commands.indentSelection,  // XXX: Need to make indent auto work.
+        },
       ]),
       this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2)),
+      this.indentUnitCompartment_.of(window.CodeMirror.language.indentUnit.of('  ')),
       this.lineWrappingComponent_.of(CodeMirror.view.EditorView.lineWrapping),
       CodeMirror.view.EditorView.updateListener.of(this.onViewUpdate.bind(this)),
       CodeMirror.search.search({
@@ -200,7 +238,7 @@ EditorCodeMirror.prototype.applyAllSettings = function() {
   this.setFontSize(this.settings_.get('fontsize'));
   this.showHideLineNumbers(this.settings_.get('linenumbers'));
   this.setSmartIndent(this.settings_.get('smartindent'));
-  this.replaceTabWithSpaces(this.settings_.get('spacestab'));
+  this.setReplaceTabWithSpaces(this.settings_.get('spacestab'));
   this.setTabSize(this.settings_.get('tabsize'));
   this.setWrapLines(this.settings_.get('wraplines'));
 }
@@ -217,10 +255,25 @@ EditorCodeMirror.prototype.setFontSize = function(fontSize) {
 /**
  * @param {number} size
  */
-EditorCodeMirror.prototype.setTabSize = function(size) {
+EditorCodeMirror.prototype.setTabSize = function(size) {  
+  const useSpace = this.settings_.get('spacestab');
   this.editorView_.dispatch({
-    effects: this.tabSize_.reconfigure(window.CodeMirror.state.EditorState.tabSize.of(size))
+    effects: [
+      this.tabSize_.reconfigure(window.CodeMirror.state.EditorState.tabSize.of(size)),
+      this.getIndentUnitStateEffect(useSpace, size),
+    ]
   });
+};
+
+/**
+ * Creates a StateEffect that can be used to change the indent unit.
+ * 
+ * @param {boolean} useSpace If true the indent unit will be spaces. Otherwise it a tab character.
+ * @param {number} tabSize Number of spaces equal to the size of a tab.
+ */
+EditorCodeMirror.prototype.getIndentUnitStateEffect = function(useSpace, tabSize) {
+  const indentUnit = useSpace ? ' '.repeat(tabSize) : '\t';
+  return this.indentUnitCompartment_.reconfigure(window.CodeMirror.language.indentUnit.of(indentUnit));
 };
 
 /**
@@ -258,30 +311,13 @@ EditorCodeMirror.prototype.setSmartIndent = function(val) {
 };
 
 /**
- * @param {boolean} val
+ * @param {boolean} useSpace Whether or not to indent with spaces. False means indent with tabs.
  */
-EditorCodeMirror.prototype.replaceTabWithSpaces = function(val) {
-  // XXX
-  // NOTE: https://codemirror.net/examples/change/ has an example of this.
-  return;
-
-  this.cm_.setOption('indentWithTabs', !val);
-  if (val) {
-    // Need to update this closure once the tabsize has changed. So, have to
-    // call this method when it happens.
-    var tabsize = this.settings_.get('tabsize');
-    CodeMirror.commands.defaultTab = function(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection("add");
-      } else {
-        var nspaces = tabsize - cm.getCursor().ch % tabsize;
-        var spaces = Array(nspaces + 1).join(" ");
-        cm.replaceSelection(spaces, "end", "+input");
-      }
-    };
-  } else {
-    CodeMirror.commands.defaultTab = this.defaultTabHandler_;
-  }
+EditorCodeMirror.prototype.setReplaceTabWithSpaces = function(useSpace) {
+  const tabsize = this.settings_.get('tabsize');
+  this.editorView_.dispatch({
+    effects: [this.getIndentUnitStateEffect(useSpace, tabsize)],
+  });
 };
 
 /**

@@ -2,8 +2,12 @@
 // components.
 
 import {
-  defaultKeymap, history, historyKeymap, indentWithTab,
+  defaultKeymap, history, historyKeymap, indentMore, indentSelection, insertTab,
 } from '@codemirror/commands';
+import {
+  IndentContext,
+  indentUnit,
+} from '@codemirror/language';
 import {
   closeSearchPanel,
   findNext,
@@ -29,7 +33,13 @@ const CodeMirrorNext = {
     defaultKeymap,
     history,
     historyKeymap,
-    indentWithTab,
+    indentMore,
+    indentSelection,
+    insertTab,
+  },
+  language: {
+    IndentContext,
+    indentUnit,
   },
   search: {
     closeSearchPanel,
