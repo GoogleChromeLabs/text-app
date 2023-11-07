@@ -1,65 +1,3 @@
-body[theme="light"] #sidebar {
-  background-color: var(--light-background-color);
-  color: #000;
-}
-
-body[theme="light"] #settings-menu {
-  color: #000;
-}
-
-body[theme="light"] #sidebar hr {
-  background-color: var(--light-divider-color);
-}
-
-body[theme="light"] #sidebar li:hover,
-body[theme="light"] #settings-list .mdc-form-field:hover {
-  background-color: var(--light-highlight-color);
-  color: #000;
-}
-
-body[theme="light"] #sidebar input {
-  background-color: var(--light-accent-color);
-}
-
-body[theme="light"] #settings-list input[type="text"]:focus {
-  background-color: var(--light-highlight-color);
-  outline: none;
-}
-
-body[theme="light"] #tabs-list li.active,
-body[theme="light"] #tabs-list li.active:hover {
-  background-color: var(--light-accent-color);
-}
-
-body[theme="light"] #sidebar .icon,
-body[theme="light"] #sidebar .mdc-icon-button {
-  color: #000;
-  opacity: .54;
-}
-
-body[theme="light"] #sidebar .mdc-icon-button:focus {
-  opacity: .87;
-}
-
-body[theme="light"] #title-filename {
-  color: #5f6368;
-}
-
-body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {
-  border-color: rgb(236, 236, 236);
-}
-
-body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
-  background-color: black;
-  border-color: black;
-  opacity: 0.26;
-}
-
-body[theme="light"] .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
-  border-color: black;
-  opacity: 0.54;
-}
-
 .cm-s-light .cm-keyword {color: #708;}
 .cm-s-light .cm-atom {color: #219;}
 .cm-s-light .cm-number {color: #164;}
@@ -83,7 +21,6 @@ body[theme="light"] .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+
 .cm-s-light .cm-quote {color: #090;}
 .cm-s-light .cm-hr {color: #999;}
 .cm-s-light .cm-link {color: #00c;}
-.cm-s-light .CodeMirror-linenumber {color: #5f6368;}
 
 body[theme="light"] div.CodeMirror span.CodeMirror-matchingbracket {
   color: inherit !important;

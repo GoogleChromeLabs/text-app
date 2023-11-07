@@ -1,10 +1,7 @@
 /**
  * @constructor
- *
- * @param {boolean} enableSystemTheme Whether or not to enable the system theme
- *     feature.
  */
-function Settings(enableSystemTheme) {
+function Settings() {
   this.ready_ = false;
   this.settings_ = {};
   var storageKeys = {};
@@ -17,14 +14,6 @@ function Settings(enableSystemTheme) {
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
   chrome.runtime.onInstalled.addListener(this.removeOldSettings_.bind(this));
   this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
-
-  if (enableSystemTheme) {
-    // Replace the default theme option UI text with device theme option.
-    document.querySelector('label[for="setting-theme-default"]')
-      .setAttribute('i18n-content', 'DeviceThemeOption');
-    // Translate the settings labels again.
-    i18nTemplate.process(document.getElementById('settings-list'));
-  }
 }
 
 /**

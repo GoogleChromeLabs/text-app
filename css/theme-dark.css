@@ -1,54 +1,5 @@
-body[theme="dark"] header,
-body[theme="dark"] .search-container {
-  background-color: var(--dark-background-color);
-}
-
-body[theme="dark"] header {
-  border-bottom: 2px solid var(--dark-divider-color);
-}
-
-body[theme="dark"] .search-container {
-  border-color: var(--dark-divider-color);
-}
-
-body[theme="dark"] #search-input,
-body[theme="dark"] .icon,
-body[theme="dark"] .mdc-icon-button {
-  color: #EBEBEB;
-}
-
-body[theme="dark"] #search-counting.nomatches {
-  color: #B00;
-}
-
-body[theme="dark"] #sidebar {
-  border-right-color: var(--dark-divider-color);
-}
-
-body[theme="dark"] #settings-list input[type="text"] {
-  color: #EBEBEB;
-}
-
-body[theme="dark"] #title-filename {
-  color: #bdc1c6;
-}
-
 /* Based on CodeMirror dark theme */
 /* Based on Sublime Text's dark theme */
-
-.cm-s-dark.CodeMirror {
-  background: var(--dark-background-color);
-  color: #f8f8f2;
-}
-
-.cm-s-dark .CodeMirror-gutters {
-  background: var(--dark-background-color);
-  border-right: 0px;
-}
-
-.cm-s-dark div.CodeMirror-selected {background: #49483E !important;}
-.cm-s-dark .CodeMirror-linenumber {color: #bdc1c6;}
-.cm-s-dark .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
 
 .cm-s-dark span.cm-comment {color: #75715e;}
 .cm-s-dark span.cm-atom {color: #ae81ff;}
@@ -78,13 +29,4 @@ body[theme="dark"] div.CodeMirror span.CodeMirror-matchingbracket {
 
 body[theme="dark"] div.CodeMirror span.CodeMirror-nonmatchingbracket {
   color: inherit !important;
-}
-
-body[theme="dark"] header.search-active .search-navigation-button {
-  border-color: var(--dark-divider-color);
-}
-
-body[theme="dark"] .mdc-icon-button::before,
-body[theme="dark"] .mdc-icon-button::after {
-  background-color: var(--light-background-color);
 }

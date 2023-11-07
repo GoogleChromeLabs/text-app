@@ -1,19 +1,53 @@
 :root {
-  --dark-accent-color: rgb(255, 255, 255, 0.12);
-  --dark-background-color: #1f1f1f;
-  --dark-divider-color: var(--dark-accent-color);
-  --dark-highlight-color: rgb(26, 115, 232, 0.26);
-  --dark-selection-color: #49483e;
-  --dark-theme-text-color: #f8f8f2;
   --disabled-opacity: 0.38;
   --header-height: 48px;
-  --light-accent-color: rgb(0, 0, 0, 0.04);
-  --light-background-color: white;
-  --light-divider-color: var(--light-accent-color);
-  --light-highlight-color: rgb(26, 115, 232, 0.18);
-  --light-theme-text-color: black;
+  --mdc-theme-secondary: #1b72e8;
   --settings-input-width: 55px;
   --tab-height: 36px;
+}
+
+body[theme="light"] {
+  --ta-accent-color: rgb(0, 0, 0, 0.04);
+  --ta-divider-color: var(--ta-accent-color);
+  --ta-highlight-color: rgb(26, 115, 232, 0.18);
+  --ta-background-color: white;
+
+  --ta-mdc-icon-background-color: black;
+  --ta-mdc-icon-color: var(--ta-ui-text-color);
+  --ta-mdc-switch-off-thumb-color: #ececec;
+
+  --ta-ui-text-color: black;
+  --ta-ui-highlight-text-color: black;
+  --ta-search-border-color: #e8eaed;
+  --ta-search-button-divider-color: #dddddd;
+  --ta-line-number-text-color: #5f6368;
+  --ta-filename-text-color: #5f6368;
+
+  --ta-editor-text-color: black;
+  --ta-editor-selection-color: #d9d9d9;
+  --ta-editor-selection-focus-color: #d7d4f0;
+}
+
+body[theme="dark"] {
+  --ta-accent-color: rgb(255, 255, 255, 0.12);
+  --ta-divider-color: var(--ta-accent-color);
+  --ta-highlight-color: rgb(26, 115, 232, 0.26);
+  --ta-background-color: #1f1f1f;
+
+  --ta-mdc-icon-background-color: white;
+  --ta-mdc-icon-color: var(--ta-ui-text-color);
+  --ta-mdc-switch-off-thumb-color: #b9b9b9;
+
+  --ta-ui-text-color: #ebebeb;
+  --ta-ui-highlight-text-color: white;
+  --ta-search-border-color: var(--ta-divider-color);
+  --ta-search-button-divider-color: var(--ta-search-border-color);
+  --ta-line-number-text-color: #bdc1c6;
+  --ta-filename-text-color: #bdc1c6;
+
+  --ta-editor-text-color: #f8f8f2;
+  --ta-editor-selection-color: #49483e;
+  --ta-editor-selection-focus-color: var(--ta-editor-selection-color);
 }
 
 * {
@@ -48,9 +82,9 @@ img {
 }
 
 #sidebar {
-  background-color: var(--dark-background-color);
-  border-right: 2px solid var(--light-divider-color);
-  color: #EBEBEB;
+  background-color: var(--ta-background-color);
+  border-right: 2px solid var(--ta-divider-color);
+  color: var(--ta-ui-text-color);
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -98,7 +132,7 @@ img {
 }
 
 #sidebar hr {
-  background-color: var(--dark-divider-color);
+  background-color: var(--ta-divider-color);
   border: none;
   height: 2px;
   margin: 0;
@@ -136,7 +170,7 @@ img {
 }
 
 #sidebar input {
-  background-color: var(--dark-accent-color);
+  background-color: var(--ta-accent-color);
 }
 
 #sidebar .group {
@@ -183,7 +217,7 @@ img {
 
 #tabs-list li.active,
 #tabs-list li.active:hover {
-  background-color: var(--dark-accent-color);
+  background-color: var(--ta-accent-color);
 }
 
 #tabs-list .filename {
@@ -273,8 +307,8 @@ img {
 
 #sidebar li:hover,
 #settings-list .mdc-form-field:hover {
-  background-color: var(--dark-highlight-color);
-  color: #fff;
+  background-color: var(--ta-highlight-color);
+  color: var(--ta-ui-highlight-text-color);
 }
 
 .mdc-form-field {
@@ -292,6 +326,20 @@ img {
   border-color: white;
   opacity: 0.3;
 }
+
+/* TODO: Use CSS variables for these radio controls. */
+
+body[theme="light"] .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
+  background-color: black;
+  border-color: black;
+  opacity: 0.26;
+}
+
+body[theme="light"] .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: black;
+  opacity: 0.54;
+}
+
 
 #settings-list label {
   align-items: center;
@@ -317,6 +365,7 @@ img {
   -webkit-app-region: no-drag;
   border: 0px;
   border-radius: 100px;
+  color: var(--ta-ui-text-color);
   font-size: 14px;
   height: var(--tab-height);
   padding: 0;
@@ -330,7 +379,7 @@ img {
 }
 
 #settings-list input[type="text"]:focus {
-  background-color: var(--dark-highlight-color);
+  background-color: var(--ta-highlight-color);
   outline: none;
 }
 
@@ -344,7 +393,7 @@ img {
 }
 
 .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {
-  border-color: rgb(185, 185, 185);
+  border-color: var(--ta-mdc-switch-off-thumb-color);
 }
 
 .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {
@@ -363,8 +412,8 @@ img {
 header {
   align-items: center;
   -webkit-app-region: drag;
-  background-color: var(--light-background-color);
-  border-bottom: 2px solid var(--light-divider-color);
+  background-color: var(--ta-background-color);
+  border-bottom: 2px solid var(--ta-divider-color);
   display: flex;
   height: var(--header-height);
   padding-left: 10px;
@@ -373,7 +422,12 @@ header {
 }
 
 .mdc-icon-button {
+  color: var(--ta-ui-text-color);
   -webkit-app-region: no-drag;
+}
+
+.mdc-icon-button::before, .mdc-icon-button::after {
+  background-color: var(--ta-mdc-icon-background-color);
 }
 
 header .mdc-icon-button {
@@ -398,6 +452,19 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
   z-index: -1;
 }
 
+/* TODO: Use CSS variables for these buttons. */
+
+body[theme="light"] #sidebar .icon,
+body[theme="light"] #sidebar .mdc-icon-button {
+  color: #000;
+  opacity: .54;
+}
+
+body[theme="light"] #sidebar .mdc-icon-button:focus {
+  opacity: .87;
+}
+
+
 #toggle-sidebar {
   margin: 0 5px;
 }
@@ -405,9 +472,9 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 .search-container {
   -webkit-app-region: no-drag;
   display: flex;
-  border: 1px solid rgb(232, 234, 237);
+  border: 1px solid var(--ta-search-border-color);
   border-radius: 100px;
-  background: white;
+  background: var(--ta-background-color);
   height: 30px;
   line-height: 30px;
 }
@@ -424,6 +491,7 @@ header .mdc-icon-button:focus, header .mdc-icon-button:active {
 #search-input {
   background-color: transparent;
   border: none;
+  color: var(--ta-ui-text-color);
   flex-grow: 1;
   font-size: 14px;
   padding-left: 16px;
@@ -457,12 +525,12 @@ header.search-active #search-counting {
 }
 
 header.search-active .search-navigation-button {
-  border-left: 1px solid #DDD;
+  border-left: 1px solid var(--ta-search-button-divider-color);
   width: 30px;
 }
 
 #title-filename {
-  color: #5f6368;
+  color: var(--ta-filename-text-color);
   display: flex;
   flex: 1;
   font-size: 15px;
@@ -549,10 +617,13 @@ input[type=search]:focus {
   display: -webkit-box;
 }
 
+/* Currently this dialog is always light, unclear if this was intentional. */
+
 .dialog-window {
-  background-color: var(--light-background-color);
+  background-color: white;
   border: 1px solid rgba(0,0,0,0.15);
   box-shadow: rgba(0,0,0,0.13) 0px 4px 30px;
+  color: black;
   max-width: 50%;
   opacity: 1.0;
   padding: 24px;

@@ -30,34 +30,28 @@ function EditorCodeMirror(editorElement, settings) {
   /** @type {window.CodeMirror.state.Compartment} for setting light/dark mode. */
   this.themeCompartment_ = new CodeMirror.state.Compartment();
 
-  this.lightTheme_ = CodeMirror.view.EditorView.theme({
+  const themeStyles = {
     "&": {
-      backgroundColor: "var(--light-background-color)",
-      color: "var(--light-theme-text-color)",
+      backgroundColor: "var(--ta-background-color)",
+      color: "var(--ta-editor-text-color)",
     },
     ".cm-gutter": {
-      backgroundColor: "var(--light-background-color)"
+      backgroundColor: "var(--ta-background-color)",
+      color: "var(--ta-line-number-text-color)",
     },
     ".cm-cursor": {
-      borderLeftColor: "var(--light-theme-text-color)",
+      borderLeftColor: "var(--ta-editor-text-color)",
     },
-  }, {dark: false});
-
-  this.darkTheme_ = CodeMirror.view.EditorView.theme({
-    "&": {
-      backgroundColor: "var(--dark-background-color)",
-      color: "var(--dark-theme-text-color)",
-    },
-    ".cm-gutter": {
-      backgroundColor: "var(--dark-background-color)",
-    },
-    ".cm-cursor": {
-      borderLeftColor: "var(--dark-theme-text-color)",
+    "&.cm-focused .cm-selectionBackground": {
+      backgroundColor: "var(--ta-editor-selection-focus-color) !important",
     },
     ".cm-selectionBackground": {
-      backgroundColor: "var(--dark-selection-color) !important",
+      backgroundColor: "var(--ta-editor-selection-color) !important",
     },
-  }, {dark: true});
+  };
+
+  this.lightTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: false});
+  this.darkTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: true});
 
   // Extensions don't need to be loaded here as we will always load a state
   // created by newState with setSession.
