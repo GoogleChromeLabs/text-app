@@ -38,9 +38,15 @@ function EditorCodeMirror(editorElement, settings) {
       backgroundColor: "var(--ta-background-color)",
       color: "var(--ta-editor-text-color)",
     },
+    ".cm-content": {
+      fontSize: "var(--ta-editor-font-size)",
+      lineHeight: "1.2",
+    },
     ".cm-gutter": {
       backgroundColor: "var(--ta-background-color)",
-      color: "var(--ta-line-number-text-color)",
+      color: "var(--ta-editor-line-number-text-color)",
+      fontSize: "var(--ta-editor-font-size)",
+      lineHeight: "1.2",
     },
     ".cm-cursor": {
       borderLeftColor: "var(--ta-editor-text-color)",
@@ -256,8 +262,10 @@ EditorCodeMirror.prototype.applyAllSettings = function() {
  * Update font size from settings.
  */
 EditorCodeMirror.prototype.setFontSize = function(fontSize) {
-  // XXX $('.CodeMirror').css('font-size',fontSize + 'px');
-  // XXX this.cm_.refresh();
+  // The "proper" way to do this might be to create a new theme, but this is
+  // easier. Force a redraw so line numbers get positioned correctly.
+  this.element_.style.setProperty('--ta-editor-font-size', fontSize + 'px');
+  this.editorView_.setState(this.editorView_.state);
 };
 
 /**

@@ -20,10 +20,10 @@ body[theme="light"] {
   --ta-ui-highlight-text-color: black;
   --ta-search-border-color: #e8eaed;
   --ta-search-button-divider-color: #dddddd;
-  --ta-line-number-text-color: #5f6368;
   --ta-filename-text-color: #5f6368;
 
   --ta-editor-text-color: black;
+  --ta-editor-line-number-text-color: #5f6368;
   --ta-editor-selection-color: #d9d9d9;
   --ta-editor-selection-focus-color: #d7d4f0;
 }
@@ -42,10 +42,10 @@ body[theme="dark"] {
   --ta-ui-highlight-text-color: white;
   --ta-search-border-color: var(--ta-divider-color);
   --ta-search-button-divider-color: var(--ta-search-border-color);
-  --ta-line-number-text-color: #bdc1c6;
   --ta-filename-text-color: #bdc1c6;
 
   --ta-editor-text-color: #f8f8f2;
+  --ta-editor-line-number-text-color: #bdc1c6;
   --ta-editor-selection-color: #49483e;
   --ta-editor-selection-focus-color: var(--ta-editor-selection-color);
 }
