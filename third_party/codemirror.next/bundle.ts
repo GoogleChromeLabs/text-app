@@ -5,6 +5,7 @@ import {
   defaultKeymap, history, historyKeymap, indentMore, indentSelection, insertTab,
 } from '@codemirror/commands';
 import {
+  bracketMatching,
   IndentContext,
   indentUnit,
 } from '@codemirror/language';
@@ -38,6 +39,7 @@ const CodeMirrorNext = {
     insertTab,
   },
   language: {
+    bracketMatching,
     IndentContext,
     indentUnit,
   },

@@ -51,6 +51,14 @@ function EditorCodeMirror(editorElement, settings) {
     ".cm-selectionBackground": {
       backgroundColor: "var(--ta-editor-selection-color) !important",
     },
+    ".cm-matchingBracket": {
+      backgroundColor: "inherit !important",
+      color: "var(--ta-editor-text-color) !important",
+      borderBottom: "1px solid var(--ta-editor-text-color)",
+    },
+    ".cm-nonmatchingBracket": {
+      backgroundColor: "inherit !important",
+    },
   };
 
   this.lightTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: false});
@@ -69,7 +77,6 @@ function EditorCodeMirror(editorElement, settings) {
 
   /*
     'autofocus': true,
-    'matchBrackets': true,
   */
 
   this.search_ = new Search(this.editorView_);
@@ -132,6 +139,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
     extensions: [
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
+      CodeMirror.language.bracketMatching(),
       this.lineNumbersComponent_.of(CodeMirror.view.lineNumbers()),
       CodeMirror.view.keymap.of([
         ...CodeMirror.commands.defaultKeymap,
