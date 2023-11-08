@@ -13,7 +13,7 @@ function EditorCodeMirror(editorElement, settings) {
   this.settings_ = settings;
 
   /** @type {window.CodeMirror.state.Compartment} for changing tab size dynamically. */
-  this.tabSize_ = new CodeMirror.state.Compartment();
+  this.tabSizeCompartment_ = new CodeMirror.state.Compartment();
 
   /** @type {window.CodeMirror.state.Compartment} for changing indent unit dynamically. */
   this.indentUnitCompartment_ = new CodeMirror.state.Compartment();
@@ -22,19 +22,19 @@ function EditorCodeMirror(editorElement, settings) {
    * @type {window.CodeMirror.state.Compartment} for changing the language
    * dynamically to match the file extension.
    */
-  this.langComponent_ = new CodeMirror.state.Compartment();
+  this.langCompartment_ = new CodeMirror.state.Compartment();
 
   /**
    * @type {window.CodeMirror.state.Compartment} for changing the "Wrap lines"
    * setting dynamically.
    */
-  this.lineWrappingComponent_ = new CodeMirror.state.Compartment();
+  this.lineWrappingCompartment_ = new CodeMirror.state.Compartment();
 
   /**
    * @type {window.CodeMirror.state.Compartment} for changing the "show line numbers"
    * setting dynamically.
    */
-  this.lineNumbersComponent_ = new CodeMirror.state.Compartment();
+  this.lineNumbersCompartment_ = new CodeMirror.state.Compartment();
 
   /** @type {window.CodeMirror.state.Compartment} for setting light/dark mode. */
   this.themeCompartment_ = new CodeMirror.state.Compartment();
@@ -152,8 +152,8 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
       CodeMirror.language.bracketMatching(),
-      this.langComponent_.of(CodeMirror.lang.javascript()),
-      this.lineNumbersComponent_.of(CodeMirror.view.lineNumbers()),
+      this.langCompartment_.of(CodeMirror.lang.javascript()),
+      this.lineNumbersCompartment_.of(CodeMirror.view.lineNumbers()),
       CodeMirror.view.keymap.of([
         ...CodeMirror.commands.defaultKeymap,
         ...CodeMirror.commands.historyKeymap,
@@ -191,9 +191,9 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
           run: CodeMirror.commands.indentSelection,  // XXX: Need to make indent auto work.
         },
       ]),
-      this.tabSize_.of(CodeMirror.state.EditorState.tabSize.of(2)),
+      this.tabSizeCompartment_.of(CodeMirror.state.EditorState.tabSize.of(2)),
       this.indentUnitCompartment_.of(window.CodeMirror.language.indentUnit.of('  ')),
-      this.lineWrappingComponent_.of(CodeMirror.view.EditorView.lineWrapping),
+      this.lineWrappingCompartment_.of(CodeMirror.view.EditorView.lineWrapping),
       CodeMirror.view.EditorView.updateListener.of(this.onViewUpdate.bind(this)),
       CodeMirror.search.search({
         literal: true,
@@ -218,12 +218,12 @@ EditorCodeMirror.prototype.setSession = function(editorState, extension) {
   const mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
   if (mode && window.CodeMirror.lang[mode]) {
     this.editorView_.dispatch({
-      effects: this.langComponent_.reconfigure(window.CodeMirror.lang[mode]())
+      effects: this.langCompartment_.reconfigure(window.CodeMirror.lang[mode]())
     });
   } else {
     // Reset the language if no mode found.
     this.editorView_.dispatch({
-      effects: this.langComponent_.reconfigure([])
+      effects: this.langCompartment_.reconfigure([])
     });
   }
 };
@@ -289,7 +289,7 @@ EditorCodeMirror.prototype.setTabSize = function(size) {
   const useSpace = this.settings_.get('spacestab');
   this.editorView_.dispatch({
     effects: [
-      this.tabSize_.reconfigure(window.CodeMirror.state.EditorState.tabSize.of(size)),
+      this.tabSizeCompartment_.reconfigure(window.CodeMirror.state.EditorState.tabSize.of(size)),
       this.getIndentUnitStateEffect(useSpace, size),
     ]
   });
@@ -320,7 +320,7 @@ EditorCodeMirror.prototype.setTheme = function(theme) {
  */
 EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
   this.editorView_.dispatch({
-    effects: this.lineNumbersComponent_.reconfigure(val ? window.CodeMirror.view.lineNumbers() : [])
+    effects: this.lineNumbersCompartment_.reconfigure(val ? window.CodeMirror.view.lineNumbers() : [])
   });
 };
 
@@ -329,7 +329,7 @@ EditorCodeMirror.prototype.showHideLineNumbers = function(val) {
  */
 EditorCodeMirror.prototype.setWrapLines = function(val) {
   this.editorView_.dispatch({
-    effects: this.lineWrappingComponent_.reconfigure(val ? window.CodeMirror.view.EditorView.lineWrapping : [])
+    effects: this.lineWrappingCompartment_.reconfigure(val ? window.CodeMirror.view.EditorView.lineWrapping : [])
   });
 };
 
