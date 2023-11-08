@@ -27,10 +27,6 @@
     "message": "帮助",
     "description": "Title for a section with useful links to help articles."
   },
-  "defaultThemeOption": {
-    "description": "The text of the default Option Theme.",
-    "message": "默认"
-  },
   "deviceThemeOption": {
     "message": "使用设备主题",
     "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
@@ -174,13 +170,5 @@
   "closeFileButton": {
     "message": "关闭文件",
     "description": "The button text to close a file."
-  },
-  "screenReaderModeSetting": {
-    "message": "屏幕阅读器模式",
-    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
-  },
-  "screenReaderModeHelp": {
-    "message": "若想获得更优质的屏幕阅读器体验，请从“设置”菜单中开启屏幕阅读器模式。",
-    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }

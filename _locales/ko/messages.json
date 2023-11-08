@@ -63,10 +63,6 @@
     "message": "항상 맨 위에 표시",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
   },
-  "defaultThemeOption": {
-    "message": "기본 테마",
-    "description": "The text of the default Option Theme."
-  },
   "deviceThemeOption": {
     "message": "기기 테마 사용",
     "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
@@ -178,13 +174,5 @@
   "closeFileButton": {
     "message": "파일 닫기",
     "description": "The button text to close a file."
-  },
-  "screenReaderModeSetting": {
-    "message": "스크린 리더 모드",
-    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
-  },
-  "screenReaderModeHelp": {
-    "message": "최적화된 스크린 리더 환경을 이용하려면 설정 메뉴에서 스크린 리더 모드를 사용 설정하세요.",
-    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }
