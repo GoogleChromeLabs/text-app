@@ -131,23 +131,7 @@ TextApp.prototype.initEditor_ = function() {
 
   const editor = document.getElementById('editor');
   this.editor_ = new EditorCodeMirror(editor, this.settings_);
-
-  // If tabs doesn't exist this is the first editor being created, if so
-  // create all the needed controllers.
   this.initControllers_();
-
-  // Unlock all settings.
-  this.settings_.enableAll();
-
-  // Lock any settings the editor doesn't support.
-  // TODO: Save the previous settings state and restore it when the user
-  //       switches back.
-  const lockedSettings = this.editor_.lockedSettings();
-  for (const [setting, value] of Object.entries(lockedSettings)) {
-    this.settings_.disable(setting, value);
-  }
-
-  // Load settings.
   this.loadSettingsIntoEditor();
 };
 

@@ -229,14 +229,6 @@ EditorCodeMirror.prototype.setSession = function(editorState, extension) {
 };
 
 /**
- * Returns all settings which are locked to a certain value
- * when this editor is open.
- */
-EditorCodeMirror.prototype.lockedSettings = function() {
-  return {};
-};
-
-/**
  * @return {Search}
  * Return search object.
  */
