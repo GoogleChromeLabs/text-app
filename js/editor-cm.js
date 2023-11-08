@@ -19,6 +19,12 @@ function EditorCodeMirror(editorElement, settings) {
   this.indentUnitCompartment_ = new CodeMirror.state.Compartment();
 
   /**
+   * @type {window.CodeMirror.state.Compartment} for changing the language
+   * dynamically to match the file extension.
+   */
+  this.langComponent_ = new CodeMirror.state.Compartment();
+
+  /**
    * @type {window.CodeMirror.state.Compartment} for changing the "Wrap lines"
    * setting dynamically.
    */
@@ -91,26 +97,26 @@ function EditorCodeMirror(editorElement, settings) {
 EditorCodeMirror.EXTENSION_TO_MODE = {
     'bash': 'shell',
     'coffee': 'coffeescript',
-    'c': 'clike',
-    'c++': 'clike',
-    'cc': 'clike',
-    'cs': 'clike',
+    'c': 'cpp',
+    'c++': 'cpp',
+    'cc': 'cpp',
+    'cs': 'cpp',
     'css': 'css',
-    'cpp': 'clike',
-    'cxx': 'clike',
+    'cpp': 'cpp',
+    'cxx': 'cpp',
     'diff': 'diff',
     'gemspec': 'ruby',
     'go': 'go',
-    'h': 'clike',
-    'hh': 'clike',
-    'hpp': 'clike',
-    'htm': 'htmlmixed',
-    'html': 'htmlmixed',
-    'java': 'clike',
+    'h': 'cpp',
+    'hh': 'cpp',
+    'hpp': 'cpp',
+    'htm': 'html',
+    'html': 'html',
+    'java': 'java',
     'js': 'javascript',
-    'json': 'yaml',
+    'json': 'json',
     'latex': 'stex',
-    'less': 'text/x-less',
+    'less': 'less',
     'ltx': 'stex',
     'lua': 'lua',
     'markdown': 'markdown',
@@ -133,7 +139,7 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'sql': 'sql',
     'svg': 'xml',
     'tex': 'stex',
-    'xhtml': 'htmlmixed',
+    'xhtml': 'html',
     'xml': 'xml',
     'xq': 'xquery',
     'yaml': 'yaml'};
@@ -146,6 +152,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
       CodeMirror.language.bracketMatching(),
+      this.langComponent_.of(CodeMirror.lang.javascript()),
       this.lineNumbersComponent_.of(CodeMirror.view.lineNumbers()),
       CodeMirror.view.keymap.of([
         ...CodeMirror.commands.defaultKeymap,
@@ -197,14 +204,28 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
 };
 
 /**
- * @param {EditorState} editorState
  * Change the current session, usually to switch to another tab.
+ *
+ * @param {EditorState} editorState
+ * @param {string} extension file extension.
  */
-EditorCodeMirror.prototype.setSession = function(editorState) {
+EditorCodeMirror.prototype.setSession = function(editorState, extension) {
   this.editorView_.setState(editorState);
   // Apply all settings because settings only apply to the current state but we
   // want the settings to affect all the tabs.
   this.applyAllSettings();
+
+  const mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
+  if (mode && window.CodeMirror.lang[mode]) {
+    this.editorView_.dispatch({
+      effects: this.langComponent_.reconfigure(window.CodeMirror.lang[mode]())
+    });
+  } else {
+    // Reset the language if no mode found.
+    this.editorView_.dispatch({
+      effects: this.langComponent_.reconfigure([])
+    });
+  }
 };
 
 /**
@@ -228,22 +249,23 @@ EditorCodeMirror.prototype.focus = function() {
 };
 
 /**
- * @param {EditorState} session
+ * @param {EditorState} editorState
  * @param {string} extension
  */
-EditorCodeMirror.prototype.setMode = function(session, extension) {
-  session = session.codemirror;
-  var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
-  if (mode) {
-    var currentSession = null;
-    if (session !== this.cm_.getDoc()) {
-      currentSession = this.cm_.swapDoc(session);
-    }
-    this.cm_.setOption('mode', mode);
-    if (currentSession !== null) {
-      this.cm_.swapDoc(currentSession);
-    }
-  }
+EditorCodeMirror.prototype.setMode = function(editorState, extension) {
+  // XXX: Remove this function if it isn't needed.
+
+  // var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
+  // if (mode) {
+  //   var currentSession = null;
+  //   if (session !== this.cm_.getDoc()) {
+  //     currentSession = this.cm_.swapDoc(session);
+  //   }
+  //   this.cm_.setOption('mode', mode);
+  //   if (currentSession !== null) {
+  //     this.cm_.swapDoc(currentSession);
+  //   }
+  // }
 };
 
 /** Apply all settings to the current state. */

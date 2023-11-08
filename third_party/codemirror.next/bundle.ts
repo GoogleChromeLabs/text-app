@@ -5,6 +5,51 @@ import {
   defaultKeymap, history, historyKeymap, indentMore, indentSelection, insertTab,
 } from '@codemirror/commands';
 import {
+  angular,
+} from '@codemirror/lang-angular';
+import {
+  cpp,
+} from '@codemirror/lang-cpp';
+import {
+  css,
+} from '@codemirror/lang-css';
+import {
+  html,
+} from '@codemirror/lang-html';
+import {
+  java,
+} from '@codemirror/lang-java';
+import {
+  javascript,
+} from '@codemirror/lang-javascript';
+import {
+  json,
+} from '@codemirror/lang-json';
+import {
+  less,
+} from '@codemirror/lang-less';
+import {
+  markdown,
+} from '@codemirror/lang-markdown';
+import {
+  php,
+} from '@codemirror/lang-php';
+import {
+  python,
+} from '@codemirror/lang-python';
+import {
+  sass,
+} from '@codemirror/lang-sass';
+import {
+  vue,
+} from '@codemirror/lang-vue';
+import {
+  wast,
+} from '@codemirror/lang-wast';
+import {
+  xml,
+} from '@codemirror/lang-xml';
+import {
   bracketMatching,
   IndentContext,
   indentUnit,
@@ -37,6 +82,23 @@ const CodeMirrorNext = {
     indentMore,
     indentSelection,
     insertTab,
+  },
+  lang: {
+    angular,
+    cpp,
+    css,
+    html,
+    java,
+    javascript,
+    json,
+    less,
+    markdown,
+    php,
+    python,
+    sass,
+    vue,
+    wast,
+    xml,
   },
   language: {
     bracketMatching,

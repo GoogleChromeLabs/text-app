@@ -278,7 +278,7 @@ Tabs.prototype.showTab = function(tabId) {
     console.error('Can\'t find tab', tabId);
     return;
   }
-  this.editor_.setSession(tab.getSession());
+  this.editor_.setSession(tab.getSession(), tab.getExtension());
   this.currentTab_ = tab;
   $.event.trigger('switchtab', tab);
   this.editor_.focus();
@@ -480,6 +480,11 @@ Tabs.prototype.openFileEntry = function(entry) {
   }.bind(this));
 };
 
+/**
+ * Sets the mode for a tab depending on its extension.
+ *
+ * @param {Tab} tab The tab corresponding to the file to be saved.
+ */
 Tabs.prototype.modeAutoSet = function(tab) {
   var extension = tab.getExtension();
   if (extension) {

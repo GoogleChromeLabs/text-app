@@ -228,7 +228,7 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
       // both alive and switching them out seemed excessive given the frequency
       // that this setting will likely be changed.
       this.initEditor_();
-      this.editor_.setSession(this.tabs_.currentTab_.getSession());
+      this.editor_.setSession(this.tabs_.currentTab_.getSession(), this.tabs_.currentTab_.getExtension());
       break;
   }
 };
