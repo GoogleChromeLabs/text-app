@@ -12,6 +12,9 @@ function EditorCodeMirror(editorElement, settings) {
   this.element_ = editorElement;
   this.settings_ = settings;
 
+  /** @type {window.CodeMirror.state.Compartment} for enabling/disabling the editor. */
+  this.editableCompartment_ = new CodeMirror.state.Compartment();
+
   /** @type {window.CodeMirror.state.Compartment} for changing tab size dynamically. */
   this.tabSizeCompartment_ = new CodeMirror.state.Compartment();
 
@@ -191,6 +194,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
           run: CodeMirror.commands.indentSelection,  // XXX: Need to make indent auto work.
         },
       ]),
+      this.editableCompartment_.of(CodeMirror.view.EditorView.editable.of(true)),
       this.tabSizeCompartment_.of(CodeMirror.state.EditorState.tabSize.of(2)),
       this.indentUnitCompartment_.of(window.CodeMirror.language.indentUnit.of('  ')),
       this.lineWrappingCompartment_.of(CodeMirror.view.EditorView.lineWrapping),
@@ -357,4 +361,16 @@ EditorCodeMirror.prototype.onViewUpdate = function(update) {
   if (update.docChanged) {
     $.event.trigger('docchange');
   }
+};
+
+EditorCodeMirror.prototype.disable = function() {
+  this.editorView_.dispatch({
+    effects: this.editableCompartment_.reconfigure(CodeMirror.view.EditorView.editable.of(false))
+  });
+};
+
+EditorCodeMirror.prototype.enable = function() {
+  this.editorView_.dispatch({
+    effects: this.editableCompartment_.reconfigure(CodeMirror.view.EditorView.editable.of(true))
+  });
 };
