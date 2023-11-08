@@ -80,8 +80,9 @@ Tab.prototype.updatePath_ = function() {
 
 /** Get the contents of the file in the tab. */
 Tab.prototype.getContent_ = function() {
-  // XXX this looks wrong, can we use:
-  // https://codemirror.net/docs/ref/#state.EditorState^lineSeparator
+  // Files with mixed line endings will get normalized to whatever we guessed.
+  // We could set the EditorState.lineSeparator facet to make round-trips work,
+  // but other GUI Linux text editors also seem to normalize.
   return this.session_.doc.toString().split('\n').join(this.lineEndings_);
 };
 
