@@ -137,10 +137,6 @@ function Tabs(editor, dialogController, settings) {
   $(document).bind('docchange', this.onDocChanged_.bind(this));
 }
 
-Tabs.prototype.updateEditor = function(editor) {
-  this.editor_ = editor;
-}
-
 /**
  * @type {Object} params
  * @type {function(FileEntry)} callback

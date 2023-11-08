@@ -82,22 +82,6 @@ TextApp.prototype.setTheme = function() {
 };
 
 /**
- * Remove the editor so it can be reinitialized.
- * @param editorRootElement The DOM element containing the editor.
- */
-TextApp.prototype.removeEditor = function(editorRootElement) {
-  // Let the object do any clean up it needs.
-  if (this.editor_ !== null) {
-    this.editor_.destroy();
-  }
-
-  // Clear the DOM.
-  while (editorRootElement.firstElementChild !== null) {
-    editorRootElement.firstElementChild.remove();
-  }
-};
-
-/**
  * Called when all the services have started and settings are loaded.
  */
 TextApp.prototype.onSettingsReady_ = function() {
@@ -127,15 +111,6 @@ TextApp.prototype.initControllers_ = function() {
       this.settingsController_);
   this.searchController_ = new SearchController(this.editor_.getSearch());
 };
-/**
- * Ensures all controllers are notified of a new editor instance.
- */
-TextApp.prototype.updateControllers_ = function() {
-  this.tabs_.updateEditor(this.editor_);
-  this.windowController_.updateEditor(this.editor_);
-  this.hotkeysController_.updateEditor(this.editor_);
-  this.searchController_.updateEditor(this.editor_);
-};
 
 /**
  * Loads all settings into the current editor.
@@ -149,24 +124,17 @@ TextApp.prototype.loadSettingsIntoEditor = function() {
  * Create a new editor and load all settings.
  */
 TextApp.prototype.initEditor_ = function() {
-  // Remove any editor that already exists.
-  const editor = document.getElementById('editor');
-  this.removeEditor(editor);
+  if (this.editor_) {
+    console.error("Trying to re-initialize text app");
+    return;
+  }
 
+  const editor = document.getElementById('editor');
   this.editor_ = new EditorCodeMirror(editor, this.settings_);
 
-  if (!this.tabs_) {
-    // If tabs doesn't exist this is the first editor being created, if so
-    // create all the needed controllers.
-    this.initControllers_();
-  } else {
-    // Controllers should be only created once.
-    // On any subsequent editor changes they should be notified of the editor
-    // change rather then reconstructed. This is to prevent these objects from
-    // creating spurious event handlers that all run in tandem or from having
-    // relevent internal state cleared.
-    this.updateControllers_();
-  }
+  // If tabs doesn't exist this is the first editor being created, if so
+  // create all the needed controllers.
+  this.initControllers_();
 
   // Unlock all settings.
   this.settings_.enableAll();
@@ -220,15 +188,6 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
 
     case 'wraplines':
       this.editor_.setWrapLines(value);
-      break;
-
-    case 'screenreadermode':
-      // This recreates a new editor and inserts it into the dom whenever the
-      // setting is changed, this is quite slow but the complexity of keeping
-      // both alive and switching them out seemed excessive given the frequency
-      // that this setting will likely be changed.
-      this.initEditor_();
-      this.editor_.setSession(this.tabs_.currentTab_.getSession(), this.tabs_.currentTab_.getExtension());
       break;
   }
 };

@@ -366,11 +366,3 @@ EditorCodeMirror.prototype.onViewUpdate = function(update) {
     $.event.trigger('docchange');
   }
 };
-
-/**
- * Prepare the Editor to be killed and removed from the DOM
- */
-EditorCodeMirror.prototype.destroy = function() {
-  // Detach the current doc so it can be reset in future.
-  // XXX this.cm_.swapDoc(new CodeMirror.Doc(''));
-};

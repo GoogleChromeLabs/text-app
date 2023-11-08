@@ -575,10 +575,6 @@ header.hide-controls #window-close {
   position: relative;
 }
 
-/* These are the styles for the screenreader mode editor */
-input[type=text][disabled] {
-  opacity: var(--disabled-opacity);
-}
 /* Markup below overrides default search input box styling. */
 input[type=search] {
   -webkit-appearance:none;

@@ -26,8 +26,6 @@ Settings.AREA = 'sync';
  * @type {Object.<string, Object>}
  */
 Settings.SETTINGS = {
-  'screenreadermode':
-      {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
