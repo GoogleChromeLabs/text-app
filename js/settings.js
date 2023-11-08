@@ -14,6 +14,15 @@ function Settings() {
   chrome.storage.onChanged.addListener(this.onChanged_.bind(this));
   chrome.runtime.onInstalled.addListener(this.removeOldSettings_.bind(this));
   this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
+
+  /** The media query list to detect if the preferred color scheme is dark. */
+  this.colorSchemeMatcherDark_ =
+      window.matchMedia('(prefers-color-scheme: dark)');
+  this.colorSchemeMatcherDark_.addEventListener('change', () => {
+    if (this.settings_['theme'] === 'default') {
+      $.event.trigger('settingschange', ['theme', this.get('theme')]);
+    }
+  });
 }
 
 /**
@@ -49,7 +58,13 @@ Settings.prototype.removeOldSettings_ = function() {
  * @return {Object}
  */
 Settings.prototype.get = function(key) {
-  return this.settings_[key];
+  const setting = this.settings_[key];
+
+  if (key === 'theme' && setting === 'default') {
+    return this.colorSchemeMatcherDark_.matches ? 'dark' : 'light';
+  }
+
+  return setting;
 };
 
 Settings.prototype.getAll = function() {

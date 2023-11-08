@@ -15,9 +15,6 @@ function TextApp() {
   this.windowController_ = null;
 
   this.hasFrame_ = false;
-
-  /** The media query list to detect if the preferred color scheme is dark. */
-  this.colorSchemeMatcherDark_ = null;
 }
 
 /**
@@ -35,12 +32,6 @@ TextApp.prototype.init = function() {
     $(document).bind('settingsready', this.onSettingsReady_.bind(this));
   }
   $(document).bind('settingschange', this.onSettingsChanged_.bind(this));
-
-  this.colorSchemeMatcherDark_ =
-      window.matchMedia('(prefers-color-scheme: dark)');
-  this.colorSchemeMatcherDark_.addEventListener('change', () => {
-    if (this.settings_.get('theme') === 'default') this.setTheme();
-  });
 };
 
 /**
@@ -72,10 +63,6 @@ TextApp.prototype.getFilesToRetain = function() {
 
 TextApp.prototype.setTheme = function() {
   var theme = this.settings_.get('theme');
-
-  if (theme === 'default') {
-    theme = this.colorSchemeMatcherDark_.matches ? 'dark' : 'light';
-  }
 
   this.windowController_.setTheme(theme);
   this.editor_.setTheme(theme);
