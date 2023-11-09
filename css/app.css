@@ -26,6 +26,30 @@ body[theme="light"] {
   --ta-editor-line-number-text-color: #5f6368;
   --ta-editor-selection-color: #d9d9d9;
   --ta-editor-selection-focus-color: #d7d4f0;
+
+  --ta-token-variable-color: black;
+  --ta-token-definition-color: #00f;
+  --ta-token-property-color: black;
+  --ta-token-type-color: #219;
+  --ta-token-builtin-color: #30a;
+  --ta-token-variable-special-color: #00c;
+  --ta-token-number-color: #164;
+  --ta-token-string-color: #a11;
+  --ta-token-string-special-color: #f50;
+  --ta-token-atom-color: #219;
+  --ta-token-keyword-color: #708;
+  --ta-token-comment-color: #a50;
+  --ta-token-invalid-background-color: inherit;
+  --ta-token-invalid-color: #f00;
+  --ta-token-meta-color: #555;
+  --ta-token-tag-color: #170;
+  --ta-token-attribute-color: #00c;
+  --ta-token-attribute-value-color: var(--ta-token-string-color);
+  --ta-token-heading-color: blue;
+  --ta-token-quote-color: #090;
+  --ta-token-link-color: #00c;
+  --ta-token-url-color: var(--ta-token-string-color);
+  --ta-token-content-separator-color: #666;
 }
 
 body[theme="dark"] {
@@ -48,6 +72,30 @@ body[theme="dark"] {
   --ta-editor-line-number-text-color: #bdc1c6;
   --ta-editor-selection-color: #49483e;
   --ta-editor-selection-focus-color: var(--ta-editor-selection-color);
+
+  --ta-token-variable-color: #a6e22e;
+  --ta-token-definition-color: #fd971f;
+  --ta-token-property-color: #a6e22e;
+  --ta-token-type-color: #ae81ff;
+  --ta-token-variable-special-color: #9effff;
+  --ta-token-builtin-color: #3200aa;
+  --ta-token-number-color: #ae81ff;
+  --ta-token-string-color: #e6db74;
+  --ta-token-string-special-color: #e6db74;
+  --ta-token-atom-color: #ae81ff;
+  --ta-token-keyword-color: #f92672;
+  --ta-token-comment-color: #75715e;
+  --ta-token-invalid-background-color: #f92672;
+  --ta-token-invalid-color: #f8f8f0;
+  --ta-token-meta-color: #8f8f8f;
+  --ta-token-tag-color: #f92672;
+  --ta-token-attribute-color: #a6e22e;
+  --ta-token-attribute-value-color: var(--ta-token-string-color);
+  --ta-token-heading-color: var(--ta-token-string-color);
+  --ta-token-quote-color: #f92672;
+  --ta-token-link-color: #ae81ff;
+  --ta-token-url-color: var(--ta-token-string-color);
+  --ta-token-content-separator-color: #888;
 }
 
 * {

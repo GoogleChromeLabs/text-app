@@ -147,6 +147,36 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'xq': 'xquery',
     'yaml': 'yaml'};
 
+{
+  const t = CodeMirror.highlight.tags
+  EditorCodeMirror.HIGHLIGHT_STYLE = CodeMirror.language.HighlightStyle.define([
+    {tag: t.variableName, color: 'var(--ta-token-variable-color)'},
+    {tag: t.definition(t.variableName), color: 'var(--ta-token-definition-color)'},
+    {tag: t.propertyName, color: 'var(--ta-token-property-color)'},
+    {tag: [t.typeName, t.className, t.namespace, t.macroName], color: 'var(--ta-token-type-color)'},
+    {tag: [t.special(t.name), t.constant(t.className)], color: 'var(--ta-token-variable-special-color)'},
+    {tag: t.standard(t.variableName), color: 'var(--ta-token-builtin-color)'},
+    {tag: [t.number, t.literal, t.unit], color: 'var(--ta-token-number-color)'},
+    {tag: t.string, color: 'var(--ta-token-string-color)'},
+    {tag: [t.special(t.string), t.regexp, t.escape], color: 'var(--ta-token-string-special-color)'},
+    {tag: [t.atom, t.unit, t.labelName, t.bool], color: 'var(--ta-token-atom-color)'},
+    {tag: t.keyword, color: 'var(--ta-token-keyword-color)'},
+    {tag: [t.comment, t.quote], color: 'var(--ta-token-comment-color)'},
+    {tag: t.invalid, backgroundColor: 'var(--ta-token-invalid-background-color)', color: 'var(--ta-token-invalid-color) !important'},
+    {tag: t.meta, color: 'var(--ta-token-meta-color)'},
+    {tag: t.tagName, color: 'var(--ta-token-tag-color)'},
+    {tag: t.attributeName, color: 'var(--ta-token-attribute-color)'},
+    {tag: t.attributeValue, color: 'var(--ta-token-attribute-value-color)'},
+    {tag: t.heading, color: 'var(--ta-token-heading-color)'},
+    {tag: t.quote, color: 'var(--ta-token-quote-color)'},
+    {tag: t.link, color: 'var(--ta-token-link-color)'},
+    {tag: t.url, color: 'var(--ta-token-url-color)'},
+    {tag: t.contentSeparator, color: 'var(--ta-token-content-separator-color)'},
+    {tag: t.strong, fontWeight: 'bold'},
+    {tag: t.emphasis, fontStyle: 'italic'},
+  ]);
+}
+
 EditorCodeMirror.prototype.newState = function(opt_content) {
   const CodeMirror = window.CodeMirror;
   return CodeMirror.state.EditorState.create({
@@ -203,6 +233,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
         literal: true,
       }),
       this.themeCompartment_.of(this.lightTheme_),
+      CodeMirror.language.syntaxHighlighting(EditorCodeMirror.HIGHLIGHT_STYLE),
     ],
   });
 };

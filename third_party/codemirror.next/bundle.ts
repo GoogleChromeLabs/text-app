@@ -51,8 +51,10 @@ import {
 } from '@codemirror/lang-xml';
 import {
   bracketMatching,
+  HighlightStyle,
   IndentContext,
   indentUnit,
+  syntaxHighlighting,
 } from '@codemirror/language';
 import {
   closeSearchPanel,
@@ -73,6 +75,7 @@ import {
   lineNumbers,
   ViewUpdate,
 } from '@codemirror/view';
+import { tags } from '@lezer/highlight';
 
 const CodeMirrorNext = {
   commands: {
@@ -82,6 +85,9 @@ const CodeMirrorNext = {
     indentMore,
     indentSelection,
     insertTab,
+  },
+  highlight: {
+    tags,
   },
   lang: {
     angular,
@@ -102,8 +108,10 @@ const CodeMirrorNext = {
   },
   language: {
     bracketMatching,
+    HighlightStyle,
     IndentContext,
     indentUnit,
+    syntaxHighlighting,
   },
   search: {
     closeSearchPanel,

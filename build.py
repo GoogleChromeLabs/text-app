@@ -26,8 +26,6 @@ FILES_TO_COPY = [
   'index.html',
   'css/app.css',
   'css/print.css',
-  'css/theme-dark.css',
-  'css/theme-light.css',
   'icon/16x16.png',
   'icon/32x32.png',
   'icon/48x48.png',
