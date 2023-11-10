@@ -3,6 +3,7 @@
 
 import {
   defaultKeymap,
+  deleteLine,
   history,
   historyKeymap,
   indentMore,
@@ -103,6 +104,7 @@ import { tags } from '@lezer/highlight';
 const CodeMirrorNext = {
   commands: {
     defaultKeymap,
+    deleteLine,
     history,
     historyKeymap,
     indentMore,

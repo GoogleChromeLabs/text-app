@@ -252,6 +252,10 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
           preventDefault: true,
           run: CodeMirror.commands.indentSelection,
         },
+        {
+          key: 'Ctrl-d',
+          run: CodeMirror.commands.deleteLine,
+        },
       ]),
       this.editableCompartment_.of(CodeMirror.view.EditorView.editable.of(true)),
       this.tabSizeCompartment_.of(CodeMirror.state.EditorState.tabSize.of(2)),
