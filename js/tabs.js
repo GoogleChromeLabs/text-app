@@ -43,7 +43,6 @@ Tab.prototype.getExtension = function() {
   return util.getExtension(this.getName());
 };
 
-// XXX consider renaming session -> state
 Tab.prototype.getSession = function() {
   return this.session_;
 };
