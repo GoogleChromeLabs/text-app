@@ -222,9 +222,6 @@ Tabs.prototype.newTab = function(opt_content, opt_entry) {
   this.tabs_.push(tab);
   $.event.trigger('newtab', tab);
   this.showTab(tab.getId());
-  var fileNameExtension = tab.getExtension();
-  if (fileNameExtension)
-    this.editor_.setMode(session, fileNameExtension);
 };
 
 /**
@@ -482,9 +479,12 @@ Tabs.prototype.openFileEntry = function(entry) {
  * @param {Tab} tab The tab corresponding to the file to be saved.
  */
 Tabs.prototype.modeAutoSet = function(tab) {
+  // Only set the mode if it's the current tab. The mode for non-current tabs
+  // will update when they become the current tab.
+  if (tab !== this.currentTab_) return;
   var extension = tab.getExtension();
   if (extension) {
-    this.editor_.setMode(tab.getSession(), extension);
+    this.editor_.updateMode(extension);
   }
 };
 

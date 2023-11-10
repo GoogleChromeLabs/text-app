@@ -279,18 +279,7 @@ EditorCodeMirror.prototype.setSession = function(editorState, extension) {
   // Apply all settings because settings only apply to the current state but we
   // want the settings to affect all the tabs.
   this.applyAllSettings();
-
-  const mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
-  if (mode && window.CodeMirror.lang[mode]) {
-    this.editorView_.dispatch({
-      effects: this.langCompartment_.reconfigure(window.CodeMirror.lang[mode]())
-    });
-  } else {
-    // Reset the language if no mode found.
-    this.editorView_.dispatch({
-      effects: this.langCompartment_.reconfigure([])
-    });
-  }
+  this.updateMode(extension);
 };
 
 /**
@@ -306,23 +295,22 @@ EditorCodeMirror.prototype.focus = function() {
 };
 
 /**
- * @param {EditorState} editorState
- * @param {string} extension
+ * Updates the EditorView's mode to match the file extension.
+ *
+ * @param {string} extension file extension.
  */
-EditorCodeMirror.prototype.setMode = function(editorState, extension) {
-  // XXX: Remove this function if it isn't needed.
-
-  // var mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
-  // if (mode) {
-  //   var currentSession = null;
-  //   if (session !== this.cm_.getDoc()) {
-  //     currentSession = this.cm_.swapDoc(session);
-  //   }
-  //   this.cm_.setOption('mode', mode);
-  //   if (currentSession !== null) {
-  //     this.cm_.swapDoc(currentSession);
-  //   }
-  // }
+EditorCodeMirror.prototype.updateMode = function(extension) {
+  const mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
+  if (mode && window.CodeMirror.lang[mode]) {
+    this.editorView_.dispatch({
+      effects: this.langCompartment_.reconfigure(window.CodeMirror.lang[mode]())
+    });
+  } else {
+    // Reset the language if no mode found.
+    this.editorView_.dispatch({
+      effects: this.langCompartment_.reconfigure([])
+    });
+  }
 };
 
 /** Apply all settings to the current state. */
