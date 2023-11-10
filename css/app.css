@@ -49,6 +49,8 @@ body[theme="light"] {
   --ta-token-quote-color: #090;
   --ta-token-link-color: #00c;
   --ta-token-url-color: var(--ta-token-string-color);
+  --ta-token-inserted-color: #292;
+  --ta-token-deleted-color: #d44;
   --ta-token-content-separator-color: #666;
 }
 
@@ -78,7 +80,7 @@ body[theme="dark"] {
   --ta-token-property-color: #a6e22e;
   --ta-token-type-color: #ae81ff;
   --ta-token-variable-special-color: #9effff;
-  --ta-token-builtin-color: #3200aa;
+  --ta-token-builtin-color: #9fb4d6;
   --ta-token-number-color: #ae81ff;
   --ta-token-string-color: #e6db74;
   --ta-token-string-special-color: #e6db74;
@@ -95,6 +97,8 @@ body[theme="dark"] {
   --ta-token-quote-color: #f92672;
   --ta-token-link-color: #ae81ff;
   --ta-token-url-color: var(--ta-token-string-color);
+  --ta-token-inserted-color: #292;
+  --ta-token-deleted-color: #d44;
   --ta-token-content-separator-color: #888;
 }
 

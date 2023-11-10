@@ -44,8 +44,14 @@ import {
   python,
 } from '@codemirror/lang-python';
 import {
+  rust,
+} from '@codemirror/lang-rust';
+import {
   sass,
 } from '@codemirror/lang-sass';
+import {
+  sql,
+} from '@codemirror/lang-sql';
 import {
   vue,
 } from '@codemirror/lang-vue';
@@ -61,8 +67,18 @@ import {
   IndentContext,
   indentString,
   indentUnit,
+  StreamLanguage,
   syntaxHighlighting,
 } from '@codemirror/language';
+import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
+import { diff } from '@codemirror/legacy-modes/mode/diff';
+import { go } from '@codemirror/legacy-modes/mode/go';
+import { lua } from '@codemirror/legacy-modes/mode/lua';
+import { perl } from '@codemirror/legacy-modes/mode/perl';
+import { ruby } from '@codemirror/legacy-modes/mode/ruby';
+import { shell } from '@codemirror/legacy-modes/mode/shell';
+import { stex } from '@codemirror/legacy-modes/mode/stex';
+import { yaml } from '@codemirror/legacy-modes/mode/yaml';
 import {
   closeSearchPanel,
   findNext,
@@ -99,20 +115,31 @@ const CodeMirrorNext = {
   },
   lang: {
     angular,
+    coffeeScript,
     cpp,
     css,
+    diff,
+    go,
     html,
     java,
     javascript,
     json,
     less,
+    lua,
     markdown,
+    perl,
     php,
     python,
+    ruby,
+    rust,
     sass,
+    shell,
+    sql,
+    stex,
     vue,
     wast,
     xml,
+    yaml,
   },
   language: {
     bracketMatching,
@@ -120,6 +147,7 @@ const CodeMirrorNext = {
     IndentContext,
     indentString,
     indentUnit,
+    StreamLanguage,
     syntaxHighlighting,
   },
   search: {

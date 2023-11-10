@@ -99,7 +99,7 @@ function EditorCodeMirror(editorElement, settings) {
 
 EditorCodeMirror.EXTENSION_TO_MODE = {
     'bash': 'shell',
-    'coffee': 'coffeescript',
+    'coffee': 'coffeeScript',
     'c': 'cpp',
     'c++': 'cpp',
     'cc': 'cpp',
@@ -124,8 +124,6 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'lua': 'lua',
     'markdown': 'markdown',
     'md': 'markdown',
-    'ml': 'ocaml',
-    'mli': 'ocaml',
     'patch': 'diff',
     'pgsql': 'sql',
     'pl': 'perl',
@@ -144,7 +142,6 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'tex': 'stex',
     'xhtml': 'html',
     'xml': 'xml',
-    'xq': 'xquery',
     'yaml': 'yaml'};
 
 {
@@ -171,6 +168,8 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     {tag: t.quote, color: 'var(--ta-token-quote-color)'},
     {tag: t.link, color: 'var(--ta-token-link-color)'},
     {tag: t.url, color: 'var(--ta-token-url-color)'},
+    {tag: t.inserted, color: 'var(--ta-token-inserted-color)'},
+    {tag: t.deleted, color: 'var(--ta-token-deleted-color)'},
     {tag: t.contentSeparator, color: 'var(--ta-token-content-separator-color)'},
     {tag: t.strong, fontWeight: 'bold'},
     {tag: t.emphasis, fontStyle: 'italic'},
@@ -272,14 +271,14 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
  * Change the current session, usually to switch to another tab.
  *
  * @param {EditorState} editorState
- * @param {string} extension file extension.
+ * @param {string} fileExtension
  */
-EditorCodeMirror.prototype.setSession = function(editorState, extension) {
+EditorCodeMirror.prototype.setSession = function(editorState, fileExtension) {
   this.editorView_.setState(editorState);
   // Apply all settings because settings only apply to the current state but we
   // want the settings to affect all the tabs.
   this.applyAllSettings();
-  this.updateMode(extension);
+  this.updateMode(fileExtension);
 };
 
 /**
@@ -297,13 +296,25 @@ EditorCodeMirror.prototype.focus = function() {
 /**
  * Updates the EditorView's mode to match the file extension.
  *
- * @param {string} extension file extension.
+ * @param {string} fileExtension
  */
-EditorCodeMirror.prototype.updateMode = function(extension) {
-  const mode = EditorCodeMirror.EXTENSION_TO_MODE[extension];
-  if (mode && window.CodeMirror.lang[mode]) {
+EditorCodeMirror.prototype.updateMode = function(fileExtension) {
+  let extension;
+  const mode = EditorCodeMirror.EXTENSION_TO_MODE[fileExtension];
+  if (mode) {
+    const lang = window.CodeMirror.lang[mode];
+
+    if (typeof lang === "object") {
+      // Legacy parser
+      extension = window.CodeMirror.language.StreamLanguage.define(lang);
+    } else if (typeof lang === "function") {
+      extension = lang();
+    }
+  }
+
+  if (extension !== undefined) {
     this.editorView_.dispatch({
-      effects: this.langCompartment_.reconfigure(window.CodeMirror.lang[mode]())
+      effects: this.langCompartment_.reconfigure(extension)
     });
   } else {
     // Reset the language if no mode found.
