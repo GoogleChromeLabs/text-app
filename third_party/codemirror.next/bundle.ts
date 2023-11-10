@@ -2,7 +2,13 @@
 // components.
 
 import {
-  defaultKeymap, history, historyKeymap, indentMore, indentSelection, insertTab,
+  defaultKeymap,
+  history,
+  historyKeymap,
+  indentMore,
+  indentSelection,
+  insertNewlineAndIndent,
+  insertTab,
 } from '@codemirror/commands';
 import {
   angular,
@@ -53,6 +59,7 @@ import {
   bracketMatching,
   HighlightStyle,
   IndentContext,
+  indentString,
   indentUnit,
   syntaxHighlighting,
 } from '@codemirror/language';
@@ -67,7 +74,7 @@ import {
   selectMatches,
   setSearchQuery,
 } from '@codemirror/search';
-import { Compartment, EditorSelection, EditorState } from '@codemirror/state';
+import { Compartment, countColumn, EditorSelection, EditorState, Text } from '@codemirror/state';
 import {
   drawSelection,
   EditorView,
@@ -84,6 +91,7 @@ const CodeMirrorNext = {
     historyKeymap,
     indentMore,
     indentSelection,
+    insertNewlineAndIndent,
     insertTab,
   },
   highlight: {
@@ -110,6 +118,7 @@ const CodeMirrorNext = {
     bracketMatching,
     HighlightStyle,
     IndentContext,
+    indentString,
     indentUnit,
     syntaxHighlighting,
   },
@@ -126,8 +135,10 @@ const CodeMirrorNext = {
   },
   state: {
     Compartment,
+    countColumn,
     EditorSelection,
     EditorState,
+    Text,
   },
   view: {
     drawSelection,

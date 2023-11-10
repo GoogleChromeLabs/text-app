@@ -188,6 +188,36 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
       this.langCompartment_.of(CodeMirror.lang.javascript()),
       this.lineNumbersCompartment_.of(CodeMirror.view.lineNumbers()),
       CodeMirror.view.keymap.of([
+        {
+          key: 'Enter',
+          run: ({ state, dispatch }) => {
+            if (this.settings_.get('smartindent')) {
+              return window.CodeMirror.commands.insertNewlineAndIndent({state, dispatch});
+            }
+            // This copies CodeMirror's insertNewlineAndIndent but with some differences:
+            // It doesn't check for matching brackets or an indent context.
+            // So it just indents the new line the same as the the line before, which
+            // matches CM5's behavior when `smartIndent` is false.
+            if (state.readOnly) return false;
+            const changes = state.changeByRange(range => {
+              let { from, to } = range, line = state.doc.lineAt(from);
+              const indent = window.CodeMirror.state.countColumn(/^\s*/.exec(
+                state.doc.lineAt(from).text)[0], state.tabSize);
+
+              while (to < line.to && /\s/.test(line.text[to - line.from])) to++;
+              if (from > line.from && from < line.from + 100 && !/\S/.test(line.text.slice(0, from))) {
+                from = line.from;
+              }
+              const insert = ["", window.CodeMirror.language.indentString(state, indent)];
+              return {
+                changes: { from, to, insert: window.CodeMirror.state.Text.of(insert) },
+                range: window.CodeMirror.state.EditorSelection.cursor(from + 1 + insert[1].length)
+              }
+            });
+            dispatch(state.update(changes, { scrollIntoView: true, userEvent: "input" }));
+            return true;
+          },
+        },
         ...CodeMirror.commands.defaultKeymap,
         ...CodeMirror.commands.historyKeymap,
         {
@@ -221,7 +251,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
         {
           key: 'Shift-Tab',
           preventDefault: true,
-          run: CodeMirror.commands.indentSelection,  // XXX: Need to make indent auto work.
+          run: CodeMirror.commands.indentSelection,
         },
       ]),
       this.editableCompartment_.of(CodeMirror.view.EditorView.editable.of(true)),
@@ -300,7 +330,6 @@ EditorCodeMirror.prototype.applyAllSettings = function() {
   this.setTheme(this.settings_.get('theme'));
   this.setFontSize(this.settings_.get('fontsize'));
   this.showHideLineNumbers(this.settings_.get('linenumbers'));
-  this.setSmartIndent(this.settings_.get('smartindent'));
   this.setReplaceTabWithSpaces(this.settings_.get('spacestab'));
   this.setTabSize(this.settings_.get('tabsize'));
   this.setWrapLines(this.settings_.get('wraplines'));
@@ -366,13 +395,6 @@ EditorCodeMirror.prototype.setWrapLines = function(val) {
   this.editorView_.dispatch({
     effects: this.lineWrappingCompartment_.reconfigure(val ? window.CodeMirror.view.EditorView.lineWrapping : [])
   });
-};
-
-/**
- * @param {boolean} val Whether or not to enable smart indent.
- */
-EditorCodeMirror.prototype.setSmartIndent = function(val) {
-  // XXX this.cm_.setOption('smartIndent', val);
 };
 
 /**

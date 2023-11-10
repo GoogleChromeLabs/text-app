@@ -141,10 +141,6 @@ TextApp.prototype.onSettingsChanged_ = function(e, key, value) {
       this.editor_.showHideLineNumbers(value);
       break;
 
-    case 'smartindent':
-      this.editor_.setSmartIndent(value);
-      break;
-
     case 'spacestab':
       this.editor_.setReplaceTabWithSpaces(this.settings_.get('spacestab'));
       break;
