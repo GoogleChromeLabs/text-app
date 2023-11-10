@@ -565,15 +565,16 @@ header.search-active #search-counting {
 
 .search-navigation-button {
   border: 0;
+  display: none;
   height: inherit;
   overflow: hidden;
   padding: 0;
-  transition: width 200ms ease-in-out;
   width: 0;
 }
 
-header.search-active .search-navigation-button {
+header.search-active .search-navigation-button.has-results {
   border-left: 1px solid var(--ta-search-button-divider-color);
+  display: block;
   width: 30px;
 }
 

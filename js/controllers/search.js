@@ -21,10 +21,11 @@ function SearchController(search) {
   $('.search-container').focusout(this.deactivateSearch_.bind(this));
 }
 
+/** @return {number} Number of search results. */
 SearchController.prototype.updateSearchCount_ = function() {
   if ($('#search-input').val().length === 0) {
     $('#search-counting').text('');
-    return;
+    return 0;
   }
   var searchCount = this.search_.getResultsCount();
   var searchIndex = this.search_.getCurrentIndex();
@@ -35,6 +36,7 @@ SearchController.prototype.updateSearchCount_ = function() {
   } else {
     $('#search-counting').removeClass('nomatches');
   }
+  return searchCount;
 };
 
 SearchController.prototype.findNext_ = function(opt_reverse) {
@@ -70,6 +72,7 @@ SearchController.prototype.deactivateSearch_ = function(e) {
     $('#search-input').val('');
     $('#search-counting').text('');
     $('header').removeClass('search-active');
+    $('.search-navigation-button').removeClass('has-results');
     this.search_.deactivate();
   }
 };
@@ -80,7 +83,14 @@ SearchController.prototype.onChange_ = function() {
     return;
 
   this.search_.find(searchString);
-  this.updateSearchCount_();
+  const numResults = this.updateSearchCount_();
+
+  // Only show the Prev and Next buttons if there are search results.
+  if (numResults > 0) {
+    $('.search-navigation-button').addClass('has-results');
+  } else {
+    $('.search-navigation-button').removeClass('has-results');
+  }
 };
 
 SearchController.prototype.onKeydown_ = function(e) {
