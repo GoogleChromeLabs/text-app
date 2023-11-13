@@ -1,10 +1,7 @@
 /**
  * @constructor
- *
- * @param {boolean} enableSystemTheme Whether or not to enable the system theme
- *     feature.
  */
-function Settings(enableSystemTheme) {
+function Settings() {
   this.ready_ = false;
   this.settings_ = {};
   var storageKeys = {};
@@ -18,13 +15,14 @@ function Settings(enableSystemTheme) {
   chrome.runtime.onInstalled.addListener(this.removeOldSettings_.bind(this));
   this.storage_.get(storageKeys, this.getSettingsCallback_.bind(this));
 
-  if (enableSystemTheme) {
-    // Replace the default theme option UI text with device theme option.
-    document.querySelector('label[for="setting-theme-default"]')
-      .setAttribute('i18n-content', 'DeviceThemeOption');
-    // Translate the settings labels again.
-    i18nTemplate.process(document.getElementById('settings-list'));
-  }
+  /** The media query list to detect if the preferred color scheme is dark. */
+  this.colorSchemeMatcherDark_ =
+      window.matchMedia('(prefers-color-scheme: dark)');
+  this.colorSchemeMatcherDark_.addEventListener('change', () => {
+    if (this.settings_['theme'] === 'default') {
+      $.event.trigger('settingschange', ['theme', this.get('theme')]);
+    }
+  });
 }
 
 /**
@@ -37,8 +35,6 @@ Settings.AREA = 'sync';
  * @type {Object.<string, Object>}
  */
 Settings.SETTINGS = {
-  'screenreadermode':
-      {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'alwaysontop': {'default': false, 'type': 'boolean', 'widget': 'checkbox'},
   'fontsize': {'default': 14, 'type': 'number', 'widget': 'number'},
   'linenumbers': {'default': true, 'type': 'boolean', 'widget': 'checkbox'},
@@ -62,7 +58,13 @@ Settings.prototype.removeOldSettings_ = function() {
  * @return {Object}
  */
 Settings.prototype.get = function(key) {
-  return this.settings_[key];
+  const setting = this.settings_[key];
+
+  if (key === 'theme' && setting === 'default') {
+    return this.colorSchemeMatcherDark_.matches ? 'dark' : 'light';
+  }
+
+  return setting;
 };
 
 Settings.prototype.getAll = function() {
@@ -111,66 +113,3 @@ Settings.prototype.onChanged_ = function(changes, areaName) {
     $.event.trigger('settingschange', [key, value]);
   }
 };
-
-/**
- * Enables all settings to be editable.
- */
-Settings.prototype.enableAll = function() {
-  for (const [key, setting] of Object.entries(Settings.SETTINGS)) {
-    const widget = setting.widget;
-    let elem;
-
-    switch (widget) {
-      case 'checkbox':
-        elem = document.getElementById(`setting-${key}-switch`);
-        elem.classList.remove('mdc-switch--disabled');
-        elem.querySelector('input').removeAttribute('disabled');
-        break;
-      case 'number':
-        elem = document.getElementById(`setting-${key}`);
-        elem.removeAttribute('disabled');
-        break;
-      case 'search':
-        elem = document.getElementById('search-input');
-        elem.removeAttribute('disabled');
-        const container = document.querySelector('.search-container');
-        container.classList.remove('disabled');
-        break;
-      default:
-        // Else it can't be disabled.
-        break;
-    }
-  }
-};
-
-/**
- * Locks a setting to particular value and prevents the user from changing
- * it. Can only lock a setting with a checkbox or a number widget.
- */
-Settings.prototype.disable = function(setting, value) {
-  this.set(setting, value);
-  let elem;
-
-  const widget = Settings.SETTINGS[setting].widget;
-  switch (widget) {
-    case 'checkbox':
-      elem = document.getElementById(`setting-${setting}-switch`);
-      elem.classList.add('mdc-switch--disabled');
-      elem.querySelector('input').setAttribute('disabled', 'true');
-      break;
-    case 'number':
-      elem = document.getElementById(`setting-${setting}`);
-      elem.setAttribute('disabled', 'true');
-      break;
-    case 'search':
-      elem = document.getElementById('search-input');
-      elem.setAttribute('disabled', 'true');
-      const container = document.querySelector('.search-container');
-      container.classList.add('disabled');
-      break;
-    default:
-      // Do nothing if widget isn't supported.
-      // This case is hit by settings with no widget or a radio widget.
-      break;
-  }
-}

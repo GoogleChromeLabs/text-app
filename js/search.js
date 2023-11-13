@@ -1,71 +1,66 @@
 /**
  * @constructor
- * @param {CodeMirror} cm CodeMirror object.
+ * @param {EditorView} editorView
  */
-function Search(cm) {
-  this.cm_ = cm;
-  this.cursor_ = null; /* SearchCursor object from CodeMirror */
-  this.query_ = null;
+function Search(editorView) {
+  this.editorView_ = editorView;
+  this.query_ = "";
+  // Index of the currently selected match, starting from 0.
   this.index_ = 0;
   this.resultsCount_ = 0;
 };
 
 /**
  * @param {string} query
- * @param {CodeMirror.Pos} pos
- * Get a search cursor that is always case insensitive.
- */
-Search.prototype.updateCursor_ = function(query, pos) {
-  return this.cm_.getSearchCursor(query, pos, true /* case insensitive */);
-};
-
-
-/**
- * @param {string} query
- * @return {integer}
- * Get results count for a query search.
+ * Compute resultsCount_ and index_.
  */
 Search.prototype.computeResultsCount_ = function(query) {
   query = query.toLowerCase();
   this.index_ = 0;
   this.resultsCount_ = 0;
-  var cursorLine = this.cursor_.pos.from.line;
-  var cursorCh = this.cursor_.pos.from.ch;
-  var step = query.length;
 
-  this.cm_.eachLine(function(line) {
-    var content = line.text.toLowerCase();
-    var lineNo = line.lineNo();
-    var pos = 0;
-    while (true) {
-      pos = content.indexOf(query, pos);
-      if (pos >= 0) {
-        this.resultsCount_++;
-        if ((lineNo < cursorLine) || (lineNo == cursorLine && pos < cursorCh)) {
-          this.index_++;
-        }
-        pos += step;
-      } else {
-        break;
-      }
+  if (!query) {
+    return;
+  }
+
+  const cursor = this.editorView_.state.selection.main.anchor;
+
+  let text = this.editorView_.state.doc;
+  let search = new window.CodeMirror.search.SearchCursor(
+    text, query, 0, text.length, (s) => s.toLowerCase());
+
+  for (let value of search) {
+    this.resultsCount_++;
+    if (value.from < cursor) {
+      this.index_++;
     }
-  }.bind(this));
+  }
 };
 
 /**
  * Reset selection.
  */
 Search.prototype.resetSelection_ = function() {
-  this.cm_.setCursor(this.cm_.getCursor('anchor'));
+  const cursor = this.editorView_.state.selection.main.anchor;
+  this.editorView_.dispatch({
+    selection: window.CodeMirror.state.EditorSelection.single(cursor),
+  });
 };
 
 /**
- * Clear search.
+ * Called when the user focuses the search box.
  */
-Search.prototype.clear = function() {
-  this.query_ = null;
-  this.cursor_ = null;
+Search.prototype.activate = function() {
   this.resetSelection_();
+  window.CodeMirror.search.openSearchPanel(this.editorView_);
+};
+
+/**
+ * Called when the user unfocuses the search box.
+ */
+Search.prototype.deactivate = function() {
+  this.find("");
+  window.CodeMirror.search.closeSearchPanel(this.editorView_);
 };
 
 /**
@@ -73,7 +68,10 @@ Search.prototype.clear = function() {
  * Return current search index.
  */
 Search.prototype.getCurrentIndex = function() {
-  return this.index_;
+  if (this.resultsCount_ === 0) {
+    return 0;
+  }
+  return this.index_ + 1;
 };
 
 /**
@@ -85,21 +83,27 @@ Search.prototype.getResultsCount = function() {
 };
 
 /**
- * @param {string} query
+ * @param {string} query Search query, may be empty.
  * Initialize search. This is called every time the search string is updated.
  */
 Search.prototype.find = function(query) {
   this.query_ = query;
 
-  // If there is no selection, we start at cursor. If there is, we start at the
-  // beginning of it.
-  var currentPos = this.cm_.getCursor('start');
+  this.editorView_.dispatch({
+    effects: window.CodeMirror.search.setSearchQuery.of(
+      new window.CodeMirror.search.SearchQuery({search: query, caseSensitive: false, literal: true})
+    )
+  });
 
-  this.cursor_ = this.updateCursor_(query, currentPos);
   this.computeResultsCount_(query);
 
-  // Actually go to the match.
-  this.findNext();
+  this.resetSelection_();
+  if (this.resultsCount_) {
+    // Select the first match not before the cursor. We set index_ earlier
+    // as if that match was selected.
+    this.index_--;
+    this.findNext(/*opt_reverse=*/false);
+  }
 };
 
 /**
@@ -108,29 +112,15 @@ Search.prototype.find = function(query) {
  * "Next" and "Previous" search navigation buttons.
  */
 Search.prototype.findNext = function(opt_reverse) {
-  if (!this.cursor_) {
-    throw 'Internal error: cursor should be initialized.';
-  }
-  var reverse = opt_reverse || false;
-  var isFound = this.cursor_.find(reverse);
-  if (!isFound) {
-    var lastLine = CodeMirror.Pos(this.cm_.lastLine());
-    var firstLine = CodeMirror.Pos(this.cm_.firstLine(), 0);
-    this.cursor_ = this.updateCursor_(this.query_,
-        reverse ? lastLine : firstLine);
-    isFound = this.cursor_.find(reverse);
+  if (opt_reverse) {
+    this.index_ += this.resultsCount_ - 1;
+    window.CodeMirror.search.findPrevious(this.editorView_);
+  } else {
+    this.index_++;
+    window.CodeMirror.search.findNext(this.editorView_);
   }
 
-  if (isFound) {
-    this.cm_.setSelection(this.cursor_.from(), this.cursor_.to());
-    this.index_ += reverse ? -1 : 1;
-    this.index_ = this.index_ % this.resultsCount_;
-    if (this.index_ == 0) {
-      this.index_ = this.resultsCount_;
-    }
-  } else {
-    this.resetSelection_();
-  }
+  this.index_ %= this.resultsCount_;
 };
 
 /**
@@ -144,5 +134,5 @@ Search.prototype.getQuery = function() {
  * Unfocus search focus the editor.
  */
 Search.prototype.unfocus = function() {
-  this.cm_.focus();
+  this.editorView_.focus();
 };

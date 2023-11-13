@@ -26,9 +26,6 @@ FILES_TO_COPY = [
   'index.html',
   'css/app.css',
   'css/print.css',
-  'css/theme-dark.css',
-  'css/theme-default.css',
-  'css/theme-light.css',
   'icon/16x16.png',
   'icon/32x32.png',
   'icon/48x48.png',
@@ -36,7 +33,7 @@ FILES_TO_COPY = [
   'icon/96x96.png',
   'icon/128x128.png',
   'icon/256x256.png',
-  'third_party/CodeMirror/lib/codemirror.css',
+  'third_party/codemirror.next/codemirror.next.bin.js',
   'third_party/jquery/jquery-1.8.3.min.js',
   'third_party/material-components-web/material-components-web.min.css',
   'third_party/material-components-web/material-components-web.min.js',
@@ -175,7 +172,7 @@ def print_compilation_errors(errors, type, js_files, externs_file):
     elif filename.lower().find('externs') >= 0:
       filename = externs_file
     error['file'] = filename
-  if type is 'warning' and not PRINT_THIRD_PARTY_WARNINGS:
+  if type == 'warning' and not PRINT_THIRD_PARTY_WARNINGS:
     errors = [error for error in errors if 'third_party' not in error['file']]
     if not errors:
       return

@@ -16,13 +16,6 @@ function HotkeysController(windowController, tabs, editor, settings,
 };
 
 /**
- * Update the editor.
- */
-HotkeysController.prototype.updateEditor = function(editor) {
-  this.editor_ = editor;
-};
-
-/**
  * Handles hotkey combination if present in keydown event.
  * Some hotkeys are handled by CodeMirror directly. Among them:
  * Ctrl-C, Ctrl-V, Ctrl-X, Ctrl-Z, Ctrl-Y, Ctrl-A

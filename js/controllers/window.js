@@ -26,13 +26,6 @@ function WindowController(editor, settings, tabs) {
 }
 
 /**
- * Update the editor.
- */
-WindowController.prototype.updateEditor = function(editor) {
-  this.editor_ = editor;
-};
-
-/**
  * Performs all the required initialization for the UI.
  * @private
  */

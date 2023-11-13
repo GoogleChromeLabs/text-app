@@ -63,10 +63,6 @@
     "message": "Toujours au premier plan",
     "description": "The label for the checkbox in settings tab that sets the window always on top."
   },
-  "defaultThemeOption": {
-    "message": "Par défaut",
-    "description": "The text of the default Option Theme."
-  },
   "deviceThemeOption": {
     "message": "Utiliser le thème de l'appareil",
     "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app."
@@ -178,13 +174,5 @@
   "closeFileButton": {
     "message": "Fermer le fichier",
     "description": "The button text to close a file."
-  },
-  "screenReaderModeSetting": {
-    "message": "Mode lecteur d'écran",
-    "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting."
-  },
-  "screenReaderModeHelp": {
-    "message": "Pour un fonctionnement optimal, activez le mode lecteur d'écran dans le menu des paramètres.",
-    "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader."
   }
 }
