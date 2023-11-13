@@ -88,10 +88,6 @@ function EditorCodeMirror(editorElement, settings) {
     parent: editorElement,
   })
 
-  /*
-    'autofocus': true,
-  */
-
   this.search_ = new Search(this.editorView_);
 }
 
