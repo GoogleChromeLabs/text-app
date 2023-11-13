@@ -1,13 +1,13 @@
 /**
  * @constructor
  * @param {number} id
- * @param {EditorState} session Edit session.
+ * @param {window.CodeMirror.state.EditorState} session Edit session.
  * @param {string} lineEndings What character(s) to use as the line ending.
  * @param {FileEntry} entry
  */
 function Tab(id, session, lineEndings, entry, dialogController) {
   this.id_ = id;
-  /** @type {EditorState} */
+  /** @type {window.CodeMirror.state.EditorState} */
   this.session_ = session;
   /** @type {string} Separator between lines. */
   this.lineEndings_ = lineEndings;

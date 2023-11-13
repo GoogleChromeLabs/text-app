@@ -175,6 +175,7 @@ const CodeMirrorNext = {
     EditorView,
     keymap,
     lineNumbers,
+    ViewUpdate,
   },
 } as const;
 

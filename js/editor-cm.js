@@ -6,8 +6,6 @@
  * @param {Settings} settings
  */
 function EditorCodeMirror(editorElement, settings) {
-  window.ecm = this;
-
   const CodeMirror = window.CodeMirror;
   this.element_ = editorElement;
   this.settings_ = settings;
@@ -411,7 +409,7 @@ EditorCodeMirror.prototype.setReplaceTabWithSpaces = function(useSpace) {
 };
 
 /**
- * @param {ViewUpdate} update
+ * @param {window.CodeMirror.view.ViewUpdate} update
  */
 EditorCodeMirror.prototype.onViewUpdate = function(update) {
   if (update.docChanged) {
