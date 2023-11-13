@@ -26,7 +26,7 @@ Search.prototype.computeResultsCount_ = function(query) {
   const cursor = this.editorView_.state.selection.main.anchor;
 
   let text = this.editorView_.state.doc;
-  let search = new CodeMirror.search.SearchCursor(
+  let search = new window.CodeMirror.search.SearchCursor(
     text, query, 0, text.length, (s) => s.toLowerCase());
 
   for (let value of search) {
@@ -43,7 +43,7 @@ Search.prototype.computeResultsCount_ = function(query) {
 Search.prototype.resetSelection_ = function() {
   const cursor = this.editorView_.state.selection.main.anchor;
   this.editorView_.dispatch({
-    selection: CodeMirror.state.EditorSelection.single(cursor),
+    selection: window.CodeMirror.state.EditorSelection.single(cursor),
   });
 };
 
@@ -52,7 +52,7 @@ Search.prototype.resetSelection_ = function() {
  */
 Search.prototype.activate = function() {
   this.resetSelection_();
-  CodeMirror.search.openSearchPanel(this.editorView_);
+  window.CodeMirror.search.openSearchPanel(this.editorView_);
 };
 
 /**
@@ -60,7 +60,7 @@ Search.prototype.activate = function() {
  */
 Search.prototype.deactivate = function() {
   this.find("");
-  CodeMirror.search.closeSearchPanel(this.editorView_);
+  window.CodeMirror.search.closeSearchPanel(this.editorView_);
 };
 
 /**
@@ -90,8 +90,8 @@ Search.prototype.find = function(query) {
   this.query_ = query;
 
   this.editorView_.dispatch({
-    effects: CodeMirror.search.setSearchQuery.of(
-      new CodeMirror.search.SearchQuery({search: query, caseSensitive: false, literal: true})
+    effects: window.CodeMirror.search.setSearchQuery.of(
+      new window.CodeMirror.search.SearchQuery({search: query, caseSensitive: false, literal: true})
     )
   });
 
@@ -114,10 +114,10 @@ Search.prototype.find = function(query) {
 Search.prototype.findNext = function(opt_reverse) {
   if (opt_reverse) {
     this.index_ += this.resultsCount_ - 1;
-    CodeMirror.search.findPrevious(this.editorView_);
+    window.CodeMirror.search.findPrevious(this.editorView_);
   } else {
     this.index_++;
-    CodeMirror.search.findNext(this.editorView_);
+    window.CodeMirror.search.findNext(this.editorView_);
   }
 
   this.index_ %= this.resultsCount_;

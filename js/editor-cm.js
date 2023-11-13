@@ -143,8 +143,8 @@ EditorCodeMirror.EXTENSION_TO_MODE = {
     'yaml': 'yaml'};
 
 {
-  const t = CodeMirror.highlight.tags
-  EditorCodeMirror.HIGHLIGHT_STYLE = CodeMirror.language.HighlightStyle.define([
+  const t = window.CodeMirror.highlight.tags;
+  EditorCodeMirror.HIGHLIGHT_STYLE = window.CodeMirror.language.HighlightStyle.define([
     {tag: t.variableName, color: 'var(--ta-token-variable-color)'},
     {tag: t.definition(t.variableName), color: 'var(--ta-token-definition-color)'},
     {tag: t.propertyName, color: 'var(--ta-token-property-color)'},
@@ -419,12 +419,12 @@ EditorCodeMirror.prototype.onViewUpdate = function(update) {
 
 EditorCodeMirror.prototype.disable = function() {
   this.editorView_.dispatch({
-    effects: this.editableCompartment_.reconfigure(CodeMirror.view.EditorView.editable.of(false))
+    effects: this.editableCompartment_.reconfigure(window.CodeMirror.view.EditorView.editable.of(false))
   });
 };
 
 EditorCodeMirror.prototype.enable = function() {
   this.editorView_.dispatch({
-    effects: this.editableCompartment_.reconfigure(CodeMirror.view.EditorView.editable.of(true))
+    effects: this.editableCompartment_.reconfigure(window.CodeMirror.view.EditorView.editable.of(true))
   });
 };
