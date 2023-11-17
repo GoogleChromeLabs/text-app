@@ -72,6 +72,9 @@ function EditorCodeMirror(editorElement, settings) {
     ".cm-nonmatchingBracket": {
       backgroundColor: "inherit !important",
     },
+    ".cm-line": {
+      cursor: "auto",
+    }
   };
 
   this.lightTheme_ = CodeMirror.view.EditorView.theme(themeStyles, {dark: false});
