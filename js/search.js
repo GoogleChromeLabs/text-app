@@ -23,17 +23,27 @@ Search.prototype.computeResultsCount_ = function(query) {
     return;
   }
 
-  const cursor = this.editorView_.state.selection.main.anchor;
+  let cursor = this.editorView_.state.selection.main.anchor;
 
-  let text = this.editorView_.state.doc;
-  let search = new window.CodeMirror.search.SearchCursor(
-    text, query, 0, text.length, (s) => s.toLowerCase());
+  for (let line of this.editorView_.state.doc.iterLines()) {
+    const lowerLine = line.toLowerCase();
+    let pos = 0;
+    while (true) {
+      pos = lowerLine.indexOf(query, pos);
+      if (pos < 0) {
+        break;
+      }
 
-  for (let value of search) {
-    this.resultsCount_++;
-    if (value.from < cursor) {
-      this.index_++;
+      this.resultsCount_++;
+      if (pos < cursor) {
+        this.index_++;
+      }
+      // Don't count overlapping matches.
+      pos += query.length;
     }
+
+    // This is correct even when the loaded file uses \r\n.
+    cursor -= lowerLine.length + 1;
   }
 };
 
