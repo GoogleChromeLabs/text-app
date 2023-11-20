@@ -94,6 +94,7 @@ import {
 import { Compartment, countColumn, EditorSelection, EditorState, Text } from '@codemirror/state';
 import {
   drawSelection,
+  dropCursor,
   EditorView,
   keymap,
   lineNumbers,
@@ -172,6 +173,7 @@ const CodeMirrorNext = {
   },
   view: {
     drawSelection,
+    dropCursor,
     EditorView,
     keymap,
     lineNumbers,
