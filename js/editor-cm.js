@@ -178,7 +178,9 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
   return CodeMirror.state.EditorState.create({
     doc: opt_content || '',
     extensions: [
-      CodeMirror.commands.history(),
+      CodeMirror.commands.history({
+        minDepth: 10000,
+      }),
       CodeMirror.view.drawSelection(),
       CodeMirror.language.bracketMatching(),
       this.langCompartment_.of(CodeMirror.lang.javascript()),
