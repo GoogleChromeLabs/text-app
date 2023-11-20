@@ -58,6 +58,9 @@ function EditorCodeMirror(editorElement, settings) {
     ".cm-cursor": {
       borderLeftColor: "var(--ta-editor-text-color)",
     },
+    ".cm-dropCursor": {
+      borderLeftColor: "var(--ta-editor-text-color)",
+    },
     "&.cm-focused .cm-selectionBackground": {
       backgroundColor: "var(--ta-editor-selection-focus-color) !important",
     },
@@ -180,6 +183,7 @@ EditorCodeMirror.prototype.newState = function(opt_content) {
     extensions: [
       CodeMirror.commands.history(),
       CodeMirror.view.drawSelection(),
+      CodeMirror.view.dropCursor(),
       CodeMirror.language.bracketMatching(),
       this.langCompartment_.of(CodeMirror.lang.javascript()),
       this.lineNumbersCompartment_.of(CodeMirror.view.lineNumbers()),
