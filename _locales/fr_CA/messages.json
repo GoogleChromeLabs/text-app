@@ -19,6 +19,10 @@
     "message": "Enregistrer sous",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Enregistrer tout",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Paramètres",
     "description": "The text of the Menu 'Settings'."

@@ -19,6 +19,10 @@
     "message": "Tallenna nimellä",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Tallenna kaikki",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Asetukset",
     "description": "The text of the Menu 'Settings'."

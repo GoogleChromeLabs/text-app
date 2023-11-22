@@ -19,6 +19,10 @@
     "message": "名前を付けて保存",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "すべてを救う",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "設定",
     "description": "The text of the Menu 'Settings'."

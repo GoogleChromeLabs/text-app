@@ -19,6 +19,10 @@
     "message": "다른 이름으로 저장",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "모두 저장",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "설정",
     "description": "The text of the Menu 'Settings'."

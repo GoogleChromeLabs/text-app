@@ -19,6 +19,10 @@
     "message": "Guardar como",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Guardar todos",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Ajustes",
     "description": "The text of the Menu 'Settings'."

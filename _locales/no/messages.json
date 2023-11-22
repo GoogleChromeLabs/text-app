@@ -19,6 +19,10 @@
     "message": "Lagre som",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Lagre alt",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Innstillinger",
     "description": "The text of the Menu 'Settings'."

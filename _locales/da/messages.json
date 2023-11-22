@@ -19,6 +19,10 @@
     "message": "Gem som",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Gem alle",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Indstillinger",
     "description": "The text of the Menu 'Settings'."

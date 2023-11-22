@@ -19,6 +19,10 @@
     "message": "Salva con nome",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Salva tutto",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Impostazioni",
     "description": "The text of the Menu 'Settings'."

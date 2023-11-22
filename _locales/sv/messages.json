@@ -19,6 +19,10 @@
     "message": "Spara som",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Spara alla",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Inställningar",
     "description": "The text of the Menu 'Settings'."

@@ -19,6 +19,10 @@
     "message": "Opslaan als",
     "description": "The text of the File Menu 'Save as'."
   },
+  "fileMenuSaveall": {
+    "message": "Opslaan alles",
+    "description": "The text of the File Menu 'Save all'."
+  },
   "menuSettings": {
     "message": "Instellingen",
     "description": "The text of the Menu 'Settings'."
